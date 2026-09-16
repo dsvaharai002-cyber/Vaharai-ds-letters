@@ -31,7 +31,7 @@ import { UserManagementModal } from './components/UserManagementModal';
 // ==========================================
 // Google Apps Script கிளவுட் இணைப்புச் செயல்பாடு
 // ==========================================
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwJN4UnEErTVTXCHaJKqAdu2ydTGplYgmEOyUD21nkxCXWKWxjviBUoXkqPOuMuDpU/exec";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzCrvph-FifE2LdsD9qg0Om5QesYqrNvrt8U6Vcr4J65WFk-Ko3JaJ4HpAAx-MMx3wNoQ/exec";
 
 const sendDataToGoogleCloud = async (payload: any) => {
   try {
