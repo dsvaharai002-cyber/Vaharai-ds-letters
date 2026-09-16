@@ -1,0 +1,10 @@
+{
+  "name": "Remix கோறளைப்பற்று வடக்கு வாகரை கடித மேலாண்மை அமைப்பு",
+  "description": "கோறளைப்பற்று வடக்கு வாகரை பிரதேச செயலக கடித மேலாண்மை மற்றும் கண்காணிப்பு அமைப்பு (Koralaipattu North Vaharai DS Letter Management System)",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
