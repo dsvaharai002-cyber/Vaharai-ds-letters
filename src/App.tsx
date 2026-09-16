@@ -33,7 +33,7 @@ import { UserManagementModal } from './components/UserManagementModal';
 // ==========================================
 const sendDataToGoogleCloud = async (payload: any) => {
   try {
-    await fetch("https://script.google.com/macros/s/AKfycbxeog92ftT_g_7XsNXnSViGeJG7R153ROglMMFZ4b36wbpWayX9PyDUC6iIEbb0IxOTAA/exec", {
+    await fetch("https://script.google.com/macros/s/AKfycbzNOrpffozDIx9Msv0nPmFJ4MqSr7Cy4umtJdUoAvf3gbJx-G5ndC3N-Kbmfm0F8scTfQ/exec", {
       method: "POST",
       mode: "no-cors",
       headers: {
