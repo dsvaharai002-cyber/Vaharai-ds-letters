@@ -3,7 +3,7 @@ import { User, Letter, UserRole, LetterAction } from "./types";
 import { INITIAL_USERS, INITIAL_LETTERS } from "./data/initialData";
 
 const WEB_APP_URL =
-  "https://script.google.com/macros/s/AKfycbwjgQ6pt66cQx1GAoaT7ZkqcZZDt_vSRylYtafwzs2Nvqw_PKzp8bMUpbjR69huJbhCzA/exec";
+  "https://script.google.com/macros/s/AKfycbyc8Vr1I6kbuytXL86g5w6tfQJE7IzzTyNzG_QvCWc-R9YAHxLx98CTOuo2OgvHoTIXNg/exec";
 
 type CloudPayload = Record<string, any>;
 
