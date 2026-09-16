@@ -29,25 +29,17 @@ import { LetterDetailAndChatModal } from './components/LetterDetailAndChatModal'
 import { UserManagementModal } from './components/UserManagementModal';
 
 // ==========================================
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwrMLYRwZT77_KKnXqJ3gyqNN8u_4NpqfwHIoFJyJP9jNsodzI6EeFn_UJmSofrUsJ1XQ/exec";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyC1uqJuuzlrQIzGq3fj_p_SkaCIGJf5U4gUPQYb0NCssBpBGVK8LZELRRRLoTiFQWs-Q/exec";
 
 const sendDataToGoogleCloud = async (payload: any) => {
   try {
-    const queryParams = new URLSearchParams({
-      action: payload.action || "",
-      id: payload.id || "",
-      originalNo: payload.originalNo || payload.User_ID || "",
-      date: payload.date || "",
-      inwardNo: payload.inwardNo || "",
-      fromWhom: payload.fromWhom || payload.Name || "",
-      subject: payload.subject || payload.Role || "",
-      division: payload.division || payload.Division || "",
-      forwardedTo: JSON.stringify(payload.forwardedTo || []),
-      actionStatus: payload.actionStatus || payload.Status || "Pending"
-    });
-
-    await fetch(`\({WEB_APP_URL}?\){queryParams.toString()}`, {
-      method: "GET",
+    await fetch(WEB_APP_URL, {
+      method: "POST",
+      mode: "no-cors", // CORS பிழையைத் தவிர்க்க
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
     });
   } catch (error) {
     console.error("Cloud sync error:", error);
