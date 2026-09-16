@@ -44,7 +44,6 @@ const sendDataToGoogleCloud = async (payload: any) => {
       division: payload.division || payload.Division || "",
       forwardedTo: JSON.stringify(payload.forwardedTo || []),
       actionStatus: payload.actionStatus || payload.Status || "Pending",
-      // பயனர் தரவுகளுக்குத் தனித்தனியே அனுப்புதல்
       Password: payload.Password || "",
       Name: payload.Name || "",
       Role: payload.Role || "",
@@ -52,8 +51,10 @@ const sendDataToGoogleCloud = async (payload: any) => {
       Status: payload.Status || "Active"
     });
 
+    // mode: 'no-cors' சேர்ப்பதன் மூலம் பிரவுசர் பாதுகாப்புக் கதவு திறக்கப்படும்
     await fetch(`\({WEB_APP_URL}?\){queryParams.toString()}`, {
       method: "GET",
+      mode: "no-cors", 
     });
   } catch (error) {
     console.error("Cloud sync error:", error);
