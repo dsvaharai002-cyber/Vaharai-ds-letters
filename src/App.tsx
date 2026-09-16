@@ -35,9 +35,9 @@ const sendDataToGoogleCloud = async (payload: any) => {
   try {
     await fetch("https://script.google.com/macros/s/AKfycbzNOrpffozDIx9Msv0nPmFJ4MqSr7Cy4umtJdUoAvf3gbJx-G5ndC3N-Kbmfm0F8scTfQ/exec", {
       method: "POST",
-      mode: "no-cors",
+      mode: "no-cors", // பிரவுசர் தடையை நீக்க
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "text/plain;charset=utf-8",
       },
       body: JSON.stringify(payload),
     });
