@@ -31,17 +31,24 @@ import { UserManagementModal } from './components/UserManagementModal';
 // ==========================================
 // Google Apps Script கிளவுட் இணைப்புச் செயல்பாடு
 // ==========================================
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzCrvph-FifE2LdsD9qg0Om5QesYqrNvrt8U6Vcr4J65WFk-Ko3JaJ4HpAAx-MMx3wNoQ/exec";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxKHDQX5kSdYOeUnnE6FQupMdJUylfN6IfPHVrylQd64tSKgvF7A39YRgfCwgEmseaRzQ/exec";
 
 const sendDataToGoogleCloud = async (payload: any) => {
   try {
-    await fetch(WEB_APP_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
+    const queryParams = new URLSearchParams({
+      action: payload.action || "",
+      id: payload.id || "",
+      originalNo: payload.originalNo || payload.User_ID || "",
+      date: payload.date || "",
+      inwardNo: payload.inwardNo || "",
+      fromWhom: payload.fromWhom || payload.Name || "",
+      subject: payload.subject || payload.Role || "",
+      division: payload.division || payload.Division || "",
+      actionStatus: payload.actionStatus || payload.Status || "Pending"
+    });
+
+    await fetch(`\({WEB_APP_URL}?\){queryParams.toString()}`, {
+      method: "GET", // GET முறை எந்தத் தடையுமின்றி உடனடியாக ஷீட்டில் சேர்க்கும்
     });
   } catch (error) {
     console.error("Cloud sync error:", error);
