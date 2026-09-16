@@ -31,13 +31,15 @@ import { UserManagementModal } from './components/UserManagementModal';
 // ==========================================
 // Google Apps Script கிளவுட் இணைப்புச் செயல்பாடு
 // ==========================================
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwJN4UnEErTVTXCHaJKqAdu2ydTGplYgmEOyUD21nkxCXWKWxjviBUoXkqPOuMuDpU/exec";
+
 const sendDataToGoogleCloud = async (payload: any) => {
   try {
-    await fetch("https://script.google.com/macros/s/AKfycbzNOrpffozDIx9Msv0nPmFJ4MqSr7Cy4umtJdUoAvf3gbJx-G5ndC3N-Kbmfm0F8scTfQ/exec", {
+    await fetch(WEB_APP_URL, {
       method: "POST",
-      mode: "no-cors", // பிரவுசர் தடையை நீக்க
+      mode: "no-cors",
       headers: {
-        "Content-Type": "text/plain;charset=utf-8",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(payload),
     });
@@ -87,6 +89,54 @@ export default function App() {
   // Search and filter in dashboard
   const [searchQuery, setSearchQuery] = useState('');
   const [actionFilter, setActionFilter] = useState('All');
+
+  // கூகுள் கிளவுட்டில் இருந்து தரவுகளை நிகழ்நேரத்தில் பெற்றுக்கொள்ளும் பகுதி (Fetch Cloud Data)
+  useEffect(() => {
+    const fetchCloudData = async () => {
+      try {
+        const response = await fetch(`${WEB_APP_URL}?type=get_all`);
+        const result = await response.json();
+        
+        if (result.letters && result.letters.length > 1) {
+          // Google Sheet தரவுகளை செயல매க்கு ஏற்ப மாற்றுதல் (முதல் வரி Header என்பதால் slice(1))
+          const cloudLetters = result.letters.slice(1).map((row: any[]) => ({
+            id: row[0],
+            originalNo: row[1],
+            date: row[2],
+            inwardNo: row[3],
+            fromWhom: row[4],
+            subject: row[5],
+            division: row[6],
+            forwardedTo: row[7] ? JSON.parse(row[7]) : [],
+            action: row[8] || 'Pending',
+          })).reverse(); // புதியது முதலில் வர
+          
+          if (cloudLetters.length > 0) {
+            setLetters(cloudLetters);
+          }
+        }
+
+        if (result.users && result.users.length > 1) {
+          const cloudUsers = result.users.slice(1).map((row: any[]) => ({
+            User_ID: row[0],
+            Password: row[1],
+            Name: row[2],
+            Role: row[3] as UserRole,
+            Division: row[4],
+            Status: row[5] || 'Active',
+          }));
+          
+          if (cloudUsers.length > 0) {
+            setUsers(cloudUsers);
+          }
+        }
+      } catch (e) {
+        console.error("Error fetching cloud data, using local data:", e);
+      }
+    };
+
+    fetchCloudData();
+  }, []);
 
   // Save to localStorage
   useEffect(() => {
@@ -138,12 +188,16 @@ export default function App() {
 
     // கிளவுட் மற்றும் ஜிமெயிலுக்கு அனுப்பும் பகுதி
     sendDataToGoogleCloud({
-      type: "NEW_LETTER",
-      letterNo: newLetter.originalNo,
+      action: "ADD_LETTER",
+      id: newLetter.id,
+      originalNo: newLetter.originalNo,
       date: newLetter.date,
-      sender: newLetter.fromWhom,
+      inwardNo: newLetter.inwardNo,
+      fromWhom: newLetter.fromWhom,
       subject: newLetter.subject,
-      department: newLetter.division || "General"
+      division: newLetter.division || "General",
+      forwardedTo: newLetter.forwardedTo,
+      actionStatus: newLetter.action
     });
 
     alert(`கடிதம் (${newLetter.originalNo}) வெற்றிகரமாக பதிவு செய்யப்பட்டது!`);
@@ -171,10 +225,13 @@ export default function App() {
 
     // புதிய பயனர் விவரங்களை கிளவுட்/ஜிமெயிலுக்கு அனுப்பும் பகுதி
     sendDataToGoogleCloud({
-      type: "NEW_USER",
-      username: newUser.Name,
-      role: newUser.Role,
-      division: newUser.Division
+      action: "ADD_USER",
+      User_ID: newUser.User_ID,
+      Password: newUser.Password,
+      Name: newUser.Name,
+      Role: newUser.Role,
+      Division: newUser.Division,
+      Status: newUser.Status
     });
   };
 
@@ -191,7 +248,10 @@ export default function App() {
 
   // If not logged in, show login screen
   if (!currentUser) {
-    return ;
+    return (
+       setCurrentUser(user)}
+      />
+    );
   }
 
   // Map of users for easy lookup
