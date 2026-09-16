@@ -29,17 +29,31 @@ import { LetterDetailAndChatModal } from './components/LetterDetailAndChatModal'
 import { UserManagementModal } from './components/UserManagementModal';
 
 // ==========================================
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyC1uqJuuzlrQIzGq3fj_p_SkaCIGJf5U4gUPQYb0NCssBpBGVK8LZELRRRLoTiFQWs-Q/exec";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxl9OyIUMkxTheHJM-MK6dg8QpcPd0fE7H4-5e_vmL7TkqiytFBcAsmY_tOpoc__BGzoQ/exec";
 
 const sendDataToGoogleCloud = async (payload: any) => {
   try {
-    await fetch(WEB_APP_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: {
-        "Content-Type": "text/plain;charset=utf-8",
-      },
-      body: JSON.stringify(payload),
+    const queryParams = new URLSearchParams({
+      action: payload.action || "",
+      id: payload.id || "",
+      originalNo: payload.originalNo || payload.User_ID || "",
+      date: payload.date || "",
+      inwardNo: payload.inwardNo || "",
+      fromWhom: payload.fromWhom || payload.Name || "",
+      subject: payload.subject || payload.Role || "",
+      division: payload.division || payload.Division || "",
+      forwardedTo: JSON.stringify(payload.forwardedTo || []),
+      actionStatus: payload.actionStatus || payload.Status || "Pending",
+      // பயனர் தரவுகளுக்குத் தனித்தனியே அனுப்புதல்
+      Password: payload.Password || "",
+      Name: payload.Name || "",
+      Role: payload.Role || "",
+      Division: payload.Division || "",
+      Status: payload.Status || "Active"
+    });
+
+    await fetch(`\({WEB_APP_URL}?\){queryParams.toString()}`, {
+      method: "GET",
     });
   } catch (error) {
     console.error("Cloud sync error:", error);
