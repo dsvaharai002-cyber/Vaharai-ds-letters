@@ -29,8 +29,6 @@ import { LetterDetailAndChatModal } from './components/LetterDetailAndChatModal'
 import { UserManagementModal } from './components/UserManagementModal';
 
 // ==========================================
-// Google Apps Script கிளவுட் இணைப்புச் செயல்பாடு
-// ==========================================
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxKHDQX5kSdYOeUnnE6FQupMdJUylfN6IfPHVrylQd64tSKgvF7A39YRgfCwgEmseaRzQ/exec";
 
 const sendDataToGoogleCloud = async (payload: any) => {
@@ -44,9 +42,17 @@ const sendDataToGoogleCloud = async (payload: any) => {
       fromWhom: payload.fromWhom || payload.Name || "",
       subject: payload.subject || payload.Role || "",
       division: payload.division || payload.Division || "",
+      forwardedTo: JSON.stringify(payload.forwardedTo || []),
       actionStatus: payload.actionStatus || payload.Status || "Pending"
     });
 
+    await fetch(`\({WEB_APP_URL}?\){queryParams.toString()}`, {
+      method: "GET",
+    });
+  } catch (error) {
+    console.error("Cloud sync error:", error);
+  }
+};
     await fetch(`\({WEB_APP_URL}?\){queryParams.toString()}`, {
       method: "GET",
     });
