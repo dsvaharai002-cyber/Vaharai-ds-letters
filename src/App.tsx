@@ -31,7 +31,7 @@ import { UserManagementModal } from './components/UserManagementModal';
 // ==========================================
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxQTXrom_phSBUtxNT6eXCsLEhLDgDQJTlqeKu1bN5dwVmFptFOslGBEHRDk186-8JqXg/exec";
 
-const sendDataToGoogleCloud = async (payload: any) => {
+const sendDataToGoogleCloud = (payload: any) => {
   try {
     const queryParams = new URLSearchParams({
       action: payload.action || "",
@@ -51,11 +51,9 @@ const sendDataToGoogleCloud = async (payload: any) => {
       Status: payload.Status || "Active"
     });
 
-    // mode: 'no-cors' சேர்ப்பதன் மூலம் பிரவுசர் பாதுகாப்புக் கதவு திறக்கப்படும்
-    await fetch(`\({WEB_APP_URL}?\){queryParams.toString()}`, {
-      method: "GET",
-      mode: "no-cors", 
-    });
+    // Background Image ரிக்வெஸ்ட் மூலம் எந்தத் தடையுமின்றி உடனடியாக ஷீட்டிற்கு அனுப்பும்
+    const img = new Image();
+    img.src = `\({WEB_APP_URL}?\){queryParams.toString()}`;
   } catch (error) {
     console.error("Cloud sync error:", error);
   }
