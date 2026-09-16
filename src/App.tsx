@@ -29,7 +29,7 @@ import { LetterDetailAndChatModal } from './components/LetterDetailAndChatModal'
 import { UserManagementModal } from './components/UserManagementModal';
 
 // ==========================================
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxKHDQX5kSdYOeUnnE6FQupMdJUylfN6IfPHVrylQd64tSKgvF7A39YRgfCwgEmseaRzQ/exec";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxUx24_nKSRbf-hCFbziYGd5AudCYtY5wXm-Vy__aTQseqb_K-srxjrgNEeSZtA5IACNw/exec";
 
 const sendDataToGoogleCloud = async (payload: any) => {
   try {
