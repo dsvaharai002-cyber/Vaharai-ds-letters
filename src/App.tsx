@@ -3,7 +3,7 @@ import { User, Letter, UserRole, LetterAction } from "./types";
 import { INITIAL_USERS, INITIAL_LETTERS } from "./data/initialData";
 
 const WEB_APP_URL =
-  "https://script.google.com/macros/s/AKfycbyc8Vr1I6kbuytXL86g5w6tfQJE7IzzTyNzG_QvCWc-R9YAHxLx98CTOuo2OgvHoTIXNg/exec";
+  "https://script.google.com/macros/s/AKfycbys8iSVHxFPYm9suB0ad-wt31NAwKPOgSDYU4bLyHnmVK4od3mRko91ahyU8DafwBEuBA/exec";
 
 type CloudPayload = Record<string, any>;
 
@@ -25,12 +25,25 @@ const sendDataToGoogleCloud = (payload: CloudPayload) => {
   try {
     const form = document.createElement("form");
     form.method = "GET";
-    form.action = WEB_APP_URL;
+
+    // IMPORTANT: put action in the URL itself as well as a hidden field.
+    // This makes the request reliable even when the browser/form handling
+    // drops a hidden field while submitting to Google Apps Script.
+    const action = String(payload.action ?? "").trim();
+    if (!action) {
+      throw new Error("Cloud action is missing.");
+    }
+
+    form.action =
+      WEB_APP_URL +
+      "?action=" +
+      encodeURIComponent(action);
+
     form.target = "hidden_iframe";
     form.style.display = "none";
 
     const queryParams: Record<string, string> = {
-      action: String(payload.action ?? ""),
+      action: action,
       id: String(payload.id ?? ""),
       originalNo: String(payload.originalNo ?? ""),
       date: String(payload.date ?? ""),
@@ -67,7 +80,7 @@ const sendDataToGoogleCloud = (payload: CloudPayload) => {
 
     document.body.appendChild(form);
     form.submit();
-    window.setTimeout(() => form.remove(), 1000);
+    window.setTimeout(() => form.remove(), 1500);
     return true;
   } catch (error) {
     console.error("Cloud sync error:", error);
