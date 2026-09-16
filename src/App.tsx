@@ -48,6 +48,13 @@ const sendDataToGoogleCloud = async (payload: any) => {
     });
 
     await fetch(`\({WEB_APP_URL}?\){queryParams.toString()}`, {
+      method: "GET",
+    });
+  } catch (error) {
+    console.error("Cloud sync error:", error);
+  }
+};
+    await fetch(`\({WEB_APP_URL}?\){queryParams.toString()}`, {
       method: "GET", // GET முறை எந்தத் தடையுமின்றி உடனடியாக ஷீட்டில் சேர்க்கும்
     });
   } catch (error) {
