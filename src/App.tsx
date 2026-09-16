@@ -33,13 +33,21 @@ const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyC1uqJuuzlrQIzGq3f
 
 const sendDataToGoogleCloud = async (payload: any) => {
   try {
-    await fetch(WEB_APP_URL, {
-      method: "POST",
-      mode: "no-cors", // CORS பிழையைத் தவிர்க்க
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
+    const queryParams = new URLSearchParams({
+      action: payload.action || "",
+      id: payload.id || "",
+      originalNo: payload.originalNo || payload.User_ID || "",
+      date: payload.date || "",
+      inwardNo: payload.inwardNo || "",
+      fromWhom: payload.fromWhom || payload.Name || "",
+      subject: payload.subject || payload.Role || "",
+      division: payload.division || payload.Division || "",
+      forwardedTo: JSON.stringify(payload.forwardedTo || []),
+      actionStatus: payload.actionStatus || payload.Status || "Pending"
+    });
+
+    await fetch(`\({WEB_APP_URL}?\){queryParams.toString()}`, {
+      method: "GET",
     });
   } catch (error) {
     console.error("Cloud sync error:", error);
