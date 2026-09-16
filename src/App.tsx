@@ -23,17 +23,31 @@ const safeJsonParse = <T,>(value: any, fallback: T): T => {
  */
 const sendDataToGoogleCloud = (payload: CloudPayload) => {
   try {
-    const form = document.createElement("form");
-    form.method = "GET";
-
-    // IMPORTANT: put action in the URL itself as well as a hidden field.
-    // This makes the request reliable even when the browser/form handling
-    // drops a hidden field while submitting to Google Apps Script.
     const action = String(payload.action ?? "").trim();
     if (!action) {
       throw new Error("Cloud action is missing.");
     }
 
+    // POST மற்றும் no-cors முறையைப் பயன்படுத்தி கூகுள் ஷீட்டிற்கு அனுப்புதல்
+    fetch(WEB_APP_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8",
+      },
+      body: JSON.stringify(payload),
+    }).catch((err) => {
+      console.error("Cloud sync fetch error:", err);
+    });
+
+    setCloudMessage("Google Sheets sync அனுப்பப்பட்டது.");
+    return true;
+  } catch (error) {
+    console.error("Cloud sync error:", error);
+    setCloudMessage("Google Sheets அனுப்பலில் பிழை ஏற்பட்டது.");
+    return false;
+  }
+};
     form.action =
       WEB_APP_URL +
       "?action=" +
