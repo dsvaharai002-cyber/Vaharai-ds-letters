@@ -83,7 +83,6 @@ const sendDataToGoogleCloud = (payload: CloudPayload): boolean => {
     return false;
   }
 };
-
 /**
  * JSONP is used for reading because fetch() from a local file can be blocked
  * by CORS. The Apps Script doGet() below supports callback=...
@@ -137,7 +136,6 @@ const normalizeLetter = (row: any[]): any => {
     forwardedTo: safeJsonParse<any[]>(row[7], extra.forwardedTo ?? []),
     action: String(row[8] ?? extra.action ?? "Pending") as LetterAction,
   };
-};
 
 const normalizeUser = (row: any[]): any => {
   const extra = safeJsonParse<Record<string, any>>(row[6], {});
@@ -906,7 +904,7 @@ const styles: Record<string, React.CSSProperties> = {
   modalCard: {
     background: "#fff",
     width: "min(700px, 100%)",
-    maxHheight: "90vh",
+    maxHeight: "90vh",
     overflow: "auto",
     padding: 24,
     borderRadius: 14,
