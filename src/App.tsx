@@ -21,33 +21,15 @@ const safeJsonParse = <T,>(value: any, fallback: T): T => {
  * This avoids the CORS problem that occurs when the React app is opened
  * directly from a file:// URL (origin "null").
  */
-const sendDataToGoogleCloud = (payload: CloudPayload) => {
+const sendDataToGoogleCloud = (payload: CloudPayload): boolean => {
   try {
     const action = String(payload.action ?? "").trim();
     if (!action) {
       throw new Error("Cloud action is missing.");
     }
 
-    // POST மற்றும் no-cors முறையைப் பயன்படுத்தி கூகுள் ஷீட்டிற்கு அனுப்புதல்
-    fetch(WEB_APP_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: {
-        "Content-Type": "text/plain;charset=utf-8",
-      },
-      body: JSON.stringify(payload),
-    }).catch((err) => {
-      console.error("Cloud sync fetch error:", err);
-    });
-
-    setCloudMessage("Google Sheets sync அனுப்பப்பட்டது.");
-    return true;
-  } catch (error) {
-    console.error("Cloud sync error:", error);
-    setCloudMessage("Google Sheets அனுப்பலில் பிழை ஏற்பட்டது.");
-    return false;
-  }
-};
+    const form = document.createElement("form");
+    form.method = "POST";
     form.action =
       WEB_APP_URL +
       "?action=" +
@@ -155,6 +137,7 @@ const normalizeLetter = (row: any[]): any => {
     forwardedTo: safeJsonParse<any[]>(row[7], extra.forwardedTo ?? []),
     action: String(row[8] ?? extra.action ?? "Pending") as LetterAction,
   };
+};
 
 const normalizeUser = (row: any[]): any => {
   const extra = safeJsonParse<Record<string, any>>(row[6], {});
@@ -923,7 +906,7 @@ const styles: Record<string, React.CSSProperties> = {
   modalCard: {
     background: "#fff",
     width: "min(700px, 100%)",
-    maxHeight: "90vh",
+    maxHheight: "90vh",
     overflow: "auto",
     padding: 24,
     borderRadius: 14,
