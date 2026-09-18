@@ -30,7 +30,7 @@ import { UserManagementModal } from './components/UserManagementModal';
 
 // --- Google Sheets Cloud Integration Setup ---
 const WEB_APP_URL =
-  "https://script.google.com/macros/s/AKfycbxHUOLHrruA-bRwjgSjH5BfFinBFdGV9QWVGBFc9XebE6mQFRXKOAeKk12eP59q0oVs/exec";
+  "https://script.google.com/macros/s/AKfycbxLSdRit6XOY60QpD1OM8PeAM1hs4ikzqIawTvBHSUtAN3UibpC3v34OuvZFMKPk7sazA/exec";
 
 type CloudPayload = Record<string, any>;
 
@@ -102,37 +102,19 @@ const sendDataToGoogleCloud = (payload: CloudPayload): boolean => {
   }
 };
 
-const fetchCloudData = (): Promise<{ letters: any[][]; users: any[][] }> =>
-  new Promise((resolve, reject) => {
-    const callbackName = `kpnCloudCallback_${Date.now}}_${Math.random().toString(36).slice(2)}`;
-
-    const timeout = window.setTimeout(() => {
-      cleanup();
-      reject(new Error("Google Apps Script read timed out."));
-    }, 15000);
-
-    const cleanup = () => {
-      window.clearTimeout(timeout);
-      const script = document.getElementById(callbackName);
-      if (script) script.remove();
-      delete (window as any)[callbackName];
-    };
-
-    (window as any)[callbackName] = (data: any) => {
-      cleanup();
-      resolve(data);
-    };
-
-    const script = document.createElement("script");
-    script.id = callbackName;
-    script.src = `${WEB_APP_URL}?type=get_all&callback=${encodeURIComponent(callbackName)}&t=${Date.now()}`;
-    script.onerror = () => {
-      cleanup();
-      reject(new Error("Unable to read Google Sheets data."));
-    };
-
-    document.body.appendChild(script);
-  });
+const fetchCloudData = async (): Promise<{ letters: any[][]; users: any[][] }> => {
+  try {
+    const response = await fetch(`${WEB_APP_URL}?type=get_all&t=${Date.now()}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Cloud fetch error:", error);
+    throw error;
+  }
+};
 
 const normalizeLetter = (row: any[]): any => {
   const extra = safeJsonParse<Record<string, any>>(row[9], {});
