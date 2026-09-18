@@ -118,6 +118,16 @@ const fetchCloudData = async (): Promise<{ letters: any[][]; users: any[][] }> =
 
 const normalizeLetter = (row: any[]): any => {
   const extra = safeJsonParse<Record<string, any>>(row[9], {});
+  
+  // forwardedTo உறுதியாக ஒரு Array-வாக மாறுவதை உறுதிசெய்தல்
+  let parsedForwardedTo: any[] = [];
+  const rawForwarded = row[7] ?? extra.forwardedTo;
+  if (Array.isArray(rawForwarded)) {
+    parsedForwardedTo = rawForwarded;
+  } else {
+    parsedForwardedTo = safeJsonParse<any[]>(rawForwarded, []);
+  }
+
   return {
     ...extra,
     id: String(row[0] ?? extra.id ?? ""),
@@ -127,11 +137,10 @@ const normalizeLetter = (row: any[]): any => {
     fromWhom: String(row[4] ?? extra.fromWhom ?? ""),
     subject: String(row[5] ?? extra.subject ?? ""),
     division: String(row[6] ?? extra.division ?? "General"),
-    forwardedTo: safeJsonParse<any[]>(row[7], extra.forwardedTo ?? []),
+    forwardedTo: parsedForwardedTo,
     action: String(row[8] ?? extra.action ?? "Pending") as LetterAction,
   };
 };
-
 const normalizeUser = (row: any[]): any => {
   const extra = safeJsonParse<Record<string, any>>(row[6], {});
   return {
