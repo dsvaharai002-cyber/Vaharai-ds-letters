@@ -30,7 +30,7 @@ import { UserManagementModal } from './components/UserManagementModal';
 
 // --- Google Sheets Cloud Integration Setup ---
 const WEB_APP_URL =
-  "https://script.google.com/macros/s/AKfycbwJomDN1J4KenBZ9eTfB4133ruz-BZ2sthsYqBBXvgaQJL6240dC2g5Avjf43A9IxzutA/exec";
+  "https://script.google.com/macros/s/AKfycbxHUOLHrruA-bRwjgSjH5BfFinBFdGV9QWVGBFc9XebE6mQFRXKOAeKk12eP59q0oVs/exec";
 
 type CloudPayload = Record<string, any>;
 
