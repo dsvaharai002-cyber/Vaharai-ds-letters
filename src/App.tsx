@@ -439,7 +439,7 @@ export default function App() {
     if (!searchQuery.trim()) return true;
     const q = searchQuery.toLowerCase().trim();
 
-    const forwardedNames = letter.forwardedTo
+   const forwardedNames = (Array.isArray(letter.forwardedTo) ? letter.forwardedTo : [])
       .map((id) => usersMap.get(id)?.Name || id)
       .join(' ')
       .toLowerCase();
