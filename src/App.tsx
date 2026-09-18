@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   Shield,
   PlusCircle,
@@ -28,8 +28,143 @@ import { LetterRegisterModal } from './components/LetterRegisterModal';
 import { LetterDetailAndChatModal } from './components/LetterDetailAndChatModal';
 import { UserManagementModal } from './components/UserManagementModal';
 
+// --- Google Sheets Cloud Integration Setup ---
+const WEB_APP_URL =
+  "https://script.google.com/macros/s/AKfycbxh8-lD8wdhIjPO4zWUIzQBQBLOY2-rytdpsHaraod5tgiXDf-i3TEXgw1X0FEgQ0Bl5Q/exec";
+
+type CloudPayload = Record<string, any>;
+
+const safeJsonParse = <T,>(value: any, fallback: T): T => {
+  if (value === null || value === undefined || value === "") return fallback;
+  try {
+    return JSON.parse(String(value)) as T;
+  } catch {
+    return fallback;
+  }
+};
+
+const sendDataToGoogleCloud = (payload: CloudPayload): boolean => {
+  try {
+    const action = String(payload.action ?? "").trim();
+    if (!action) {
+      throw new Error("Cloud action is missing.");
+    }
+
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = WEB_APP_URL + "?action=" + encodeURIComponent(action);
+    form.target = "hidden_iframe";
+    form.style.display = "none";
+
+    const queryParams: Record<string, string> = {
+      action: action,
+      id: String(payload.id ?? ""),
+      originalNo: String(payload.originalNo ?? ""),
+      date: String(payload.date ?? ""),
+      inwardNo: String(payload.inwardNo ?? ""),
+      fromWhom: String(payload.fromWhom ?? ""),
+      subject: String(payload.subject ?? ""),
+      division: String(payload.division ?? ""),
+      forwardedTo: JSON.stringify(payload.forwardedTo ?? []),
+      actionStatus: String(payload.actionStatus ?? payload.action ?? "Pending"),
+      Password: String(payload.Password ?? ""),
+      Name: String(payload.Name ?? ""),
+      Role: String(payload.Role ?? ""),
+      Division: String(payload.Division ?? ""),
+      Status: String(payload.Status ?? ""),
+      extraData: JSON.stringify(payload.extraData ?? payload),
+    };
+
+    Object.entries(queryParams).forEach(([key, value]) => {
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = key;
+      input.value = value;
+      form.appendChild(input);
+    });
+
+    let iframe = document.getElementById("hidden_iframe") as HTMLIFrameElement | null;
+    if (!iframe) {
+      iframe = document.createElement("iframe");
+      iframe.id = "hidden_iframe";
+      iframe.name = "hidden_iframe";
+      iframe.style.display = "none";
+      document.body.appendChild(iframe);
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+    window.setTimeout(() => form.remove(), 1500);
+    return true;
+  } catch (error) {
+    console.error("Cloud sync error:", error);
+    return false;
+  }
+};
+
+const fetchCloudData = (): Promise<{ letters: any[][]; users: any[][] }> =>
+  new Promise((resolve, reject) => {
+    const callbackName = `kpnCloudCallback_${Date.now}}_${Math.random().toString(36).slice(2)}`;
+
+    const timeout = window.setTimeout(() => {
+      cleanup();
+      reject(new Error("Google Apps Script read timed out."));
+    }, 15000);
+
+    const cleanup = () => {
+      window.clearTimeout(timeout);
+      const script = document.getElementById(callbackName);
+      if (script) script.remove();
+      delete (window as any)[callbackName];
+    };
+
+    (window as any)[callbackName] = (data: any) => {
+      cleanup();
+      resolve(data);
+    };
+
+    const script = document.createElement("script");
+    script.id = callbackName;
+    script.src = `${WEB_APP_URL}?type=get_all&callback=${encodeURIComponent(callbackName)}&t=${Date.now()}`;
+    script.onerror = () => {
+      cleanup();
+      reject(new Error("Unable to read Google Sheets data."));
+    };
+
+    document.body.appendChild(script);
+  });
+
+const normalizeLetter = (row: any[]): any => {
+  const extra = safeJsonParse<Record<string, any>>(row[9], {});
+  return {
+    ...extra,
+    id: String(row[0] ?? extra.id ?? ""),
+    originalNo: String(row[1] ?? extra.originalNo ?? ""),
+    date: String(row[2] ?? extra.date ?? ""),
+    inwardNo: String(row[3] ?? extra.inwardNo ?? ""),
+    fromWhom: String(row[4] ?? extra.fromWhom ?? ""),
+    subject: String(row[5] ?? extra.subject ?? ""),
+    division: String(row[6] ?? extra.division ?? "General"),
+    forwardedTo: safeJsonParse<any[]>(row[7], extra.forwardedTo ?? []),
+    action: String(row[8] ?? extra.action ?? "Pending") as LetterAction,
+  };
+};
+
+const normalizeUser = (row: any[]): any => {
+  const extra = safeJsonParse<Record<string, any>>(row[6], {});
+  return {
+    ...extra,
+    User_ID: String(row[0] ?? extra.User_ID ?? ""),
+    Password: String(row[1] ?? extra.Password ?? ""),
+    Name: String(row[2] ?? extra.Name ?? ""),
+    Role: row[3] as UserRole,
+    Division: String(row[4] ?? extra.Division ?? ""),
+    Status: String(row[5] ?? extra.Status ?? "Active"),
+  };
+};
+
 export default function App() {
-  // State for Users & Letters with localStorage persistence
+  // State for Users & Letters with localStorage & Cloud sync fallback
   const [users, setUsers] = useState<User[]>(() => {
     try {
       const saved = localStorage.getItem('kpn_vaharai_users');
@@ -69,8 +204,10 @@ export default function App() {
   // Search and filter in dashboard
   const [searchQuery, setSearchQuery] = useState('');
   const [actionFilter, setActionFilter] = useState<string>('All');
+  const [loadingCloud, setLoadingCloud] = useState(false);
+  const [cloudMessage, setCloudMessage] = useState('');
 
-  // Save to localStorage
+  // Save to localStorage & Fetch from Cloud on mount
   useEffect(() => {
     try {
       localStorage.setItem('kpn_vaharai_users', JSON.stringify(users));
@@ -99,6 +236,59 @@ export default function App() {
     }
   }, [currentUser]);
 
+  // Load Data from Google Sheets automatically
+  useEffect(() => {
+    let mounted = true;
+
+    const loadCloud = async () => {
+      setLoadingCloud(true);
+      try {
+        const result = await fetchCloudData();
+        if (!mounted) return;
+
+        if (Array.isArray(result.letters) && result.letters.length > 1) {
+          const cloudLetters = result.letters
+            .slice(1)
+            .filter((row: any[]) => row && row.length)
+            .map(normalizeLetter)
+            .filter((letter: any) => letter.id || letter.originalNo)
+            .reverse();
+
+          if (cloudLetters.length) setLetters(cloudLetters);
+        }
+
+        if (Array.isArray(result.users) && result.users.length > 1) {
+          const cloudUsers = result.users
+            .slice(1)
+            .filter((row: any[]) => row && row.length)
+            .map(normalizeUser)
+            .filter((user: any) => user.User_ID);
+
+          if (cloudUsers.length) setUsers(cloudUsers);
+        }
+
+        setCloudMessage("Google Sheets தரவு வெற்றிகரமாக இணைக்கப்பட்டது.");
+      } catch (error) {
+        console.error(error);
+        setCloudMessage("Google Sheets தரவைப் பெற முடியவில்லை. உள்ளூர் தரவு (Local) பயன்படுத்தப்படுகிறது.");
+      } finally {
+        if (mounted) setLoadingCloud(false);
+      }
+    };
+
+    loadCloud();
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  const cloudWrite = (payload: CloudPayload) => {
+    const ok = sendDataToGoogleCloud(payload);
+    if (!ok) setCloudMessage("Google Sheets அனுப்பலில் பிழை ஏற்பட்டது.");
+    else setCloudMessage("Google Sheets sync அனுப்பப்பட்டது.");
+    return ok;
+  };
+
   // Handle Logout
   const handleLogout = () => {
     setCurrentUser(null);
@@ -114,31 +304,74 @@ export default function App() {
     }
   };
 
-  // Add new letter (Mail Officer only)
+  // Add new letter (Mail Officer only) + Cloud Sync
   const handleSaveNewLetter = (newLetter: Letter) => {
     setLetters((prev) => [newLetter, ...prev]);
+    cloudWrite({
+      action: "ADD_LETTER",
+      id: newLetter.id,
+      originalNo: newLetter.originalNo,
+      date: newLetter.date,
+      inwardNo: newLetter.inwardNo,
+      fromWhom: newLetter.fromWhom,
+      subject: newLetter.subject,
+      division: newLetter.division || "General",
+      forwardedTo: newLetter.forwardedTo || [],
+      actionStatus: newLetter.action || "Pending",
+      extraData: newLetter,
+    });
     alert(`கடிதம் (${newLetter.originalNo}) வெற்றிகரமாக பதிவு செய்யப்பட்டது!`);
   };
 
-  // Update existing letter (action, reply, chats, forwardedTo, edits)
+  // Update existing letter + Cloud Sync
   const handleUpdateLetter = (updated: Letter) => {
     setLetters((prev) => prev.map((l) => (l.id === updated.id ? updated : l)));
     if (selectedLetter && selectedLetter.id === updated.id) {
       setSelectedLetter(updated);
     }
+
+    cloudWrite({
+      action: "UPDATE_LETTER",
+      id: updated.id,
+      originalNo: updated.originalNo,
+      date: updated.date,
+      inwardNo: updated.inwardNo,
+      fromWhom: updated.fromWhom,
+      subject: updated.subject,
+      division: updated.division || "General",
+      forwardedTo: updated.forwardedTo || [],
+      actionStatus: updated.action || "Pending",
+      extraData: updated,
+    });
   };
 
-  // Delete letter (Super Admin only)
+  // Delete letter + Cloud Sync
   const handleDeleteLetter = (letterId: string) => {
+    if (!confirm("இந்தக் கடிதத்தை நீக்க வேண்டுமா?")) return;
     setLetters((prev) => prev.filter((l) => l.id !== letterId));
     if (selectedLetter && selectedLetter.id === letterId) {
       setSelectedLetter(null);
     }
+
+    cloudWrite({
+      action: "DELETE_LETTER",
+      id: letterId,
+    });
   };
 
-  // User management handlers (Super Admin only)
+  // User management handlers + Cloud Sync
   const handleAddUser = (newUser: User) => {
     setUsers((prev) => [...prev, newUser]);
+    cloudWrite({
+      action: "ADD_USER",
+      User_ID: newUser.User_ID,
+      Password: newUser.Password,
+      Name: newUser.Name,
+      Role: newUser.Role,
+      Division: newUser.Division,
+      Status: newUser.Status || "Active",
+      extraData: newUser,
+    });
   };
 
   const handleUpdateUser = (updatedUser: User) => {
@@ -146,10 +379,26 @@ export default function App() {
     if (currentUser && currentUser.User_ID === updatedUser.User_ID) {
       setCurrentUser(updatedUser);
     }
+
+    cloudWrite({
+      action: "UPDATE_USER",
+      User_ID: updatedUser.User_ID,
+      Password: updatedUser.Password,
+      Name: updatedUser.Name,
+      Role: updatedUser.Role,
+      Division: updatedUser.Division,
+      Status: updatedUser.Status || "Active",
+      extraData: updatedUser,
+    });
   };
 
   const handleDeleteUser = (userId: string) => {
+    if (!confirm("இந்தப் பயனரை நீக்க வேண்டுமா?")) return;
     setUsers((prev) => prev.filter((u) => u.User_ID !== userId));
+    cloudWrite({
+      action: "DELETE_USER",
+      User_ID: userId,
+    });
   };
 
   // If not logged in, show login screen
@@ -161,18 +410,12 @@ export default function App() {
   const usersMap = new Map<string, User>(users.map((u) => [u.User_ID, u]));
 
   // Role-based letter filtering
-  // Super Admin: sees all letters
-  // Mega: sees all letters
-  // Mail Officer: sees all letters
-  // Normal: sees letters belonging to their division (either forwarded to someone in their division or sender division)
-  // User: sees letters forwarded to their specific User_ID
   const roleFilteredLetters = letters.filter((letter) => {
     if (currentUser.Role === 'Super Admin' || currentUser.Role === 'Mega' || currentUser.Role === 'Mail Officer') {
       return true;
     }
 
     if (currentUser.Role === 'Normal') {
-      // Check if any forwarded user is in this Normal user's division
       const hasDivisionUser = letter.forwardedTo.some((uid) => {
         const u = usersMap.get(uid);
         return u && u.Division === currentUser.Division;
@@ -181,7 +424,6 @@ export default function App() {
     }
 
     if (currentUser.Role === 'User') {
-      // Check if specifically forwarded to this user
       return letter.forwardedTo.includes(currentUser.User_ID);
     }
 
@@ -297,6 +539,11 @@ export default function App() {
         </div>
       </header>
 
+      {/* Cloud Sync Status Notification Bar */}
+      <div className="bg-blue-50 border-b border-blue-200 px-4 py-1.5 text-center text-xs text-blue-800 font-medium">
+        {loadingCloud ? "Google Sheets இலிருந்து தரவுகள் பெறப்படுகின்றன..." : cloudMessage}
+      </div>
+
       {/* Role Banner / Sub-header */}
       <div className="border-b border-gray-200 bg-white px-4 py-3 shadow-2xs">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs">
@@ -366,7 +613,7 @@ export default function App() {
               />
             </div>
 
-            {/* Action Filter (Hidden for Mail Officer as they don't deal with Action) */}
+            {/* Action Filter */}
             <div className="flex flex-wrap items-center gap-2">
               {currentUser.Role !== 'Mail Officer' && (
                 <div className="flex items-center gap-2 text-xs">
@@ -422,7 +669,7 @@ export default function App() {
           </div>
         </div>
 
-        {/* Date-based Folders List (Mandatory requirement 01) */}
+        {/* Date-based Folders List */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-bold text-gray-800 flex items-center gap-2">
@@ -450,7 +697,6 @@ export default function App() {
       </footer>
 
       {/* Modals */}
-      {/* 1. Letter Register Modal (Mail Officer only) */}
       <LetterRegisterModal
         isOpen={isRegisterOpen}
         onClose={() => setIsRegisterOpen(false)}
@@ -460,7 +706,6 @@ export default function App() {
         existingLetters={letters}
       />
 
-      {/* 2. Letter Detail, Action & Chat Modal */}
       <LetterDetailAndChatModal
         isOpen={!!selectedLetter}
         letter={selectedLetter}
@@ -471,10 +716,9 @@ export default function App() {
         onDeleteLetter={handleDeleteLetter}
       />
 
-      {/* 3. User Management Modal (Super Admin only) */}
       <UserManagementModal
         isOpen={isUserMgmtOpen}
-        onClose={() => setIsUserMgmtOpen(false)}
+        onClose={() => setIsUserMgmtOnOpen(false)}
         users={users}
         onAddUser={handleAddUser}
         onUpdateUser={handleUpdateUser}
