@@ -4,11 +4,15 @@ export const DIVISIONS = [
   'நிர்வாகப் பிரிவு (Administration)',
   'காணிப் பிரிவு (Land Division)',
   'திட்டமிடல் பிரிவு (Planning)',
-  'சமூக சேவை & சமுர்த்தி (Social & Samurdhi)',
+  'சமூக சேவை  (Social)',
+  'சமுர்த்தி (Samurdhi)',
   'கிராம அபிவிருத்தி (Rural Development)',
   'கணக்குப் பிரிவு (Accounts & Finance)',
-  'விவசாயம் & நீர்ப்பாசனம் (Agriculture)',
+  'தேசிய அடையாள அட்டை பிரிவு (NIC)',
   'தபால் & ஆவணப் பிரிவு (Mail & Records)',
+  'வெளிக்களம் (Field)',
+  'சிறுவர் பிரிவு (Field)',
+  'பதிவுக்கிளை (Registration Branch)',
 ];
 
 export const INITIAL_USERS: User[] = [

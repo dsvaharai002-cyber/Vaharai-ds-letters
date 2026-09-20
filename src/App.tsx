@@ -1,24 +1,16 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
-  Shield,
   PlusCircle,
   LogOut,
   Users,
   Search,
   Filter,
-  FileText,
-  Building,
   RotateCcw,
-  Sparkles,
-  Calendar,
-  CheckCircle,
-  Mail,
-  Printer,
   Download,
   FileSpreadsheet,
   FileDown,
 } from 'lucide-react';
-import { User, Letter, UserRole, LetterAction } from './types';
+import { User, Letter, UserRole } from './types';
 import { INITIAL_USERS, INITIAL_LETTERS } from './data/initialData';
 import { exportLettersToExcel, exportLettersToCsv, downloadDataBackupJson } from './utils/helpers';
 import { LoginScreen } from './components/LoginScreen';
@@ -30,7 +22,7 @@ import { UserManagementModal } from './components/UserManagementModal';
 
 // --- Google Sheets Cloud Integration Setup ---
 const WEB_APP_URL =
-  "https://script.google.com/macros/s/AKfycbxLSdRit6XOY60QpD1OM8PeAM1hs4ikzqIawTvBHSUtAN3UibpC3v34OuvZFMKPk7sazA/exec";
+  "https://script.google.com/macros/s/AKfycbxJIP3bwiDNljAJGU2JRA2Ibj0lEuMwDfsx9Wm8DA3aIwKEhP3Kt1g7k0Xm5L8sPXb6cg/exec";
 
 type CloudPayload = Record<string, any>;
 
@@ -119,7 +111,6 @@ const fetchCloudData = async (): Promise<{ letters: any[][]; users: any[][] }> =
 const normalizeLetter = (row: any[]): any => {
   const extra = safeJsonParse<Record<string, any>>(row[9], {});
   
-  // forwardedTo உறுதியாக ஒரு Array-வாக மாறுவதை உறுதிசெய்தல்
   let parsedForwardedTo: any[] = [];
   const rawForwarded = row[7] ?? extra.forwardedTo;
   if (Array.isArray(rawForwarded)) {
@@ -138,9 +129,11 @@ const normalizeLetter = (row: any[]): any => {
     subject: String(row[5] ?? extra.subject ?? ""),
     division: String(row[6] ?? extra.division ?? "General"),
     forwardedTo: parsedForwardedTo,
-    action: String(row[8] ?? extra.action ?? "Pending") as LetterAction,
+    action: String(row[8] ?? extra.action ?? "Pending"),
+    fileReferenceNo: String(extra.fileReferenceNo ?? ""),
   };
 };
+
 const normalizeUser = (row: any[]): any => {
   const extra = safeJsonParse<Record<string, any>>(row[6], {});
   return {
@@ -155,7 +148,6 @@ const normalizeUser = (row: any[]): any => {
 };
 
 export default function App() {
-  // State for Users & Letters with localStorage & Cloud sync fallback
   const [users, setUsers] = useState<User[]>(() => {
     try {
       const saved = localStorage.getItem('kpn_vaharai_users');
@@ -176,7 +168,6 @@ export default function App() {
     return INITIAL_LETTERS;
   });
 
-  // Current logged in user
   const [currentUser, setCurrentUser] = useState<User | null>(() => {
     try {
       const savedUser = localStorage.getItem('kpn_vaharai_current_user');
@@ -187,18 +178,15 @@ export default function App() {
     return null;
   });
 
-  // Modal states
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isUserMgmtOpen, setIsUserMgmtOpen] = useState(false);
   const [selectedLetter, setSelectedLetter] = useState<Letter | null>(null);
 
-  // Search and filter in dashboard
   const [searchQuery, setSearchQuery] = useState('');
   const [actionFilter, setActionFilter] = useState<string>('All');
   const [loadingCloud, setLoadingCloud] = useState(false);
   const [cloudMessage, setCloudMessage] = useState('');
 
-  // Save to localStorage & Fetch from Cloud on mount
   useEffect(() => {
     try {
       localStorage.setItem('kpn_vaharai_users', JSON.stringify(users));
@@ -227,7 +215,6 @@ export default function App() {
     }
   }, [currentUser]);
 
-  // Load Data from Google Sheets automatically
   useEffect(() => {
     let mounted = true;
 
@@ -280,13 +267,11 @@ export default function App() {
     return ok;
   };
 
-  // Handle Logout
   const handleLogout = () => {
     setCurrentUser(null);
     setSelectedLetter(null);
   };
 
-  // Reset to default sample data
   const handleResetData = () => {
     if (confirm('அனைத்து தரவுகளையும் மாதிரி ஆரம்ப நிலைக்கு மீட்டமைக்க விரும்புகிறீர்களா?')) {
       setUsers(INITIAL_USERS);
@@ -295,7 +280,6 @@ export default function App() {
     }
   };
 
-  // Add new letter (Mail Officer only) + Cloud Sync
   const handleSaveNewLetter = (newLetter: Letter) => {
     setLetters((prev) => [newLetter, ...prev]);
     cloudWrite({
@@ -314,7 +298,6 @@ export default function App() {
     alert(`கடிதம் (${newLetter.originalNo}) வெற்றிகரமாக பதிவு செய்யப்பட்டது!`);
   };
 
-  // Update existing letter + Cloud Sync
   const handleUpdateLetter = (updated: Letter) => {
     setLetters((prev) => prev.map((l) => (l.id === updated.id ? updated : l)));
     if (selectedLetter && selectedLetter.id === updated.id) {
@@ -336,7 +319,6 @@ export default function App() {
     });
   };
 
-  // Delete letter + Cloud Sync
   const handleDeleteLetter = (letterId: string) => {
     if (!confirm("இந்தக் கடிதத்தை நீக்க வேண்டுமா?")) return;
     setLetters((prev) => prev.filter((l) => l.id !== letterId));
@@ -350,7 +332,6 @@ export default function App() {
     });
   };
 
-  // User management handlers + Cloud Sync
   const handleAddUser = (newUser: User) => {
     setUsers((prev) => [...prev, newUser]);
     cloudWrite({
@@ -383,24 +364,12 @@ export default function App() {
     });
   };
 
-  const handleDeleteUser = (userId: string) => {
-    if (!confirm("இந்தப் பயனரை நீக்க வேண்டுமா?")) return;
-    setUsers((prev) => prev.filter((u) => u.User_ID !== userId));
-    cloudWrite({
-      action: "DELETE_USER",
-      User_ID: userId,
-    });
-  };
-
-  // If not logged in, show login screen
   if (!currentUser) {
     return <LoginScreen users={users} onLoginSuccess={setCurrentUser} />;
   }
 
-  // Map of users for easy lookup
   const usersMap = new Map<string, User>(users.map((u) => [u.User_ID, u]));
 
-  // Role-based letter filtering
   const roleFilteredLetters = letters.filter((letter) => {
     if (currentUser.Role === 'Super Admin' || currentUser.Role === 'Mega' || currentUser.Role === 'Mail Officer') {
       return true;
@@ -421,7 +390,6 @@ export default function App() {
     return false;
   });
 
-  // Apply search query and action filter
   const displayedLetters = roleFilteredLetters.filter((letter) => {
     if (actionFilter !== 'All' && letter.action !== actionFilter) {
       return false;
@@ -430,7 +398,7 @@ export default function App() {
     if (!searchQuery.trim()) return true;
     const q = searchQuery.toLowerCase().trim();
 
-   const forwardedNames = (Array.isArray(letter.forwardedTo) ? letter.forwardedTo : [])
+    const forwardedNames = (Array.isArray(letter.forwardedTo) ? letter.forwardedTo : [])
       .map((id) => usersMap.get(id)?.Name || id)
       .join(' ')
       .toLowerCase();
@@ -441,17 +409,16 @@ export default function App() {
       letter.fromWhom.toLowerCase().includes(q) ||
       letter.subject.toLowerCase().includes(q) ||
       letter.date.toLowerCase().includes(q) ||
+      (letter.fileReferenceNo && letter.fileReferenceNo.toLowerCase().includes(q)) ||
       forwardedNames.includes(q)
     );
   });
 
   return (
     <div className="min-h-screen bg-slate-100 flex flex-col">
-      {/* Top Navigation Bar */}
       <header className="sticky top-0 z-30 border-b border-blue-900 bg-slate-900 text-white shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between gap-4">
-            {/* Logo / Branding */}
             <div className="flex items-center gap-3">
               <img
                 src="/vaharai_logo.jpg"
@@ -468,7 +435,6 @@ export default function App() {
               </div>
             </div>
 
-            {/* Current User Info & Actions */}
             <div className="flex items-center gap-3">
               <div className="hidden sm:flex flex-col items-end text-xs">
                 <span className="font-bold text-white">{currentUser.Name}</span>
@@ -480,7 +446,6 @@ export default function App() {
                 </span>
               </div>
 
-              {/* Action: New Letter (Mail Officer ONLY) */}
               {currentUser.Role === 'Mail Officer' && (
                 <button
                   type="button"
@@ -492,7 +457,6 @@ export default function App() {
                 </button>
               )}
 
-              {/* Action: User Management (Super Admin ONLY) */}
               {currentUser.Role === 'Super Admin' && (
                 <button
                   type="button"
@@ -504,7 +468,6 @@ export default function App() {
                 </button>
               )}
 
-              {/* Reset Data Button */}
               <button
                 type="button"
                 onClick={handleResetData}
@@ -515,7 +478,6 @@ export default function App() {
                 <span>மீட்டமை</span>
               </button>
 
-              {/* Logout Button */}
               <button
                 type="button"
                 onClick={handleLogout}
@@ -530,81 +492,40 @@ export default function App() {
         </div>
       </header>
 
-      {/* Cloud Sync Status Notification Bar */}
       <div className="bg-blue-50 border-b border-blue-200 px-4 py-1.5 text-center text-xs text-blue-800 font-medium">
         {loadingCloud ? "Google Sheets இலிருந்து தரவுகள் பெறப்படுகின்றன..." : cloudMessage}
       </div>
 
-      {/* Role Banner / Sub-header */}
       <div className="border-b border-gray-200 bg-white px-4 py-3 shadow-2xs">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs">
           <div className="flex items-center gap-2">
-            <span className="font-bold text-gray-800">
-              தற்போதைய பயனர் நிலை:
-            </span>
-            <span
-              className={`rounded-full px-3 py-0.5 font-bold ${
-                currentUser.Role === 'Super Admin'
-                  ? 'bg-purple-100 text-purple-800'
-                  : currentUser.Role === 'Mega'
-                  ? 'bg-amber-100 text-amber-800'
-                  : currentUser.Role === 'Mail Officer'
-                  ? 'bg-blue-100 text-blue-800'
-                  : currentUser.Role === 'Normal'
-                  ? 'bg-emerald-100 text-emerald-800'
-                  : 'bg-gray-100 text-gray-800'
-              }`}
-            >
+            <span className="font-bold text-gray-800">தற்போதைய பயனர் நிலை:</span>
+            <span className="rounded-full px-3 py-0.5 font-bold bg-blue-100 text-blue-800">
               {currentUser.Role}
             </span>
-            <span className="text-gray-500">
-              ({currentUser.Division})
-            </span>
-          </div>
-
-          <div className="text-gray-600 font-medium">
-            {currentUser.Role === 'Super Admin' && (
-              <span>🛡️ அனைத்து கடிதங்களையும் திகதியடிப்படையில் மேலாண்மை செய்யும் அதிகாரம் வழங்கப்பட்டுள்ளது.</span>
-            )}
-            {currentUser.Role === 'Mega' && (
-              <span>📊 மெகா பயனாளி: அனைத்து கடிதங்களும் திகதியடிப்படையில் + வரைபட நிலவரம்.</span>
-            )}
-            {currentUser.Role === 'Mail Officer' && (
-              <span>✉️ கடிதப் பதிவாளர்: கடிதங்களைப் பதிவு செய்யும் முழு அதிகாரம்.</span>
-            )}
-            {currentUser.Role === 'Normal' && (
-              <span>🏢 பிரிவு பிரதானி: {currentUser.Division} கடிதங்கள் மட்டும்.</span>
-            )}
-            {currentUser.Role === 'User' && (
-              <span>👤 கள உத்தியோகத்தர்: உங்கள் ID ({currentUser.User_ID}) க்குரிய கடிதங்கள் மட்டும்.</span>
-            )}
+            <span className="text-gray-500">({currentUser.Division})</span>
           </div>
         </div>
       </div>
 
-      {/* Main Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
-        {/* Mega User Action Chart */}
         {currentUser.Role === 'Mega' && (
           <MegaActionChart letters={letters} allUsers={users} />
         )}
 
-        {/* Filter & Search Bar */}
         <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-xs">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            {/* Search Input */}
             <div className="relative flex-1 min-w-[260px] max-w-lg">
               <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Original No, Inward No, விடயம், அனுப்புநர் மூலம் தேடுக..."
+                placeholder="Original No, Inward No, கோப்பு இலக்கம், விடயம் தேடுக..."
                 className="w-full rounded-lg border border-gray-300 bg-white py-2 pl-9 pr-3 text-xs text-gray-900 focus:border-blue-600 focus:outline-hidden"
               />
             </div>
 
-            {/* Action Filter */}
             <div className="flex flex-wrap items-center gap-2">
               {currentUser.Role !== 'Mail Officer' && (
                 <div className="flex items-center gap-2 text-xs">
@@ -624,22 +545,19 @@ export default function App() {
                 </div>
               )}
 
-              {/* Download File Buttons */}
               <div className="flex items-center gap-1.5 pl-2 border-l border-gray-200">
                 <button
                   type="button"
                   onClick={() => exportLettersToExcel(displayedLetters, usersMap, 'Report')}
-                  title="அனைத்து கடிதங்களையும் Excel கோப்பாகப் பதிவிறக்குக"
                   className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-700 px-3 py-1.5 text-xs font-bold text-white shadow-2xs hover:bg-emerald-800 transition"
                 >
                   <FileSpreadsheet className="h-3.5 w-3.5" />
-                  <span>Excel பதிவிறக்கு</span>
+                  <span>Excel</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => exportLettersToCsv(displayedLetters, usersMap, 'Report')}
-                  title="அனைத்து கடிதங்களையும் CSV கோப்பாகப் பதிவிறக்குக"
                   className="inline-flex items-center gap-1.5 rounded-lg bg-blue-700 px-2.5 py-1.5 text-xs font-bold text-white shadow-2xs hover:bg-blue-800 transition"
                 >
                   <FileDown className="h-3.5 w-3.5" />
@@ -649,26 +567,21 @@ export default function App() {
                 <button
                   type="button"
                   onClick={() => downloadDataBackupJson(letters, users)}
-                  title="கணினி முழுமையான தரவு காப்புப்பதிவு கோப்பைப் பதிவிறக்கு (JSON Backup)"
                   className="inline-flex items-center gap-1 rounded-lg border border-gray-300 bg-gray-50 px-2.5 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-100 transition"
                 >
                   <Download className="h-3.5 w-3.5 text-gray-600" />
-                  <span className="hidden md:inline">காப்புப்பதிவு</span>
+                  <span>காப்புப்பதிவு</span>
                 </button>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Date-based Folders List */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-bold text-gray-800 flex items-center gap-2">
               <span>📁 திகதி அடிப்படையிலான கடிதப் போல்டர்கள் (Date-wise Folders)</span>
             </h2>
-            <span className="text-xs text-gray-500">
-              ஒவ்வொரு போல்டரையும் விரித்து A4 பக்கவாட்டில் அச்சிடலாம்.
-            </span>
           </div>
 
           <DateFoldersList
@@ -682,12 +595,10 @@ export default function App() {
         </div>
       </main>
 
-      {/* Footer */}
       <footer className="border-t border-gray-200 bg-white py-4 text-center text-xs text-gray-500">
         கோறளைப்பற்று வடக்கு வாகரை பிரதேச செயலகம் &copy; 2026. கடித மேலாண்மை அமைப்பு.
       </footer>
 
-      {/* Modals */}
       <LetterRegisterModal
         isOpen={isRegisterOpen}
         onClose={() => setIsRegisterOpen(false)}
@@ -709,7 +620,7 @@ export default function App() {
 
       <UserManagementModal
         isOpen={isUserMgmtOpen}
-        onClose={() => setIsUserMgmtOnOpen(false)}
+        onClose={() => setIsUserMgmtOpen(false)}
         users={users}
         onAddUser={handleAddUser}
         onUpdateUser={handleUpdateUser}
