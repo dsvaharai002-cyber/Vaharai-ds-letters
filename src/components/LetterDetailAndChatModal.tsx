@@ -56,19 +56,16 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
   const [chatPage, setChatPage] = useState(1);
   const pageSize = 10;
 
-  // Editable local state for Action & Reply
   const [currentAction, setCurrentAction] = useState<LetterAction>('இன்னும் பார்க்கவில்லை');
   const [currentReply, setCurrentReply] = useState('');
   const [currentForwardedTo, setCurrentForwardedTo] = useState<string[]>([]);
   const [isEditingFull, setIsEditingFull] = useState(false);
 
-  // Super Admin edit fields
   const [editSubject, setEditSubject] = useState('');
   const [editInwardNo, setEditInwardNo] = useState('');
   const [editFromWhom, setEditFromWhom] = useState('');
   const [editDate, setEditDate] = useState('');
 
-  // Sync state when letter changes
   useEffect(() => {
     if (letter) {
       setCurrentAction(letter.action);
@@ -92,19 +89,16 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
   const isMega = currentUser.Role === 'Mega';
   const isNormal = currentUser.Role === 'Normal';
 
-  // Forwarding permission check
-  // "03 mage,Normal பயனாளிகளுக்கு கடிதம் போவேட் செய்யும் அதிகாரம் வழங்கப்ட வேண்டும் , நோமல் யூசருக்கு குறித்த பிரிவில் உள்ளவர்களின் பெயர் மட்டும் காண்பிக்க வேண்டும் அவர்களுக்கு மட்டுமே அவர் கடதங்களை போவேட் செய்யலாம்"
+  // கடிதப்பதிவு உத்தியோகத்தருக்கும் (Mail Officer) சுப்பர் அட்மினுக்கு ஒத்த முழுத் திருத்தும் அதிகாரம் வழங்கப்படுகிறது
+  const canModify = isSuperAdmin || isMailOfficer;
   const canForward = isMega || isNormal || isSuperAdmin;
   const allowedDivisionForForward = isNormal ? currentUser.Division : undefined;
 
-  // Pagination for 10 messages
   const chats = letter.chats || [];
   const totalChatPages = Math.max(1, Math.ceil(chats.length / pageSize));
-  // Display latest or chronological pages (chronological sorted, split 10 per page)
   const startIndex = (chatPage - 1) * pageSize;
   const currentChatsSlice = chats.slice(startIndex, startIndex + pageSize);
 
-  // Send new note / chat
   const handleSendMessage = () => {
     if (!newMessage.trim()) return;
 
@@ -126,12 +120,10 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
 
     onUpdateLetter(updatedLetter);
     setNewMessage('');
-    // Go to the last page to see newly sent message
     const newTotalPages = Math.ceil(updatedChats.length / pageSize);
     setChatPage(newTotalPages);
   };
 
-  // Delete specific chat message (Super Admin privilege)
   const handleDeleteChatMessage = (msgId: string) => {
     if (!isSuperAdmin) return;
     if (!confirm('இந்த உரையாடல் செய்தியை அழிக்க விரும்புகிறீர்களா?')) return;
@@ -143,7 +135,6 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
     });
   };
 
-  // Save changes to Action & Reply or Forwarding
   const handleSaveActionAndReply = () => {
     const updated: Letter = {
       ...letter,
@@ -157,7 +148,6 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
     alert('கடிதத்தின் நிலை வெற்றிகரமாக புதுப்பிக்கப்பட்டது!');
   };
 
-  // Save Super Admin edits
   const handleSaveSuperAdminEdits = () => {
     const updated: Letter = {
       ...letter,
@@ -174,9 +164,8 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
     alert('கடித விபரங்கள் திருத்தப்பட்டன.');
   };
 
-  // Delete photo (Super Admin)
   const handleDeletePhoto = () => {
-    if (!isSuperAdmin) return;
+    if (!canModify) return;
     if (!confirm('இக்கடிதத்தின் புகைப்படத்தை நீக்க விரும்புகிறீர்களா?')) return;
     onUpdateLetter({
       ...letter,
@@ -185,7 +174,6 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
     });
   };
 
-  // Delete entire letter (Super Admin)
   const handleDeleteLetter = () => {
     if (!isSuperAdmin) return;
     if (confirm(`கடிதம் (${letter.originalNo}) முழுமையாக நீக்கப்பட வேண்டுமா?`)) {
@@ -194,7 +182,6 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
     }
   };
 
-  // Minimized floating bubble
   if (isMinimized) {
     return (
       <div className="fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-full border border-blue-400 bg-blue-900 p-2 text-white shadow-2xl">
@@ -223,7 +210,6 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs">
       <div className="flex max-h-[92vh] w-full max-w-4xl flex-col rounded-xl bg-white shadow-2xl">
-        {/* Modal Header */}
         <div className="flex items-center justify-between border-b border-gray-200 bg-slate-900 px-6 py-4 text-white rounded-t-xl">
           <div className="flex items-center gap-3">
             <span className="rounded-md bg-blue-600 px-2.5 py-1 text-xs font-mono font-bold tracking-wider text-white">
@@ -235,14 +221,6 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
                 <span>Inward No: <b>{letter.inwardNo}</b></span>
                 <span>•</span>
                 <span>திகதி: <b>{letter.date}</b></span>
-                {letter.handledByMega && (
-                  <>
-                    <span>•</span>
-                    <span className="text-emerald-400 font-semibold">
-                      ✓ மெகா பயனாளி பார்வையிட்டார்
-                    </span>
-                  </>
-                )}
               </div>
             </div>
           </div>
@@ -265,7 +243,6 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
           </div>
         </div>
 
-        {/* Action Header bar with Share & Print buttons */}
         <div className="flex flex-wrap items-center justify-between border-b border-gray-200 bg-gray-50 px-6 py-2.5 text-xs text-gray-700">
           <div className="flex items-center gap-2">
             <button
@@ -282,27 +259,29 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
               <Mail className="h-3.5 w-3.5" />
               இமெயில் பகிர்வு
             </button>
+            
+            {/* கடிதப்பதிவு உத்தியோகத்தர் மற்றும் Super Admin இருவருக்கும் கடிதத்தைத் திருத்தும் அதிகாரம் */}
+            {canModify && (
+              <button
+                onClick={() => setIsEditingFull(!isEditingFull)}
+                className="inline-flex items-center gap-1 rounded-md bg-amber-600 px-2.5 py-1 text-xs font-semibold text-white hover:bg-amber-700"
+              >
+                <Edit3 className="h-3.5 w-3.5" />
+                {isEditingFull ? 'திருத்துவதை ரத்து செய்' : 'கடிதத்தை திருத்து'}
+              </button>
+            )}
+
             {isSuperAdmin && (
-              <>
-                <button
-                  onClick={() => setIsEditingFull(!isEditingFull)}
-                  className="inline-flex items-center gap-1 rounded-md bg-amber-600 px-2.5 py-1 text-xs font-semibold text-white hover:bg-amber-700"
-                >
-                  <Edit3 className="h-3.5 w-3.5" />
-                  {isEditingFull ? 'திருத்துவதை ரத்து செய்' : 'கடிதத்தை திருத்து'}
-                </button>
-                <button
-                  onClick={handleDeleteLetter}
-                  className="inline-flex items-center gap-1 rounded-md bg-red-600 px-2.5 py-1 text-xs font-semibold text-white hover:bg-red-700"
-                >
-                  <Trash2 className="h-3.5 w-3.5" />
-                  கடிதத்தை நீக்கு
-                </button>
-              </>
+              <button
+                onClick={handleDeleteLetter}
+                className="inline-flex items-center gap-1 rounded-md bg-red-600 px-2.5 py-1 text-xs font-semibold text-white hover:bg-red-700"
+              >
+                <Trash2 className="h-3.5 w-3.5" />
+                கடிதத்தை நீக்கு
+              </button>
             )}
           </div>
 
-          {/* Tab buttons for non-mail officers */}
           {!isMailOfficer && (
             <div className="flex items-center gap-1 rounded-lg border border-gray-300 bg-white p-0.5">
               <button
@@ -336,13 +315,11 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
           )}
         </div>
 
-        {/* Modal Main Body */}
         <div className="flex-1 overflow-y-auto p-6">
-          {/* Super Admin Full Edit Form */}
-          {isEditingFull && isSuperAdmin ? (
+          {isEditingFull && canModify ? (
             <div className="space-y-4 rounded-xl border border-amber-300 bg-amber-50/50 p-4 mb-4">
               <h4 className="font-bold text-amber-900 text-sm flex items-center gap-1.5">
-                <Edit3 className="h-4 w-4" /> Super Admin திருத்தப் படிவம்
+                <Edit3 className="h-4 w-4" /> கடிதத் திருத்தப் படிவம்
               </h4>
               <div className="grid grid-cols-1 gap-3 md:grid-cols-3 text-xs">
                 <div>
@@ -392,10 +369,8 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
             </div>
           ) : null}
 
-          {/* Tab 1: Details */}
           {activeTab === 'details' || isMailOfficer ? (
             <div className="space-y-6">
-              {/* Info Grid */}
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2 rounded-xl border border-gray-200 bg-gray-50/50 p-4 text-xs">
                 <div className="space-y-2">
                   <div>
@@ -424,17 +399,7 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
                   <div>
                     <span className="font-semibold text-gray-500">நடவடிக்கை நிலை (Action):</span>
                     <div className="mt-1">
-                      <span
-                        className={`inline-block rounded-md px-2.5 py-1 text-xs font-bold ${
-                          letter.action === 'நடவடிக்கை எடுக்கப்பட்டது'
-                            ? 'bg-emerald-100 text-emerald-800'
-                            : letter.action === 'நடவடிக்கை எடுக்கப்படவில்லை'
-                            ? 'bg-red-100 text-red-800'
-                            : letter.action === 'கள ஆய்வில்'
-                            ? 'bg-amber-100 text-amber-800'
-                            : 'bg-blue-100 text-blue-800'
-                        }`}
-                      >
+                      <span className="inline-block rounded-md bg-blue-100 px-2.5 py-1 text-xs font-bold text-blue-800">
                         {letter.action}
                       </span>
                     </div>
@@ -455,24 +420,16 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
                 </div>
               </div>
 
-              {/* Forwarded To Users Chips */}
               <div className="rounded-xl border border-gray-200 p-4">
                 <div className="mb-2 flex items-center justify-between">
                   <h4 className="text-xs font-bold text-gray-800">
                     அனுப்பப்பட்டுள்ள உத்தியோகத்தர்கள் (Forwarded to):
                   </h4>
-                  {canForward && (
-                    <span className="text-[11px] text-blue-600 font-medium">
-                      {isNormal ? `(${currentUser.Division} உத்தியோகத்தர்கள் மட்டும்)` : '(அனைத்து உத்தியோகத்தர்களும்)'}
-                    </span>
-                  )}
                 </div>
 
                 <div className="flex flex-wrap gap-1.5">
                   {currentForwardedTo.length === 0 ? (
-                    <span className="text-xs text-gray-400 italic">
-                      எவருக்கும் அனுப்பப்படவில்லை
-                    </span>
+                    <span className="text-xs text-gray-400 italic">எவருக்கும் அனுப்பப்படவில்லை</span>
                   ) : (
                     currentForwardedTo.map((uid) => {
                       const userObj = usersMap.get(uid);
@@ -483,14 +440,12 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
                         >
                           <UserCheck className="h-3.5 w-3.5 text-blue-600" />
                           <span>{userObj?.Name || uid}</span>
-                          <span className="text-[11px] text-gray-500">({userObj?.Division || '-'})</span>
                         </span>
                       );
                     })
                   )}
                 </div>
 
-                {/* Forwarding control for Mega / Normal */}
                 {canForward && (
                   <div className="mt-4 border-t border-gray-100 pt-3">
                     <ForwardUserSelect
@@ -504,24 +459,21 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
                 )}
               </div>
 
-              {/* Photo View / Attachments */}
               {letter.image && (
                 <div className="rounded-xl border border-gray-200 p-4">
                   <div className="flex items-center justify-between mb-3">
-                    <h4 className="text-xs font-bold text-gray-800">
-                      📷 இணைக்கப்பட்ட கடிதப் புகைப்படம் (~124 KB)
-                    </h4>
+                    <h4 className="text-xs font-bold text-gray-800">📷 இணைக்கப்பட்ட கடிதப் புகைப்படம்</h4>
                     <div className="flex items-center gap-2">
                       <button
                         type="button"
                         onClick={() => downloadLetterAttachment(letter.image!, `${letter.originalNo}_Document.jpg`)}
-                        className="inline-flex items-center gap-1 rounded bg-emerald-700 px-2.5 py-1 text-xs font-bold text-white shadow-xs hover:bg-emerald-800 transition"
+                        className="inline-flex items-center gap-1 rounded bg-emerald-700 px-2.5 py-1 text-xs font-bold text-white shadow-xs hover:bg-emerald-800"
                       >
                         <Download className="h-3.5 w-3.5" />
-                        <span>கோப்பைப் பதிவிறக்கு (Download File)</span>
+                        <span>பதிவிறக்கு</span>
                       </button>
 
-                      {isSuperAdmin && (
+                      {canModify && (
                         <button
                           type="button"
                           onClick={handleDeletePhoto}
@@ -534,24 +486,11 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
                     </div>
                   </div>
                   <div className="relative max-w-sm overflow-hidden rounded-lg border border-gray-300 bg-black">
-                    <img
-                      src={letter.image}
-                      alt="Letter Document"
-                      className="max-h-72 w-full object-contain"
-                    />
-                    <a
-                      href={letter.image}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="absolute bottom-2 right-2 rounded bg-black/75 px-2.5 py-1 text-[11px] font-bold text-white hover:bg-black"
-                    >
-                      முழுமையாக பார்க்க ↗
-                    </a>
+                    <img src={letter.image} alt="Letter Document" className="max-h-72 w-full object-contain" />
                   </div>
                 </div>
               )}
 
-              {/* Update Action & Response Form (Hidden for Mail Officer) */}
               {!isMailOfficer && (
                 <div className="rounded-xl border border-blue-100 bg-blue-50/50 p-4">
                   <h4 className="font-bold text-blue-950 text-xs mb-3">
@@ -559,32 +498,26 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
                   </h4>
                   <div className="grid grid-cols-1 gap-3 md:grid-cols-2 text-xs">
                     <div>
-                      <label className="mb-1 block font-bold text-gray-700">
-                        நடவடிக்கை நிலை (Action):
-                      </label>
+                      <label className="mb-1 block font-bold text-gray-700">நடவடிக்கை நிலை (Action):</label>
                       <select
                         value={currentAction}
                         onChange={(e) => setCurrentAction(e.target.value as LetterAction)}
-                        className="w-full rounded-lg border border-gray-300 bg-white p-2 text-xs text-gray-800 focus:border-blue-500 focus:outline-hidden"
+                        className="w-full rounded-lg border border-gray-300 bg-white p-2 text-xs text-gray-800"
                       >
                         {ACTION_OPTIONS.map((opt) => (
-                          <option key={opt} value={opt}>
-                            {opt}
-                          </option>
+                          <option key={opt} value={opt}>{opt}</option>
                         ))}
                       </select>
                     </div>
 
                     <div>
-                      <label className="mb-1 block font-bold text-gray-700">
-                        பதில் மற்றும் விளக்கம் (Reply and response):
-                      </label>
+                      <label className="mb-1 block font-bold text-gray-700">பதில் மற்றும் விளக்கம்:</label>
                       <input
                         type="text"
                         value={currentReply}
                         onChange={(e) => setCurrentReply(e.target.value)}
                         placeholder="எடுக்கப்பட்ட நடவடிக்கை / பதில்..."
-                        className="w-full rounded-lg border border-gray-300 bg-white p-2 text-xs text-gray-800 focus:border-blue-500 focus:outline-hidden"
+                        className="w-full rounded-lg border border-gray-300 bg-white p-2 text-xs text-gray-800"
                       />
                     </div>
                   </div>
@@ -603,9 +536,7 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
               )}
             </div>
           ) : (
-            /* Tab 2: NOTE & Individual Letter Chat */
             <div className="flex flex-col h-full space-y-4">
-              {/* Pagination controls for 10-message pagination */}
               <div className="flex items-center justify-between rounded-lg border border-gray-200 bg-gray-50 px-4 py-2 text-xs text-gray-700">
                 <span className="font-semibold">
                   மொத்த உரையாடல்கள்: {chats.length} &nbsp;|&nbsp; பக்கம் {chatPage} / {totalChatPages}
@@ -619,7 +550,7 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
                     className="inline-flex items-center gap-1 rounded border border-gray-300 bg-white px-2.5 py-1 text-xs font-medium hover:bg-gray-100 disabled:opacity-40"
                   >
                     <ChevronLeft className="h-3.5 w-3.5" />
-                    முன்னைய (Previous 10)
+                    முன்னைய (Previous)
                   </button>
                   <button
                     type="button"
@@ -627,54 +558,29 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
                     onClick={() => setChatPage((p) => Math.min(totalChatPages, p + 1))}
                     className="inline-flex items-center gap-1 rounded border border-gray-300 bg-white px-2.5 py-1 text-xs font-medium hover:bg-gray-100 disabled:opacity-40"
                   >
-                    பின்னைய (Next 10)
+                    பின்னைய (Next)
                     <ChevronRight className="h-3.5 w-3.5" />
                   </button>
                 </div>
               </div>
 
-              {/* Chat Message Stream */}
               <div className="min-h-[260px] max-h-[380px] overflow-y-auto space-y-3 rounded-lg border border-gray-200 bg-slate-50/70 p-4">
                 {currentChatsSlice.length === 0 ? (
                   <div className="flex flex-col items-center justify-center py-12 text-center text-gray-400">
                     <MessageSquare className="h-8 w-8 mb-2 stroke-1" />
-                    <p className="text-xs">
-                      இக்கடிதத்திற்கு உரையாடல்கள் எதுவும் இல்லை. உங்கள் குறிப்பை கீழே உள்ளிடுக.
-                    </p>
+                    <p className="text-xs">உரையாடல்கள் எதுவும் இல்லை.</p>
                   </div>
                 ) : (
                   currentChatsSlice.map((msg) => {
                     const isSelf = msg.senderId === currentUser.User_ID;
                     return (
-                      <div
-                        key={msg.id}
-                        className={`flex flex-col ${isSelf ? 'items-end' : 'items-start'}`}
-                      >
+                      <div key={msg.id} className={`flex flex-col ${isSelf ? 'items-end' : 'items-start'}`}>
                         <div className="flex items-center gap-2 mb-1 px-1 text-[11px] text-gray-500">
                           <span className="font-semibold text-gray-800">{msg.senderName}</span>
-                          <span className="rounded bg-gray-200 px-1.5 py-0.2 text-[10px] text-gray-700">
-                            {msg.senderRole}
-                          </span>
+                          <span className="rounded bg-gray-200 px-1.5 py-0.2 text-[10px] text-gray-700">{msg.senderRole}</span>
                           <span>{msg.timestamp}</span>
-                          {isSuperAdmin && (
-                            <button
-                              type="button"
-                              onClick={() => handleDeleteChatMessage(msg.id)}
-                              title="செய்தியை அழி (Super Admin)"
-                              className="text-red-500 hover:text-red-700"
-                            >
-                              <Trash2 className="h-3 w-3" />
-                            </button>
-                          )}
                         </div>
-
-                        <div
-                          className={`max-w-[85%] rounded-2xl px-4 py-2 text-xs leading-relaxed shadow-xs ${
-                            isSelf
-                              ? 'bg-blue-600 text-white rounded-tr-xs'
-                              : 'bg-white text-gray-800 border border-gray-200 rounded-tl-xs'
-                          }`}
-                        >
+                        <div className={`max-w-[85%] rounded-2xl px-4 py-2 text-xs leading-relaxed shadow-xs ${isSelf ? 'bg-blue-600 text-white rounded-tr-xs' : 'bg-white text-gray-800 border border-gray-200 rounded-tl-xs'}`}>
                           {msg.message}
                         </div>
                       </div>
@@ -683,19 +589,13 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
                 )}
               </div>
 
-              {/* New Message Input Area */}
+              {/* உரைப்பகுதி மற்றும் அதன் கீழே கேட்கப்பட்ட கட்டுப்பாட்டுப் பொத்தான்கள் */}
               <div className="space-y-2">
                 <div className="flex gap-2">
                   <textarea
                     rows={2}
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' && !e.shiftKey) {
-                        e.preventDefault();
-                        handleSendMessage();
-                      }
-                    }}
                     placeholder="கடிதம் பற்றிய குறிப்பு அல்லது உரையாடலை உள்ளிடுக... (Enter அழுத்தி அனுப்புக)"
                     className="flex-1 rounded-lg border border-gray-300 p-2.5 text-xs text-gray-800 focus:border-blue-500 focus:outline-hidden"
                   />
@@ -708,19 +608,12 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
                   </button>
                 </div>
 
-                {/* Requirement 02 NOTE:
-                    "புதிப்பி-வெளியேறு-மினிமேஸ் பட்டன்கள் உரைப்பகுதி பெட்டியின் கீழ் காணப்பட வேண்டும்" */}
                 <div className="flex items-center justify-between border-t border-gray-200 pt-2 text-xs">
-                  <span className="text-gray-500 text-[11px]">
-                    உரையாடல் கட்டுப்பாட்டு பொத்தான்கள்:
-                  </span>
+                  <span className="text-gray-500 text-[11px]">உரையாடல் கட்டுப்பாட்டுப் பொத்தான்கள்:</span>
                   <div className="flex items-center gap-2">
                     <button
                       type="button"
-                      onClick={() => {
-                        // Refresh: resets to latest chats
-                        setChatPage(totalChatPages);
-                      }}
+                      onClick={() => setChatPage(totalChatPages)}
                       className="inline-flex items-center gap-1 rounded-md border border-gray-300 bg-gray-100 px-3 py-1.5 text-xs font-semibold text-gray-700 hover:bg-gray-200"
                     >
                       <RefreshCw className="h-3.5 w-3.5 text-blue-600" />
@@ -749,10 +642,9 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
           )}
         </div>
 
-        {/* Modal Footer */}
         <div className="flex items-center justify-between border-t border-gray-200 bg-gray-50 px-6 py-3 rounded-b-xl text-xs text-gray-600">
           <div>
-            <span>பதிவு செய்தவர்: <b>{letter.registeredByName}</b> ({letter.registeredBy})</span>
+            <span>பதிவு செய்தவர்: <b>{letter.registeredByName}</b></span>
           </div>
           <button
             type="button"

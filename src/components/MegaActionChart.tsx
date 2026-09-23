@@ -6,9 +6,14 @@ import { downloadActionLettersPdf } from '../utils/pdfGenerator';
 interface MegaActionChartProps {
   letters: Letter[];
   allUsers: User[];
+  titleOverride?: string;
 }
 
-export const MegaActionChart: React.FC<MegaActionChartProps> = ({ letters, allUsers }) => {
+export const MegaActionChart: React.FC<MegaActionChartProps> = ({ 
+  letters, 
+  allUsers,
+  titleOverride = "📊 கடிதங்களின் நடவடிக்கை நிலவர வரைபடம்" 
+}) => {
   const usersMap = new Map<string, User>(allUsers.map((u) => [u.User_ID, u]));
 
   const actionCounts: Record<LetterAction, number> = {
@@ -81,7 +86,6 @@ export const MegaActionChart: React.FC<MegaActionChartProps> = ({ letters, allUs
 
   return (
     <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-xs mb-6">
-      {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-gray-100 pb-3">
         <div className="flex items-center gap-2">
           <div className="rounded-lg bg-blue-100 p-2 text-blue-800">
@@ -89,7 +93,7 @@ export const MegaActionChart: React.FC<MegaActionChartProps> = ({ letters, allUs
           </div>
           <div>
             <h3 className="text-sm font-bold text-gray-900">
-              📊 மெகா பயனாளி: கடிதங்களின் நடவடிக்கை நிலவர வரைபடம்
+              {titleOverride}
             </h3>
             <p className="text-xs text-gray-500">
               கடிதங்களின் எண்ணிக்கையை கிளிக் செய்து அந்த வகைக் கடிதங்களை PDF ஆகப் பதிவிறக்கலாம்.
@@ -103,7 +107,6 @@ export const MegaActionChart: React.FC<MegaActionChartProps> = ({ letters, allUs
         </div>
       </div>
 
-      {/* Grid of Action Status Bars & Cards */}
       <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {actionConfigs.map((cfg) => {
           const count = actionCounts[cfg.action] || 0;
@@ -125,7 +128,6 @@ export const MegaActionChart: React.FC<MegaActionChartProps> = ({ letters, allUs
                   </span>
                 </div>
 
-                {/* Number Count Clickable Button */}
                 <div className="my-3 flex items-baseline justify-between">
                   <button
                     type="button"
@@ -143,7 +145,6 @@ export const MegaActionChart: React.FC<MegaActionChartProps> = ({ letters, allUs
                   </button>
                 </div>
 
-                {/* Progress Bar */}
                 <div className="h-2 w-full overflow-hidden rounded-full bg-gray-200">
                   <div
                     className={`h-full rounded-full transition-all duration-500 ${cfg.color}`}
@@ -152,7 +153,6 @@ export const MegaActionChart: React.FC<MegaActionChartProps> = ({ letters, allUs
                 </div>
               </div>
 
-              {/* Action Button */}
               <button
                 type="button"
                 onClick={() => handleDownloadPdf(cfg.action)}

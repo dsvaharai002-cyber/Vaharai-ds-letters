@@ -18,7 +18,7 @@ export const DIVISIONS = [
 export const INITIAL_USERS: User[] = [
   {
     User_ID: 'admin',
-    Password: 'admin123',
+    Password: '',
     Name: 'நிர்வாக உத்தியோகத்தர் (Super Admin)',
     Role: 'Super Admin',
     Division: 'நிர்வாகப் பிரிவு (Administration)',
@@ -26,7 +26,7 @@ export const INITIAL_USERS: User[] = [
   },
   {
     User_ID: 'mail01',
-    Password: 'mail123',
+    Password: '',
     Name: 'கடிதப் பதிவாளர் (Mail Officer)',
     Role: 'Mail Officer',
     Division: 'தபால் & ஆவணப் பிரிவு (Mail & Records)',
@@ -34,7 +34,7 @@ export const INITIAL_USERS: User[] = [
   },
   {
     User_ID: '123',
-    Password: '123',
+    Password: '',
     Name: 'பிரதேச செயலாளர் (Mega User)',
     Role: 'Mega',
     Division: 'நிர்வாகப் பிரிவு (Administration)',
@@ -42,7 +42,7 @@ export const INITIAL_USERS: User[] = [
   },
   {
     User_ID: 'norm_land',
-    Password: 'user123',
+    Password: '',
     Name: 'காணிப் பிரிவு பிரதானி (Normal)',
     Role: 'Normal',
     Division: 'காணிப் பிரிவு (Land Division)',
@@ -50,7 +50,7 @@ export const INITIAL_USERS: User[] = [
   },
   {
     User_ID: 'norm_plan',
-    Password: 'user123',
+    Password: '',
     Name: 'திட்டமிடல் பணிப்பாளர் (Normal)',
     Role: 'Normal',
     Division: 'திட்டமிடல் பிரிவு (Planning)',
@@ -58,7 +58,7 @@ export const INITIAL_USERS: User[] = [
   },
   {
     User_ID: 'user_land01',
-    Password: 'user123',
+    Password: '',
     Name: 'காணி அபிவிருத்தி உத்தியோகத்தர்',
     Role: 'User',
     Division: 'காணிப் பிரிவு (Land Division)',
@@ -66,7 +66,7 @@ export const INITIAL_USERS: User[] = [
   },
   {
     User_ID: 'user_land02',
-    Password: 'user123',
+    Password: '',
     Name: 'காணி அளவீட்டு மேற்பார்வையாளர்',
     Role: 'User',
     Division: 'காணிப் பிரிவு (Land Division)',
@@ -74,7 +74,7 @@ export const INITIAL_USERS: User[] = [
   },
   {
     User_ID: 'user_plan01',
-    Password: 'user123',
+    Password: '',
     Name: 'திட்ட உத்தியோகத்தர்',
     Role: 'User',
     Division: 'திட்டமிடல் பிரிவு (Planning)',
@@ -82,7 +82,7 @@ export const INITIAL_USERS: User[] = [
   },
   {
     User_ID: 'user_samurdhi',
-    Password: 'user123',
+    Password: '',
     Name: 'சமுர்த்தி அபிவிருத்தி உத்தியோகத்தர்',
     Role: 'User',
     Division: 'சமூக சேவை & சமுர்த்தி (Social & Samurdhi)',

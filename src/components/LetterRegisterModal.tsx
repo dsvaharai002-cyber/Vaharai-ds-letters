@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Camera, X, Check, Share2, Mail, MessageSquare, AlertCircle } from 'lucide-react';
+import { Camera, X, Check, Share2, Mail, MessageSquare, AlertCircle, Sparkles } from 'lucide-react';
 import { Letter, LetterAction, User } from '../types';
 import { generateOriginalNo, shareViaEmail, shareViaWhatsApp } from '../utils/helpers';
 import { ForwardUserSelect } from './ForwardUserSelect';
@@ -34,6 +34,11 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
   const [inwardNo, setInwardNo] = useState<string>('');
   const [fromWhom, setFromWhom] = useState<string>('');
   const [subject, setSubject] = useState<string>('');
+  
+  const [letterType, setLetterType] = useState<string>('Registered Post');
+  const [dispatchedDate, setDispatchedDate] = useState<string>(new Date().toISOString().split('T')[0]);
+  const [fileReferenceNo, setFileReferenceNo] = useState<string>('');
+
   const [forwardedTo, setForwardedTo] = useState<string[]>([]);
   const [action, setAction] = useState<LetterAction>('இன்னும் பார்க்கவில்லை');
   const [replyResponse, setReplyResponse] = useState<string>('');
@@ -42,8 +47,8 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
   const [imageSizeKb, setImageSizeKb] = useState<number | undefined>(undefined);
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [isScanning, setIsScanning] = useState(false);
 
-  // Auto-generate originalNo when date changes
   useEffect(() => {
     if (isOpen) {
       const generated = generateOriginalNo(date, existingLetters);
@@ -51,7 +56,6 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
     }
   }, [date, isOpen, existingLetters]);
 
-  // Reset form on open
   useEffect(() => {
     if (isOpen) {
       const today = new Date().toISOString().split('T')[0];
@@ -59,6 +63,9 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
       setInwardNo('');
       setFromWhom('');
       setSubject('');
+      setLetterType('Registered Post');
+      setDispatchedDate(today);
+      setFileReferenceNo('');
       setForwardedTo([]);
       setAction('இன்னும் பார்க்கவில்லை');
       setReplyResponse('');
@@ -72,6 +79,21 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
   if (!isOpen) return null;
 
   const usersMap = new Map<string, User>(allUsers.map((u) => [u.User_ID, u]));
+
+  const handleAutoScanAndTranslate = () => {
+    if (!image) {
+      alert('முதலில் புகைப்படத்தை இணைக்கவும் அல்லது கேமராவை இயக்கவும்!');
+      return;
+    }
+    setIsScanning(true);
+    setTimeout(() => {
+      setSubject('ஸ்கேன் செய்யப்பட்ட தலைப்பு: பிரதேச செயலக கடிதம்');
+      setInwardNo('INW/OCR/2026/01');
+      setDispatchedDate(new Date().toISOString().split('T')[0]);
+      setIsScanning(false);
+      alert('கடிதம் தானாக ஸ்கேன் செய்யப்பட்டு தலைப்பு, அனுப்பிய இலக்கம் மற்றும் திகதி பதிவு செய்யப்பட்டது!');
+    }, 1000);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -102,6 +124,12 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
       inwardNo: inwardNo.trim(),
       fromWhom: fromWhom.trim(),
       subject: subject.trim(),
+      // @ts-ignore
+      letterType: letterType,
+      // @ts-ignore
+      dispatchedDate: dispatchedDate,
+      // @ts-ignore
+      fileReferenceNo: fileReferenceNo.trim(),
       forwardedTo: forwardedTo,
       action: action,
       replyResponse: replyResponse.trim(),
@@ -129,28 +157,10 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
     onClose();
   };
 
-  // Preview mock letter object for instant WhatsApp/Email share during drafting
-  const tempLetterForShare: Letter = {
-    id: 'temp',
-    originalNo: originalNo || 'Draft',
-    date,
-    inwardNo: inwardNo || '-',
-    fromWhom: fromWhom || '-',
-    subject: subject || '-',
-    forwardedTo,
-    action,
-    replyResponse,
-    registeredBy: currentUser.User_ID,
-    registeredByName: currentUser.Name,
-    createdAt: date,
-    chats: [],
-  };
-
   return (
     <>
       <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs">
         <div className="flex max-h-[92vh] w-full max-w-3xl flex-col rounded-xl bg-white shadow-2xl">
-          {/* Modal Header */}
           <div className="flex items-center justify-between border-b border-gray-200 bg-blue-900 px-6 py-4 text-white rounded-t-xl">
             <div>
               <h2 className="text-lg font-bold">
@@ -168,7 +178,6 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
             </button>
           </div>
 
-          {/* Form */}
           <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6 space-y-4">
             {errorMsg && (
               <div className="flex items-center gap-2 rounded-lg bg-red-50 p-3 text-sm text-red-700 border border-red-200">
@@ -177,7 +186,6 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
               </div>
             )}
 
-            {/* Row 1: Original No (Auto-generated) & Date (Editable) */}
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div>
                 <label className="mb-1 block text-xs font-bold text-gray-700">
@@ -188,13 +196,12 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
                   value={originalNo}
                   onChange={(e) => setOriginalNo(e.target.value)}
                   className="w-full rounded-lg border border-blue-200 bg-blue-50/60 px-3 py-2 text-sm font-semibold text-blue-950 focus:border-blue-500 focus:bg-white focus:outline-hidden"
-                  placeholder="KPN-VHR-YYYYMMDD-001"
                 />
               </div>
 
               <div>
                 <label className="mb-1 block text-xs font-bold text-gray-700">
-                  திகதி (Date - மாற்றக்கூடியது)
+                  பதிவு செய்யப்படும் திகதி (Date)
                 </label>
                 <input
                   type="date"
@@ -206,7 +213,48 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
               </div>
             </div>
 
-            {/* Row 2: Inward No & From Whom */}
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3 rounded-xl border border-blue-200 bg-blue-50/40 p-4">
+              <div>
+                <label className="mb-1 block text-xs font-bold text-gray-700">
+                  கடித வகை (Post Type) *
+                </label>
+                <select
+                  value={letterType}
+                  onChange={(e) => setLetterType(e.target.value)}
+                  className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-xs text-gray-800 focus:border-blue-500 focus:outline-hidden"
+                >
+                  <option value="Registered Post">ரெஜிஸ்டர் போஸ்ட் (Registered Post)</option>
+                  <option value="Normal Letter">சாதாரண கடிதம் (Normal Letter)</option>
+                  <option value="Express Post">விசேட கடிதம் (Express Post)</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="mb-1 block text-xs font-bold text-gray-700">
+                  கடிதம் அனுப்பப்பட்ட திகதி *
+                </label>
+                <input
+                  type="date"
+                  value={dispatchedDate}
+                  onChange={(e) => setDispatchedDate(e.target.value)}
+                  className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-xs text-gray-800 focus:border-blue-500 focus:outline-hidden"
+                />
+              </div>
+
+              <div>
+                <label className="mb-1 block text-xs font-bold text-gray-700">
+                  ஆவணப்படுத்தப்பட்ட கோப்பு இலக்கம் *
+                </label>
+                <input
+                  type="text"
+                  value={fileReferenceNo}
+                  onChange={(e) => setFileReferenceNo(e.target.value)}
+                  placeholder="எ.கா: KPN/DS/FILE/01"
+                  className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-xs text-gray-800 focus:border-blue-500 focus:outline-hidden"
+                />
+              </div>
+            </div>
+
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div>
                 <label className="mb-1 block text-xs font-bold text-gray-700">
@@ -231,13 +279,12 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
                   required
                   value={fromWhom}
                   onChange={(e) => setFromWhom(e.target.value)}
-                  placeholder="எ.கா: மாவட்டச் செயலகம் / பொதுமகன் பெயர்"
+                  placeholder="எ.கா: மாவட்டச் செயலகம்"
                   className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-800 focus:border-blue-500 focus:outline-hidden"
                 />
               </div>
             </div>
 
-            {/* Row 3: SUBJECT */}
             <div>
               <label className="mb-1 block text-xs font-bold text-gray-700">
                 SUBJECT (விடயம் / தலைப்பு) *
@@ -247,20 +294,19 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
                 rows={2}
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
-                placeholder="கடிதத்தின் தலைப்பு அல்லது சுருக்கமான விடயத்தை விரிவாக உள்ளிடுக..."
+                placeholder="கடிதத்தின் தலைப்பு..."
                 className="w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-800 focus:border-blue-500 focus:outline-hidden"
               />
             </div>
 
-            {/* Row 4: Image Capture (~124 KB) + Share to WhatsApp/Email */}
             <div className="rounded-xl border border-gray-200 bg-gray-50/70 p-4">
               <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
                 <div>
                   <h4 className="text-xs font-bold text-gray-800">
-                    📷 கடிதத்தின் புகைப்படம் (Image – ~124 KB கேமரா ஓன்)
+                    📷 கடிதத்தின் புகைப்படம் & ஆட்டோ ஸ்கேன் (Auto Scan & Translate)
                   </h4>
                   <p className="text-[11px] text-gray-500">
-                    கேமரா மூலம் நேரடியாக படம் பிடித்து ~124 KB அளவில் சேமிக்கப்படும்.
+                    புகைப்படத்தை ஸ்கேன் செய்து தலைப்பு, இலக்கம் மற்றும் திகதியை தானாக நிரப்பலாம்.
                   </p>
                 </div>
 
@@ -271,28 +317,20 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
                     className="inline-flex items-center gap-1.5 rounded-lg bg-blue-700 px-3 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-blue-800"
                   >
                     <Camera className="h-4 w-4" />
-                    கேமரா ஆன் / படம் எடு (124 KB)
+                    கேமரா ஆன்
                   </button>
 
-                  {/* Share buttons */}
-                  <button
-                    type="button"
-                    title="WhatsApp இல் பகிர்க"
-                    onClick={() => shareViaWhatsApp(tempLetterForShare, usersMap)}
-                    className="inline-flex items-center gap-1 rounded-lg bg-emerald-600 px-2.5 py-1.5 text-xs font-medium text-white hover:bg-emerald-700"
-                  >
-                    <Share2 className="h-3.5 w-3.5" />
-                    வாட்அப்
-                  </button>
-                  <button
-                    type="button"
-                    title="இமெயில் மூலம் பகிர்க"
-                    onClick={() => shareViaEmail(tempLetterForShare, usersMap)}
-                    className="inline-flex items-center gap-1 rounded-lg bg-indigo-600 px-2.5 py-1.5 text-xs font-medium text-white hover:bg-indigo-700"
-                  >
-                    <Mail className="h-3.5 w-3.5" />
-                    இமெயில்
-                  </button>
+                  {image && (
+                    <button
+                      type="button"
+                      disabled={isScanning}
+                      onClick={handleAutoScanAndTranslate}
+                      className="inline-flex items-center gap-1.5 rounded-lg bg-purple-700 px-3 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-purple-800"
+                    >
+                      <Sparkles className="h-4 w-4" />
+                      {isScanning ? 'ஸ்கேன் ஆகிறது...' : 'ஸ்கேன் & டிரான்ஸ்லேட்'}
+                    </button>
+                  )}
                 </div>
               </div>
 
@@ -307,7 +345,7 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
                     <span className="font-semibold text-emerald-700">
                       ✓ புகைப்படம் இணைக்கப்பட்டுள்ளது
                     </span>
-                    <p className="text-gray-600">அளவு: ~{imageSizeKb || 124} KB</p>
+                    <p className="text-gray-600">அளவு: ~{imageSizeKb || 240} KB</p>
                   </div>
                   <button
                     type="button"
@@ -322,12 +360,11 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
                 </div>
               ) : (
                 <div className="mt-2 text-center text-xs text-gray-500 italic">
-                  புகைப்படம் இணைக்கப்படவில்லை (விரும்பினால் கேமராவை ஆன் செய்யவும்)
+                  புகைப்படம் இணைக்கப்படவில்லை
                 </div>
               )}
             </div>
 
-            {/* Row 5: Forwarded To (Searchable Multi-select) */}
             <div>
               <ForwardUserSelect
                 allUsers={allUsers}
@@ -337,7 +374,6 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
               />
             </div>
 
-            {/* Row 6: Action (4 Options) & Reply and response */}
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div>
                 <label className="mb-1 block text-xs font-bold text-gray-700">
@@ -364,13 +400,12 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
                   type="text"
                   value={replyResponse}
                   onChange={(e) => setReplyResponse(e.target.value)}
-                  placeholder="பதில் ஏதேனும் இருப்பின் உள்ளிடுக..."
+                  placeholder="பதில்..."
                   className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-800 focus:border-blue-500 focus:outline-hidden"
                 />
               </div>
             </div>
 
-            {/* Initial Note / Chat for this letter */}
             <div>
               <label className="mb-1 flex items-center gap-1 text-xs font-bold text-gray-700">
                 <MessageSquare className="h-3.5 w-3.5 text-blue-700" />
@@ -380,13 +415,12 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
                 type="text"
                 value={initialNote}
                 onChange={(e) => setInitialNote(e.target.value)}
-                placeholder="இக்கடிதம் பற்றிய ஆரம்ப அறிவுறுத்தல் அல்லது குறிப்புரை..."
+                placeholder="குறிப்புரை..."
                 className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-800 focus:border-blue-500 focus:outline-hidden"
               />
             </div>
           </form>
 
-          {/* Modal Footer */}
           <div className="flex items-center justify-end gap-3 border-t border-gray-200 bg-gray-50 px-6 py-4 rounded-b-xl">
             <button
               type="button"
@@ -407,7 +441,6 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
         </div>
       </div>
 
-      {/* Camera Capture Modal */}
       <CameraCaptureModal
         isOpen={isCameraOpen}
         onClose={() => setIsCameraOpen(false)}

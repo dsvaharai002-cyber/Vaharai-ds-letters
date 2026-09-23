@@ -1,16 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
+  Shield,
   PlusCircle,
   LogOut,
   Users,
   Search,
   Filter,
+  FileText,
+  Building,
   RotateCcw,
+  Sparkles,
+  Calendar,
+  CheckCircle,
+  Mail,
+  Printer,
   Download,
   FileSpreadsheet,
   FileDown,
 } from 'lucide-react';
-import { User, Letter, UserRole } from './types';
+import { User, Letter, UserRole, LetterAction } from './types';
 import { INITIAL_USERS, INITIAL_LETTERS } from './data/initialData';
 import { exportLettersToExcel, exportLettersToCsv, downloadDataBackupJson } from './utils/helpers';
 import { LoginScreen } from './components/LoginScreen';
@@ -22,7 +30,7 @@ import { UserManagementModal } from './components/UserManagementModal';
 
 // --- Google Sheets Cloud Integration Setup ---
 const WEB_APP_URL =
-  "https://script.google.com/macros/s/AKfycbxJIP3bwiDNljAJGU2JRA2Ibj0lEuMwDfsx9Wm8DA3aIwKEhP3Kt1g7k0Xm5L8sPXb6cg/exec";
+  "https://script.google.com/macros/s/AKfycbzbfOEJuI00Rkg5dg18mpPRKJN5j4-r2uKyK7hM2EUKmL3n417m14MxOTnQuplJ_GyzMw/exec";
 
 type CloudPayload = Record<string, any>;
 
@@ -35,58 +43,41 @@ const safeJsonParse = <T,>(value: any, fallback: T): T => {
   }
 };
 
-const sendDataToGoogleCloud = (payload: CloudPayload): boolean => {
+// fetch மூலம் நேரடியாக கூகிள் கிளவுட்டுக்கு தரவை அனுப்பும் முறை
+const sendDataToGoogleCloud = async (payload: CloudPayload): Promise<boolean> => {
   try {
     const action = String(payload.action ?? "").trim();
     if (!action) {
       throw new Error("Cloud action is missing.");
     }
 
-    const form = document.createElement("form");
-    form.method = "POST";
-    form.action = WEB_APP_URL + "?action=" + encodeURIComponent(action);
-    form.target = "hidden_iframe";
-    form.style.display = "none";
-
-    const queryParams: Record<string, string> = {
-      action: action,
-      id: String(payload.id ?? ""),
-      originalNo: String(payload.originalNo ?? ""),
-      date: String(payload.date ?? ""),
-      inwardNo: String(payload.inwardNo ?? ""),
-      fromWhom: String(payload.fromWhom ?? ""),
-      subject: String(payload.subject ?? ""),
-      division: String(payload.division ?? ""),
-      forwardedTo: JSON.stringify(payload.forwardedTo ?? []),
-      actionStatus: String(payload.actionStatus ?? payload.action ?? "Pending"),
-      Password: String(payload.Password ?? ""),
-      Name: String(payload.Name ?? ""),
-      Role: String(payload.Role ?? ""),
-      Division: String(payload.Division ?? ""),
-      Status: String(payload.Status ?? ""),
-      extraData: JSON.stringify(payload.extraData ?? payload),
-    };
-
-    Object.entries(queryParams).forEach(([key, value]) => {
-      const input = document.createElement("input");
-      input.type = "hidden";
-      input.name = key;
-      input.value = value;
-      form.appendChild(input);
+    const response = await fetch(WEB_APP_URL, {
+      method: "POST",
+      mode: "no-cors", // கூகிள் ஆப் ஸ்கிரிப்ட் CORS தடையைத் தவிர்க்க
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        action: action,
+        id: String(payload.id ?? ""),
+        originalNo: String(payload.originalNo ?? ""),
+        date: String(payload.date ?? ""),
+        inwardNo: String(payload.inwardNo ?? ""),
+        fromWhom: String(payload.fromWhom ?? ""),
+        subject: String(payload.subject ?? ""),
+        division: String(payload.division ?? ""),
+        forwardedTo: payload.forwardedTo ?? [],
+        actionStatus: String(payload.actionStatus ?? payload.action ?? "Pending"),
+        Password: String(payload.Password ?? ""),
+        Name: String(payload.Name ?? ""),
+        Role: String(payload.Role ?? ""),
+        Division: String(payload.Division ?? ""),
+        Status: String(payload.Status ?? ""),
+        User_ID: String(payload.User_ID ?? ""),
+        extraData: payload.extraData ?? payload,
+      }),
     });
 
-    let iframe = document.getElementById("hidden_iframe") as HTMLIFrameElement | null;
-    if (!iframe) {
-      iframe = document.createElement("iframe");
-      iframe.id = "hidden_iframe";
-      iframe.name = "hidden_iframe";
-      iframe.style.display = "none";
-      document.body.appendChild(iframe);
-    }
-
-    document.body.appendChild(form);
-    form.submit();
-    window.setTimeout(() => form.remove(), 1500);
     return true;
   } catch (error) {
     console.error("Cloud sync error:", error);
@@ -129,8 +120,7 @@ const normalizeLetter = (row: any[]): any => {
     subject: String(row[5] ?? extra.subject ?? ""),
     division: String(row[6] ?? extra.division ?? "General"),
     forwardedTo: parsedForwardedTo,
-    action: String(row[8] ?? extra.action ?? "Pending"),
-    fileReferenceNo: String(extra.fileReferenceNo ?? ""),
+    action: String(row[8] ?? extra.action ?? "Pending") as LetterAction,
   };
 };
 
@@ -260,10 +250,10 @@ export default function App() {
     };
   }, []);
 
-  const cloudWrite = (payload: CloudPayload) => {
-    const ok = sendDataToGoogleCloud(payload);
+  const cloudWrite = async (payload: CloudPayload) => {
+    const ok = await sendDataToGoogleCloud(payload);
     if (!ok) setCloudMessage("Google Sheets அனுப்பலில் பிழை ஏற்பட்டது.");
-    else setCloudMessage("Google Sheets sync அனுப்பப்பட்டது.");
+    else setCloudMessage("Google Sheets sync வெற்றிகரமாக அனுப்பப்பட்டது.");
     return ok;
   };
 
@@ -364,6 +354,15 @@ export default function App() {
     });
   };
 
+  const handleDeleteUser = (userId: string) => {
+    if (!confirm("இந்தப் பயனரை நீக்க வேண்டுமா?")) return;
+    setUsers((prev) => prev.filter((u) => u.User_ID !== userId));
+    cloudWrite({
+      action: "DELETE_USER",
+      User_ID: userId,
+    });
+  };
+
   if (!currentUser) {
     return <LoginScreen users={users} onLoginSuccess={setCurrentUser} />;
   }
@@ -409,7 +408,6 @@ export default function App() {
       letter.fromWhom.toLowerCase().includes(q) ||
       letter.subject.toLowerCase().includes(q) ||
       letter.date.toLowerCase().includes(q) ||
-      (letter.fileReferenceNo && letter.fileReferenceNo.toLowerCase().includes(q)) ||
       forwardedNames.includes(q)
     );
   });
@@ -499,11 +497,45 @@ export default function App() {
       <div className="border-b border-gray-200 bg-white px-4 py-3 shadow-2xs">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs">
           <div className="flex items-center gap-2">
-            <span className="font-bold text-gray-800">தற்போதைய பயனர் நிலை:</span>
-            <span className="rounded-full px-3 py-0.5 font-bold bg-blue-100 text-blue-800">
+            <span className="font-bold text-gray-800">
+              தற்போதைய பயனர் நிலை:
+            </span>
+            <span
+              className={`rounded-full px-3 py-0.5 font-bold ${
+                currentUser.Role === 'Super Admin'
+                  ? 'bg-purple-100 text-purple-800'
+                  : currentUser.Role === 'Mega'
+                  ? 'bg-amber-100 text-amber-800'
+                  : currentUser.Role === 'Mail Officer'
+                  ? 'bg-blue-100 text-blue-800'
+                  : currentUser.Role === 'Normal'
+                  ? 'bg-emerald-100 text-emerald-800'
+                  : 'bg-gray-100 text-gray-800'
+              }`}
+            >
               {currentUser.Role}
             </span>
-            <span className="text-gray-500">({currentUser.Division})</span>
+            <span className="text-gray-500">
+              ({currentUser.Division})
+            </span>
+          </div>
+
+          <div className="text-gray-600 font-medium">
+            {currentUser.Role === 'Super Admin' && (
+              <span>🛡️ அனைத்து கடிதங்களையும் திகதியடிப்படையில் மேலாண்மை செய்யும் அதிகாரம் வழங்கப்பட்டுள்ளது.</span>
+            )}
+            {currentUser.Role === 'Mega' && (
+              <span>📊 மெகா பயனாளி: அனைத்து கடிதங்களும் திகதியடிப்படையில் + வரைபட நிலவரம்.</span>
+            )}
+            {currentUser.Role === 'Mail Officer' && (
+              <span>✉️ கடிதப் பதிவாளர்: கடிதங்களைப் பதிவு செய்யும் முழு அதிகாரம்.</span>
+            )}
+            {currentUser.Role === 'Normal' && (
+              <span>🏢 பிரிவு பிரதானி: {currentUser.Division} கடிதங்கள் மட்டும்.</span>
+            )}
+            {currentUser.Role === 'User' && (
+              <span>👤 கள உத்தியோகத்தர்: உங்கள் ID ({currentUser.User_ID}) க்குரிய கடிதங்கள் மட்டும்.</span>
+            )}
           </div>
         </div>
       </div>
@@ -521,7 +553,7 @@ export default function App() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Original No, Inward No, கோப்பு இலக்கம், விடயம் தேடுக..."
+                placeholder="Original No, Inward No, விடயம், அனுப்புநர் மூலம் தேடுக..."
                 className="w-full rounded-lg border border-gray-300 bg-white py-2 pl-9 pr-3 text-xs text-gray-900 focus:border-blue-600 focus:outline-hidden"
               />
             </div>
@@ -549,15 +581,17 @@ export default function App() {
                 <button
                   type="button"
                   onClick={() => exportLettersToExcel(displayedLetters, usersMap, 'Report')}
+                  title="அனைத்து கடிதங்களையும் Excel கோப்பாகப் பதிவிறக்குக"
                   className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-700 px-3 py-1.5 text-xs font-bold text-white shadow-2xs hover:bg-emerald-800 transition"
                 >
                   <FileSpreadsheet className="h-3.5 w-3.5" />
-                  <span>Excel</span>
+                  <span>Excel பதிவிறக்கு</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => exportLettersToCsv(displayedLetters, usersMap, 'Report')}
+                  title="அனைத்து கடிதங்களையும் CSV கோப்பாகப் பதிவிறக்குக"
                   className="inline-flex items-center gap-1.5 rounded-lg bg-blue-700 px-2.5 py-1.5 text-xs font-bold text-white shadow-2xs hover:bg-blue-800 transition"
                 >
                   <FileDown className="h-3.5 w-3.5" />
@@ -567,10 +601,11 @@ export default function App() {
                 <button
                   type="button"
                   onClick={() => downloadDataBackupJson(letters, users)}
+                  title="கணினி முழுமையான தரவு காப்புப்பதிவு கோப்பைப் பதிவிறக்கு (JSON Backup)"
                   className="inline-flex items-center gap-1 rounded-lg border border-gray-300 bg-gray-50 px-2.5 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-100 transition"
                 >
                   <Download className="h-3.5 w-3.5 text-gray-600" />
-                  <span>காப்புப்பதிவு</span>
+                  <span className="hidden md:inline">காப்புப்பதிவு</span>
                 </button>
               </div>
             </div>
@@ -582,6 +617,9 @@ export default function App() {
             <h2 className="text-sm font-bold text-gray-800 flex items-center gap-2">
               <span>📁 திகதி அடிப்படையிலான கடிதப் போல்டர்கள் (Date-wise Folders)</span>
             </h2>
+            <span className="text-xs text-gray-500">
+              ஒவ்வொரு போல்டரையும் விரித்து A4 பக்கவாட்டில் அச்சிடலாம்.
+            </span>
           </div>
 
           <DateFoldersList

@@ -86,8 +86,8 @@ export const CameraCaptureModal: React.FC<CameraCaptureModalProps> = ({
 
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-      // Compress to ~124 KB target as specified in requirement
-      const { dataUrl, sizeKb } = await compressImageToTarget(canvas, 124);
+      // Compress to ~240 KB target as requested
+      const { dataUrl, sizeKb } = await compressImageToTarget(canvas, 240);
       setPreviewUrl(dataUrl);
       setCompressedSize(sizeKb);
       stopCamera();
@@ -105,7 +105,7 @@ export const CameraCaptureModal: React.FC<CameraCaptureModalProps> = ({
 
     setIsProcessing(true);
     try {
-      const { dataUrl, sizeKb } = await compressImageToTarget(file, 124);
+      const { dataUrl, sizeKb } = await compressImageToTarget(file, 240);
       setPreviewUrl(dataUrl);
       setCompressedSize(sizeKb);
       stopCamera();
@@ -140,7 +140,7 @@ export const CameraCaptureModal: React.FC<CameraCaptureModalProps> = ({
           <div className="flex items-center gap-2">
             <Camera className="h-5 w-5 text-blue-700" />
             <h3 className="font-semibold text-gray-900">
-              கடிதப் புகைப்படம் எடுத்தல் (இலக்கு: ~124 KB)
+              கடிதப் புகைப்படம் எடுத்தல் (இலக்கு: ~240 KB)
             </h3>
           </div>
           <button
@@ -162,7 +162,7 @@ export const CameraCaptureModal: React.FC<CameraCaptureModalProps> = ({
                   className="max-h-80 w-full object-contain mx-auto"
                 />
                 <span className="absolute top-2 right-2 rounded-md bg-black/75 px-2.5 py-1 text-xs font-bold text-white">
-                  அளவு: {compressedSize} KB (124 KB இணக்கம்)
+                  அளவு: {compressedSize} KB (240 KB இணக்கம்)
                 </span>
               </div>
 
@@ -193,7 +193,7 @@ export const CameraCaptureModal: React.FC<CameraCaptureModalProps> = ({
                   <div className="mt-3">
                     <label className="flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-dashed border-gray-300 bg-white p-4 text-center font-medium text-blue-700 hover:bg-blue-50">
                       <Upload className="h-5 w-5" />
-                      <span>சாதனத்திலிருந்து படத்தைத் தெரிவு செய்க (~124 KB ஆக சுருக்கப்படும்)</span>
+                      <span>சாதனத்திலிருந்து படத்தைத் தெரிவு செய்க (~240 KB ஆக சுருக்கப்படும்)</span>
                       <input
                         type="file"
                         accept="image/*"
@@ -227,7 +227,7 @@ export const CameraCaptureModal: React.FC<CameraCaptureModalProps> = ({
                       className="flex items-center justify-center gap-2 rounded-lg bg-blue-700 px-4 py-2.5 font-semibold text-white shadow-sm hover:bg-blue-800 disabled:opacity-50"
                     >
                       <Camera className="h-5 w-5" />
-                      <span>{isProcessing ? 'சுருக்கப்படுகிறது...' : 'புகைப்படம் எடுக்க (Capture ~124KB)'}</span>
+                      <span>{isProcessing ? 'சுருக்கப்படுகிறது...' : 'புகைப்படம் எடுக்க (Capture ~240KB)'}</span>
                     </button>
 
                     <div className="text-center text-xs text-gray-500">அல்லது</div>
