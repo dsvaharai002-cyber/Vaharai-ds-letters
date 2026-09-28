@@ -1,444 +1,523 @@
+import * as XLSX from 'xlsx';
 import { Letter, User } from '../types';
 
-export function generateOriginalNo(dateStr: string, existingLetters: Letter[]): string {
-  const cleanDate = (dateStr || new Date().toISOString().split('T')[0]).replace(/-/g, '');
-  const prefix = `KPN-VHR-${cleanDate}`;
-  const todaysLetters = existingLetters.filter(l => l.originalNo && l.originalNo.startsWith(prefix));
-  const nextNum = todaysLetters.length + 1;
-  return `${prefix}-${String(nextNum).padStart(3, '0')}`;
-}
+/**
+ * Generate Auto Original No in standard format: KPN/DS/YYYY/MM/NNN
+ */
+export const generateOriginalNo = (dateStr: string, existingLetters: Letter[]): string => {
+  const dateObj = dateStr ? new Date(dateStr) : new Date();
+  const year = dateObj.getFullYear() || new Date().getFullYear();
+  const month = String(dateObj.getMonth() + 1).padStart(2, '0');
 
-export function compressImageToTarget(
-  source: HTMLCanvasElement | Blob | File,
-  targetKb: number = 124
-): Promise<{ dataUrl: string; sizeKb: number }> {
-  return new Promise((resolve, reject) => {
-    const processImage = (img: HTMLImageElement) => {
-      let width = img.width;
-      let height = img.height;
+  // Filter letters with this year/month
+  const prefix = `KPN/DS/${year}/${month}/`;
+  const matching = existingLetters.filter(
+    (l) => l.originalNo && l.originalNo.startsWith(prefix)
+  );
 
-      // Max dimensions to constrain unneeded memory
-      const maxDim = 1200;
-      if (width > maxDim || height > maxDim) {
-        if (width > height) {
-          height = Math.round((height * maxDim) / width);
-          width = maxDim;
-        } else {
-          width = Math.round((width * maxDim) / height);
-          height = maxDim;
-        }
-      }
+  const nextSeq = matching.length + 1;
+  return `${prefix}${String(nextSeq).padStart(3, '0')}`;
+};
 
-      const canvas = document.createElement('canvas');
-      canvas.width = width;
-      canvas.height = height;
-      const ctx = canvas.getContext('2d');
-      if (!ctx) {
-        reject(new Error('Canvas context not available'));
-        return;
-      }
+/**
+ * Compress an image file or canvas to approximately ~240 KB target
+ */
+export const compressImageToTarget = async (
+  source: HTMLCanvasElement | File,
+  targetKb = 240
+): Promise<{ dataUrl: string; sizeKb: number }> => {
+  let canvas: HTMLCanvasElement;
 
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(0, 0, width, height);
-      ctx.drawImage(img, 0, 0, width, height);
-
-      // Binary search quality to approach targetKb (~124KB)
-      let minQ = 0.1;
-      let maxQ = 0.95;
-      let bestDataUrl = canvas.toDataURL('image/jpeg', 0.8);
-      let bestSizeKb = Math.round((bestDataUrl.length * 3) / 4 / 1024);
-
-      for (let i = 0; i < 6; i++) {
-        const midQ = (minQ + maxQ) / 2;
-        const currentDataUrl = canvas.toDataURL('image/jpeg', midQ);
-        const currentSizeKb = Math.round((currentDataUrl.length * 3) / 4 / 1024);
-
-        if (Math.abs(currentSizeKb - targetKb) < Math.abs(bestSizeKb - targetKb)) {
-          bestDataUrl = currentDataUrl;
-          bestSizeKb = currentSizeKb;
-        }
-
-        if (currentSizeKb > targetKb) {
-          maxQ = midQ;
-        } else {
-          minQ = midQ;
-        }
-      }
-
-      resolve({ dataUrl: bestDataUrl, sizeKb: bestSizeKb });
-    };
-
-    if (source instanceof HTMLCanvasElement) {
+  if (source instanceof HTMLCanvasElement) {
+    canvas = source;
+  } else {
+    // It's a File
+    canvas = await new Promise<HTMLCanvasElement>((resolve, reject) => {
       const img = new Image();
-      img.onload = () => processImage(img);
-      img.onerror = reject;
-      img.src = source.toDataURL('image/jpeg', 0.9);
-    } else {
       const reader = new FileReader();
       reader.onload = (e) => {
-        const img = new Image();
-        img.onload = () => processImage(img);
-        img.onerror = reject;
         img.src = e.target?.result as string;
       };
       reader.onerror = reject;
+      img.onload = () => {
+        const c = document.createElement('canvas');
+        let width = img.width;
+        let height = img.height;
+        const maxDimension = 1400;
+
+        if (width > maxDimension || height > maxDimension) {
+          if (width > height) {
+            height = Math.round((height * maxDimension) / width);
+            width = maxDimension;
+          } else {
+            width = Math.round((width * maxDimension) / height);
+            height = maxDimension;
+          }
+        }
+
+        c.width = width;
+        c.height = height;
+        const ctx = c.getContext('2d');
+        if (ctx) {
+          ctx.drawImage(img, 0, 0, width, height);
+          resolve(c);
+        } else {
+          reject(new Error('Canvas context error'));
+        }
+      };
       reader.readAsDataURL(source);
-    }
+    });
+  }
+
+  // Iteratively adjust JPEG quality to fit under targetKb
+  let quality = 0.85;
+  let dataUrl = canvas.toDataURL('image/jpeg', quality);
+  let sizeKb = Math.round((dataUrl.length * 3) / 4 / 1024);
+
+  while (sizeKb > targetKb && quality > 0.2) {
+    quality -= 0.12;
+    dataUrl = canvas.toDataURL('image/jpeg', quality);
+    sizeKb = Math.round((dataUrl.length * 3) / 4 / 1024);
+  }
+
+  return { dataUrl, sizeKb };
+};
+
+/**
+ * Export letters to genuine Excel (.xlsx) file with full requested columns
+ */
+export const exportLettersToExcel = (
+  letters: Letter[],
+  usersMap: Map<string, User>,
+  fileNamePrefix = 'Letters_Register'
+) => {
+  const rows = letters.map((l, index) => {
+    const forwardedNames = (l.forwardedTo || [])
+      .map((uid) => usersMap.get(uid)?.Name || uid)
+      .join(', ');
+
+    return {
+      'S.No': index + 1,
+      'Original No': l.originalNo,
+      'Registered Date': l.date,
+      'Dispatched Date': l.dispatchedDate || l.date,
+      'Post Type': l.letterType || 'Registered Post',
+      'Registered Post No': l.registeredPostNo || '-',
+      'Inward No': l.inwardNo,
+      'From Whom': l.fromWhom,
+      'Subject': l.subject,
+      'Primary Division': l.division || '-',
+      'Forwarded Divisions': (l.forwardedDivisions || []).join(', ') || '-',
+      'Forwarded To (Officers)': forwardedNames || '-',
+      'Action Status': l.action,
+      'Reply / Notes': l.replyResponse || '-',
+      'Registered By': l.registeredByName || l.registeredBy,
+    };
   });
-}
 
-export function shareViaWhatsApp(letter: Letter, usersMap: Map<string, User>) {
-  const forwardedNames = letter.forwardedTo
-    .map(uid => usersMap.get(uid)?.Name || uid)
-    .join(', ');
+  const worksheet = XLSX.utils.json_to_sheet(rows);
 
-  const text = 
-`📌 *கோறளைப்பற்று வடக்கு வாகரை பிரதேச செயலகம்*
-*கடித மேலாண்மை அறிவித்தல்*
----------------------------------------
-🔹 *Original No:* ${letter.originalNo}
-🔹 *திகதி (Date):* ${letter.date}
-🔹 *Inward No:* ${letter.inwardNo}
-🔹 *அனுப்புநர் (From):* ${letter.fromWhom}
-🔹 *விடயம் (Subject):* ${letter.subject}
-🔹 *அனுப்பப்பட்டது (Forwarded to):* ${forwardedNames || 'குறிப்பிடப்படவில்லை'}
-🔹 *நடவடிக்கை நிலை (Action):* ${letter.action}
----------------------------------------`;
+  // Auto-fit column widths
+  const columnWidths = [
+    { wch: 6 },  // S.No
+    { wch: 22 }, // Original No
+    { wch: 14 }, // Registered Date
+    { wch: 14 }, // Dispatched Date
+    { wch: 16 }, // Post Type
+    { wch: 18 }, // Registered Post No
+    { wch: 16 }, // Inward No
+    { wch: 28 }, // From Whom
+    { wch: 45 }, // Subject
+    { wch: 22 }, // Division
+    { wch: 25 }, // Forwarded Divisions
+    { wch: 30 }, // Forwarded To
+    { wch: 18 }, // Action Status
+    { wch: 30 }, // Reply / Notes
+    { wch: 24 }, // Registered By
+  ];
+  worksheet['!cols'] = columnWidths;
 
-  const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
-  window.open(url, '_blank');
-}
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Mail Register');
 
-export function shareViaEmail(letter: Letter, usersMap: Map<string, User>) {
-  const forwardedNames = letter.forwardedTo
-    .map(uid => usersMap.get(uid)?.Name || uid)
-    .join(', ');
+  const todayStr = new Date().toISOString().split('T')[0];
+  XLSX.writeFile(workbook, `${fileNamePrefix}_${todayStr}.xlsx`);
+};
 
-  const subject = `[கடித விபரம் - ${letter.originalNo}] ${letter.subject}`;
-  const body = 
-`கோறளைப்பற்று வடக்கு வாகரை பிரதேச செயலக கடித மேலாண்மை அமைப்பு
+/**
+ * Export letters to CSV file
+ */
+export const exportLettersToCsv = (
+  letters: Letter[],
+  usersMap: Map<string, User>,
+  fileNamePrefix = 'Letters'
+) => {
+  const headers = [
+    'OriginalNo',
+    'DispatchedDate',
+    'PostType',
+    'RegisteredPostNo',
+    'InwardNo',
+    'FromWhom',
+    'Subject',
+    'Division',
+    'ForwardedTo',
+    'ActionStatus',
+    'Reply',
+  ];
 
-Original No: ${letter.originalNo}
-Date: ${letter.date}
-Inward No: ${letter.inwardNo}
-From: ${letter.fromWhom}
-Subject: ${letter.subject}
-Forwarded To: ${forwardedNames}
-Action: ${letter.action}
-Reply & Response: ${letter.replyResponse || 'இல்லை'}
-Registered By: ${letter.registeredByName}
+  const csvRows: string[] = [headers.join(',')];
 
-----------------------------------------
-இச்செய்தி கோறளைப்பற்று வடக்கு வாகரை பிரதேச செயலக கடித மேலாண்மை அமைப்பிலிருந்து உருவாக்கப்பட்டது.`;
+  letters.forEach((l) => {
+    const forwardedNames = (l.forwardedTo || [])
+      .map((uid) => usersMap.get(uid)?.Name || uid)
+      .join('; ');
 
-  const url = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  window.open(url, '_blank');
-}
+    const clean = (val: string | undefined | null) =>
+      `"${String(val ?? '').replace(/"/g, '""')}"`;
 
-export function printLandscapeDateReport(dateStr: string, letters: Letter[], usersMap: Map<string, User>) {
-  const printWindow = window.open('', '', 'width=1100,height=750');
+    csvRows.push(
+      [
+        clean(l.originalNo),
+        clean(l.dispatchedDate || l.date),
+        clean(l.letterType || 'Registered Post'),
+        clean(l.registeredPostNo || '-'),
+        clean(l.inwardNo),
+        clean(l.fromWhom),
+        clean(l.subject),
+        clean(l.division || '-'),
+        clean(forwardedNames),
+        clean(l.action),
+        clean(l.replyResponse || ''),
+      ].join(',')
+    );
+  });
+
+  const blob = new Blob([csvRows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${fileNamePrefix}_${new Date().toISOString().split('T')[0]}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+};
+
+/**
+ * Print Landscape Report with exact requested 10pt (10px) font size
+ * Columns requested by user:
+ * 1. # (Serial No)
+ * 2. OriginalNo (கணினி இலக்கம்)
+ * 3. DispatchedDate (அனுப்பிய திகதி)
+ * 4. Post Type & RegisteredPostNo (இரண்டும் ஒரே பெட்டியில்)
+ * 5. InwardNo (கடித இலக்கம்)
+ * 6. FromWhom (அனுப்புனர்)
+ * 7. Subject (விடயம்)
+ * 8. ForwardedDivisions & ForwardedTo (இரண்டும் ஒரே பெட்டியில்)
+ * 9. Sign (ஒப்பம்)
+ */
+export const printLandscapeReport = (
+  title: string,
+  letters: Letter[],
+  usersMap: Map<string, User>
+) => {
+  const printWindow = window.open('', '_blank');
   if (!printWindow) {
-    alert('பாப்அப் விண்டோ தடுக்கப்பட்டுள்ளது. தயவுசெய்து Popups ஐ அனுமதிக்கவும்.');
+    alert('Please allow popups to view and print the report.');
     return;
   }
 
-  const rowsHtml = letters.map((ltr, idx) => {
-    const forwardedNames = ltr.forwardedTo
-      .map(id => usersMap.get(id)?.Name || id)
-      .join(', ');
+  const rowsHtml = letters
+    .map((l, index) => {
+      const forwardedNames = (l.forwardedTo || [])
+        .map((uid) => usersMap.get(uid)?.Name || uid)
+        .join(', ');
 
-    return `
-      <tr>
-        <td style="text-align: center; font-weight: bold;">${idx + 1}</td>
-        <td style="font-weight: bold; color: #0d47a1;">${ltr.originalNo}</td>
-        <td>${ltr.date}</td>
-        <td style="font-weight: bold;">${ltr.inwardNo}</td>
-        <td>${ltr.fromWhom}</td>
-        <td style="font-size: 13px;">${ltr.subject}</td>
-        <td style="font-size: 12px;">${forwardedNames || '-'}</td>
-        <td style="width: 140px; height: 48px; border: 1px solid #333;"></td>
-      </tr>
-    `;
-  }).join('');
+      const divisionsList = (
+        l.forwardedDivisions && l.forwardedDivisions.length > 0
+          ? l.forwardedDivisions
+          : [l.division]
+      ).filter(Boolean);
+
+      return `
+        <tr>
+          <td style="text-align: center; font-weight: bold;">${index + 1}</td>
+          <td style="font-weight: 700; font-family: monospace; white-space: nowrap; color: #0f172a;">${l.originalNo || '-'}</td>
+          <td style="white-space: nowrap; text-align: center;">${l.dispatchedDate || l.date || '-'}</td>
+          <td>
+            <div style="font-weight: bold; color: #0f172a;">${l.letterType || 'Registered Post'}</div>
+            ${
+              l.registeredPostNo && l.registeredPostNo !== '-' && l.registeredPostNo !== '_'
+                ? `<div style="font-size: 8.5pt; font-family: monospace; color: #1e3a8a; margin-top: 2px;">Reg No: ${l.registeredPostNo}</div>`
+                : ''
+            }
+          </td>
+          <td style="font-weight: 600; font-family: monospace; color: #0f172a;">${l.inwardNo || '-'}</td>
+          <td>${l.fromWhom || '-'}</td>
+          <td>
+            <div>${l.subject || '-'}</div>
+            ${l.fileNo ? `<div style="margin-top: 3px; font-size: 8.5pt; color: #065f46; font-weight: bold; font-family: monospace;">📁 File: ${l.fileNo}</div>` : ''}
+          </td>
+          <td>
+            <div style="font-weight: bold; color: #1e3a8a; margin-bottom: 2px;">🏢 ${divisionsList.join(', ') || l.division || '-'}</div>
+            <div style="font-size: 8.5pt; color: #334155; border-top: 1px dashed #cbd5e1; padding-top: 2px; margin-top: 2px;">👤 ${forwardedNames || '—'}</div>
+          </td>
+          <td style="min-width: 65px; height: 32px; border-bottom: 1px dashed #94a3b8; text-align: center; vertical-align: bottom;"></td>
+        </tr>
+      `;
+    })
+    .join('');
 
   const html = `
     <!DOCTYPE html>
-    <html lang="ta">
-    <head>
-      <meta charset="UTF-8">
-      <title>கடிதப் பதிவு அறிக்கை - ${dateStr}</title>
-      <style>
-        @page {
-          size: A4 landscape;
-          margin: 12mm 10mm 12mm 10mm;
-        }
-        body {
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans Tamil', Arial, sans-serif;
-          margin: 0;
-          padding: 10px;
-          color: #111;
-          font-size: 13px;
-        }
-        .header {
-          text-align: center;
-          margin-bottom: 15px;
-          border-bottom: 2px double #333;
-          padding-bottom: 8px;
-        }
-        .header h2 {
-          margin: 0 0 4px 0;
-          font-size: 20px;
-          color: #0d47a1;
-        }
-        .header h4 {
-          margin: 0 0 4px 0;
-          font-size: 15px;
-          color: #374151;
-        }
-        .header p {
-          margin: 0;
-          font-size: 12px;
-          color: #4b5563;
-        }
-        table {
-          width: 100%;
-          border-collapse: collapse;
-          margin-top: 10px;
-          font-size: 12px;
-        }
-        th, td {
-          border: 1px solid #4b5563;
-          padding: 8px 6px;
-          vertical-align: middle;
-          text-align: left;
-        }
-        th {
-          background-color: #f3f4f6;
-          font-weight: bold;
-          font-size: 12px;
-          color: #111827;
-        }
-        .footer {
-          margin-top: 30px;
-          display: flex;
-          justify-content: space-between;
-          padding: 0 20px;
-          font-size: 12px;
-        }
-        .sig-block {
-          text-align: center;
-          width: 200px;
-          border-top: 1px dashed #333;
-          padding-top: 6px;
-        }
-        @media print {
-          .no-print { display: none; }
-        }
-      </style>
-    </head>
-    <body>
-      <div class="no-print" style="margin-bottom: 12px; background: #e0f2fe; padding: 10px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;">
-        <span>🖨️ A4 பக்கவாட்டில் (Landscape) அச்சிடத் தயாராக உள்ளது.</span>
-        <button onclick="window.print()" style="padding: 8px 16px; background: #0284c7; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">
-          அச்சிடுக (Print)
-        </button>
-      </div>
-
-      <div class="header" style="display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 14px; border-bottom: 2px solid #1e3a8a; padding-bottom: 8px;">
-        <img src="${window.location.origin}/vaharai_logo.jpg" alt="வாகரை பிரதேச செயலக முத்திரை" style="height: 68px; width: 68px; object-fit: contain; border-radius: 50%;" />
-        <div style="text-align: center;">
-          <h2 style="margin: 0; font-size: 17px; font-weight: 800; color: #1e3a8a;">கோறளைப்பற்று வடக்கு வாகரை பிரதேச செயலகம்</h2>
-          <h3 style="margin: 2px 0; font-size: 12px; font-weight: 600; color: #374151;">DIVISIONAL SECRETARIAT - KORALAIPATTU NORTH, VAKARAI</h3>
-          <h4 style="margin: 3px 0; font-size: 13px; font-weight: 700; color: #111827;">கடித முகாமைத்துவ நாளாந்தப் பதிவு அறிக்கை (Daily Mail Registry)</h4>
-          <p style="margin: 2px 0; font-size: 10.5px; color: #4b5563;"><b>திகதி:</b> ${dateStr} &nbsp;|&nbsp; <b>மொத்த கடிதங்கள்:</b> ${letters.length} &nbsp;|&nbsp; <b>அறிக்கை பெறப்பட்ட நேரம்:</b> ${new Date().toLocaleString('ta-LK')}</p>
+    <html>
+      <head>
+        <title>${title} - DS Office Mail Management</title>
+        <style>
+          @page {
+            size: A4 landscape;
+            margin: 10mm 8mm;
+          }
+          body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 10pt; /* Requested font size 10pt */
+            color: #111;
+            margin: 0;
+            padding: 8px;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+          }
+          .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #1e3a8a;
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+          }
+          .header h1 {
+            font-size: 13pt;
+            font-weight: bold;
+            margin: 0;
+            color: #0f172a;
+          }
+          .header h2 {
+            font-size: 10.5pt;
+            margin: 2px 0 0 0;
+            color: #1e3a8a;
+          }
+          .meta {
+            font-size: 9pt;
+            color: #475569;
+            margin-top: 4px;
+          }
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 10pt; /* 10pt font size as requested */
+            table-layout: fixed;
+          }
+          th, td {
+            border: 1px solid #64748b;
+            padding: 5px 6px;
+            vertical-align: top;
+            word-wrap: break-word;
+          }
+          th {
+            background-color: #f1f5f9;
+            font-weight: bold;
+            color: #0f172a;
+            text-align: left;
+            font-size: 9.5pt;
+          }
+          tr:nth-child(even) {
+            background-color: #f8fafc;
+          }
+          .footer {
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 9pt;
+            color: #475569;
+            border-top: 1px solid #cbd5e1;
+            padding-top: 6px;
+          }
+          .sign-area {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            font-size: 9.5pt;
+          }
+          .sign-box {
+            text-align: center;
+            width: 200px;
+            border-top: 1px dashed #334155;
+            padding-top: 4px;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="header">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <img src="/vaharai_ds_logo_1789105296870.jpg" alt="Logo" style="width:48px; height:48px; border-radius:50%; object-fit:contain; border:1.5px solid #d97706;" onerror="this.style.display='none'" />
+            <div>
+              <h1>Divisional Secretariat - Koralaipattu North, Vaharai</h1>
+              <h2>Postal Mail Registration & Dispatch Log (அஞ்சல் பதிவு & நடவடிக்கை அறிக்கை)</h2>
+              <div class="meta">
+                <strong>Report:</strong> ${title} &nbsp;|&nbsp; 
+                <strong>Total Records:</strong> ${letters.length} &nbsp;|&nbsp; 
+                <strong>Printed On:</strong> ${new Date().toLocaleString()}
+              </div>
+            </div>
+          </div>
+          <div style="text-align: right; font-size: 9pt;">
+            <span style="display:inline-block; border:1px solid #1e3a8a; border-radius:4px; padding:3px 8px; font-weight:bold; color:#1e3a8a;">
+              OFFICIAL RECORD
+            </span>
+          </div>
         </div>
-      </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th style="width: 30px; text-align: center;">இல</th>
-            <th style="width: 130px;">Original No</th>
-            <th style="width: 80px;">Date</th>
-            <th style="width: 90px;">Inward No</th>
-            <th style="width: 150px;">From whom</th>
-            <th>SUBJECT (விடயம்)</th>
-            <th style="width: 160px;">Forwarded to</th>
-            <th style="width: 120px; text-align: center;">கையொப்பம் (Signature)</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${rowsHtml}
-        </tbody>
-      </table>
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 26px; text-align: center;">#</th>
+              <th style="width: 140px;">Original No<br/><span style="font-size: 8pt; font-weight: normal; color: #475569;">(கணினி இலக்கம்)</span></th>
+              <th style="width: 80px; text-align: center;">Dispatched Date<br/><span style="font-size: 8pt; font-weight: normal; color: #475569;">(அனுப்பிய திகதி)</span></th>
+              <th style="width: 110px;">Post Type & Reg. Post No<br/><span style="font-size: 8pt; font-weight: normal; color: #475569;">(தபால் வகை / பதிவு எண்)</span></th>
+              <th style="width: 115px;">Inward No<br/><span style="font-size: 8pt; font-weight: normal; color: #475569;">(கடித இலக்கம்)</span></th>
+              <th style="width: 145px;">From Whom<br/><span style="font-size: 8pt; font-weight: normal; color: #475569;">(அனுப்புனர்)</span></th>
+              <th style="width: 215px;">Subject<br/><span style="font-size: 8pt; font-weight: normal; color: #475569;">(விடயம்)</span></th>
+              <th style="width: 180px;">Forwarded Divisions & Officers<br/><span style="font-size: 8pt; font-weight: normal; color: #475569;">(பிரிவுகள் & உத்தியோகத்தர்கள்)</span></th>
+              <th style="width: 65px; text-align: center;">Sign<br/><span style="font-size: 8pt; font-weight: normal; color: #475569;">(ஒப்பம்)</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rowsHtml}
+          </tbody>
+        </table>
 
-      <div class="footer">
-        <div class="sig-block">
-          தயாரித்தவர்: கடிதப் பதிவாளர்
+        <div class="sign-area">
+          <div class="sign-box">
+            Prepared By (Mail Officer)
+          </div>
+          <div class="sign-box">
+            Subject Officer / Section Head
+          </div>
+          <div class="sign-box">
+            Divisional Secretary / Assistant DS
+          </div>
         </div>
-        <div class="sig-block">
-          சரிபார்த்தவர்: நிர்வாக உத்தியோகத்தர்
-        </div>
-        <div class="sig-block">
-          பிரதேச செயலாளர்
-        </div>
-      </div>
 
-      <script>
-        window.onload = function() {
-          // auto focus
-        };
-      </script>
-    </body>
+        <div class="footer">
+          <span>Koralaipattu North Vaharai DS Office &copy; ${new Date().getFullYear()}</span>
+          <span>Official Register Log (A4 Landscape - Font 10pt)</span>
+        </div>
+
+        <script>
+          window.onload = function() {
+            setTimeout(function() {
+              window.print();
+            }, 300);
+          };
+        </script>
+      </body>
     </html>
   `;
 
+  printWindow.document.open();
   printWindow.document.write(html);
   printWindow.document.close();
-}
+};
 
-export function downloadLetterAttachment(dataUrl: string, filename: string = 'Letter_Document.jpg') {
+/**
+ * WhatsApp share generator
+ */
+export const shareViaWhatsApp = (letter: Letter, usersMap: Map<string, User>) => {
+  const forwardedNames = (letter.forwardedTo || [])
+    .map((uid) => usersMap.get(uid)?.Name || uid)
+    .join(', ');
+
+  const text = `📬 *DS Office Mail Record*
+*Original No:* ${letter.originalNo}
+*Date:* ${letter.date}
+*Dispatched Date:* ${letter.dispatchedDate || letter.date}
+*Post Type:* ${letter.letterType} (${letter.registeredPostNo || '-'})
+*Inward No:* ${letter.inwardNo}
+*From Whom:* ${letter.fromWhom}
+*Subject:* ${letter.subject}
+*Division:* ${letter.division || 'General'}
+*Forwarded To:* ${forwardedNames || 'N/A'}
+*Status:* ${letter.action}
+${letter.fileNo ? `*Filed File No:* ${letter.fileNo}\n` : ''}${letter.replyResponse ? `*Reply:* ${letter.replyResponse}` : ''}
+--
+_Koralaipattu North Vaharai DS Office_`;
+
+  const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+  window.open(url, '_blank');
+};
+
+/**
+ * Email share generator
+ */
+export const shareViaEmail = (letter: Letter, usersMap: Map<string, User>) => {
+  const forwardedNames = (letter.forwardedTo || [])
+    .map((uid) => usersMap.get(uid)?.Name || uid)
+    .join(', ');
+
+  const subject = encodeURIComponent(`DS Office Mail: ${letter.originalNo} - ${letter.subject}`);
+  const body = encodeURIComponent(`Dear Officer,
+
+Please review the postal mail details below:
+
+Original No: ${letter.originalNo}
+Date Registered: ${letter.date}
+Dispatched Date: ${letter.dispatchedDate || letter.date}
+Post Type: ${letter.letterType}
+Registered Post No: ${letter.registeredPostNo || '-'}
+Inward No: ${letter.inwardNo}
+From Whom: ${letter.fromWhom}
+Subject: ${letter.subject}
+Primary Division: ${letter.division || 'General'}
+Forwarded To: ${forwardedNames || 'N/A'}
+Status: ${letter.action}
+Reply/Action Note: ${letter.replyResponse || 'Pending'}
+
+Regards,
+Mail Management System
+Koralaipattu North Vaharai DS Office`);
+
+  window.location.href = `mailto:?subject=${subject}&body=${body}`;
+};
+
+/**
+ * Download attached photo or document
+ */
+export const downloadLetterAttachment = (dataUrl: string, fileName: string) => {
   const a = document.createElement('a');
   a.href = dataUrl;
-  a.download = filename;
+  a.download = fileName;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
-}
+};
 
-export function exportLettersToExcel(letters: Letter[], usersMap: Map<string, User>, filenameSuffix: string = 'Report') {
-  const rows = letters.map((l, i) => {
-    const forwardedNames = l.forwardedTo.map(uid => usersMap.get(uid)?.Name || uid).join(', ');
-    return `
-      <tr>
-        <td>${i + 1}</td>
-        <td>${l.originalNo}</td>
-        <td>${l.date}</td>
-        <td>${l.inwardNo}</td>
-        <td>${l.fromWhom}</td>
-        <td>${l.subject.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</td>
-        <td>${forwardedNames}</td>
-        <td>${l.action}</td>
-        <td>${(l.replyResponse || '').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</td>
-        <td>${l.registeredByName}</td>
-        <td>${l.handledByMega ? 'ஆம் (Mega கையாளப்பட்டது)' : 'இல்லை'}</td>
-        <td></td>
-      </tr>
-    `;
-  }).join('');
-
-  const html = `
-    <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
-    <head>
-      <meta charset="utf-8">
-      <!--[if gte mso 9]>
-      <xml>
-        <x:ExcelWorkbook>
-          <x:ExcelWorksheets>
-            <x:ExcelWorksheet>
-              <x:Name>கடிதங்கள்</x:Name>
-              <x:WorksheetOptions>
-                <x:DisplayGridlines/>
-              </x:WorksheetOptions>
-            </x:ExcelWorksheet>
-          </x:ExcelWorksheets>
-        </x:ExcelWorkbook>
-      </xml>
-      <![endif]-->
-      <style>
-        th { background-color: #0d47a1; color: white; font-weight: bold; border: 1px solid #333; padding: 6px; }
-        td { border: 1px solid #ccc; padding: 5px; }
-      </style>
-    </head>
-    <body>
-      <h2>கோறளைப்பற்று வடக்கு வாகரை பிரதேச செயலகம் - கடிதப் பட்டியல்</h2>
-      <p>திகதி: ${new Date().toLocaleDateString('ta-LK')} | மொத்த கடிதங்கள்: ${letters.length}</p>
-      <table>
-        <thead>
-          <tr>
-            <th>இல</th>
-            <th>Original No</th>
-            <th>Date</th>
-            <th>Inward No</th>
-            <th>From Whom (அனுப்புநர்)</th>
-            <th>SUBJECT (விடயம்)</th>
-            <th>Forwarded To (அனுப்பப்பட்டது)</th>
-            <th>Action (நிலை)</th>
-            <th>Reply & Response (பதில்)</th>
-            <th>Registered By (பதிவாளர்)</th>
-            <th>Mega Handled</th>
-            <th>கையொப்பம் (Signature)</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${rows}
-        </tbody>
-      </table>
-    </body>
-    </html>
-  `;
-
-  // UTF-8 BOM for Excel Tamil font support
-  const blob = new Blob(['\ufeff', html], { type: 'application/vnd.ms-excel;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `Vaharai_Letters_${filenameSuffix}_${new Date().toISOString().split('T')[0]}.xls`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
-
-export function exportLettersToCsv(letters: Letter[], usersMap: Map<string, User>, filenameSuffix: string = 'Report') {
-  const headers = ['#', 'Original No', 'Date', 'Inward No', 'From Whom', 'Subject', 'Forwarded To', 'Action', 'Reply/Response', 'Registered By'];
-  const rows = letters.map((l, i) => {
-    const forwardedNames = l.forwardedTo.map(uid => usersMap.get(uid)?.Name || uid).join('; ');
-    const escapeCsv = (str: string) => `"${(str || '').replace(/"/g, '""')}"`;
-    return [
-      i + 1,
-      escapeCsv(l.originalNo),
-      escapeCsv(l.date),
-      escapeCsv(l.inwardNo),
-      escapeCsv(l.fromWhom),
-      escapeCsv(l.subject),
-      escapeCsv(forwardedNames),
-      escapeCsv(l.action),
-      escapeCsv(l.replyResponse || ''),
-      escapeCsv(l.registeredByName),
-    ].join(',');
-  });
-
-  const csvContent = '\ufeff' + [headers.join(','), ...rows].join('\r\n');
-  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `Vaharai_Letters_${filenameSuffix}_${new Date().toISOString().split('T')[0]}.csv`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
-
-export function downloadDataBackupJson(letters: Letter[], users: User[]) {
-  const backup = {
-    exportedAt: new Date().toISOString(),
-    system: 'Koralaipattu North Vaharai Divisional Secretariat Letter Management',
-    lettersCount: letters.length,
-    usersCount: users.length,
-    users: users.map(u => ({ ...u, Password: '***' })), // secure export
-    letters: letters,
+/**
+ * Backup full database to JSON
+ */
+export const downloadDataBackupJson = (letters: Letter[], users: User[]) => {
+  const data = {
+    exportDate: new Date().toISOString(),
+    system: 'Koralaipattu North Vaharai DS Office Mail System',
+    users,
+    letters,
   };
 
-  const jsonStr = JSON.stringify(backup, null, 2);
-  const blob = new Blob([jsonStr], { type: 'application/json' });
+  const blob = new Blob([JSON.stringify(data, null, 2)], {
+    type: 'application/json',
+  });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `Vaharai_Letter_Management_Backup_${new Date().toISOString().split('T')[0]}.json`;
-  document.body.appendChild(a);
+  a.download = `Vaharai_DS_Mail_Backup_${new Date().toISOString().split('T')[0]}.json`;
   a.click();
-  document.body.removeChild(a);
   URL.revokeObjectURL(url);
-}
+};

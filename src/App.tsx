@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Shield,
   PlusCircle,
@@ -7,35 +7,36 @@ import {
   Search,
   Filter,
   FileText,
-  Building,
+  Building2,
   RotateCcw,
   Sparkles,
   Calendar,
   CheckCircle,
   Mail,
   Printer,
-  Download,
-  FileSpreadsheet,
-  FileDown,
+  Crown,
+  Layers,
+  ArrowUpDown,
 } from 'lucide-react';
 import { User, Letter, UserRole, LetterAction } from './types';
-import { INITIAL_USERS, INITIAL_LETTERS } from './data/initialData';
-import { exportLettersToExcel, exportLettersToCsv, downloadDataBackupJson } from './utils/helpers';
+import { INITIAL_USERS, INITIAL_LETTERS, DIVISIONS, migrateDivision } from './data/initialData';
+import { printLandscapeReport } from './utils/helpers';
 import { LoginScreen } from './components/LoginScreen';
-import { MegaActionChart } from './components/MegaActionChart';
+import { DivisionActionChart } from './components/DivisionActionChart';
 import { DateFoldersList } from './components/DateFoldersList';
 import { LetterRegisterModal } from './components/LetterRegisterModal';
 import { LetterDetailAndChatModal } from './components/LetterDetailAndChatModal';
 import { UserManagementModal } from './components/UserManagementModal';
+import { VaharaiLogo } from './components/VaharaiLogo';
 
 // --- Google Sheets Cloud Integration Setup ---
 const WEB_APP_URL =
-  "https://script.google.com/macros/s/AKfycbzbfOEJuI00Rkg5dg18mpPRKJN5j4-r2uKyK7hM2EUKmL3n417m14MxOTnQuplJ_GyzMw/exec";
+  'https://script.google.com/macros/s/AKfycbzbfOEJuI00Rkg5dg18mpPRKJN5j4-r2uKyK7hM2EUKmL3n417m14MxOTnQuplJ_GyzMw/exec';
 
 type CloudPayload = Record<string, any>;
 
 const safeJsonParse = <T,>(value: any, fallback: T): T => {
-  if (value === null || value === undefined || value === "") return fallback;
+  if (value === null || value === undefined || value === '') return fallback;
   try {
     return JSON.parse(String(value)) as T;
   } catch {
@@ -43,44 +44,46 @@ const safeJsonParse = <T,>(value: any, fallback: T): T => {
   }
 };
 
-// fetch மூலம் நேரடியாக கூகிள் கிளவுட்டுக்கு தரவை அனுப்பும் முறை
 const sendDataToGoogleCloud = async (payload: CloudPayload): Promise<boolean> => {
   try {
-    const action = String(payload.action ?? "").trim();
-    if (!action) {
-      throw new Error("Cloud action is missing.");
-    }
+    const action = String(payload.action ?? '').trim();
+    if (!action) throw new Error('Cloud action is missing.');
 
-    const response = await fetch(WEB_APP_URL, {
-      method: "POST",
-      mode: "no-cors", // கூகிள் ஆப் ஸ்கிரிப்ட் CORS தடையைத் தவிர்க்க
+    await fetch(WEB_APP_URL, {
+      method: 'POST',
+      mode: 'no-cors',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         action: action,
-        id: String(payload.id ?? ""),
-        originalNo: String(payload.originalNo ?? ""),
-        date: String(payload.date ?? ""),
-        inwardNo: String(payload.inwardNo ?? ""),
-        fromWhom: String(payload.fromWhom ?? ""),
-        subject: String(payload.subject ?? ""),
-        division: String(payload.division ?? ""),
+        id: String(payload.id ?? ''),
+        originalNo: String(payload.originalNo ?? ''),
+        date: String(payload.date ?? ''),
+        dispatchedDate: String(payload.dispatchedDate ?? ''),
+        letterType: String(payload.letterType ?? 'Registered Post'),
+        registeredPostNo: String(payload.registeredPostNo ?? ''),
+        inwardNo: String(payload.inwardNo ?? ''),
+        fromWhom: String(payload.fromWhom ?? ''),
+        subject: String(payload.subject ?? ''),
+        division: String(payload.division ?? ''),
+        forwardedDivisions: payload.forwardedDivisions ?? [],
         forwardedTo: payload.forwardedTo ?? [],
-        actionStatus: String(payload.actionStatus ?? payload.action ?? "Pending"),
-        Password: String(payload.Password ?? ""),
-        Name: String(payload.Name ?? ""),
-        Role: String(payload.Role ?? ""),
-        Division: String(payload.Division ?? ""),
-        Status: String(payload.Status ?? ""),
-        User_ID: String(payload.User_ID ?? ""),
+        actionStatus: String(payload.actionStatus ?? payload.action ?? 'Pending'),
+        replyResponse: String(payload.replyResponse ?? ''),
+        Password: String(payload.Password ?? ''),
+        Name: String(payload.Name ?? ''),
+        Role: String(payload.Role ?? ''),
+        Division: String(payload.Division ?? ''),
+        Status: String(payload.Status ?? ''),
+        User_ID: String(payload.User_ID ?? ''),
         extraData: payload.extraData ?? payload,
       }),
     });
 
     return true;
   } catch (error) {
-    console.error("Cloud sync error:", error);
+    console.error('Cloud sync error:', error);
     return false;
   }
 };
@@ -88,60 +91,154 @@ const sendDataToGoogleCloud = async (payload: CloudPayload): Promise<boolean> =>
 const fetchCloudData = async (): Promise<{ letters: any[][]; users: any[][] }> => {
   try {
     const response = await fetch(`${WEB_APP_URL}?type=get_all&t=${Date.now()}`);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data = await response.json();
-    return data;
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    return await response.json();
   } catch (error) {
-    console.error("Cloud fetch error:", error);
+    console.error('Cloud fetch error:', error);
     throw error;
   }
 };
 
-const normalizeLetter = (row: any[]): any => {
-  const extra = safeJsonParse<Record<string, any>>(row[9], {});
-  
-  let parsedForwardedTo: any[] = [];
-  const rawForwarded = row[7] ?? extra.forwardedTo;
-  if (Array.isArray(rawForwarded)) {
-    parsedForwardedTo = rawForwarded;
-  } else {
-    parsedForwardedTo = safeJsonParse<any[]>(rawForwarded, []);
+const normalizeDateStr = (val: any): string => {
+  if (!val) return '';
+  const str = String(val).trim();
+  if (/^\d{4}-\d{2}-\d{2}/.test(str)) {
+    return str.slice(0, 10);
   }
+  return str;
+};
+
+const findExtraData = (row: any[]): Record<string, any> => {
+  if (!Array.isArray(row)) return {};
+  // In Google Sheet, ExtraData is at index 14
+  if (row[14] && typeof row[14] === 'string' && row[14].trim().startsWith('{')) {
+    const p = safeJsonParse<Record<string, any>>(row[14], {});
+    if (p && typeof p === 'object' && Object.keys(p).length > 0) return p;
+  }
+  // Search from end for serialized JSON object
+  for (let i = row.length - 1; i >= 0; i--) {
+    const val = row[i];
+    if (typeof val === 'string' && val.trim().startsWith('{')) {
+      const p = safeJsonParse<Record<string, any>>(val, {});
+      if (p && typeof p === 'object' && (p.originalNo || p.id || p.subject || p.inwardNo)) {
+        return p;
+      }
+    }
+  }
+  return {};
+};
+
+/**
+ * Google Sheet Letters columns schema:
+ * 0: ID
+ * 1: OriginalNo
+ * 2: Date
+ * 3: DispatchedDate
+ * 4: Post Type (letterType)
+ * 5: RegisteredPostNo
+ * 6: InwardNo
+ * 7: FromWhom
+ * 8: Subject
+ * 9: Division
+ * 10: ForwardedDivisions
+ * 11: ForwardedTo
+ * 12: ActionStatus
+ * 13: ReplyResponse
+ * 14: ExtraData
+ */
+const normalizeLetter = (row: any[]): Letter => {
+  const extra = findExtraData(row);
+
+  let parsedForwardedDivisions: string[] = [];
+  const rawForwardedDivs = extra.forwardedDivisions ?? row[10];
+  if (Array.isArray(rawForwardedDivs)) {
+    parsedForwardedDivisions = rawForwardedDivs.map(migrateDivision).filter(Boolean);
+  } else {
+    parsedForwardedDivisions = safeJsonParse<string[]>(rawForwardedDivs, []).map(migrateDivision).filter(Boolean);
+  }
+
+  let parsedForwardedTo: string[] = [];
+  const rawForwardedTo = extra.forwardedTo ?? row[11];
+  if (Array.isArray(rawForwardedTo)) {
+    parsedForwardedTo = rawForwardedTo;
+  } else {
+    parsedForwardedTo = safeJsonParse<string[]>(rawForwardedTo, []);
+  }
+
+  const primaryDiv = migrateDivision(String(extra.division ?? row[9] ?? ''));
+  if (parsedForwardedDivisions.length === 0 && primaryDiv) {
+    parsedForwardedDivisions = [primaryDiv];
+  }
+
+  const dateVal = normalizeDateStr(extra.date ?? row[2] ?? '');
+  const dispatchedVal = normalizeDateStr(extra.dispatchedDate ?? row[3] ?? dateVal);
 
   return {
     ...extra,
-    id: String(row[0] ?? extra.id ?? ""),
-    originalNo: String(row[1] ?? extra.originalNo ?? ""),
-    date: String(row[2] ?? extra.date ?? ""),
-    inwardNo: String(row[3] ?? extra.inwardNo ?? ""),
-    fromWhom: String(row[4] ?? extra.fromWhom ?? ""),
-    subject: String(row[5] ?? extra.subject ?? ""),
-    division: String(row[6] ?? extra.division ?? "General"),
+    id: String(extra.id ?? row[0] ?? `LTR-${Date.now()}`),
+    originalNo: String(extra.originalNo ?? row[1] ?? ''),
+    date: dateVal,
+    dispatchedDate: dispatchedVal,
+    letterType: String(extra.letterType ?? row[4] ?? 'Registered Post'),
+    registeredPostNo: String(extra.registeredPostNo ?? row[5] ?? ''),
+    inwardNo: String(extra.inwardNo ?? row[6] ?? ''),
+    fromWhom: String(extra.fromWhom ?? row[7] ?? ''),
+    subject: String(extra.subject ?? row[8] ?? ''),
+    division: primaryDiv,
+    forwardedDivisions: parsedForwardedDivisions,
     forwardedTo: parsedForwardedTo,
-    action: String(row[8] ?? extra.action ?? "Pending") as LetterAction,
+    action: (String(extra.action ?? row[12] ?? 'Not Yet Viewed') as LetterAction),
+    replyResponse: String(extra.replyResponse ?? row[13] ?? ''),
+    fileNo: String(extra.fileNo ?? ''),
+    registeredBy: String(extra.registeredBy ?? 'mail01'),
+    registeredByName: String(extra.registeredByName ?? 'Mail Officer'),
+    createdAt: String(extra.createdAt ?? ''),
   };
 };
 
-const normalizeUser = (row: any[]): any => {
-  const extra = safeJsonParse<Record<string, any>>(row[6], {});
+/**
+ * Google Sheet Users columns schema:
+ * 0: User_ID, 1: Password, 2: Name, 3: Role, 4: Division, 5: Status, 6: AssignedDivisions, 7: AssignedOfficers, 8: ExtraData
+ */
+const normalizeUser = (row: any[]): User => {
+  const extra = safeJsonParse<Record<string, any>>(row[8] || row[row.length - 1], {});
+  const assignedDivs = extra.assignedDivisions || safeJsonParse<string[]>(row[6], []);
+  const assignedOffs = extra.assignedOfficers || safeJsonParse<string[]>(row[7], []);
+
   return {
     ...extra,
-    User_ID: String(row[0] ?? extra.User_ID ?? ""),
-    Password: String(row[1] ?? extra.Password ?? ""),
-    Name: String(row[2] ?? extra.Name ?? ""),
-    Role: row[3] as UserRole,
-    Division: String(row[4] ?? extra.Division ?? ""),
-    Status: String(row[5] ?? extra.Status ?? "Active"),
+    User_ID: String(row[0] ?? extra.User_ID ?? ''),
+    Password: String(row[1] ?? extra.Password ?? ''),
+    Name: String(row[2] ?? extra.Name ?? ''),
+    Role: (row[3] ?? extra.Role ?? 'User') as UserRole,
+    Division: migrateDivision(String(row[4] ?? extra.Division ?? '')),
+    Status: (row[5] ?? extra.Status ?? 'Active'),
+    assignedDivisions: assignedDivs && assignedDivs.length > 0 ? assignedDivs.map(migrateDivision) : undefined,
+    assignedOfficers: assignedOffs && assignedOffs.length > 0 ? assignedOffs : undefined,
   };
 };
 
 export default function App() {
   const [users, setUsers] = useState<User[]>(() => {
     try {
-      const saved = localStorage.getItem('kpn_vaharai_users');
-      if (saved) return JSON.parse(saved);
+      const saved = localStorage.getItem('kpn_vaharai_users_v2');
+      if (saved) {
+        const parsed: User[] = JSON.parse(saved);
+        const seen = new Set<string>();
+        const uniqueUsers: User[] = [];
+        for (const u of parsed) {
+          const uid = (u.User_ID || '').trim().toLowerCase();
+          if (uid && !seen.has(uid)) {
+            seen.add(uid);
+            uniqueUsers.push({
+              ...u,
+              Division: migrateDivision(u.Division),
+              assignedDivisions: u.assignedDivisions ? u.assignedDivisions.map(migrateDivision) : undefined,
+            });
+          }
+        }
+        if (uniqueUsers.length > 0) return uniqueUsers;
+      }
     } catch (e) {
       console.error(e);
     }
@@ -150,8 +247,29 @@ export default function App() {
 
   const [letters, setLetters] = useState<Letter[]>(() => {
     try {
-      const saved = localStorage.getItem('kpn_vaharai_letters');
-      if (saved) return JSON.parse(saved);
+      const saved = localStorage.getItem('kpn_vaharai_letters_v2');
+      if (saved) {
+        const parsed: Letter[] = JSON.parse(saved);
+        const seenIds = new Set<string>();
+        const uniqueLetters: Letter[] = [];
+        for (const l of parsed) {
+          const lid = (l.id || `${l.originalNo}-${l.date}`).trim();
+          if (lid && !seenIds.has(lid)) {
+            seenIds.add(lid);
+            const mappedDiv = migrateDivision(l.division);
+            const mappedFwdDivs = l.forwardedDivisions && l.forwardedDivisions.length > 0
+              ? l.forwardedDivisions.map(migrateDivision).filter(Boolean)
+              : (mappedDiv ? [mappedDiv] : []);
+
+            uniqueLetters.push({
+              ...l,
+              division: mappedDiv,
+              forwardedDivisions: mappedFwdDivs,
+            });
+          }
+        }
+        if (uniqueLetters.length > 0) return uniqueLetters;
+      }
     } catch (e) {
       console.error(e);
     }
@@ -160,8 +278,15 @@ export default function App() {
 
   const [currentUser, setCurrentUser] = useState<User | null>(() => {
     try {
-      const savedUser = localStorage.getItem('kpn_vaharai_current_user');
-      if (savedUser) return JSON.parse(savedUser);
+      const savedUser = localStorage.getItem('kpn_vaharai_current_user_v2');
+      if (savedUser) {
+        const parsed: User = JSON.parse(savedUser);
+        return {
+          ...parsed,
+          Division: migrateDivision(parsed.Division),
+          assignedDivisions: parsed.assignedDivisions ? parsed.assignedDivisions.map(migrateDivision) : undefined,
+        };
+      }
     } catch (e) {
       console.error(e);
     }
@@ -171,15 +296,18 @@ export default function App() {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isUserMgmtOpen, setIsUserMgmtOpen] = useState(false);
   const [selectedLetter, setSelectedLetter] = useState<Letter | null>(null);
+  const [isLetterEditMode, setIsLetterEditMode] = useState(false);
+  const [editingLetter, setEditingLetter] = useState<Letter | null>(null);
 
   const [searchQuery, setSearchQuery] = useState('');
   const [actionFilter, setActionFilter] = useState<string>('All');
+  const [selectedDivisionFilter, setSelectedDivisionFilter] = useState<string>('All');
   const [loadingCloud, setLoadingCloud] = useState(false);
-  const [cloudMessage, setCloudMessage] = useState('');
+  const [cloudMessage, setCloudMessage] = useState('Google Sheets Cloud synchronization active.');
 
   useEffect(() => {
     try {
-      localStorage.setItem('kpn_vaharai_users', JSON.stringify(users));
+      localStorage.setItem('kpn_vaharai_users_v2', JSON.stringify(users));
     } catch (e) {
       console.error(e);
     }
@@ -187,7 +315,7 @@ export default function App() {
 
   useEffect(() => {
     try {
-      localStorage.setItem('kpn_vaharai_letters', JSON.stringify(letters));
+      localStorage.setItem('kpn_vaharai_letters_v2', JSON.stringify(letters));
     } catch (e) {
       console.error(e);
     }
@@ -196,9 +324,9 @@ export default function App() {
   useEffect(() => {
     try {
       if (currentUser) {
-        localStorage.setItem('kpn_vaharai_current_user', JSON.stringify(currentUser));
+        localStorage.setItem('kpn_vaharai_current_user_v2', JSON.stringify(currentUser));
       } else {
-        localStorage.removeItem('kpn_vaharai_current_user');
+        localStorage.removeItem('kpn_vaharai_current_user_v2');
       }
     } catch (e) {
       console.error(e);
@@ -207,7 +335,6 @@ export default function App() {
 
   useEffect(() => {
     let mounted = true;
-
     const loadCloud = async () => {
       setLoadingCloud(true);
       try {
@@ -222,7 +349,17 @@ export default function App() {
             .filter((letter: any) => letter.id || letter.originalNo)
             .reverse();
 
-          if (cloudLetters.length) setLetters(cloudLetters);
+          const seenLetters = new Set<string>();
+          const uniqueCloudLetters: Letter[] = [];
+          for (const l of cloudLetters) {
+            const key = l.id || `${l.originalNo}-${l.date}`;
+            if (!seenLetters.has(key)) {
+              seenLetters.add(key);
+              uniqueCloudLetters.push(l);
+            }
+          }
+
+          if (uniqueCloudLetters.length) setLetters(uniqueCloudLetters);
         }
 
         if (Array.isArray(result.users) && result.users.length > 1) {
@@ -232,13 +369,22 @@ export default function App() {
             .map(normalizeUser)
             .filter((user: any) => user.User_ID);
 
-          if (cloudUsers.length) setUsers(cloudUsers);
+          const seenUsers = new Set<string>();
+          const uniqueCloudUsers: User[] = [];
+          for (const u of cloudUsers) {
+            const key = (u.User_ID || '').trim().toLowerCase();
+            if (key && !seenUsers.has(key)) {
+              seenUsers.add(key);
+              uniqueCloudUsers.push(u);
+            }
+          }
+
+          if (uniqueCloudUsers.length) setUsers(uniqueCloudUsers);
         }
 
-        setCloudMessage("Google Sheets தரவு வெற்றிகரமாக இணைக்கப்பட்டது.");
+        setCloudMessage('Google Sheets cloud database synced successfully.');
       } catch (error) {
-        console.error(error);
-        setCloudMessage("Google Sheets தரவைப் பெற முடியவில்லை. உள்ளூர் தரவு (Local) பயன்படுத்தப்படுகிறது.");
+        setCloudMessage('Operating in offline local cache mode (Google Sheets fetch skipped).');
       } finally {
         if (mounted) setLoadingCloud(false);
       }
@@ -252,113 +398,137 @@ export default function App() {
 
   const cloudWrite = async (payload: CloudPayload) => {
     const ok = await sendDataToGoogleCloud(payload);
-    if (!ok) setCloudMessage("Google Sheets அனுப்பலில் பிழை ஏற்பட்டது.");
-    else setCloudMessage("Google Sheets sync வெற்றிகரமாக அனுப்பப்பட்டது.");
+    if (!ok) setCloudMessage('Google Sheets sync warning: offline save used.');
+    else setCloudMessage('Google Sheets sync updated successfully.');
     return ok;
   };
 
   const handleLogout = () => {
     setCurrentUser(null);
     setSelectedLetter(null);
+    setEditingLetter(null);
   };
 
   const handleResetData = () => {
-    if (confirm('அனைத்து தரவுகளையும் மாதிரி ஆரம்ப நிலைக்கு மீட்டமைக்க விரும்புகிறீர்களா?')) {
+    if (confirm('Reset system data to official default demonstration records?')) {
       setUsers(INITIAL_USERS);
       setLetters(INITIAL_LETTERS);
-      alert('தரவுகள் வெற்றிகரமாக மீட்டமைக்கப்பட்டன.');
+      alert('System records successfully restored to demo baseline.');
     }
   };
 
+  // Requirement 1 & 2: Mail Officer Registration with Excel & Cloud logging
   const handleSaveNewLetter = (newLetter: Letter) => {
     setLetters((prev) => [newLetter, ...prev]);
     cloudWrite({
-      action: "ADD_LETTER",
+      action: 'ADD_LETTER',
       id: newLetter.id,
       originalNo: newLetter.originalNo,
       date: newLetter.date,
+      dispatchedDate: newLetter.dispatchedDate,
+      letterType: newLetter.letterType,
+      registeredPostNo: newLetter.registeredPostNo,
       inwardNo: newLetter.inwardNo,
       fromWhom: newLetter.fromWhom,
       subject: newLetter.subject,
-      division: newLetter.division || "General",
+      division: newLetter.division || DIVISIONS[0],
+      forwardedDivisions: newLetter.forwardedDivisions || [],
       forwardedTo: newLetter.forwardedTo || [],
-      actionStatus: newLetter.action || "Pending",
+      actionStatus: newLetter.action || 'Not Yet Viewed',
+      replyResponse: newLetter.replyResponse || '',
+      fileNo: newLetter.fileNo || '',
       extraData: newLetter,
     });
-    alert(`கடிதம் (${newLetter.originalNo}) வெற்றிகரமாக பதிவு செய்யப்பட்டது!`);
+    alert(`Mail Record (${newLetter.originalNo}) registered and synced successfully!`);
   };
 
+  // Update existing letter (All information editable later by Mail Officer / Super Admin)
   const handleUpdateLetter = (updated: Letter) => {
     setLetters((prev) => prev.map((l) => (l.id === updated.id ? updated : l)));
     if (selectedLetter && selectedLetter.id === updated.id) {
       setSelectedLetter(updated);
     }
+    if (editingLetter && editingLetter.id === updated.id) {
+      setEditingLetter(updated);
+    }
 
     cloudWrite({
-      action: "UPDATE_LETTER",
+      action: 'UPDATE_LETTER',
       id: updated.id,
       originalNo: updated.originalNo,
       date: updated.date,
+      dispatchedDate: updated.dispatchedDate,
+      letterType: updated.letterType,
+      registeredPostNo: updated.registeredPostNo,
       inwardNo: updated.inwardNo,
       fromWhom: updated.fromWhom,
       subject: updated.subject,
-      division: updated.division || "General",
+      division: updated.division || DIVISIONS[0],
+      forwardedDivisions: updated.forwardedDivisions || [],
       forwardedTo: updated.forwardedTo || [],
-      actionStatus: updated.action || "Pending",
+      actionStatus: updated.action || 'Not Yet Viewed',
+      replyResponse: updated.replyResponse || '',
+      fileNo: updated.fileNo || '',
       extraData: updated,
     });
   };
 
   const handleDeleteLetter = (letterId: string) => {
-    if (!confirm("இந்தக் கடிதத்தை நீக்க வேண்டுமா?")) return;
+    if (!confirm('Are you sure you want to permanently delete this mail record?')) return;
     setLetters((prev) => prev.filter((l) => l.id !== letterId));
-    if (selectedLetter && selectedLetter.id === letterId) {
-      setSelectedLetter(null);
-    }
+    if (selectedLetter && selectedLetter.id === letterId) setSelectedLetter(null);
+    if (editingLetter && editingLetter.id === letterId) setEditingLetter(null);
 
     cloudWrite({
-      action: "DELETE_LETTER",
+      action: 'DELETE_LETTER',
       id: letterId,
     });
   };
 
   const handleAddUser = (newUser: User) => {
-    setUsers((prev) => [...prev, newUser]);
+    setUsers((prev) => {
+      const filtered = prev.filter(
+        (u) => u.User_ID.trim().toLowerCase() !== newUser.User_ID.trim().toLowerCase()
+      );
+      return [...filtered, newUser];
+    });
     cloudWrite({
-      action: "ADD_USER",
+      action: 'ADD_USER',
       User_ID: newUser.User_ID,
       Password: newUser.Password,
       Name: newUser.Name,
       Role: newUser.Role,
       Division: newUser.Division,
-      Status: newUser.Status || "Active",
+      Status: newUser.Status || 'Active',
       extraData: newUser,
     });
   };
 
   const handleUpdateUser = (updatedUser: User) => {
-    setUsers((prev) => prev.map((u) => (u.User_ID === updatedUser.User_ID ? updatedUser : u)));
+    setUsers((prev) =>
+      prev.map((u) => (u.User_ID === updatedUser.User_ID ? updatedUser : u))
+    );
     if (currentUser && currentUser.User_ID === updatedUser.User_ID) {
       setCurrentUser(updatedUser);
     }
 
     cloudWrite({
-      action: "UPDATE_USER",
+      action: 'UPDATE_USER',
       User_ID: updatedUser.User_ID,
       Password: updatedUser.Password,
       Name: updatedUser.Name,
       Role: updatedUser.Role,
       Division: updatedUser.Division,
-      Status: updatedUser.Status || "Active",
+      Status: updatedUser.Status || 'Active',
       extraData: updatedUser,
     });
   };
 
   const handleDeleteUser = (userId: string) => {
-    if (!confirm("இந்தப் பயனரை நீக்க வேண்டுமா?")) return;
+    if (!confirm('Are you sure you want to delete this user?')) return;
     setUsers((prev) => prev.filter((u) => u.User_ID !== userId));
     cloudWrite({
-      action: "DELETE_USER",
+      action: 'DELETE_USER',
       User_ID: userId,
     });
   };
@@ -369,35 +539,83 @@ export default function App() {
 
   const usersMap = new Map<string, User>(users.map((u) => [u.User_ID, u]));
 
+  // Requirement 3 & 5: Role-based filtering ensuring Mega forwarded mail reaches the division!
   const roleFilteredLetters = letters.filter((letter) => {
-    if (currentUser.Role === 'Super Admin' || currentUser.Role === 'Mega' || currentUser.Role === 'Mail Officer') {
+    // Super Admin, Mega, Mail Officer see all letters
+    if (
+      currentUser.Role === 'Super Admin' ||
+      currentUser.Role === 'Mega' ||
+      currentUser.Role === 'Mail Officer'
+    ) {
       return true;
     }
 
+    // Requirement 5: Luxury Role sees their assigned divisions or assigned officers
+    if (currentUser.Role === 'Luxury') {
+      const allowedDivs = currentUser.assignedDivisions || [];
+      const allowedOfficers = currentUser.assignedOfficers || [];
+
+      // Check if letter belongs to an assigned division
+      const inAssignedDiv =
+        allowedDivs.includes(letter.division) ||
+        (letter.forwardedDivisions || []).some((d) => allowedDivs.includes(d));
+
+      // Check if letter forwarded to an assigned officer or to luxury user themselves
+      const inAssignedOfficer = (letter.forwardedTo || []).some(
+        (uid) => allowedOfficers.includes(uid) || uid === currentUser.User_ID
+      );
+
+      return inAssignedDiv || inAssignedOfficer;
+    }
+
+    // Requirement 3: Normal User (Division Head) MUST receive letters routed to their division!
     if (currentUser.Role === 'Normal') {
-      const hasDivisionUser = letter.forwardedTo.some((uid) => {
+      const matchesDivision =
+        letter.division === currentUser.Division ||
+        (letter.forwardedDivisions || []).includes(currentUser.Division);
+
+      const hasDivisionOfficer = (letter.forwardedTo || []).some((uid) => {
         const u = usersMap.get(uid);
         return u && u.Division === currentUser.Division;
       });
-      return hasDivisionUser;
+
+      const directlyForwarded = (letter.forwardedTo || []).includes(currentUser.User_ID);
+
+      return matchesDivision || hasDivisionOfficer || directlyForwarded;
     }
 
+    // Field Officer (User Role): Only letters directly forwarded to their ID
     if (currentUser.Role === 'User') {
-      return letter.forwardedTo.includes(currentUser.User_ID);
+      return (letter.forwardedTo || []).includes(currentUser.User_ID);
     }
 
     return false;
   });
 
+  // Apply Search, Status Filter & Division Filter
   const displayedLetters = roleFilteredLetters.filter((letter) => {
-    if (actionFilter !== 'All' && letter.action !== actionFilter) {
-      return false;
+    // Status Filter
+    if (actionFilter !== 'All') {
+      if (actionFilter === 'Action Taken' && letter.action !== 'Action Taken' && letter.action !== 'நடவடிக்கை எடுக்கப்பட்டது') return false;
+      if (actionFilter === 'Action Not Taken' && letter.action !== 'Action Not Taken' && letter.action !== 'நடவடிக்கை எடுக்கப்படவில்லை') return false;
+      if (actionFilter === 'Under Investigation' && letter.action !== 'Under Investigation' && letter.action !== 'கள ஆய்வில்') return false;
+      if (actionFilter === 'Not Yet Viewed' && letter.action !== 'Not Yet Viewed' && letter.action !== 'இன்னும் பார்க்கவில்லை') return false;
     }
 
+    // Division Filter
+    if (selectedDivisionFilter !== 'All') {
+      const matchesDiv =
+        letter.division === selectedDivisionFilter ||
+        (letter.forwardedDivisions || []).includes(selectedDivisionFilter) ||
+        letter.forwardedTo.some((uid) => usersMap.get(uid)?.Division === selectedDivisionFilter);
+      if (!matchesDiv) return false;
+    }
+
+    // Search Query
     if (!searchQuery.trim()) return true;
     const q = searchQuery.toLowerCase().trim();
 
-    const forwardedNames = (Array.isArray(letter.forwardedTo) ? letter.forwardedTo : [])
+    const forwardedNames = (letter.forwardedTo || [])
       .map((id) => usersMap.get(id)?.Name || id)
       .join(' ')
       .toLowerCase();
@@ -405,220 +623,230 @@ export default function App() {
     return (
       letter.originalNo.toLowerCase().includes(q) ||
       letter.inwardNo.toLowerCase().includes(q) ||
+      (letter.fileNo && letter.fileNo.toLowerCase().includes(q)) ||
+      (letter.registeredPostNo && letter.registeredPostNo.toLowerCase().includes(q)) ||
       letter.fromWhom.toLowerCase().includes(q) ||
       letter.subject.toLowerCase().includes(q) ||
       letter.date.toLowerCase().includes(q) ||
+      (letter.dispatchedDate && letter.dispatchedDate.toLowerCase().includes(q)) ||
+      (letter.division && letter.division.toLowerCase().includes(q)) ||
       forwardedNames.includes(q)
     );
   });
 
   return (
-    <div className="min-h-screen bg-slate-100 flex flex-col">
+    <div className="min-h-screen bg-slate-100 flex flex-col font-sans">
+      {/* Top Navigation Bar */}
       <header className="sticky top-0 z-30 border-b border-blue-900 bg-slate-900 text-white shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <img
-                src="/vaharai_logo.jpg"
-                alt="கோறளைப்பற்று வடக்கு வாகரை பிரதேச செயலக முத்திரை"
-                className="h-11 w-11 rounded-full bg-white object-contain p-0.5 shadow-sm border border-white/40 shrink-0"
-              />
+              <VaharaiLogo size="md" />
               <div>
                 <h1 className="text-sm sm:text-base font-bold tracking-tight text-white line-clamp-1">
-                  கோறளைப்பற்று வடக்கு வாகரை பிரதேச செயலகம்
+                  Divisional Secretariat • Koralaipattu North (Vaharai)
                 </h1>
                 <p className="text-[11px] text-blue-200">
-                  கடித மேலாண்மை அமைப்பு (DS Office Mail Management)
+                  Mail Registration, Departmental Routing & Tracking System
                 </p>
               </div>
             </div>
 
+            {/* User Profile & Quick Actions */}
             <div className="flex items-center gap-3">
               <div className="hidden sm:flex flex-col items-end text-xs">
-                <span className="font-bold text-white">{currentUser.Name}</span>
+                <span className="font-bold text-white flex items-center gap-1">
+                  {currentUser.Role === 'Luxury' && <Crown className="h-3.5 w-3.5 text-amber-400" />}
+                  {currentUser.Name}
+                </span>
                 <span className="text-blue-200 text-[11px]">
                   {currentUser.Division} &nbsp;|&nbsp;{' '}
-                  <span className="rounded bg-blue-700 px-1.5 py-0.2 font-bold text-white">
+                  <span className="rounded bg-blue-700 px-1.5 py-0.2 font-bold text-white uppercase text-[10px]">
                     {currentUser.Role}
                   </span>
                 </span>
               </div>
 
-              {currentUser.Role === 'Mail Officer' && (
+              {/* Requirement 1: Mail Officer "+ Register Mail" button */}
+              {(currentUser.Role === 'Mail Officer' || currentUser.Role === 'Super Admin') && (
                 <button
                   type="button"
                   onClick={() => setIsRegisterOpen(true)}
-                  className="flex items-center gap-1.5 rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-bold text-white shadow-sm hover:bg-emerald-700 transition"
+                  className="flex items-center gap-1.5 rounded-xl bg-emerald-600 px-3 py-1.5 text-xs font-bold text-white shadow-sm hover:bg-emerald-700 transition"
                 >
                   <PlusCircle className="h-4 w-4" />
-                  <span>+ புதிய கடிதம் பதிவு</span>
+                  <span>+ Register Mail</span>
                 </button>
               )}
 
+              {/* Requirement 5: Super Admin User Management */}
               {currentUser.Role === 'Super Admin' && (
                 <button
                   type="button"
                   onClick={() => setIsUserMgmtOpen(true)}
-                  className="flex items-center gap-1.5 rounded-lg bg-purple-700 px-3 py-1.5 text-xs font-bold text-white shadow-sm hover:bg-purple-800 transition"
+                  className="flex items-center gap-1.5 rounded-xl bg-purple-700 px-3 py-1.5 text-xs font-bold text-white shadow-sm hover:bg-purple-800 transition"
                 >
                   <Users className="h-4 w-4" />
-                  <span>பயனர்கள் முகாமைத்துவம்</span>
+                  <span>User Management</span>
                 </button>
               )}
 
               <button
                 type="button"
                 onClick={handleResetData}
-                title="மாதிரி தரவுகளுக்கு மீட்டமை"
+                title="Restore default demo records"
                 className="hidden lg:flex items-center gap-1 rounded-lg border border-slate-700 bg-slate-800 px-2.5 py-1.5 text-[11px] font-medium text-slate-300 hover:bg-slate-700"
               >
                 <RotateCcw className="h-3 w-3" />
-                <span>மீட்டமை</span>
+                <span>Reset Demo</span>
               </button>
 
               <button
                 type="button"
                 onClick={handleLogout}
-                title="வெளியேறு (Logout)"
-                className="flex items-center gap-1 rounded-lg bg-red-600/90 px-3 py-1.5 text-xs font-semibold text-white hover:bg-red-700 transition"
+                title="Sign out of portal"
+                className="flex items-center gap-1 rounded-xl bg-red-600/90 px-3 py-1.5 text-xs font-bold text-white hover:bg-red-700 transition"
               >
                 <LogOut className="h-3.5 w-3.5" />
-                <span className="hidden sm:inline">வெளியேறு</span>
+                <span className="hidden sm:inline">Sign Out</span>
               </button>
             </div>
           </div>
         </div>
       </header>
 
-      <div className="bg-blue-50 border-b border-blue-200 px-4 py-1.5 text-center text-xs text-blue-800 font-medium">
-        {loadingCloud ? "Google Sheets இலிருந்து தரவுகள் பெறப்படுகின்றன..." : cloudMessage}
+      {/* Cloud Status Banner */}
+      <div className="bg-blue-50 border-b border-blue-200 px-4 py-1.5 text-center text-xs text-blue-900 font-medium flex items-center justify-center gap-2">
+        <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span>{cloudMessage}</span>
       </div>
 
-      <div className="border-b border-gray-200 bg-white px-4 py-3 shadow-2xs">
+      {/* Role Context Bar */}
+      <div className="border-b border-gray-200 bg-white px-4 py-2.5 shadow-2xs">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs">
           <div className="flex items-center gap-2">
-            <span className="font-bold text-gray-800">
-              தற்போதைய பயனர் நிலை:
-            </span>
+            <span className="font-bold text-gray-700">Active Role Profile:</span>
             <span
               className={`rounded-full px-3 py-0.5 font-bold ${
                 currentUser.Role === 'Super Admin'
-                  ? 'bg-purple-100 text-purple-800'
+                  ? 'bg-purple-100 text-purple-900 border border-purple-300'
                   : currentUser.Role === 'Mega'
-                  ? 'bg-amber-100 text-amber-800'
+                  ? 'bg-amber-100 text-amber-900 border border-amber-300'
+                  : currentUser.Role === 'Luxury'
+                  ? 'bg-amber-200 text-amber-950 border border-amber-400 font-black'
                   : currentUser.Role === 'Mail Officer'
-                  ? 'bg-blue-100 text-blue-800'
+                  ? 'bg-blue-100 text-blue-900 border border-blue-300'
                   : currentUser.Role === 'Normal'
-                  ? 'bg-emerald-100 text-emerald-800'
+                  ? 'bg-emerald-100 text-emerald-900 border border-emerald-300'
                   : 'bg-gray-100 text-gray-800'
               }`}
             >
+              {currentUser.Role === 'Luxury' && '👑 '}
               {currentUser.Role}
             </span>
-            <span className="text-gray-500">
-              ({currentUser.Division})
-            </span>
+            <span className="text-gray-500 font-medium">({currentUser.Division})</span>
           </div>
 
-          <div className="text-gray-600 font-medium">
+          <div className="text-gray-600 font-medium text-xs">
             {currentUser.Role === 'Super Admin' && (
-              <span>🛡️ அனைத்து கடிதங்களையும் திகதியடிப்படையில் மேலாண்மை செய்யும் அதிகாரம் வழங்கப்பட்டுள்ளது.</span>
+              <span>🛡️ Super Admin: Full administrative privileges to edit all records and manage users.</span>
             )}
             {currentUser.Role === 'Mega' && (
-              <span>📊 மெகா பயனாளி: அனைத்து கடிதங்களும் திகதியடிப்படையில் + வரைபட நிலவரம்.</span>
+              <span>📊 Mega User: Divisional Secretary level overview; route and forward mail across all branches.</span>
+            )}
+            {currentUser.Role === 'Luxury' && (
+              <span>
+                👑 Luxury Role: Permitted access to {currentUser.assignedDivisions?.length || 0} designated divisions & analytics.
+              </span>
             )}
             {currentUser.Role === 'Mail Officer' && (
-              <span>✉️ கடிதப் பதிவாளர்: கடிதங்களைப் பதிவு செய்யும் முழு அதிகாரம்.</span>
+              <span>✉️ Mail Officer: Initial mail registration, full post-entry editing, and official dispatch logs.</span>
             )}
             {currentUser.Role === 'Normal' && (
-              <span>🏢 பிரிவு பிரதானி: {currentUser.Division} கடிதங்கள் மட்டும்.</span>
+              <span>🏢 Branch Head: Direct oversight of mail routed to {currentUser.Division}.</span>
             )}
             {currentUser.Role === 'User' && (
-              <span>👤 கள உத்தியோகத்தர்: உங்கள் ID ({currentUser.User_ID}) க்குரிய கடிதங்கள் மட்டும்.</span>
+              <span>👤 Officer: Inbox for assigned tasks under ID {currentUser.User_ID}.</span>
             )}
           </div>
         </div>
       </div>
 
+      {/* Main Workspace */}
       <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
-        {currentUser.Role === 'Mega' && (
-          <MegaActionChart letters={letters} allUsers={users} />
-        )}
+        {/* Requirement 6: Division Status Analytics & Progress Graph for ALL divisions */}
+        <DivisionActionChart
+          letters={roleFilteredLetters}
+          allUsers={users}
+          currentUser={currentUser}
+          onFilterByStatus={(st) => setActionFilter(st)}
+          onFilterByDivision={(div) => setSelectedDivisionFilter(div)}
+          currentStatusFilter={actionFilter}
+        />
 
-        <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-xs">
+        {/* Toolbar: Search, Filters, Excel Export & 10pt Print */}
+        <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-xs">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <div className="relative flex-1 min-w-[260px] max-w-lg">
+            {/* Search Input */}
+            <div className="relative flex-1 min-w-[280px] max-w-md">
               <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Original No, Inward No, விடயம், அனுப்புநர் மூலம் தேடுக..."
-                className="w-full rounded-lg border border-gray-300 bg-white py-2 pl-9 pr-3 text-xs text-gray-900 focus:border-blue-600 focus:outline-hidden"
+                placeholder="Search by Original No, Inward No, Subject, Sender..."
+                className="w-full rounded-xl border border-gray-300 bg-white py-2 pl-9 pr-3 text-xs text-gray-900 focus:border-blue-700 focus:outline-hidden"
               />
             </div>
 
-            <div className="flex flex-wrap items-center gap-2">
-              {currentUser.Role !== 'Mail Officer' && (
-                <div className="flex items-center gap-2 text-xs">
-                  <Filter className="h-4 w-4 text-gray-500" />
-                  <span className="font-semibold text-gray-700">நிலை வடிகட்டி:</span>
-                  <select
-                    value={actionFilter}
-                    onChange={(e) => setActionFilter(e.target.value)}
-                    className="rounded-lg border border-gray-300 bg-white px-2.5 py-1.5 text-xs text-gray-800 focus:border-blue-600 focus:outline-hidden"
-                  >
-                    <option value="All">அனைத்து நிலைகளும்</option>
-                    <option value="நடவடிக்கை எடுக்கப்பட்டது">நடவடிக்கை எடுக்கப்பட்டது</option>
-                    <option value="நடவடிக்கை எடுக்கப்படவில்லை">நடவடிக்கை எடுக்கப்படவில்லை</option>
-                    <option value="கள ஆய்வில்">கள ஆய்வில்</option>
-                    <option value="இன்னும் பார்க்கவில்லை">இன்னும் பார்க்கவில்லை</option>
-                  </select>
-                </div>
-              )}
+            {/* Filter controls */}
+            <div className="flex flex-wrap items-center gap-2.5">
+              <div className="flex items-center gap-1.5 text-xs">
+                <Filter className="h-4 w-4 text-gray-500" />
+                <span className="font-bold text-gray-700">Status:</span>
+                <select
+                  value={actionFilter}
+                  onChange={(e) => setActionFilter(e.target.value)}
+                  className="rounded-lg border border-gray-300 bg-white px-2.5 py-1.5 text-xs font-semibold text-gray-800 focus:border-blue-700 focus:outline-hidden"
+                >
+                  <option value="All">All Statuses</option>
+                  <option value="Action Taken">Action Taken (முடிந்தது)</option>
+                  <option value="Action Not Taken">Action Not Taken (நிலுவை)</option>
+                  <option value="Under Investigation">Under Investigation (கள ஆய்வு)</option>
+                  <option value="Not Yet Viewed">Not Yet Viewed (புதியவை)</option>
+                </select>
+              </div>
 
-              <div className="flex items-center gap-1.5 pl-2 border-l border-gray-200">
+              {/* 10pt Print Report Button */}
+              <div className="flex items-center gap-2 pl-2 border-l border-gray-200">
                 <button
                   type="button"
-                  onClick={() => exportLettersToExcel(displayedLetters, usersMap, 'Report')}
-                  title="அனைத்து கடிதங்களையும் Excel கோப்பாகப் பதிவிறக்குக"
-                  className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-700 px-3 py-1.5 text-xs font-bold text-white shadow-2xs hover:bg-emerald-800 transition"
+                  onClick={() =>
+                    printLandscapeReport(
+                      'Filtered Mail Register Log',
+                      displayedLetters,
+                      usersMap
+                    )
+                  }
+                  title="Print Official A4 Landscape Report (10pt font) with Signature column"
+                  className="inline-flex items-center gap-1.5 rounded-xl bg-slate-900 px-3.5 py-1.5 text-xs font-bold text-white shadow-2xs hover:bg-black transition"
                 >
-                  <FileSpreadsheet className="h-3.5 w-3.5" />
-                  <span>Excel பதிவிறக்கு</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => exportLettersToCsv(displayedLetters, usersMap, 'Report')}
-                  title="அனைத்து கடிதங்களையும் CSV கோப்பாகப் பதிவிறக்குக"
-                  className="inline-flex items-center gap-1.5 rounded-lg bg-blue-700 px-2.5 py-1.5 text-xs font-bold text-white shadow-2xs hover:bg-blue-800 transition"
-                >
-                  <FileDown className="h-3.5 w-3.5" />
-                  <span>CSV</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => downloadDataBackupJson(letters, users)}
-                  title="கணினி முழுமையான தரவு காப்புப்பதிவு கோப்பைப் பதிவிறக்கு (JSON Backup)"
-                  className="inline-flex items-center gap-1 rounded-lg border border-gray-300 bg-gray-50 px-2.5 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-100 transition"
-                >
-                  <Download className="h-3.5 w-3.5 text-gray-600" />
-                  <span className="hidden md:inline">காப்புப்பதிவு</span>
+                  <Printer className="h-4 w-4" />
+                  <span>Print (10pt Font)</span>
                 </button>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="space-y-2">
+        {/* Requirement 7: 5-Day Folder Structure */}
+        <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-bold text-gray-800 flex items-center gap-2">
-              <span>📁 திகதி அடிப்படையிலான கடிதப் போல்டர்கள் (Date-wise Folders)</span>
+            <h2 className="text-sm font-bold text-gray-900 flex items-center gap-2">
+              <span>📁 Date-Wise Mail Folders (5-Day Batch Navigation)</span>
             </h2>
             <span className="text-xs text-gray-500">
-              ஒவ்வொரு போல்டரையும் விரித்து A4 பக்கவாட்டில் அச்சிடலாம்.
+              Each folder can be expanded or printed in 10pt A4 landscape layout.
             </span>
           </div>
 
@@ -626,17 +854,25 @@ export default function App() {
             letters={displayedLetters}
             currentUser={currentUser}
             allUsers={users}
-            onSelectLetter={(ltr) => setSelectedLetter(ltr)}
-            onEditLetter={(ltr) => setSelectedLetter(ltr)}
+            onSelectLetter={(ltr) => {
+              setSelectedLetter(ltr);
+              setIsLetterEditMode(false);
+            }}
+            onEditLetter={(ltr) => {
+              setSelectedLetter(ltr);
+              setIsLetterEditMode(true);
+            }}
             onDeleteLetter={handleDeleteLetter}
           />
         </div>
       </main>
 
+      {/* Footer */}
       <footer className="border-t border-gray-200 bg-white py-4 text-center text-xs text-gray-500">
-        கோறளைப்பற்று வடக்கு வாகரை பிரதேச செயலகம் &copy; 2026. கடித மேலாண்மை அமைப்பு.
+        Divisional Secretariat • Koralaipattu North (Vaharai) &copy; {new Date().getFullYear()}. All Rights Reserved.
       </footer>
 
+      {/* Mail Registration Modal (Mail Officer) */}
       <LetterRegisterModal
         isOpen={isRegisterOpen}
         onClose={() => setIsRegisterOpen(false)}
@@ -646,16 +882,22 @@ export default function App() {
         existingLetters={letters}
       />
 
+      {/* Detail, Edit & Chat Modal */}
       <LetterDetailAndChatModal
         isOpen={!!selectedLetter}
         letter={selectedLetter}
         currentUser={currentUser}
         allUsers={users}
-        onClose={() => setSelectedLetter(null)}
+        initialEditMode={isLetterEditMode}
+        onClose={() => {
+          setSelectedLetter(null);
+          setIsLetterEditMode(false);
+        }}
         onUpdateLetter={handleUpdateLetter}
         onDeleteLetter={handleDeleteLetter}
       />
 
+      {/* User & Role Management Modal (Super Admin) */}
       <UserManagementModal
         isOpen={isUserMgmtOpen}
         onClose={() => setIsUserMgmtOpen(false)}

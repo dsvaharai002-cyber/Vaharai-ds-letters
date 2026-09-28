@@ -1,9 +1,7 @@
 {
-  "name": "Remix கோறளைப்பற்று வடக்கு வாகரை கடித மேலாண்மை அமைப்பு",
-  "description": "கோறளைப்பற்று வடக்கு வாகரை பிரதேச செயலக கடித மேலாண்மை மற்றும் கண்காணிப்பு அமைப்பு (Koralaipattu North Vaharai DS Letter Management System)",
-  "requestFramePermissions": [
-    "camera"
-  ],
+  "name": "Remix Remix Koralaipattu North Vaharai DS Office - Mail Management System",
+  "description": "Comprehensive Divisional Secretariat Mail Management System with role-based routing, Luxury role assignment, 5-day folder views, division status analytics, and 10pt print reporting.",
+  "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
   ]

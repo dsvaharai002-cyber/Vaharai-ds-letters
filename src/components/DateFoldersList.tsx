@@ -3,29 +3,31 @@ import {
   Folder,
   FolderOpen,
   Printer,
-  MessageSquare,
+  Download,
   Image as ImageIcon,
   CheckCircle2,
   Clock,
   Trash2,
-  Edit,
+  Edit3,
   Eye,
   ChevronDown,
   ChevronRight,
-  Download,
-  FileSpreadsheet,
+  ChevronLeft,
+  Calendar,
+  Layers,
+  Sparkles,
+  FileText,
 } from 'lucide-react';
 import { Letter, User } from '../types';
-import { printLandscapeDateReport, exportLettersToExcel, downloadLetterAttachment } from '../utils/helpers';
-import { downloadDateLettersPdf } from '../utils/pdfGenerator';
+import { printLandscapeReport, downloadLetterAttachment } from '../utils/helpers';
 
 interface DateFoldersListProps {
   letters: Letter[];
   currentUser: User;
   allUsers: User[];
   onSelectLetter: (letter: Letter) => void;
-  onEditLetter?: (letter: Letter) => void;
-  onDeleteLetter?: (letterId: string) => void;
+  onEditLetter: (letter: Letter) => void;
+  onDeleteLetter: (letterId: string) => void;
 }
 
 export const DateFoldersList: React.FC<DateFoldersListProps> = ({
@@ -39,21 +41,34 @@ export const DateFoldersList: React.FC<DateFoldersListProps> = ({
   const usersMap = new Map<string, User>(allUsers.map((u) => [u.User_ID, u]));
   const isMailOfficer = currentUser.Role === 'Mail Officer';
   const isSuperAdmin = currentUser.Role === 'Super Admin';
-
   const canModify = isSuperAdmin || isMailOfficer;
 
+  // Group letters by registration date
   const groupedByDate: Record<string, Letter[]> = {};
   letters.forEach((l) => {
-    const d = l.date || 'தெரியாத திகதி';
+    const d = l.date || 'Undated';
     if (!groupedByDate[d]) groupedByDate[d] = [];
     groupedByDate[d].push(l);
   });
 
+  // Sort dates descending (latest date first)
   const sortedDates = Object.keys(groupedByDate).sort((a, b) => b.localeCompare(a));
 
+  // 5-Day Folders Navigation state (User requirement: "05 நாள் போல்டர் முன்னே காட்ட வேண்டும் மற்றயவை அடுத்து முன் என மாற்றி பார்க்க கூடியதாக இருக்க வேண்டும்")
+  const DAYS_PER_VIEW = 5;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [viewAllDays, setViewAllDays] = useState(false);
+
+  const totalPages = Math.max(1, Math.ceil(sortedDates.length / DAYS_PER_VIEW));
+  const startIndex = (currentPage - 1) * DAYS_PER_VIEW;
+  const currentDatesSlice = viewAllDays
+    ? sortedDates
+    : sortedDates.slice(startIndex, startIndex + DAYS_PER_VIEW);
+
+  // Default open the first 2 folders of the active view
   const [openFolders, setOpenFolders] = useState<Record<string, boolean>>(() => {
     const initial: Record<string, boolean> = {};
-    sortedDates.slice(0, 3).forEach((d) => {
+    sortedDates.slice(0, 2).forEach((d) => {
       initial[d] = true;
     });
     return initial;
@@ -68,7 +83,7 @@ export const DateFoldersList: React.FC<DateFoldersListProps> = ({
 
   const expandAll = () => {
     const allOpen: Record<string, boolean> = {};
-    sortedDates.forEach((d) => {
+    currentDatesSlice.forEach((d) => {
       allOpen[d] = true;
     });
     setOpenFolders(allOpen);
@@ -82,160 +97,302 @@ export const DateFoldersList: React.FC<DateFoldersListProps> = ({
     return (
       <div className="rounded-xl border border-gray-200 bg-white p-12 text-center text-gray-500 shadow-xs">
         <Folder className="mx-auto h-12 w-12 text-gray-300 stroke-1" />
-        <h4 className="mt-3 font-semibold text-gray-700">கடிதங்கள் எதுவும் இல்லை</h4>
+        <h4 className="mt-3 font-bold text-gray-700">No mail records found</h4>
+        <p className="text-xs text-gray-400 mt-1">Try adjusting your search query or filters.</p>
       </div>
     );
   }
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-2 px-1 text-xs text-gray-600">
-        <div>
-          <span>மொத்த திகதி போல்டர்கள்: <b>{sortedDates.length}</b></span>
-          <span className="mx-2">•</span>
-          <span>காண்பிக்கப்படும் கடிதங்கள்: <b>{letters.length}</b></span>
+      {/* 5-Day Navigation Header */}
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-blue-200 bg-linear-to-r from-blue-50 via-white to-indigo-50 p-3 shadow-2xs">
+        <div className="flex items-center gap-2 text-xs">
+          <Calendar className="h-4 w-4 text-blue-700" />
+          <span className="font-bold text-gray-900">
+            {viewAllDays
+              ? `Showing All ${sortedDates.length} Date Folders`
+              : `Showing 5-Day Folder Batch: Day ${startIndex + 1} to ${Math.min(
+                  startIndex + DAYS_PER_VIEW,
+                  sortedDates.length
+                )} of ${sortedDates.length} Dates`}
+          </span>
+          {!viewAllDays && (
+            <span className="rounded-md bg-blue-100 px-2 py-0.5 font-bold text-blue-800 text-[11px]">
+              Page {currentPage} of {totalPages}
+            </span>
+          )}
         </div>
-        <div className="flex items-center gap-2">
-          <button type="button" onClick={expandAll} className="text-blue-700 hover:underline font-semibold">
-            அனைத்தையும் திறக்க
+
+        {/* 5-Day Pagination Buttons (Next / Previous) */}
+        <div className="flex items-center gap-2 text-xs">
+          <button
+            type="button"
+            onClick={() => {
+              setViewAllDays(false);
+              setCurrentPage(1);
+            }}
+            className={`rounded-lg px-2.5 py-1.5 font-semibold transition ${
+              !viewAllDays && currentPage === 1
+                ? 'bg-blue-800 text-white font-bold shadow-2xs'
+                : 'border border-gray-300 bg-white text-gray-700 hover:bg-gray-100'
+            }`}
+          >
+            Recent 5 Days
           </button>
-          <span>|</span>
-          <button type="button" onClick={collapseAll} className="text-gray-600 hover:underline">
-            அனைத்தையும் மூட
+
+          {!viewAllDays && totalPages > 1 && (
+            <div className="flex items-center gap-1">
+              <button
+                type="button"
+                disabled={currentPage <= 1}
+                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                className="inline-flex items-center gap-1 rounded-lg border border-gray-300 bg-white px-2.5 py-1.5 font-bold text-gray-700 hover:bg-gray-100 disabled:opacity-40"
+                title="Newer 5 Days (முன்)"
+              >
+                <ChevronLeft className="h-4 w-4 text-blue-700" />
+                <span>Newer (முன்)</span>
+              </button>
+
+              <button
+                type="button"
+                disabled={currentPage >= totalPages}
+                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                className="inline-flex items-center gap-1 rounded-lg border border-gray-300 bg-white px-2.5 py-1.5 font-bold text-gray-700 hover:bg-gray-100 disabled:opacity-40"
+                title="Older 5 Days (அடுத்து)"
+              >
+                <span>Older (அடுத்து)</span>
+                <ChevronRight className="h-4 w-4 text-blue-700" />
+              </button>
+            </div>
+          )}
+
+          <button
+            type="button"
+            onClick={() => setViewAllDays(!viewAllDays)}
+            className="rounded-lg border border-gray-300 bg-white px-2.5 py-1.5 font-semibold text-gray-700 hover:bg-gray-100"
+          >
+            {viewAllDays ? 'Switch to 5-Day View' : 'View All Dates'}
+          </button>
+
+          <span className="text-gray-300">|</span>
+
+          <button
+            type="button"
+            onClick={expandAll}
+            className="text-blue-700 font-semibold hover:underline"
+          >
+            Expand All
+          </button>
+          <span className="text-gray-300">•</span>
+          <button
+            type="button"
+            onClick={collapseAll}
+            className="text-gray-500 hover:underline"
+          >
+            Collapse All
           </button>
         </div>
       </div>
 
-      {sortedDates.map((dateStr) => {
-        const dateLetters = groupedByDate[dateStr];
+      {/* Date Folders Rendering */}
+      {currentDatesSlice.map((dateStr, idx) => {
+        const dateLetters = groupedByDate[dateStr] || [];
         const isOpen = !!openFolders[dateStr];
+        const isLatestDay = currentPage === 1 && idx === 0;
 
         return (
-          <div key={dateStr} className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-xs">
+          <div
+            key={dateStr}
+            className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-xs transition hover:border-blue-300"
+          >
+            {/* Folder Header Bar */}
             <div
               onClick={() => toggleFolder(dateStr)}
-              className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-100 bg-slate-50/80 px-4 py-3 cursor-pointer hover:bg-slate-100 select-none"
+              className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-100 bg-slate-50/90 px-4 py-3 cursor-pointer select-none hover:bg-slate-100/90"
             >
-              <div className="flex items-center gap-2.5">
-                {isOpen ? <ChevronDown className="h-4 w-4 text-gray-500" /> : <ChevronRight className="h-4 w-4 text-gray-500" />}
+              <div className="flex items-center gap-3">
+                {isOpen ? (
+                  <ChevronDown className="h-4 w-4 text-gray-500" />
+                ) : (
+                  <ChevronRight className="h-4 w-4 text-gray-500" />
+                )}
+
                 <div className="flex items-center gap-2">
-                  {isOpen ? <FolderOpen className="h-5 w-5 text-amber-500" /> : <Folder className="h-5 w-5 text-amber-500" />}
-                  <span className="font-bold text-gray-900 text-sm">📁 திகதி போல்டர்: {dateStr}</span>
+                  {isOpen ? (
+                    <FolderOpen className="h-5 w-5 text-amber-500" />
+                  ) : (
+                    <Folder className="h-5 w-5 text-amber-500" />
+                  )}
+                  <span className="font-bold text-gray-900 text-sm">
+                    Date Folder: {dateStr}
+                  </span>
                 </div>
+
                 <span className="rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-bold text-blue-800">
-                  {dateLetters.length} கடிதங்கள்
+                  {dateLetters.length} Mail {dateLetters.length === 1 ? 'Record' : 'Records'}
                 </span>
+
+                {isLatestDay && (
+                  <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-[10px] font-bold text-emerald-800 uppercase tracking-wide">
+                    Latest Today
+                  </span>
+                )}
               </div>
 
-              <div className="flex flex-wrap items-center gap-2" onClick={(e) => e.stopPropagation()}>
+              {/* Folder Actions: Print 10pt */}
+              <div
+                className="flex flex-wrap items-center gap-2"
+                onClick={(e) => e.stopPropagation()}
+              >
                 <button
                   type="button"
-                  onClick={() => downloadDateLettersPdf(dateStr, dateLetters, usersMap)}
-                  className="inline-flex items-center gap-1 rounded-lg bg-red-700 px-2.5 py-1.5 text-xs font-bold text-white hover:bg-red-800"
-                >
-                  <Download className="h-3.5 w-3.5" />
-                  <span>PDF பதிவிறக்கம்</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => exportLettersToExcel(dateLetters, usersMap, dateStr)}
-                  className="inline-flex items-center gap-1 rounded-lg bg-emerald-700 px-2.5 py-1.5 text-xs font-bold text-white hover:bg-emerald-800"
-                >
-                  <FileSpreadsheet className="h-3.5 w-3.5" />
-                  <span>Excel பதிவிறக்கம்</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => printLandscapeDateReport(dateStr, dateLetters, usersMap)}
-                  className="inline-flex items-center gap-1.5 rounded-lg bg-slate-800 px-2.5 py-1.5 text-xs font-bold text-white hover:bg-slate-900"
+                  onClick={() =>
+                    printLandscapeReport(`Mail Register - ${dateStr}`, dateLetters, usersMap)
+                  }
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-bold text-white hover:bg-black transition"
+                  title="Print Official A4 Landscape Report with 10pt font & signature column"
                 >
                   <Printer className="h-3.5 w-3.5" />
-                  <span>அச்சிடு</span>
+                  <span>Print (10pt Font)</span>
                 </button>
               </div>
             </div>
 
+            {/* Folder Table View with All Requested Columns */}
             {isOpen && (
               <div className="overflow-x-auto p-2">
                 <table className="w-full text-left text-xs border-collapse">
                   <thead>
-                    <tr className="border-b border-gray-200 bg-gray-50/80 text-gray-700 font-semibold">
-                      <th className="py-2.5 px-3">Original No</th>
-                      <th className="py-2.5 px-3">Date</th>
-                      <th className="py-2.5 px-3">Inward No</th>
-                      <th className="py-2.5 px-3">From whom</th>
-                      <th className="py-2.5 px-3 max-w-xs">SUBJECT (விடயம்)</th>
-                      <th className="py-2.5 px-3">Forwarded to</th>
-                      {isMailOfficer ? (
-                        <th className="py-2.5 px-3">மெகா பயனாளி நிலை</th>
-                      ) : (
-                        <>
-                          <th className="py-2.5 px-3">Action (நிலை)</th>
-                          <th className="py-2.5 px-3 text-center">உரையாடல் (Chat)</th>
-                        </>
-                      )}
-                      <th className="py-2.5 px-3 text-center">ஆவணம் (~240KB)</th>
-                      <th className="py-2.5 px-3 text-right">நடவடிக்கை</th>
+                    <tr className="border-b border-gray-200 bg-gray-50/90 text-gray-700 font-bold">
+                      <th className="py-2.5 px-3 whitespace-nowrap">Original No (கணினி இலக்கம்)</th>
+                      <th className="py-2.5 px-3 whitespace-nowrap">Dispatched Date</th>
+                      <th className="py-2.5 px-3 whitespace-nowrap">Post Type & Reg. No</th>
+                      <th className="py-2.5 px-3 whitespace-nowrap">Inward No (கடித இலக்கம்)</th>
+                      <th className="py-2.5 px-3">From Whom</th>
+                      <th className="py-2.5 px-3 max-w-xs">Subject</th>
+                      <th className="py-2.5 px-3">Forwarded Divisions & Officers</th>
+                      <th className="py-2.5 px-3">Action Status</th>
+                      <th className="py-2.5 px-3">File No (பைல்)</th>
+                      <th className="py-2.5 px-3 text-center">Document</th>
+                      <th className="py-2.5 px-3 text-right">Actions</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100">
-                    {dateLetters.map((ltr) => {
-                      const forwardedNames = ltr.forwardedTo
+                    {dateLetters.map((ltr, ltrIdx) => {
+                      const forwardedNames = (ltr.forwardedTo || [])
                         .map((id) => usersMap.get(id)?.Name || id)
                         .join(', ');
 
+                      const divisionsList = (
+                        ltr.forwardedDivisions && ltr.forwardedDivisions.length > 0
+                          ? ltr.forwardedDivisions
+                          : [ltr.division]
+                      ).filter(Boolean);
+
                       return (
-                        <tr key={ltr.id} className="hover:bg-blue-50/40 transition group">
-                          <td className="py-2.5 px-3 font-mono font-bold text-blue-900 whitespace-nowrap">{ltr.originalNo}</td>
-                          <td className="py-2.5 px-3 whitespace-nowrap text-gray-600">{ltr.date}</td>
-                          <td className="py-2.5 px-3 font-semibold text-gray-800 whitespace-nowrap">{ltr.inwardNo}</td>
-                          <td className="py-2.5 px-3 text-gray-700 whitespace-nowrap font-medium">{ltr.fromWhom}</td>
+                        <tr
+                          key={`${ltr.id || ltr.originalNo}-${ltrIdx}`}
+                          className="hover:bg-blue-50/40 transition group"
+                        >
+                          <td className="py-2.5 px-3 font-mono font-bold text-blue-900 whitespace-nowrap">
+                            {ltr.originalNo}
+                          </td>
+                          <td className="py-2.5 px-3 whitespace-nowrap text-gray-600">
+                            {ltr.dispatchedDate || ltr.date}
+                          </td>
+                          <td className="py-2.5 px-3 whitespace-nowrap">
+                            <span className="rounded bg-slate-100 px-2 py-0.5 font-medium text-slate-800 text-[11px] block w-fit">
+                              {ltr.letterType || 'Registered Post'}
+                            </span>
+                            {ltr.registeredPostNo &&
+                              ltr.registeredPostNo !== '-' &&
+                              ltr.registeredPostNo !== '_' && (
+                                <div className="font-mono text-[10px] text-blue-700 mt-0.5">
+                                  Reg: {ltr.registeredPostNo}
+                                </div>
+                              )}
+                          </td>
+                          <td className="py-2.5 px-3 font-semibold text-gray-900 whitespace-nowrap">
+                            {ltr.inwardNo}
+                          </td>
+                          <td className="py-2.5 px-3 text-gray-800 font-medium">
+                            {ltr.fromWhom}
+                          </td>
                           <td className="py-2.5 px-3 max-w-xs">
-                            <span onClick={() => onSelectLetter(ltr)} className="font-medium text-gray-900 hover:text-blue-700 cursor-pointer line-clamp-2">
+                            <span
+                              onClick={() => onSelectLetter(ltr)}
+                              className="font-semibold text-gray-900 hover:text-blue-700 cursor-pointer line-clamp-2"
+                              title={ltr.subject}
+                            >
                               {ltr.subject}
                             </span>
                           </td>
-                          <td className="py-2.5 px-3 text-gray-600 text-[11px] max-w-[200px]">
-                            <span className="line-clamp-2" title={forwardedNames}>{forwardedNames || '-'}</span>
+                          <td className="py-2.5 px-3 text-[11px] max-w-[200px]">
+                            <div
+                              className="font-semibold text-blue-900 truncate"
+                              title={divisionsList.join(', ')}
+                            >
+                              🏢 {divisionsList.join(', ') || '-'}
+                            </div>
+                            {forwardedNames && (
+                              <div
+                                className="text-gray-600 truncate mt-0.5"
+                                title={forwardedNames}
+                              >
+                                👤 {forwardedNames}
+                              </div>
+                            )}
                           </td>
-
-                          {isMailOfficer ? (
-                            <td className="py-2.5 px-3 whitespace-nowrap">
-                              {ltr.handledByMega ? (
-                                <span className="inline-flex items-center gap-1 rounded-md bg-emerald-50 px-2 py-1 text-xs font-bold text-emerald-700 border border-emerald-200">
-                                  <CheckCircle2 className="h-3.5 w-3.5" /> மெகா கையாண்டார்
-                                </span>
-                              ) : (
-                                <span className="inline-flex items-center gap-1 rounded-md bg-amber-50 px-2 py-1 text-xs font-medium text-amber-700 border border-amber-200">
-                                  <Clock className="h-3.5 w-3.5" /> நிலுவையில் உள்ளது
-                                </span>
-                              )}
-                            </td>
-                          ) : (
-                            <>
-                              <td className="py-2.5 px-3 whitespace-nowrap">
-                                <span className={`inline-block rounded-md px-2 py-0.5 text-[11px] font-bold ${
-                                  ltr.action === 'நடவடிக்கை எடுக்கப்பட்டது' ? 'bg-emerald-100 text-emerald-800' : 'bg-blue-100 text-blue-800'
-                                }`}>
-                                  {ltr.action}
-                                </span>
-                              </td>
-                              <td className="py-2.5 px-3 text-center whitespace-nowrap">
-                                <button type="button" onClick={() => onSelectLetter(ltr)} className="inline-flex items-center gap-1 rounded-md border border-gray-300 bg-white px-2 py-1 text-xs font-medium text-gray-700">
-                                  <MessageSquare className="h-3.5 w-3.5 text-blue-700" />
-                                  <span>{ltr.chats?.length || 0}</span>
-                                </button>
-                              </td>
-                            </>
-                          )}
-
+                          <td className="py-2.5 px-3 whitespace-nowrap">
+                            <span
+                              className={`inline-block rounded-md px-2 py-0.5 text-[11px] font-bold ${
+                                ltr.action === 'Action Taken' ||
+                                ltr.action === 'நடவடிக்கை எடுக்கப்பட்டது'
+                                  ? 'bg-emerald-100 text-emerald-800'
+                                  : ltr.action === 'Action Not Taken' ||
+                                    ltr.action === 'நடவடிக்கை எடுக்கப்படவில்லை'
+                                  ? 'bg-rose-100 text-rose-800'
+                                  : ltr.action === 'Under Investigation' ||
+                                    ltr.action === 'கள ஆய்வில்'
+                                  ? 'bg-amber-100 text-amber-800'
+                                  : 'bg-blue-100 text-blue-800'
+                              }`}
+                            >
+                              {ltr.action}
+                            </span>
+                          </td>
+                          <td className="py-2.5 px-3 whitespace-nowrap">
+                            {ltr.fileNo ? (
+                              <span className="inline-flex items-center gap-1 rounded bg-emerald-50 px-2 py-0.5 text-[11px] font-bold font-mono text-emerald-800 border border-emerald-200">
+                                📁 {ltr.fileNo}
+                              </span>
+                            ) : (
+                              <span className="text-gray-300 text-xs italic">-</span>
+                            )}
+                          </td>
                           <td className="py-2.5 px-3 text-center whitespace-nowrap">
                             {ltr.image ? (
                               <div className="inline-flex items-center gap-1">
-                                <button type="button" onClick={() => onSelectLetter(ltr)} className="rounded bg-blue-50 px-2 py-1 text-[11px] font-semibold text-blue-800 border border-blue-200">
-                                  <ImageIcon className="h-3 w-3" /> ~240KB
+                                <button
+                                  type="button"
+                                  onClick={() => onSelectLetter(ltr)}
+                                  className="rounded bg-blue-50 px-2 py-1 text-[11px] font-bold text-blue-800 border border-blue-200 hover:bg-blue-100"
+                                >
+                                  <ImageIcon className="inline h-3 w-3 mr-1" />
+                                  ~{ltr.imageSizeKb || 240}KB
                                 </button>
-                                <button type="button" onClick={() => downloadLetterAttachment(ltr.image!, `${ltr.originalNo}_Doc.jpg`)} className="rounded bg-emerald-50 p-1 text-emerald-700 border border-emerald-200">
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    downloadLetterAttachment(
+                                      ltr.image!,
+                                      `${ltr.originalNo}_Doc.jpg`
+                                    )
+                                  }
+                                  className="rounded bg-emerald-50 p-1 text-emerald-700 border border-emerald-200 hover:bg-emerald-100"
+                                  title="Download Image"
+                                >
                                   <Download className="h-3 w-3" />
                                 </button>
                               </div>
@@ -243,21 +400,35 @@ export const DateFoldersList: React.FC<DateFoldersListProps> = ({
                               <span className="text-gray-300">-</span>
                             )}
                           </td>
-
                           <td className="py-2.5 px-3 text-right whitespace-nowrap">
                             <div className="flex items-center justify-end gap-1.5">
-                              <button type="button" onClick={() => onSelectLetter(ltr)} title="பார்வையிட" className="rounded p-1 text-gray-600 hover:bg-gray-200">
+                              <button
+                                type="button"
+                                onClick={() => onSelectLetter(ltr)}
+                                title="View Details / Chats"
+                                className="rounded p-1 text-gray-600 hover:bg-gray-200"
+                              >
                                 <Eye className="h-4 w-4" />
                               </button>
 
                               {canModify && (
-                                <button type="button" onClick={() => onEditLetter?.(ltr)} title="திருத்து" className="rounded p-1 text-amber-600 hover:bg-amber-100">
-                                  <Edit className="h-4 w-4" />
+                                <button
+                                  type="button"
+                                  onClick={() => onEditLetter(ltr)}
+                                  title="Edit All Letter Fields (கடிதத்தை திருத்து)"
+                                  className="rounded p-1 text-amber-600 hover:bg-amber-100"
+                                >
+                                  <Edit3 className="h-4 w-4" />
                                 </button>
                               )}
 
                               {isSuperAdmin && (
-                                <button type="button" onClick={() => onDeleteLetter?.(ltr.id)} title="நீக்கு" className="rounded p-1 text-red-600 hover:bg-red-100">
+                                <button
+                                  type="button"
+                                  onClick={() => onDeleteLetter(ltr.id)}
+                                  title="Delete Record"
+                                  className="rounded p-1 text-red-600 hover:bg-red-100"
+                                >
                                   <Trash2 className="h-4 w-4" />
                                 </button>
                               )}

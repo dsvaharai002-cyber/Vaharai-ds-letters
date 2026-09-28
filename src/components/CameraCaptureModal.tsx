@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Camera, RefreshCw, X, Check, Upload } from 'lucide-react';
+import { Camera, RefreshCw, X, Check, Upload, AlertCircle } from 'lucide-react';
 import { compressImageToTarget } from '../utils/helpers';
 
 interface CameraCaptureModalProps {
@@ -40,7 +40,7 @@ export const CameraCaptureModal: React.FC<CameraCaptureModalProps> = ({
     setCameraError(null);
     try {
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        throw new Error('உங்கள் உலாவியில் கேமரா வசதி ஆதரிக்கப்படவில்லை.');
+        throw new Error('Camera is not supported on this browser or device.');
       }
       const stream = await navigator.mediaDevices.getUserMedia({
         video: {
@@ -58,9 +58,9 @@ export const CameraCaptureModal: React.FC<CameraCaptureModalProps> = ({
     } catch (err: unknown) {
       console.error('Camera access error:', err);
       setCameraActive(false);
-      const msg = err instanceof Error ? err.message : 'கேமராவை இயக்க முடியவில்லை';
+      const msg = err instanceof Error ? err.message : 'Unable to access camera';
       setCameraError(
-        `${msg}. தயவுசெய்து கேமரா அனுமதியை சரிபார்க்கவும் அல்லது கோப்பைப் பதிவேற்றவும்.`
+        `${msg}. Please ensure camera permission is granted or upload an image from your device.`
       );
     }
   };
@@ -86,14 +86,14 @@ export const CameraCaptureModal: React.FC<CameraCaptureModalProps> = ({
 
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-      // Compress to ~240 KB target as requested
+      // Compress to ~240 KB target
       const { dataUrl, sizeKb } = await compressImageToTarget(canvas, 240);
       setPreviewUrl(dataUrl);
       setCompressedSize(sizeKb);
       stopCamera();
     } catch (err) {
       console.error('Capture error:', err);
-      alert('புகைப்படம் எடுப்பதில் சிக்கல் ஏற்பட்டது.');
+      alert('Failed to capture and compress photo.');
     } finally {
       setIsProcessing(false);
     }
@@ -111,7 +111,7 @@ export const CameraCaptureModal: React.FC<CameraCaptureModalProps> = ({
       stopCamera();
     } catch (err) {
       console.error('File upload error:', err);
-      alert('படத்தை சுருக்குவதில் சிக்கல் ஏற்பட்டது.');
+      alert('Error processing and compressing image.');
     } finally {
       setIsProcessing(false);
     }
@@ -135,34 +135,34 @@ export const CameraCaptureModal: React.FC<CameraCaptureModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs">
       <div className="w-full max-w-lg overflow-hidden rounded-xl bg-white shadow-2xl">
-        {/* Modal Header */}
-        <div className="flex items-center justify-between border-b border-gray-200 bg-gray-50 px-5 py-3">
+        {/* Header */}
+        <div className="flex items-center justify-between border-b border-gray-200 bg-gray-50 px-5 py-3.5">
           <div className="flex items-center gap-2">
             <Camera className="h-5 w-5 text-blue-700" />
-            <h3 className="font-semibold text-gray-900">
-              கடிதப் புகைப்படம் எடுத்தல் (இலக்கு: ~240 KB)
+            <h3 className="font-bold text-gray-900 text-sm">
+              Capture Mail Document (Target: ~240 KB)
             </h3>
           </div>
           <button
             onClick={onClose}
-            className="rounded-lg p-1 text-gray-500 hover:bg-gray-200 hover:text-gray-800"
+            className="rounded-lg p-1 text-gray-400 hover:bg-gray-200 hover:text-gray-800"
           >
             <X className="h-5 w-5" />
           </button>
         </div>
 
-        {/* Modal Body */}
+        {/* Content */}
         <div className="p-5">
           {previewUrl ? (
             <div className="space-y-4">
-              <div className="relative overflow-hidden rounded-lg border border-gray-300 bg-black text-center">
+              <div className="relative overflow-hidden rounded-xl border border-gray-300 bg-black text-center">
                 <img
                   src={previewUrl}
-                  alt="Captured"
+                  alt="Captured Document"
                   className="max-h-80 w-full object-contain mx-auto"
                 />
-                <span className="absolute top-2 right-2 rounded-md bg-black/75 px-2.5 py-1 text-xs font-bold text-white">
-                  அளவு: {compressedSize} KB (240 KB இணக்கம்)
+                <span className="absolute top-2 right-2 rounded-md bg-black/75 px-2.5 py-1 text-xs font-bold text-white shadow-sm">
+                  Size: {compressedSize} KB (~240 KB target)
                 </span>
               </div>
 
@@ -170,30 +170,33 @@ export const CameraCaptureModal: React.FC<CameraCaptureModalProps> = ({
                 <button
                   type="button"
                   onClick={retakePhoto}
-                  className="flex items-center gap-1.5 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+                  className="flex items-center gap-1.5 rounded-lg border border-gray-300 px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-100"
                 >
                   <RefreshCw className="h-4 w-4" />
-                  மீண்டும் எடுக்க
+                  Retake Photo
                 </button>
                 <button
                   type="button"
                   onClick={confirmPhoto}
-                  className="flex items-center gap-1.5 rounded-lg bg-emerald-600 px-5 py-2 text-sm font-semibold text-white hover:bg-emerald-700"
+                  className="flex items-center gap-1.5 rounded-lg bg-emerald-600 px-5 py-2 text-xs font-bold text-white shadow-sm hover:bg-emerald-700"
                 >
                   <Check className="h-4 w-4" />
-                  இணைக்க (Use Photo)
+                  Attach Document
                 </button>
               </div>
             </div>
           ) : (
             <div className="space-y-4">
               {cameraError ? (
-                <div className="rounded-lg bg-amber-50 p-4 text-sm text-amber-800 border border-amber-200">
-                  <p className="font-medium">{cameraError}</p>
-                  <div className="mt-3">
-                    <label className="flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-dashed border-gray-300 bg-white p-4 text-center font-medium text-blue-700 hover:bg-blue-50">
-                      <Upload className="h-5 w-5" />
-                      <span>சாதனத்திலிருந்து படத்தைத் தெரிவு செய்க (~240 KB ஆக சுருக்கப்படும்)</span>
+                <div className="rounded-xl bg-amber-50 p-4 text-xs text-amber-800 border border-amber-200 space-y-3">
+                  <div className="flex items-start gap-2">
+                    <AlertCircle className="h-4 w-4 shrink-0 text-amber-600 mt-0.5" />
+                    <p className="font-medium">{cameraError}</p>
+                  </div>
+                  <div>
+                    <label className="flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-dashed border-blue-300 bg-white p-4 text-center font-bold text-blue-700 hover:bg-blue-50 transition">
+                      <Upload className="h-4 w-4" />
+                      <span>Upload image from computer / mobile (~240 KB auto-compress)</span>
                       <input
                         type="file"
                         accept="image/*"
@@ -205,7 +208,7 @@ export const CameraCaptureModal: React.FC<CameraCaptureModalProps> = ({
                 </div>
               ) : (
                 <>
-                  <div className="relative overflow-hidden rounded-lg bg-black">
+                  <div className="relative overflow-hidden rounded-xl bg-black">
                     <video
                       ref={videoRef}
                       playsInline
@@ -213,8 +216,8 @@ export const CameraCaptureModal: React.FC<CameraCaptureModalProps> = ({
                       className="h-72 w-full object-cover"
                     />
                     {!cameraActive && (
-                      <div className="absolute inset-0 flex items-center justify-center text-sm text-white">
-                        கேமரா தொடங்குகிறது...
+                      <div className="absolute inset-0 flex items-center justify-center text-xs text-white">
+                        Initializing Camera...
                       </div>
                     )}
                   </div>
@@ -224,17 +227,17 @@ export const CameraCaptureModal: React.FC<CameraCaptureModalProps> = ({
                       type="button"
                       disabled={!cameraActive || isProcessing}
                       onClick={capturePhoto}
-                      className="flex items-center justify-center gap-2 rounded-lg bg-blue-700 px-4 py-2.5 font-semibold text-white shadow-sm hover:bg-blue-800 disabled:opacity-50"
+                      className="flex items-center justify-center gap-2 rounded-lg bg-blue-700 px-4 py-2.5 text-xs font-bold text-white shadow-sm hover:bg-blue-800 disabled:opacity-50"
                     >
-                      <Camera className="h-5 w-5" />
-                      <span>{isProcessing ? 'சுருக்கப்படுகிறது...' : 'புகைப்படம் எடுக்க (Capture ~240KB)'}</span>
+                      <Camera className="h-4 w-4" />
+                      <span>{isProcessing ? 'Compressing...' : 'Capture Photo (~240 KB)'}</span>
                     </button>
 
-                    <div className="text-center text-xs text-gray-500">அல்லது</div>
+                    <div className="text-center text-[11px] text-gray-500 font-medium">or</div>
 
-                    <label className="flex cursor-pointer items-center justify-center gap-1.5 rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 text-xs font-medium text-gray-700 hover:bg-gray-100">
-                      <Upload className="h-4 w-4" />
-                      <span>கோப்பிலிருந்து பதிவேற்றுக (Upload Image)</span>
+                    <label className="flex cursor-pointer items-center justify-center gap-1.5 rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-100 transition">
+                      <Upload className="h-4 w-4 text-gray-600" />
+                      <span>Upload from File</span>
                       <input
                         type="file"
                         accept="image/*"

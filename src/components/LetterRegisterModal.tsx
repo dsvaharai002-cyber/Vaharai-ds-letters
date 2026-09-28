@@ -1,8 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { Camera, X, Check, Share2, Mail, MessageSquare, AlertCircle, Sparkles } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  Camera,
+  X,
+  Check,
+  Building2,
+  FileText,
+  AlertCircle,
+  Sparkles,
+  Calendar,
+  Send,
+  Upload,
+  Loader2,
+  CheckCircle2,
+  RefreshCw,
+  Image as ImageIcon,
+  Zap,
+} from 'lucide-react';
 import { Letter, LetterAction, User } from '../types';
-import { generateOriginalNo, shareViaEmail, shareViaWhatsApp } from '../utils/helpers';
-import { ForwardUserSelect } from './ForwardUserSelect';
+import { DIVISIONS, POST_TYPES, migrateDivision } from '../data/initialData';
+import { generateOriginalNo, compressImageToTarget } from '../utils/helpers';
+import { scanLetterWithAI } from '../utils/aiScanner';
+import { ForwardSelect } from './ForwardUserSelect';
 import { CameraCaptureModal } from './CameraCaptureModal';
 
 interface LetterRegisterModalProps {
@@ -15,10 +33,10 @@ interface LetterRegisterModalProps {
 }
 
 const ACTION_OPTIONS: LetterAction[] = [
-  'இன்னும் பார்க்கவில்லை',
-  'நடவடிக்கை எடுக்கப்பட்டது',
-  'நடவடிக்கை எடுக்கப்படவில்லை',
-  'கள ஆய்வில்',
+  'Not Yet Viewed',
+  'Action Taken',
+  'Action Not Taken',
+  'Under Investigation',
 ];
 
 export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
@@ -30,25 +48,174 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
   existingLetters,
 }) => {
   const [date, setDate] = useState<string>(new Date().toISOString().split('T')[0]);
+  const [dispatchedDate, setDispatchedDate] = useState<string>(
+    new Date().toISOString().split('T')[0]
+  );
   const [originalNo, setOriginalNo] = useState<string>('');
+  const [letterType, setLetterType] = useState<string>('Registered Post');
+  const [registeredPostNo, setRegisteredPostNo] = useState<string>('');
   const [inwardNo, setInwardNo] = useState<string>('');
   const [fromWhom, setFromWhom] = useState<string>('');
   const [subject, setSubject] = useState<string>('');
-  
-  const [letterType, setLetterType] = useState<string>('Registered Post');
-  const [dispatchedDate, setDispatchedDate] = useState<string>(new Date().toISOString().split('T')[0]);
-  const [fileReferenceNo, setFileReferenceNo] = useState<string>('');
-
+  const [primaryDivision, setPrimaryDivision] = useState<string>('');
+  const [forwardedDivisions, setForwardedDivisions] = useState<string[]>([]);
   const [forwardedTo, setForwardedTo] = useState<string[]>([]);
-  const [action, setAction] = useState<LetterAction>('இன்னும் பார்க்கவில்லை');
+  const [action, setAction] = useState<LetterAction>('Not Yet Viewed');
+  const [fileNo, setFileNo] = useState<string>('');
   const [replyResponse, setReplyResponse] = useState<string>('');
   const [initialNote, setInitialNote] = useState<string>('');
+
   const [image, setImage] = useState<string | undefined>(undefined);
   const [imageSizeKb, setImageSizeKb] = useState<number | undefined>(undefined);
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const [isScanning, setIsScanning] = useState(false);
 
+  // AI OCR Scanning States
+  const [isScanning, setIsScanning] = useState(false);
+  const [scanSuccessMsg, setScanSuccessMsg] = useState<string | null>(null);
+  const [scanErrorMsg, setScanErrorMsg] = useState<string | null>(null);
+  const [autoFilledFields, setAutoFilledFields] = useState<string[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // AI Document Scanning & Auto-Fill Handler
+  const triggerScan = async (dataUrl: string) => {
+    setIsScanning(true);
+    setScanSuccessMsg(null);
+    setScanErrorMsg(null);
+    setAutoFilledFields([]);
+
+    try {
+      const res = await scanLetterWithAI(dataUrl);
+      if (!res.success || !res.data) {
+        // Quiet fallback without technical JSON errors
+        setScanErrorMsg(null);
+        return;
+      }
+
+      const { data: d } = res;
+      const filled: string[] = [];
+
+      // 1. Dispatched Date (கடிதம் அனுப்பப்பட்ட திகதி)
+      let cleanDate = d.dispatchedDate ? d.dispatchedDate.trim().replace(/[./]/g, '-') : '';
+      const dateParts = cleanDate.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+      if (dateParts) {
+        cleanDate = `${dateParts[1]}-${dateParts[2].padStart(2, '0')}-${dateParts[3].padStart(2, '0')}`;
+        setDispatchedDate(cleanDate);
+        filled.push('Dispatched Date (அனுப்பிய திகதி)');
+      } else if (d.dispatchedDate) {
+        // Fallback for DD-MM-YYYY
+        const dmyParts = d.dispatchedDate.trim().match(/^(\d{1,2})[./-](\d{1,2})[./-](\d{4})$/);
+        if (dmyParts) {
+          cleanDate = `${dmyParts[3]}-${dmyParts[2].padStart(2, '0')}-${dmyParts[1].padStart(2, '0')}`;
+          setDispatchedDate(cleanDate);
+          filled.push('Dispatched Date (அனுப்பிய திகதி)');
+        }
+      }
+
+      // 2. Inward No (கடிதத்தில் உள்ள கடித இலக்கம் / Letter No)
+      const scannedLetterNumber = (d.inwardNo || d.originalNo || (d as any).letterNo || '').trim();
+      if (scannedLetterNumber) {
+        setInwardNo(scannedLetterNumber);
+        filled.push('Inward No (கடித இலக்கம்)');
+      }
+
+      // 3. Sender / From Whom (அனுப்புனர்)
+      if (d.fromWhom && d.fromWhom.trim()) {
+        setFromWhom(d.fromWhom.trim());
+        filled.push('From Whom (அனுப்புனர்)');
+      }
+
+      // 4. Subject (விடயம் / தலைப்பு)
+      if (d.subject && d.subject.trim()) {
+        setSubject(d.subject.trim());
+        filled.push('Subject (விடயம்)');
+      }
+
+      // 5. Registered Post Number (பதிவுத் தபால் எண்)
+      if (d.registeredPostNo && d.registeredPostNo.trim()) {
+        setRegisteredPostNo(d.registeredPostNo.trim());
+        setLetterType('Registered Post');
+        filled.push('Reg. Post No (பதிவுத் தபால் எண்)');
+      } else if (d.postType && (POST_TYPES as readonly string[]).includes(d.postType)) {
+        setLetterType(d.postType);
+      }
+
+      // 6. Suggested Division Matching (Only the matched division receives it)
+      if (d.suggestedDivision) {
+        const match = migrateDivision(d.suggestedDivision);
+        if (match) {
+          setPrimaryDivision(match);
+          setForwardedDivisions([match]);
+          filled.push(`Division: ${match}`);
+        }
+      }
+
+      // 7. Summary note if available
+      if (d.summary && !initialNote) {
+        setInitialNote(d.summary);
+      }
+
+      setAutoFilledFields(filled);
+      if (filled.length > 0) {
+        setScanSuccessMsg(
+          `✓ கடிதப் படம் வெற்றிகரமாக ஸ்கேன் செய்யப்பட்டது! ${filled.length} முக்கிய விவரங்கள் தானாகப் பூர்த்தி செய்யப்பட்டன.`
+        );
+      }
+    } catch (err: unknown) {
+      // Never show scary JSON code to user; simply enable direct manual entry
+      console.log('AI scan notice (direct manual entry available):', err);
+      setScanErrorMsg(null);
+    } finally {
+      setIsScanning(false);
+    }
+  };
+
+  // Direct file selection handler (compress & auto-scan)
+  const handleDirectFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const { dataUrl, sizeKb } = await compressImageToTarget(file, 240);
+      setImage(dataUrl);
+      setImageSizeKb(sizeKb);
+      await triggerScan(dataUrl);
+    } catch (err) {
+      console.error('File load error:', err);
+      setErrorMsg('Failed to process image file.');
+    } finally {
+      // Clear input so same file can be selected again if needed
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  };
+
+  // Paste handler for quick clipboard images (e.g. from Snipping Tool / document scanner)
+  const handlePaste = async (e: React.ClipboardEvent) => {
+    const items = e.clipboardData?.items;
+    if (!items) return;
+
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].type.startsWith('image/')) {
+        const file = items[i].getAsFile();
+        if (file) {
+          e.preventDefault();
+          try {
+            const { dataUrl, sizeKb } = await compressImageToTarget(file, 240);
+            setImage(dataUrl);
+            setImageSizeKb(sizeKb);
+            await triggerScan(dataUrl);
+          } catch (err) {
+            console.error('Paste error:', err);
+          }
+        }
+        break;
+      }
+    }
+  };
+
+  // Auto-generate Original No when date or letters change
   useEffect(() => {
     if (isOpen) {
       const generated = generateOriginalNo(date, existingLetters);
@@ -56,85 +223,84 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
     }
   }, [date, isOpen, existingLetters]);
 
+  // Reset form on open
   useEffect(() => {
     if (isOpen) {
       const today = new Date().toISOString().split('T')[0];
       setDate(today);
+      setDispatchedDate(today);
+      setLetterType('Registered Post');
+      setRegisteredPostNo('');
       setInwardNo('');
       setFromWhom('');
       setSubject('');
-      setLetterType('Registered Post');
-      setDispatchedDate(today);
-      setFileReferenceNo('');
+      setPrimaryDivision('');
+      setForwardedDivisions([]);
       setForwardedTo([]);
-      setAction('இன்னும் பார்க்கவில்லை');
+      setAction('Not Yet Viewed');
+      setFileNo('');
       setReplyResponse('');
       setInitialNote('');
       setImage(undefined);
       setImageSizeKb(undefined);
       setErrorMsg(null);
+      setIsScanning(false);
+      setScanSuccessMsg(null);
+      setScanErrorMsg(null);
+      setAutoFilledFields([]);
     }
   }, [isOpen]);
 
   if (!isOpen) return null;
-
-  const usersMap = new Map<string, User>(allUsers.map((u) => [u.User_ID, u]));
-
-  const handleAutoScanAndTranslate = () => {
-    if (!image) {
-      alert('முதலில் புகைப்படத்தை இணைக்கவும் அல்லது கேமராவை இயக்கவும்!');
-      return;
-    }
-    setIsScanning(true);
-    setTimeout(() => {
-      setSubject('ஸ்கேன் செய்யப்பட்ட தலைப்பு: பிரதேச செயலக கடிதம்');
-      setInwardNo('INW/OCR/2026/01');
-      setDispatchedDate(new Date().toISOString().split('T')[0]);
-      setIsScanning(false);
-      alert('கடிதம் தானாக ஸ்கேன் செய்யப்பட்டு தலைப்பு, அனுப்பிய இலக்கம் மற்றும் திகதி பதிவு செய்யப்பட்டது!');
-    }, 1000);
-  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg(null);
 
     if (!originalNo.trim()) {
-      setErrorMsg('Original No வழங்கப்பட வேண்டும்.');
+      setErrorMsg('Please specify an Original No.');
       return;
     }
     if (!inwardNo.trim()) {
-      setErrorMsg('Inward No (உள்வரும் கடித இலக்கம்) உள்ளிடுக.');
+      setErrorMsg('Please enter the Inward No (கடித இலக்கம்).');
       return;
     }
     if (!fromWhom.trim()) {
-      setErrorMsg('அனுப்புநர் (From whom) விபரத்தை உள்ளிடுக.');
+      setErrorMsg('Please enter sender details (From Whom - அனுப்புனர்).');
       return;
     }
     if (!subject.trim()) {
-      setErrorMsg('SUBJECT (விடயம்) உள்ளிடுக.');
+      setErrorMsg('Please enter the Subject of the mail (விடயம்).');
       return;
     }
+    if (!primaryDivision.trim()) {
+      setErrorMsg('கடிதத்திற்கான உரிய முதன்மைப் பிரிவைத் தெரிவு செய்க (Please select the Primary Division).');
+      return;
+    }
+
+    const sanitizedForwardedDivs = Array.from(
+      new Set([primaryDivision, ...forwardedDivisions].filter((d) => Boolean(d && d.trim())))
+    );
 
     const newLetterId = `LTR-${Date.now()}`;
     const newLetter: Letter = {
       id: newLetterId,
       originalNo: originalNo.trim(),
-      date: date,
+      date,
+      dispatchedDate,
+      letterType,
+      registeredPostNo: registeredPostNo.trim(),
       inwardNo: inwardNo.trim(),
       fromWhom: fromWhom.trim(),
       subject: subject.trim(),
-      // @ts-ignore
-      letterType: letterType,
-      // @ts-ignore
-      dispatchedDate: dispatchedDate,
-      // @ts-ignore
-      fileReferenceNo: fileReferenceNo.trim(),
-      forwardedTo: forwardedTo,
-      action: action,
+      division: primaryDivision,
+      forwardedDivisions: sanitizedForwardedDivs,
+      forwardedTo,
+      action,
+      fileNo: fileNo.trim() || undefined,
       replyResponse: replyResponse.trim(),
-      image: image,
-      imageSizeKb: imageSizeKb,
+      image,
+      imageSizeKb,
       registeredBy: currentUser.User_ID,
       registeredByName: currentUser.Name,
       createdAt: `${date} ${new Date().toTimeString().slice(0, 5)}`,
@@ -160,229 +326,466 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
   return (
     <>
       <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs">
-        <div className="flex max-h-[92vh] w-full max-w-3xl flex-col rounded-xl bg-white shadow-2xl">
-          <div className="flex items-center justify-between border-b border-gray-200 bg-blue-900 px-6 py-4 text-white rounded-t-xl">
+        <div className="flex max-h-[92vh] w-full max-w-3xl flex-col rounded-2xl bg-white shadow-2xl">
+          {/* Modal Header */}
+          <div className="flex items-center justify-between border-b border-gray-200 bg-slate-900 px-6 py-4 text-white rounded-t-2xl">
             <div>
-              <h2 className="text-lg font-bold">
-                ✉️ புதிய கடிதம் பதிவு செய்தல் (Mail Officer)
+              <h2 className="text-base font-bold flex items-center gap-2">
+                <span>✉️ Register New Inward Mail</span>
+                <span className="rounded bg-blue-700 px-2 py-0.5 text-xs font-mono">
+                  Mail Officer
+                </span>
               </h2>
-              <p className="text-xs text-blue-200">
-                கோறளைப்பற்று வடக்கு வாகரை பிரதேச செயலக கடித மேலாண்மை அமைப்பு
+              <p className="text-xs text-blue-200 mt-0.5">
+                Koralaipattu North Vaharai DS Office • Mail Registration System
               </p>
             </div>
             <button
               onClick={onClose}
-              className="rounded-lg p-1 text-blue-200 hover:bg-blue-800 hover:text-white"
+              className="rounded-lg p-1 text-slate-300 hover:bg-slate-800 hover:text-white"
             >
               <X className="h-6 w-6" />
             </button>
           </div>
 
-          <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6 space-y-4">
+          {/* Form */}
+          <form
+            onSubmit={handleSubmit}
+            onPaste={handlePaste}
+            className="flex-1 overflow-y-auto p-6 space-y-4"
+          >
             {errorMsg && (
-              <div className="flex items-center gap-2 rounded-lg bg-red-50 p-3 text-sm text-red-700 border border-red-200">
-                <AlertCircle className="h-5 w-5 shrink-0" />
+              <div className="flex items-center gap-2 rounded-xl bg-red-50 p-3 text-xs font-semibold text-red-700 border border-red-200">
+                <AlertCircle className="h-4 w-4 shrink-0" />
                 <span>{errorMsg}</span>
               </div>
             )}
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            {/* TOP SECTION: Letter Photo Capture & Instant AI Auto-Scan */}
+            <div className="rounded-2xl border-2 border-indigo-200 bg-linear-to-r from-blue-50/90 via-indigo-50/70 to-slate-50 p-4 shadow-xs">
+              <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-indigo-100">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-600 text-white shadow-xs">
+                      <Sparkles className="h-4 w-4" />
+                    </span>
+                    <h3 className="text-sm font-bold text-slate-900">
+                      கடிதப் புகைப்படம் & AI தானியங்கி ஸ்கேன் (Letter Photo & Auto-Fill)
+                    </h3>
+                    <span className="rounded-full bg-indigo-100 px-2 py-0.5 text-[10px] font-bold text-indigo-800 border border-indigo-200">
+                      ⚡ AI Auto-Fill
+                    </span>
+                  </div>
+                  <p className="mt-1 text-xs text-slate-600">
+                    கடிதத்தின் புகைப்படத்தைப் பிடித்தால் கடிதம் அனுப்பப்பட்ட திகதி, கடித எண், அனுப்புனர், விடயம் என்பன <strong>தானாகப் பில்டராகி Auto-Fill</strong> ஆகும்.
+                  </p>
+                </div>
+
+                {/* Primary Action Buttons: Open Camera & Upload File */}
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setIsCameraOpen(true)}
+                    disabled={isScanning}
+                    className="inline-flex items-center gap-1.5 rounded-xl bg-blue-700 px-3.5 py-2 text-xs font-bold text-white shadow-xs hover:bg-blue-800 transition active:scale-95 disabled:opacity-50"
+                  >
+                    <Camera className="h-4 w-4" />
+                    கேமராவைத் திறக்கவும் (Open Camera)
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={isScanning}
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-indigo-300 bg-white px-3.5 py-2 text-xs font-bold text-indigo-900 shadow-xs hover:bg-indigo-50 transition active:scale-95 disabled:opacity-50"
+                  >
+                    <Upload className="h-4 w-4 text-indigo-700" />
+                    கோப்பைப் பதிவேற்றவும் (Upload Photo)
+                  </button>
+
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    accept="image/*"
+                    onChange={handleDirectFileSelect}
+                    className="hidden"
+                  />
+                </div>
+              </div>
+
+              {/* Scanning in progress animation */}
+              {isScanning && (
+                <div className="mt-3 flex items-center gap-3 rounded-xl border border-indigo-300 bg-white p-3 shadow-inner">
+                  <Loader2 className="h-5 w-5 animate-spin text-indigo-600 shrink-0" />
+                  <div className="flex-1">
+                    <p className="text-xs font-bold text-indigo-950 flex items-center gap-1.5">
+                      <span>AI கடிதத்தை வாசிக்கிறது (Scanning letter)...</span>
+                      <span className="inline-block h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
+                    </p>
+                    <p className="text-[11px] text-indigo-700">
+                      கடிதம் அனுப்பப்பட்ட திகதி, கடித எண், அனுப்புனர், விடயம் தானாக எடுக்கப்படுகின்றன...
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Scan Success Banner */}
+              {scanSuccessMsg && !isScanning && (
+                <div className="mt-3 flex items-start justify-between gap-2 rounded-xl border border-emerald-300 bg-emerald-50 p-3 text-xs text-emerald-900">
+                  <div className="flex items-start gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-bold">{scanSuccessMsg}</span>
+                      {autoFilledFields.length > 0 && (
+                        <div className="mt-1 flex flex-wrap gap-1.5">
+                          {autoFilledFields.map((f, i) => (
+                            <span
+                              key={i}
+                              className="rounded-md bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-800 border border-emerald-200"
+                            >
+                              ✓ {f}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setScanSuccessMsg(null)}
+                    className="text-emerald-700 hover:text-emerald-950 p-1"
+                  >
+                    <X className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+              )}
+
+              {/* Scan Error Banner */}
+              {scanErrorMsg && !isScanning && (
+                <div className="mt-3 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-amber-300 bg-amber-50 p-2.5 text-xs text-amber-900">
+                  <div className="flex items-center gap-2">
+                    <AlertCircle className="h-4 w-4 text-amber-600 shrink-0" />
+                    <span>{scanErrorMsg}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {image && (
+                      <button
+                        type="button"
+                        onClick={() => triggerScan(image)}
+                        className="inline-flex items-center gap-1 rounded bg-amber-200 px-2 py-1 text-xs font-bold text-amber-900 hover:bg-amber-300 transition"
+                      >
+                        <RefreshCw className="h-3 w-3" />
+                        <span>மீண்டும் முயற்சி (Retry)</span>
+                      </button>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => setScanErrorMsg(null)}
+                      className="text-amber-700 hover:text-amber-950 p-1"
+                    >
+                      <X className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Photo Preview and Quick Actions */}
+              {image ? (
+                <div className="mt-3 flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-2.5">
+                  <img
+                    src={image}
+                    alt="Letter attachment"
+                    className="h-16 w-20 rounded-lg object-cover border border-slate-300 shadow-2xs"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold text-xs text-slate-800">
+                        ✓ கடிதப் புகைப்படம் இணைக்கப்பட்டுள்ளது
+                      </span>
+                      <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-mono text-slate-600">
+                        ~{imageSizeKb || 240} KB
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-slate-500 mt-0.5 truncate">
+                      படிவத்தைச் சரிபார்த்து தேவைப்படின் மாற்றங்களைச் செய்யலாம்.
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => triggerScan(image)}
+                      disabled={isScanning}
+                      className="inline-flex items-center gap-1 rounded-lg border border-indigo-200 bg-indigo-50 px-2.5 py-1.5 text-xs font-semibold text-indigo-700 hover:bg-indigo-100 transition disabled:opacity-50"
+                      title="Re-run AI auto scan"
+                    >
+                      <RefreshCw className={`h-3.5 w-3.5 ${isScanning ? 'animate-spin' : ''}`} />
+                      <span>மீண்டும் ஸ்கேன்</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setImage(undefined);
+                        setImageSizeKb(undefined);
+                        setScanSuccessMsg(null);
+                        setAutoFilledFields([]);
+                      }}
+                      disabled={isScanning}
+                      className="rounded-lg p-1.5 text-red-600 hover:bg-red-50 transition"
+                      title="Remove photo"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div
+                  onClick={() => fileInputRef.current?.click()}
+                  className="mt-3 flex cursor-pointer items-center justify-center gap-2 rounded-xl border-2 border-dashed border-indigo-200 bg-white/70 py-3 px-4 text-xs text-slate-500 hover:border-indigo-400 hover:bg-white transition"
+                >
+                  <Camera className="h-4 w-4 text-indigo-500" />
+                  <span>
+                    புகைப்படம் எடுக்க <strong>கேமராவைத் திறக்கவும்</strong> அல்லது கோப்பை <strong>இங்கு பதிவேற்றவும்</strong> (Ctrl+V மூலம் Paste செய்யலாம்)
+                  </span>
+                </div>
+              )}
+            </div>
+
+            {/* Row 1: Original No (System Generated KPN Number) & Dates */}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               <div>
-                <label className="mb-1 block text-xs font-bold text-gray-700">
-                  Original No (கணணி மூலம் தானாக உருவாக்கப்பட்டது)
+                <label className="mb-1 flex items-center justify-between text-xs font-bold text-gray-700">
+                  <span>Original No (கணினி இலக்கம் - KPN) *</span>
+                  <span className="rounded bg-blue-100 px-1.5 py-0.5 text-[10px] font-mono font-bold text-blue-800">
+                    தனித்துவ இலக்கம்
+                  </span>
                 </label>
                 <input
                   type="text"
+                  required
                   value={originalNo}
                   onChange={(e) => setOriginalNo(e.target.value)}
-                  className="w-full rounded-lg border border-blue-200 bg-blue-50/60 px-3 py-2 text-sm font-semibold text-blue-950 focus:border-blue-500 focus:bg-white focus:outline-hidden"
+                  placeholder="KPN/DS/YYYY/MM/NNN"
+                  className="w-full rounded-lg border border-blue-300 bg-blue-50/60 px-3 py-2 text-xs font-mono font-bold text-blue-950 focus:border-blue-600 focus:bg-white focus:outline-hidden shadow-2xs"
                 />
+                <p className="mt-1 text-[10px] text-gray-500">
+                  குறித்த திகதியை அடிப்படையாக கொண்டு KPN என சிஸ்டம் வடிவமைக்கும் தனித்துவ இலக்கம்
+                </p>
               </div>
 
               <div>
                 <label className="mb-1 block text-xs font-bold text-gray-700">
-                  பதிவு செய்யப்படும் திகதி (Date)
+                  Registered Date *
                 </label>
                 <input
                   type="date"
                   required
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
-                  className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-800 focus:border-blue-500 focus:outline-hidden"
+                  className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-xs text-gray-900 focus:border-blue-600 focus:outline-hidden"
+                />
+              </div>
+
+              <div>
+                <label className="mb-1 flex items-center justify-between text-xs font-bold text-gray-700">
+                  <span>Dispatched Date (அனுப்பிய திகதி) *</span>
+                  {autoFilledFields.includes('Dispatched Date (அனுப்பிய திகதி)') && (
+                    <span className="rounded bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800">
+                      ✨ AI Extracted
+                    </span>
+                  )}
+                </label>
+                <input
+                  type="date"
+                  required
+                  value={dispatchedDate}
+                  onChange={(e) => setDispatchedDate(e.target.value)}
+                  className={`w-full rounded-lg border px-3 py-2 text-xs text-gray-900 focus:outline-hidden ${
+                    autoFilledFields.includes('Dispatched Date (அனுப்பிய திகதி)')
+                      ? 'border-emerald-400 bg-emerald-50/40 focus:border-emerald-600'
+                      : 'border-gray-300 bg-white focus:border-blue-600'
+                  }`}
                 />
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3 rounded-xl border border-blue-200 bg-blue-50/40 p-4">
+            {/* Row 2: Post Type, Reg Post No, Inward No (Letter Reference No) */}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 rounded-xl border border-gray-200 bg-gray-50/80 p-3.5">
               <div>
                 <label className="mb-1 block text-xs font-bold text-gray-700">
-                  கடித வகை (Post Type) *
+                  Post Type *
                 </label>
                 <select
                   value={letterType}
                   onChange={(e) => setLetterType(e.target.value)}
-                  className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-xs text-gray-800 focus:border-blue-500 focus:outline-hidden"
+                  className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-xs font-semibold text-gray-800 focus:border-blue-600 focus:outline-hidden"
                 >
-                  <option value="Registered Post">ரெஜிஸ்டர் போஸ்ட் (Registered Post)</option>
-                  <option value="Normal Letter">சாதாரண கடிதம் (Normal Letter)</option>
-                  <option value="Express Post">விசேட கடிதம் (Express Post)</option>
+                  {POST_TYPES.map((pt) => (
+                    <option key={pt} value={pt}>
+                      {pt}
+                    </option>
+                  ))}
                 </select>
               </div>
 
               <div>
-                <label className="mb-1 block text-xs font-bold text-gray-700">
-                  கடிதம் அனுப்பப்பட்ட திகதி *
-                </label>
-                <input
-                  type="date"
-                  value={dispatchedDate}
-                  onChange={(e) => setDispatchedDate(e.target.value)}
-                  className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-xs text-gray-800 focus:border-blue-500 focus:outline-hidden"
-                />
-              </div>
-
-              <div>
-                <label className="mb-1 block text-xs font-bold text-gray-700">
-                  ஆவணப்படுத்தப்பட்ட கோப்பு இலக்கம் *
+                <label className="mb-1 flex items-center justify-between text-xs font-bold text-gray-700">
+                  <span>Reg. Post No (பதிவுத் தபால்)</span>
+                  {autoFilledFields.includes('Reg. Post No (பதிவுத் தபால் எண்)') && (
+                    <span className="rounded bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800">
+                      ✨ AI Extracted
+                    </span>
+                  )}
                 </label>
                 <input
                   type="text"
-                  value={fileReferenceNo}
-                  onChange={(e) => setFileReferenceNo(e.target.value)}
-                  placeholder="எ.கா: KPN/DS/FILE/01"
-                  className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-xs text-gray-800 focus:border-blue-500 focus:outline-hidden"
+                  value={registeredPostNo}
+                  onChange={(e) => setRegisteredPostNo(e.target.value)}
+                  placeholder="e.g. RP-884920-LK"
+                  className={`w-full rounded-lg border px-3 py-2 text-xs font-mono text-gray-900 focus:outline-hidden ${
+                    autoFilledFields.includes('Reg. Post No (பதிவுத் தபால் எண்)')
+                      ? 'border-emerald-400 bg-emerald-50/40 focus:border-emerald-600'
+                      : 'border-gray-300 bg-white focus:border-blue-600'
+                  }`}
                 />
               </div>
-            </div>
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div>
-                <label className="mb-1 block text-xs font-bold text-gray-700">
-                  Inward No (கடித உள்வரும் இலக்கம்) *
+                <label className="mb-1 flex items-center justify-between text-xs font-bold text-gray-700">
+                  <span>Inward No (கடித இலக்கம் - Letter No) *</span>
+                  {autoFilledFields.includes('Inward No (கடித இலக்கம்)') && (
+                    <span className="rounded bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800">
+                      ✨ AI Extracted
+                    </span>
+                  )}
                 </label>
                 <input
                   type="text"
                   required
                   value={inwardNo}
                   onChange={(e) => setInwardNo(e.target.value)}
-                  placeholder="எ.கா: INW/2026/896"
-                  className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-800 focus:border-blue-500 focus:outline-hidden"
+                  placeholder="கடிதத்தில் உள்ள கடித இலக்கம் (Letter Ref No)"
+                  className={`w-full rounded-lg border px-3 py-2 text-xs font-bold focus:outline-hidden ${
+                    autoFilledFields.includes('Inward No (கடித இலக்கம்)')
+                      ? 'border-emerald-400 bg-emerald-50/40 text-emerald-950 focus:border-emerald-600'
+                      : 'border-gray-300 bg-white text-gray-900 focus:border-blue-600'
+                  }`}
                 />
-              </div>
-
-              <div>
-                <label className="mb-1 block text-xs font-bold text-gray-700">
-                  அனுப்புநர் (From whom) *
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={fromWhom}
-                  onChange={(e) => setFromWhom(e.target.value)}
-                  placeholder="எ.கா: மாவட்டச் செயலகம்"
-                  className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-800 focus:border-blue-500 focus:outline-hidden"
-                />
+                <p className="mt-1 text-[10px] text-gray-500">
+                  கடிதத்தில் உள்ள கடித இலக்கம் (Letter No / Reference No)
+                </p>
               </div>
             </div>
 
+            {/* Row 3: From Whom */}
             <div>
-              <label className="mb-1 block text-xs font-bold text-gray-700">
-                SUBJECT (விடயம் / தலைப்பு) *
+              <label className="mb-1 flex items-center justify-between text-xs font-bold text-gray-700">
+                <span>From Whom (அனுப்புனர் / Department / Citizen) *</span>
+                {autoFilledFields.includes('From Whom (அனுப்புனர்)') && (
+                  <span className="rounded bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800">
+                    ✨ AI Extracted
+                  </span>
+                )}
+              </label>
+              <input
+                type="text"
+                required
+                value={fromWhom}
+                onChange={(e) => setFromWhom(e.target.value)}
+                placeholder="e.g. District Secretariat, Batticaloa / Land Commissioner Department"
+                className={`w-full rounded-lg border px-3 py-2 text-xs text-gray-900 focus:outline-hidden ${
+                  autoFilledFields.includes('From Whom (அனுப்புனர்)')
+                    ? 'border-emerald-400 bg-emerald-50/40 focus:border-emerald-600'
+                    : 'border-gray-300 bg-white focus:border-blue-600'
+                }`}
+              />
+            </div>
+
+            {/* Row 4: Subject */}
+            <div>
+              <label className="mb-1 flex items-center justify-between text-xs font-bold text-gray-700">
+                <span>Subject (விடயம் / தலைப்பு) *</span>
+                {autoFilledFields.includes('Subject (விடயம்)') && (
+                  <span className="rounded bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800">
+                    ✨ AI Extracted
+                  </span>
+                )}
               </label>
               <textarea
                 required
                 rows={2}
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
-                placeholder="கடிதத்தின் தலைப்பு..."
-                className="w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-800 focus:border-blue-500 focus:outline-hidden"
+                placeholder="Brief summary and context of the incoming mail..."
+                className={`w-full rounded-lg border px-3 py-2 text-xs text-gray-900 focus:outline-hidden ${
+                  autoFilledFields.includes('Subject (விடயம்)')
+                    ? 'border-emerald-400 bg-emerald-50/40 focus:border-emerald-600'
+                    : 'border-gray-300 bg-white focus:border-blue-600'
+                }`}
               />
             </div>
 
-            <div className="rounded-xl border border-gray-200 bg-gray-50/70 p-4">
-              <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
-                <div>
-                  <h4 className="text-xs font-bold text-gray-800">
-                    📷 கடிதத்தின் புகைப்படம் & ஆட்டோ ஸ்கேன் (Auto Scan & Translate)
-                  </h4>
-                  <p className="text-[11px] text-gray-500">
-                    புகைப்படத்தை ஸ்கேன் செய்து தலைப்பு, இலக்கம் மற்றும் திகதியை தானாக நிரப்பலாம்.
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setIsCameraOpen(true)}
-                    className="inline-flex items-center gap-1.5 rounded-lg bg-blue-700 px-3 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-blue-800"
-                  >
-                    <Camera className="h-4 w-4" />
-                    கேமரா ஆன்
-                  </button>
-
-                  {image && (
-                    <button
-                      type="button"
-                      disabled={isScanning}
-                      onClick={handleAutoScanAndTranslate}
-                      className="inline-flex items-center gap-1.5 rounded-lg bg-purple-700 px-3 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-purple-800"
-                    >
-                      <Sparkles className="h-4 w-4" />
-                      {isScanning ? 'ஸ்கேன் ஆகிறது...' : 'ஸ்கேன் & டிரான்ஸ்லேட்'}
-                    </button>
-                  )}
-                </div>
-              </div>
-
-              {image ? (
-                <div className="mt-3 flex items-center gap-4 rounded-lg border border-gray-200 bg-white p-2">
-                  <img
-                    src={image}
-                    alt="Letter snap"
-                    className="h-20 w-24 rounded object-cover border border-gray-300"
-                  />
-                  <div className="flex-1 text-xs">
-                    <span className="font-semibold text-emerald-700">
-                      ✓ புகைப்படம் இணைக்கப்பட்டுள்ளது
-                    </span>
-                    <p className="text-gray-600">அளவு: ~{imageSizeKb || 240} KB</p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setImage(undefined);
-                      setImageSizeKb(undefined);
-                    }}
-                    className="rounded p-1 text-red-600 hover:bg-red-50"
-                  >
-                    <X className="h-4 w-4" />
-                  </button>
-                </div>
-              ) : (
-                <div className="mt-2 text-center text-xs text-gray-500 italic">
-                  புகைப்படம் இணைக்கப்படவில்லை
-                </div>
-              )}
-            </div>
-
+            {/* Row 5: Primary Division */}
             <div>
-              <ForwardUserSelect
+              <label className="mb-1 block text-xs font-bold text-gray-700">
+                Primary Division / Department (முதன்மைப் பிரிவு) *
+              </label>
+              <select
+                required
+                value={primaryDivision}
+                onChange={(e) => {
+                  const newDiv = e.target.value;
+                  const prevDiv = primaryDivision;
+                  setPrimaryDivision(newDiv);
+                  if (newDiv) {
+                    setForwardedDivisions((prev) => {
+                      const filtered = prev.filter((d) => d !== prevDiv);
+                      return Array.from(new Set([...filtered, newDiv]));
+                    });
+                  }
+                }}
+                className={`w-full rounded-lg border px-3 py-2 text-xs font-semibold focus:border-blue-600 focus:outline-hidden ${
+                  !primaryDivision
+                    ? 'border-amber-400 bg-amber-50/50 text-gray-600'
+                    : 'border-gray-300 bg-white text-gray-900'
+                }`}
+              >
+                <option value="" disabled>
+                  -- உரிய முதன்மைப் பிரிவைத் தெரிவு செய்க (Select Primary Division) --
+                </option>
+                {DIVISIONS.map((div) => (
+                  <option key={div} value={div}>
+                    {div}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Row 6: Forwarding Selection (Divisions & Officers) */}
+            <div>
+              <ForwardSelect
                 allUsers={allUsers}
+                allDivisions={DIVISIONS}
                 selectedUserIds={forwardedTo}
-                onChange={setForwardedTo}
-                label="Forwarded To (பயனர்களை பல்தேர்வு செய்ய தேடலுடன் கூடிய தெரிவு)"
+                selectedDivisions={forwardedDivisions}
+                onChangeUsers={setForwardedTo}
+                onChangeDivisions={setForwardedDivisions}
+                label="Forward To (Recipients - Officers & Associated Divisions)"
+                showDivisionSelect={true}
               />
             </div>
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            {/* Row 7: Action Status, Filed File No & Reply Note */}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               <div>
                 <label className="mb-1 block text-xs font-bold text-gray-700">
-                  நடவடிக்கை நிலை (Action)
+                  Initial Action Status
                 </label>
                 <select
                   value={action}
                   onChange={(e) => setAction(e.target.value as LetterAction)}
-                  className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-800 focus:border-blue-500 focus:outline-hidden"
+                  className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-xs font-semibold text-gray-800 focus:border-blue-600 focus:outline-hidden"
                 >
                   {ACTION_OPTIONS.map((opt) => (
                     <option key={opt} value={opt}>
@@ -394,48 +797,62 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
 
               <div>
                 <label className="mb-1 block text-xs font-bold text-gray-700">
-                  பதில் மற்றும் விளக்கம் (Reply and response)
+                  Filed File No (பைல் இலக்கம்)
+                </label>
+                <input
+                  type="text"
+                  value={fileNo}
+                  onChange={(e) => setFileNo(e.target.value)}
+                  placeholder="e.g. KN/DS/ADM/2026/04 (Optional)"
+                  className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-xs font-mono font-semibold text-emerald-900 focus:border-blue-600 focus:outline-hidden placeholder:font-normal"
+                />
+              </div>
+
+              <div>
+                <label className="mb-1 block text-xs font-bold text-gray-700">
+                  Action / Reply Note
                 </label>
                 <input
                   type="text"
                   value={replyResponse}
                   onChange={(e) => setReplyResponse(e.target.value)}
-                  placeholder="பதில்..."
-                  className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-800 focus:border-blue-500 focus:outline-hidden"
+                  placeholder="e.g. Forwarded for verification / immediate action"
+                  className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-xs text-gray-900 focus:border-blue-600 focus:outline-hidden"
                 />
               </div>
             </div>
 
+            {/* Row 8: Initial Chat Note */}
             <div>
-              <label className="mb-1 flex items-center gap-1 text-xs font-bold text-gray-700">
-                <MessageSquare className="h-3.5 w-3.5 text-blue-700" />
-                <span>ஆரம்ப குறிப்புரை (Initial Note / Chat)</span>
+              <label className="mb-1 block text-xs font-bold text-gray-700">
+                Initial Log Note / Remarks
               </label>
               <input
                 type="text"
                 value={initialNote}
                 onChange={(e) => setInitialNote(e.target.value)}
-                placeholder="குறிப்புரை..."
-                className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-800 focus:border-blue-500 focus:outline-hidden"
+                placeholder="Remarks by Mail Officer upon receipt..."
+                className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-xs text-gray-900 focus:border-blue-600 focus:outline-hidden"
               />
             </div>
           </form>
 
-          <div className="flex items-center justify-end gap-3 border-t border-gray-200 bg-gray-50 px-6 py-4 rounded-b-xl">
+          {/* Modal Footer */}
+          <div className="flex items-center justify-end gap-3 border-t border-gray-200 bg-gray-50 px-6 py-4 rounded-b-2xl">
             <button
               type="button"
               onClick={onClose}
-              className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+              className="rounded-lg border border-gray-300 px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-100 transition"
             >
-              ரத்து செய்
+              Cancel
             </button>
             <button
               type="button"
               onClick={handleSubmit}
-              className="inline-flex items-center gap-1.5 rounded-lg bg-blue-700 px-5 py-2 text-sm font-bold text-white shadow-sm hover:bg-blue-800"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-blue-800 px-5 py-2 text-xs font-bold text-white shadow-md hover:bg-blue-900 transition"
             >
               <Check className="h-4 w-4" />
-              கடிதத்தை பதிவு செய் (Save Letter)
+              <span>Save & Register Mail</span>
             </button>
           </div>
         </div>
@@ -447,6 +864,7 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
         onCapture={(dataUrl, sizeKb) => {
           setImage(dataUrl);
           setImageSizeKb(sizeKb);
+          triggerScan(dataUrl);
         }}
       />
     </>
