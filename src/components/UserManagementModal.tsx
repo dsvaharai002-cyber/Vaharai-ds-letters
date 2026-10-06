@@ -147,7 +147,15 @@ export const UserManagementModal: React.FC<UserManagementModalProps> = ({
     }
   };
 
+  const [roleFilter, setRoleFilter] = useState<string>('All');
+
   const filteredUsers = users.filter((u) => {
+    if (roleFilter !== 'All') {
+      if (roleFilter === 'Luxury' && u.Role !== 'Luxury') return false;
+      if (roleFilter === 'Super Admin & Mega' && u.Role !== 'Super Admin' && u.Role !== 'Mega') return false;
+      if (roleFilter === 'Mail Officer' && u.Role !== 'Mail Officer') return false;
+      if (roleFilter === 'Normal & User' && u.Role !== 'Normal' && u.Role !== 'User') return false;
+    }
     const q = searchTerm.toLowerCase().trim();
     if (!q) return true;
     return (
@@ -190,15 +198,65 @@ export const UserManagementModal: React.FC<UserManagementModalProps> = ({
 
         {/* Subheader Toolbar */}
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-200 bg-gray-50 px-6 py-3">
-          <div className="relative flex-1 min-w-[240px] max-w-md">
-            <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search by name, ID, role, or division..."
-              className="w-full rounded-lg border border-gray-300 bg-white py-1.5 pl-9 pr-3 text-xs text-gray-900 focus:border-blue-600 focus:outline-hidden"
-            />
+          <div className="flex flex-wrap items-center gap-3 flex-1 min-w-[280px]">
+            <div className="relative flex-1 min-w-[220px] max-w-sm">
+              <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search by name, ID, role, or division..."
+                className="w-full rounded-lg border border-gray-300 bg-white py-1.5 pl-9 pr-3 text-xs text-gray-900 focus:border-blue-600 focus:outline-hidden"
+              />
+            </div>
+
+            <div className="flex flex-wrap items-center gap-1.5 text-xs">
+              <button
+                type="button"
+                onClick={() => setRoleFilter('All')}
+                className={`rounded-lg px-2.5 py-1 font-semibold transition ${
+                  roleFilter === 'All'
+                    ? 'bg-slate-900 text-white font-bold shadow-2xs'
+                    : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-100'
+                }`}
+              >
+                All Users ({users.length})
+              </button>
+              <button
+                type="button"
+                onClick={() => setRoleFilter('Luxury')}
+                className={`inline-flex items-center gap-1 rounded-lg px-2.5 py-1 font-bold transition ${
+                  roleFilter === 'Luxury'
+                    ? 'bg-amber-600 text-white shadow-2xs'
+                    : 'bg-amber-50 text-amber-900 border border-amber-300 hover:bg-amber-100'
+                }`}
+              >
+                <Crown className="h-3.5 w-3.5" />
+                <span>Luxury ({users.filter((u) => u.Role === 'Luxury').length})</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setRoleFilter('Super Admin & Mega')}
+                className={`rounded-lg px-2 py-1 font-semibold transition ${
+                  roleFilter === 'Super Admin & Mega'
+                    ? 'bg-purple-800 text-white font-bold'
+                    : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-100'
+                }`}
+              >
+                Admin & Mega
+              </button>
+              <button
+                type="button"
+                onClick={() => setRoleFilter('Mail Officer')}
+                className={`rounded-lg px-2 py-1 font-semibold transition ${
+                  roleFilter === 'Mail Officer'
+                    ? 'bg-blue-800 text-white font-bold'
+                    : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-100'
+                }`}
+              >
+                Mail Officers
+              </button>
+            </div>
           </div>
 
           <button
@@ -337,9 +395,49 @@ export const UserManagementModal: React.FC<UserManagementModalProps> = ({
                   </div>
 
                   <div>
-                    <label className="mb-1 block text-xs font-bold text-gray-800">
-                      Permitted Divisions (Click to toggle):
-                    </label>
+                    <div className="flex flex-wrap items-center justify-between gap-1 mb-1.5">
+                      <label className="text-xs font-bold text-gray-800">
+                        Permitted Divisions (Click to toggle):
+                      </label>
+                      <div className="flex flex-wrap items-center gap-1">
+                        <span className="text-[10px] font-bold text-amber-900">Presets:</span>
+                        <button
+                          type="button"
+                          onClick={() => setEditUserObj({ ...editUserObj, assignedDivisions: [...DIVISIONS] })}
+                          className="rounded bg-amber-200 hover:bg-amber-300 text-amber-900 px-1.5 py-0.5 text-[10px] font-bold"
+                        >
+                          All 12
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setEditUserObj({ ...editUserObj, assignedDivisions: ['காணிப் பிரிவு (Land Division)', 'திட்டமிடல் பிரிவு (Planning)'] })}
+                          className="rounded bg-amber-200 hover:bg-amber-300 text-amber-900 px-1.5 py-0.5 text-[10px] font-bold"
+                        >
+                          Land & Plan
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setEditUserObj({ ...editUserObj, assignedDivisions: ['நிர்வாகப் பிரிவு (Administration)', 'கணக்குப் பிரிவு (Accounts & Finance)'] })}
+                          className="rounded bg-amber-200 hover:bg-amber-300 text-amber-900 px-1.5 py-0.5 text-[10px] font-bold"
+                        >
+                          Admin & Finance
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setEditUserObj({ ...editUserObj, assignedDivisions: ['சமூக சேவை (Social)', 'சமுர்த்தி (Samurdhi)', 'கிராம அபிவிருத்தி (Rural Development)'] })}
+                          className="rounded bg-amber-200 hover:bg-amber-300 text-amber-900 px-1.5 py-0.5 text-[10px] font-bold"
+                        >
+                          Social
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setEditUserObj({ ...editUserObj, assignedDivisions: [] })}
+                          className="rounded bg-gray-200 hover:bg-gray-300 text-gray-800 px-1.5 py-0.5 text-[10px] font-bold"
+                        >
+                          Clear
+                        </button>
+                      </div>
+                    </div>
                     <div className="flex flex-wrap gap-1.5">
                       {DIVISIONS.map((div) => {
                         const isAssigned = (editUserObj.assignedDivisions || []).includes(div);
@@ -532,9 +630,49 @@ export const UserManagementModal: React.FC<UserManagementModalProps> = ({
                   </div>
 
                   <div>
-                    <label className="mb-1 block text-xs font-bold text-gray-800">
-                      Assigned Permitted Divisions:
-                    </label>
+                    <div className="flex flex-wrap items-center justify-between gap-1 mb-1.5">
+                      <label className="text-xs font-bold text-gray-800">
+                        Assigned Permitted Divisions:
+                      </label>
+                      <div className="flex flex-wrap items-center gap-1">
+                        <span className="text-[10px] font-bold text-amber-900">Presets:</span>
+                        <button
+                          type="button"
+                          onClick={() => setNewAssignedDivisions([...DIVISIONS])}
+                          className="rounded bg-amber-200 hover:bg-amber-300 text-amber-900 px-1.5 py-0.5 text-[10px] font-bold"
+                        >
+                          All 12
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setNewAssignedDivisions(['காணிப் பிரிவு (Land Division)', 'திட்டமிடல் பிரிவு (Planning)'])}
+                          className="rounded bg-amber-200 hover:bg-amber-300 text-amber-900 px-1.5 py-0.5 text-[10px] font-bold"
+                        >
+                          Land & Plan
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setNewAssignedDivisions(['நிர்வாகப் பிரிவு (Administration)', 'கணக்குப் பிரிவு (Accounts & Finance)'])}
+                          className="rounded bg-amber-200 hover:bg-amber-300 text-amber-900 px-1.5 py-0.5 text-[10px] font-bold"
+                        >
+                          Admin & Finance
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setNewAssignedDivisions(['சமூக சேவை (Social)', 'சமுர்த்தி (Samurdhi)', 'கிராம அபிவிருத்தி (Rural Development)'])}
+                          className="rounded bg-amber-200 hover:bg-amber-300 text-amber-900 px-1.5 py-0.5 text-[10px] font-bold"
+                        >
+                          Social
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setNewAssignedDivisions([])}
+                          className="rounded bg-gray-200 hover:bg-gray-300 text-gray-800 px-1.5 py-0.5 text-[10px] font-bold"
+                        >
+                          Clear
+                        </button>
+                      </div>
+                    </div>
                     <div className="flex flex-wrap gap-1.5">
                       {DIVISIONS.map((div) => {
                         const isAssigned = newAssignedDivisions.includes(div);

@@ -17,8 +17,13 @@ import {
   Layers,
   Sparkles,
   FileText,
+  Check,
+  Edit,
+  Save,
+  X,
 } from 'lucide-react';
-import { Letter, User } from '../types';
+import { Letter, LetterAction, User } from '../types';
+import { DIVISIONS, POST_TYPES, migrateDivision } from '../data/initialData';
 import { printLandscapeReport, downloadLetterAttachment } from '../utils/helpers';
 
 interface DateFoldersListProps {
@@ -28,6 +33,7 @@ interface DateFoldersListProps {
   onSelectLetter: (letter: Letter) => void;
   onEditLetter: (letter: Letter) => void;
   onDeleteLetter: (letterId: string) => void;
+  onUpdateLetter?: (updated: Letter) => void;
 }
 
 export const DateFoldersList: React.FC<DateFoldersListProps> = ({
@@ -37,11 +43,58 @@ export const DateFoldersList: React.FC<DateFoldersListProps> = ({
   onSelectLetter,
   onEditLetter,
   onDeleteLetter,
+  onUpdateLetter,
 }) => {
   const usersMap = new Map<string, User>(allUsers.map((u) => [u.User_ID, u]));
   const isMailOfficer = currentUser.Role === 'Mail Officer';
   const isSuperAdmin = currentUser.Role === 'Super Admin';
   const canModify = isSuperAdmin || isMailOfficer;
+
+  // Inline File No editing state
+  const [editingFileNoId, setEditingFileNoId] = useState<string | null>(null);
+  const [tempFileNo, setTempFileNo] = useState('');
+  const [syncedLetterId, setSyncedLetterId] = useState<string | null>(null);
+
+  // Quick Edit Modal for Mail Officer / Registrar
+  const [quickEditLetter, setQuickEditLetter] = useState<Letter | null>(null);
+
+  const handleActionChange = (ltr: Letter, newAction: LetterAction) => {
+    if (!onUpdateLetter) return;
+    const updated: Letter = {
+      ...ltr,
+      action: newAction,
+    };
+    onUpdateLetter(updated);
+    setSyncedLetterId(ltr.id);
+    setTimeout(() => setSyncedLetterId(null), 2500);
+  };
+
+  const handleStartEditFileNo = (ltr: Letter) => {
+    setEditingFileNoId(ltr.id);
+    setTempFileNo(ltr.fileNo || '');
+  };
+
+  const handleSaveFileNo = (ltr: Letter) => {
+    if (!onUpdateLetter) return;
+    const updated: Letter = {
+      ...ltr,
+      fileNo: tempFileNo.trim(),
+    };
+    onUpdateLetter(updated);
+    setEditingFileNoId(null);
+    setSyncedLetterId(ltr.id);
+    setTimeout(() => setSyncedLetterId(null), 2500);
+  };
+
+  const handleSaveQuickEdit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!quickEditLetter || !onUpdateLetter) return;
+    onUpdateLetter(quickEditLetter);
+    setSyncedLetterId(quickEditLetter.id);
+    setQuickEditLetter(null);
+    setTimeout(() => setSyncedLetterId(null), 2500);
+    alert('✓ கடித விவரங்கள் Google Sheet இல் உடனே மாற்றப்பட்டு பதிவாகியது!');
+  };
 
   // Group letters by registration date
   const groupedByDate: Record<string, Letter[]> = {};
@@ -345,30 +398,85 @@ export const DateFoldersList: React.FC<DateFoldersListProps> = ({
                             )}
                           </td>
                           <td className="py-2.5 px-3 whitespace-nowrap">
-                            <span
-                              className={`inline-block rounded-md px-2 py-0.5 text-[11px] font-bold ${
-                                ltr.action === 'Action Taken' ||
-                                ltr.action === 'நடவடிக்கை எடுக்கப்பட்டது'
-                                  ? 'bg-emerald-100 text-emerald-800'
-                                  : ltr.action === 'Action Not Taken' ||
-                                    ltr.action === 'நடவடிக்கை எடுக்கப்படவில்லை'
-                                  ? 'bg-rose-100 text-rose-800'
-                                  : ltr.action === 'Under Investigation' ||
-                                    ltr.action === 'கள ஆய்வில்'
-                                  ? 'bg-amber-100 text-amber-800'
-                                  : 'bg-blue-100 text-blue-800'
-                              }`}
-                            >
-                              {ltr.action}
-                            </span>
+                            <div className="flex items-center gap-1.5">
+                              <select
+                                value={ltr.action}
+                                onChange={(e) => handleActionChange(ltr, e.target.value as LetterAction)}
+                                className={`cursor-pointer rounded-lg px-2 py-1 text-[11px] font-bold border transition shadow-2xs focus:outline-hidden ${
+                                  ltr.action === 'Action Taken' ||
+                                  ltr.action === 'நடவடிக்கை எடுக்கப்பட்டது'
+                                    ? 'bg-emerald-50 text-emerald-900 border-emerald-400 hover:bg-emerald-100'
+                                    : ltr.action === 'Action Not Taken' ||
+                                      ltr.action === 'நடவடிக்கை எடுக்கப்படவில்லை'
+                                    ? 'bg-rose-50 text-rose-900 border-rose-400 hover:bg-rose-100'
+                                    : ltr.action === 'Under Investigation' ||
+                                      ltr.action === 'கள ஆய்வில்'
+                                    ? 'bg-amber-50 text-amber-900 border-amber-400 hover:bg-amber-100'
+                                    : 'bg-blue-50 text-blue-900 border-blue-400 hover:bg-blue-100'
+                                }`}
+                                title="Action Status - அனைவருக்கும் மாற்ற அதிகாரம் உண்டு (சீட்டில் உடனே பதிவாகும்)"
+                              >
+                                <option value="Not Yet Viewed">Not Yet Viewed (இன்னும் பார்க்கவில்லை)</option>
+                                <option value="Action Taken">Action Taken (நடவடிக்கை எடுக்கப்பட்டது)</option>
+                                <option value="Action Not Taken">Action Not Taken (நடவடிக்கை எடுக்கப்படவில்லை)</option>
+                                <option value="Under Investigation">Under Investigation (கள ஆய்வில்)</option>
+                              </select>
+                              {syncedLetterId === ltr.id && (
+                                <span className="rounded bg-emerald-600 px-1.5 py-0.5 text-[9px] font-bold text-white animate-pulse" title="சீட்டில் உடனே பதிவாகியது">
+                                  ✓ Saved
+                                </span>
+                              )}
+                            </div>
                           </td>
                           <td className="py-2.5 px-3 whitespace-nowrap">
-                            {ltr.fileNo ? (
-                              <span className="inline-flex items-center gap-1 rounded bg-emerald-50 px-2 py-0.5 text-[11px] font-bold font-mono text-emerald-800 border border-emerald-200">
-                                📁 {ltr.fileNo}
-                              </span>
+                            {editingFileNoId === ltr.id ? (
+                              <div className="flex items-center gap-1">
+                                <input
+                                  type="text"
+                                  autoFocus
+                                  value={tempFileNo}
+                                  onChange={(e) => setTempFileNo(e.target.value)}
+                                  onKeyDown={(e) => {
+                                    if (e.key === 'Enter') handleSaveFileNo(ltr);
+                                    if (e.key === 'Escape') setEditingFileNoId(null);
+                                  }}
+                                  placeholder="KN/ADM/2026/01"
+                                  className="w-28 rounded border border-blue-400 bg-white px-1.5 py-0.5 text-[11px] font-mono font-bold text-emerald-900 focus:outline-hidden"
+                                />
+                                <button
+                                  type="button"
+                                  onClick={() => handleSaveFileNo(ltr)}
+                                  title="சீட்டில் உடனே சேமிக்கவும்"
+                                  className="rounded bg-emerald-600 p-1 text-white hover:bg-emerald-700 shadow-2xs"
+                                >
+                                  <Check className="h-3 w-3" />
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => setEditingFileNoId(null)}
+                                  title="Cancel"
+                                  className="rounded bg-gray-200 p-1 text-gray-700 hover:bg-gray-300"
+                                >
+                                  <X className="h-3 w-3" />
+                                </button>
+                              </div>
                             ) : (
-                              <span className="text-gray-300 text-xs italic">-</span>
+                              <div
+                                onClick={() => handleStartEditFileNo(ltr)}
+                                className="group/file inline-flex items-center gap-1 cursor-pointer rounded px-1.5 py-0.5 hover:bg-emerald-50 transition border border-transparent hover:border-emerald-200"
+                                title="Click to edit File No - அனைவருக்கும் மாற்ற அதிகாரம் உண்டு (சீட்டில் உடனே பதிவாகும்)"
+                              >
+                                {ltr.fileNo ? (
+                                  <span className="inline-flex items-center gap-1 rounded bg-emerald-50 px-2 py-0.5 text-[11px] font-bold font-mono text-emerald-800 border border-emerald-200">
+                                    📁 {ltr.fileNo}
+                                  </span>
+                                ) : (
+                                  <span className="text-[11px] text-gray-400 italic hover:text-emerald-700">
+                                    + பைல் எண்
+                                  </span>
+                                )}
+                                <Edit className="h-2.5 w-2.5 text-gray-400 opacity-0 group-hover/file:opacity-100 transition" />
+                              </div>
                             )}
                           </td>
                           <td className="py-2.5 px-3 text-center whitespace-nowrap">
@@ -414,11 +522,12 @@ export const DateFoldersList: React.FC<DateFoldersListProps> = ({
                               {canModify && (
                                 <button
                                   type="button"
-                                  onClick={() => onEditLetter(ltr)}
-                                  title="Edit All Letter Fields (கடிதத்தை திருத்து)"
-                                  className="rounded p-1 text-amber-600 hover:bg-amber-100"
+                                  onClick={() => setQuickEditLetter({ ...ltr })}
+                                  title="கடித பதிவாளர்: தானாக பில்லாகிய தகவல்களை மாற்று (சீட்டில் உடனே மாறும்)"
+                                  className="inline-flex items-center gap-1 rounded bg-amber-500 hover:bg-amber-600 px-2 py-1 text-[11px] font-bold text-white shadow-2xs transition"
                                 >
-                                  <Edit3 className="h-4 w-4" />
+                                  <Edit3 className="h-3 w-3" />
+                                  <span>மாற்று</span>
                                 </button>
                               )}
 
@@ -444,6 +553,184 @@ export const DateFoldersList: React.FC<DateFoldersListProps> = ({
           </div>
         );
       })}
+
+      {/* Quick Edit Modal for Mail Officer / Registrar */}
+      {quickEditLetter && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs">
+          <div className="w-full max-w-2xl rounded-2xl bg-white shadow-2xl border border-amber-300 overflow-hidden flex flex-col max-h-[90vh]">
+            <div className="flex items-center justify-between bg-amber-600 px-5 py-3 text-white">
+              <div className="flex items-center gap-2">
+                <Edit3 className="h-5 w-5" />
+                <div>
+                  <h3 className="text-sm font-bold">
+                    கடித பதிவாளர்: கடித விவரங்களை மாற்றுதல் (Quick Edit & Sync to Sheet)
+                  </h3>
+                  <p className="text-[11px] text-amber-100">
+                    Original No: {quickEditLetter.originalNo} • தானாக அல்லது தவறாக பதிவான விவரங்களை மாற்றி உடனே சேமிக்கலாம்.
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setQuickEditLetter(null)}
+                className="rounded p-1 text-white hover:bg-amber-700"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveQuickEdit} className="p-5 space-y-3.5 overflow-y-auto text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-bold text-gray-700 mb-1">
+                    Inward No (கடித இலக்கம் - Letter Reference No) *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={quickEditLetter.inwardNo}
+                    onChange={(e) => setQuickEditLetter({ ...quickEditLetter, inwardNo: e.target.value })}
+                    className="w-full rounded-lg border border-gray-300 p-2 font-bold text-gray-900 bg-white"
+                  />
+                </div>
+
+                <div>
+                  <label className="block font-bold text-gray-700 mb-1">
+                    Dispatched Date (அனுப்பிய திகதி) *
+                  </label>
+                  <input
+                    type="date"
+                    required
+                    value={quickEditLetter.dispatchedDate || quickEditLetter.date}
+                    onChange={(e) => setQuickEditLetter({ ...quickEditLetter, dispatchedDate: e.target.value })}
+                    className="w-full rounded-lg border border-gray-300 p-2 text-gray-900 bg-white"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block font-bold text-gray-700 mb-1">
+                  From Whom (அனுப்புனர் / Sender Department / Citizen) *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={quickEditLetter.fromWhom}
+                  onChange={(e) => setQuickEditLetter({ ...quickEditLetter, fromWhom: e.target.value })}
+                  className="w-full rounded-lg border border-gray-300 p-2 text-gray-900 bg-white"
+                />
+              </div>
+
+              <div>
+                <label className="block font-bold text-gray-700 mb-1">
+                  Subject (கடித விடயம் / தலைப்பு) *
+                </label>
+                <textarea
+                  rows={2}
+                  required
+                  value={quickEditLetter.subject}
+                  onChange={(e) => setQuickEditLetter({ ...quickEditLetter, subject: e.target.value })}
+                  className="w-full rounded-lg border border-gray-300 p-2 text-gray-900 bg-white"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-bold text-gray-700 mb-1">
+                    Primary Division (முதன்மைப் பிரிவு) *
+                  </label>
+                  <select
+                    value={quickEditLetter.division}
+                    onChange={(e) => setQuickEditLetter({ ...quickEditLetter, division: e.target.value })}
+                    className="w-full rounded-lg border border-gray-300 p-2 font-semibold text-gray-900 bg-white"
+                  >
+                    {DIVISIONS.map((d) => (
+                      <option key={d} value={d}>
+                        {d}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block font-bold text-gray-700 mb-1">
+                    Filed File No (பைல் இலக்கம் / கோப்பு எண்)
+                  </label>
+                  <input
+                    type="text"
+                    value={quickEditLetter.fileNo || ''}
+                    onChange={(e) => setQuickEditLetter({ ...quickEditLetter, fileNo: e.target.value })}
+                    placeholder="e.g. KN/DS/ADM/2026/04"
+                    className="w-full rounded-lg border border-gray-300 p-2 font-mono font-bold text-emerald-900 bg-white"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-bold text-gray-700 mb-1">
+                    Action Status (அக்சன் நிலை)
+                  </label>
+                  <select
+                    value={quickEditLetter.action}
+                    onChange={(e) => setQuickEditLetter({ ...quickEditLetter, action: e.target.value as LetterAction })}
+                    className="w-full rounded-lg border border-gray-300 p-2 font-bold text-gray-900 bg-white"
+                  >
+                    <option value="Not Yet Viewed">Not Yet Viewed (இன்னும் பார்க்கவில்லை)</option>
+                    <option value="Action Taken">Action Taken (நடவடிக்கை எடுக்கப்பட்டது)</option>
+                    <option value="Action Not Taken">Action Not Taken (நடவடிக்கை எடுக்கப்படவில்லை)</option>
+                    <option value="Under Investigation">Under Investigation (கள ஆய்வில்)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block font-bold text-gray-700 mb-1">
+                    Action Reply Note (பதில் / முடிவு)
+                  </label>
+                  <input
+                    type="text"
+                    value={quickEditLetter.replyResponse || ''}
+                    onChange={(e) => setQuickEditLetter({ ...quickEditLetter, replyResponse: e.target.value })}
+                    placeholder="அலுவலக பதில் அல்லது முடிவு"
+                    className="w-full rounded-lg border border-gray-300 p-2 text-gray-900 bg-white"
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between pt-3 border-t border-gray-200">
+                <button
+                  type="button"
+                  onClick={() => {
+                    const ltr = quickEditLetter;
+                    setQuickEditLetter(null);
+                    onEditLetter(ltr);
+                  }}
+                  className="text-xs text-blue-700 font-bold hover:underline"
+                >
+                  Open Full Advanced Editor with Document Photo &rarr;
+                </button>
+
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setQuickEditLetter(null)}
+                    className="rounded-lg border border-gray-300 bg-white px-3 py-1.5 font-semibold text-gray-700 hover:bg-gray-100"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-700 px-4 py-1.5 font-bold text-white shadow-md hover:bg-emerald-800"
+                  >
+                    <Check className="h-4 w-4" />
+                    <span>சீட்டில் உடனே சேமி (Save to Sheet)</span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

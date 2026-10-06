@@ -49,36 +49,50 @@ const sendDataToGoogleCloud = async (payload: CloudPayload): Promise<boolean> =>
     const action = String(payload.action ?? '').trim();
     if (!action) throw new Error('Cloud action is missing.');
 
+    const bodyData = {
+      action: action,
+      id: String(payload.id ?? ''),
+      ID: String(payload.id ?? ''),
+      originalNo: String(payload.originalNo ?? ''),
+      OriginalNo: String(payload.originalNo ?? ''),
+      date: String(payload.date ?? ''),
+      dispatchedDate: String(payload.dispatchedDate ?? ''),
+      letterType: String(payload.letterType ?? 'Registered Post'),
+      registeredPostNo: String(payload.registeredPostNo ?? ''),
+      inwardNo: String(payload.inwardNo ?? ''),
+      InwardNo: String(payload.inwardNo ?? ''),
+      fromWhom: String(payload.fromWhom ?? ''),
+      FromWhom: String(payload.fromWhom ?? ''),
+      subject: String(payload.subject ?? ''),
+      Subject: String(payload.subject ?? ''),
+      division: String(payload.division ?? ''),
+      Division: String(payload.Division ?? ''),
+      forwardedDivisions: payload.forwardedDivisions ?? [],
+      forwardedTo: payload.forwardedTo ?? [],
+      actionStatus: String(payload.actionStatus ?? payload.action ?? payload.letterAction ?? 'Pending'),
+      ActionStatus: String(payload.actionStatus ?? payload.action ?? payload.letterAction ?? 'Pending'),
+      Action: String(payload.actionStatus ?? payload.action ?? payload.letterAction ?? 'Pending'),
+      replyResponse: String(payload.replyResponse ?? ''),
+      ReplyResponse: String(payload.replyResponse ?? ''),
+      fileNo: String(payload.fileNo ?? ''),
+      FileNo: String(payload.fileNo ?? ''),
+      Password: String(payload.Password ?? ''),
+      Name: String(payload.Name ?? ''),
+      Role: String(payload.Role ?? ''),
+      Status: String(payload.Status ?? ''),
+      User_ID: String(payload.User_ID ?? ''),
+      assignedDivisions: payload.assignedDivisions ?? payload.extraData?.assignedDivisions ?? [],
+      assignedOfficers: payload.assignedOfficers ?? payload.extraData?.assignedOfficers ?? [],
+      extraData: payload.extraData ?? payload,
+    };
+
     await fetch(WEB_APP_URL, {
       method: 'POST',
       mode: 'no-cors',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        action: action,
-        id: String(payload.id ?? ''),
-        originalNo: String(payload.originalNo ?? ''),
-        date: String(payload.date ?? ''),
-        dispatchedDate: String(payload.dispatchedDate ?? ''),
-        letterType: String(payload.letterType ?? 'Registered Post'),
-        registeredPostNo: String(payload.registeredPostNo ?? ''),
-        inwardNo: String(payload.inwardNo ?? ''),
-        fromWhom: String(payload.fromWhom ?? ''),
-        subject: String(payload.subject ?? ''),
-        division: String(payload.division ?? ''),
-        forwardedDivisions: payload.forwardedDivisions ?? [],
-        forwardedTo: payload.forwardedTo ?? [],
-        actionStatus: String(payload.actionStatus ?? payload.action ?? 'Pending'),
-        replyResponse: String(payload.replyResponse ?? ''),
-        Password: String(payload.Password ?? ''),
-        Name: String(payload.Name ?? ''),
-        Role: String(payload.Role ?? ''),
-        Division: String(payload.Division ?? ''),
-        Status: String(payload.Status ?? ''),
-        User_ID: String(payload.User_ID ?? ''),
-        extraData: payload.extraData ?? payload,
-      }),
+      body: JSON.stringify(bodyData),
     });
 
     return true;
@@ -187,11 +201,11 @@ const normalizeLetter = (row: any[]): Letter => {
     division: primaryDiv,
     forwardedDivisions: parsedForwardedDivisions,
     forwardedTo: parsedForwardedTo,
-    action: (String(extra.action ?? row[12] ?? 'Not Yet Viewed') as LetterAction),
-    replyResponse: String(extra.replyResponse ?? row[13] ?? ''),
-    fileNo: String(extra.fileNo ?? ''),
+    action: (String(extra.action ?? extra.actionStatus ?? extra.ActionStatus ?? row[12] ?? 'Not Yet Viewed') as LetterAction),
+    replyResponse: String(extra.replyResponse ?? extra.ReplyResponse ?? row[13] ?? ''),
+    fileNo: String(extra.fileNo ?? extra.FileNo ?? (row[14] && !String(row[14]).trim().startsWith('{') ? row[14] : (row[15] ?? ''))),
     registeredBy: String(extra.registeredBy ?? 'mail01'),
-    registeredByName: String(extra.registeredByName ?? 'Mail Officer'),
+    registeredByName: String(extra.registeredByName ?? 'Mail Officer (கடித பதிவாளர்)'),
     createdAt: String(extra.createdAt ?? ''),
   };
 };
@@ -550,10 +564,15 @@ export default function App() {
       return true;
     }
 
-    // Requirement 5: Luxury Role sees their assigned divisions or assigned officers
+    // Multiple Luxury Roles see their assigned divisions or assigned officers
     if (currentUser.Role === 'Luxury') {
       const allowedDivs = currentUser.assignedDivisions || [];
       const allowedOfficers = currentUser.assignedOfficers || [];
+
+      // If no restrictions configured, Luxury user has executive oversight of all divisions
+      if (allowedDivs.length === 0 && allowedOfficers.length === 0) {
+        return true;
+      }
 
       // Check if letter belongs to an assigned division
       const inAssignedDiv =
@@ -863,6 +882,7 @@ export default function App() {
               setIsLetterEditMode(true);
             }}
             onDeleteLetter={handleDeleteLetter}
+            onUpdateLetter={handleUpdateLetter}
           />
         </div>
       </main>

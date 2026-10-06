@@ -244,7 +244,7 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
 
     onUpdateLetter(updated);
     setIsEditingFull(false);
-    alert('All letter details have been successfully updated and saved!');
+    alert('✓ கடித விவரங்கள் சீட்டில் உடனே புதுப்பிக்கப்பட்டு சேமிக்கப்பட்டது! (Saved to Google Sheet)');
   };
 
   // Quick Action / Reply / Forward / File Number Save
@@ -261,7 +261,7 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
     };
 
     onUpdateLetter(updated);
-    alert('Status, filed file number, and routing successfully saved!');
+    alert('✓ நடவடிக்கை நிலை மற்றும் பைல் இலக்கம் சீட்டில் உடனே பதிவாகியது! (Status & File No Synced to Sheet)');
   };
 
   const handleDeleteLetter = () => {
@@ -373,19 +373,20 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
                 Print (10pt)
               </button>
 
-              {/* Requirement 1: Mail Officer & Super Admin can Edit all fields */}
+              {/* Mail Officer & Super Admin can Edit all fields */}
               {canModifyAll && (
                 <button
                   type="button"
                   onClick={() => setIsEditingFull(!isEditingFull)}
-                  className={`inline-flex items-center gap-1 rounded-lg px-3 py-1.5 font-bold shadow-2xs transition ${
+                  className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 font-bold shadow-2xs transition ${
                     isEditingFull
                       ? 'bg-amber-100 text-amber-900 border border-amber-300'
                       : 'bg-amber-600 text-white hover:bg-amber-700'
                   }`}
+                  title="கடித பதிவாளர்: தானாக பில்லாகிய கடித விடயங்களை மாற்றி உடனே சீட்டில் சேமிக்கவும்"
                 >
                   <Edit3 className="h-3.5 w-3.5" />
-                  {isEditingFull ? 'Close Full Edit Form' : '✏️ Edit All Information'}
+                  {isEditingFull ? 'Close Edit Form' : '✏️ கடித விவரங்களை மாற்று (Edit Auto-Filled)'}
                 </button>
               )}
 
@@ -443,10 +444,17 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
                 <div className="flex items-center justify-between border-b border-amber-200 pb-2">
                   <h4 className="font-bold text-amber-950 text-sm flex items-center gap-2">
                     <Edit3 className="h-4 w-4 text-amber-700" />
-                    Edit All Initial & Current Mail Information (Mail Officer / Admin)
+                    கடித பதிவாளர்: கடித விவரங்களை திருத்துதல் / மாற்றுதல் (Mail Officer Edit)
                   </h4>
-                  <span className="text-[11px] text-amber-800 font-medium">
-                    All updates will sync to Google Sheets and local register
+                  <span className="text-[11px] text-amber-800 font-semibold bg-amber-200/70 px-2 py-0.5 rounded">
+                    உடனே Google Sheet இல் புதுப்பிக்கப்படும்
+                  </span>
+                </div>
+
+                <div className="rounded-xl border border-amber-300 bg-amber-100/70 p-2.5 text-xs text-amber-950 flex items-center gap-2">
+                  <Sparkles className="h-4 w-4 text-amber-700 shrink-0" />
+                  <span>
+                    முன்னர் தானாக (Auto-fill) அல்லது தவறாக பதிவான விவரங்களை மாற்றி <b>'Save All Changes (சீட்டில் உடனே சேமி)'</b> அழுத்தவும். அனைத்து மாற்றங்களும் Google Sheet இல் உடனே புதுப்பிக்கப்படும்.
                   </span>
                 </div>
 
@@ -716,6 +724,75 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
             {/* Normal Details View Tab */}
             {activeTab === 'details' ? (
               <div className="space-y-6">
+                {/* Requirement: அனைவருக்கும் அக்சன் மற்றும் பைல் இலக்கம் அப்டேட் செய்ய அதிகாரம் உண்டு (சீட்டில் உடனே பதிவாகும்) */}
+                <div className="rounded-xl border border-blue-300 bg-blue-50/80 p-4 shadow-2xs">
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-blue-200 pb-2 mb-3">
+                    <div className="flex items-center gap-1.5 font-bold text-xs text-blue-950">
+                      <RefreshCw className="h-4 w-4 text-blue-700" />
+                      <span>நடவடிக்கை நிலை & பைல் இலக்கம் (அனைவருக்கும் அதிகாரம் - சீட்டில் உடனே சேமிக்கப்படும்)</span>
+                    </div>
+                    <span className="text-[11px] text-blue-800 font-bold bg-blue-100 px-2 py-0.5 rounded border border-blue-200">
+                      Action & Filing Quick Bar
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                    <div>
+                      <label className="block font-bold text-gray-700 mb-1">
+                        Action Status (நடவடிக்கை நிலை):
+                      </label>
+                      <select
+                        value={currentAction}
+                        onChange={(e) => setCurrentAction(e.target.value as LetterAction)}
+                        className="w-full rounded-lg border border-gray-300 bg-white p-2 font-bold text-gray-900"
+                      >
+                        {ACTION_OPTIONS.map((opt) => (
+                          <option key={opt} value={opt}>
+                            {opt}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block font-bold text-gray-700 mb-1">
+                        Filed File No (பைல் இலக்கம் / கோப்பு எண்):
+                      </label>
+                      <input
+                        type="text"
+                        value={editFileNo}
+                        onChange={(e) => setEditFileNo(e.target.value)}
+                        placeholder="e.g. KN/DS/ADM/2026/04"
+                        className="w-full rounded-lg border border-gray-300 bg-white p-2 font-mono font-bold text-emerald-900"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block font-bold text-gray-700 mb-1">
+                        Action Note / Reply (பதில் குறிப்பு):
+                      </label>
+                      <input
+                        type="text"
+                        value={currentReply}
+                        onChange={(e) => setCurrentReply(e.target.value)}
+                        placeholder="நடவடிக்கை அல்லது பதில் குறிப்பு..."
+                        className="w-full rounded-lg border border-gray-300 bg-white p-2 text-gray-900"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mt-3 flex justify-end">
+                    <button
+                      type="button"
+                      onClick={handleQuickActionUpdate}
+                      className="inline-flex items-center gap-1.5 rounded-lg bg-blue-800 px-4 py-1.5 text-xs font-bold text-white shadow-2xs hover:bg-blue-900 transition"
+                    >
+                      <Check className="h-4 w-4" />
+                      <span>சீட்டில் உடனே சேமிக்கவும் (Save to Sheet Immediately)</span>
+                    </button>
+                  </div>
+                </div>
+
                 {/* 2-Column Info Grid */}
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 rounded-2xl border border-gray-200 bg-gray-50/70 p-4 text-xs">
                   <div className="space-y-2.5">
