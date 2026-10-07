@@ -20,7 +20,7 @@ import {
 } from 'lucide-react';
 import { User, Letter, UserRole, LetterAction } from './types';
 import { INITIAL_USERS, INITIAL_LETTERS, DIVISIONS, migrateDivision } from './data/initialData';
-import { printLandscapeReport } from './utils/helpers';
+import { printLandscapeReport, ensureStringArray } from './utils/helpers';
 import { LoginScreen } from './components/LoginScreen';
 import { DivisionActionChart } from './components/DivisionActionChart';
 import { DateFoldersList } from './components/DateFoldersList';
@@ -163,21 +163,11 @@ const findExtraData = (row: any[]): Record<string, any> => {
 const normalizeLetter = (row: any[]): Letter => {
   const extra = findExtraData(row);
 
-  let parsedForwardedDivisions: string[] = [];
-  const rawForwardedDivs = extra.forwardedDivisions ?? row[10];
-  if (Array.isArray(rawForwardedDivs)) {
-    parsedForwardedDivisions = rawForwardedDivs.map(migrateDivision).filter(Boolean);
-  } else {
-    parsedForwardedDivisions = safeJsonParse<string[]>(rawForwardedDivs, []).map(migrateDivision).filter(Boolean);
-  }
+  const rawForwardedDivs = extra.forwardedDivisions !== undefined ? extra.forwardedDivisions : row[10];
+  let parsedForwardedDivisions = ensureStringArray(rawForwardedDivs).map(migrateDivision).filter(Boolean);
 
-  let parsedForwardedTo: string[] = [];
-  const rawForwardedTo = extra.forwardedTo ?? row[11];
-  if (Array.isArray(rawForwardedTo)) {
-    parsedForwardedTo = rawForwardedTo;
-  } else {
-    parsedForwardedTo = safeJsonParse<string[]>(rawForwardedTo, []);
-  }
+  const rawForwardedTo = extra.forwardedTo !== undefined ? extra.forwardedTo : row[11];
+  const parsedForwardedTo = ensureStringArray(rawForwardedTo);
 
   const primaryDiv = migrateDivision(String(extra.division ?? row[9] ?? ''));
   if (parsedForwardedDivisions.length === 0 && primaryDiv) {
@@ -216,8 +206,10 @@ const normalizeLetter = (row: any[]): Letter => {
  */
 const normalizeUser = (row: any[]): User => {
   const extra = safeJsonParse<Record<string, any>>(row[8] || row[row.length - 1], {});
-  const assignedDivs = extra.assignedDivisions || safeJsonParse<string[]>(row[6], []);
-  const assignedOffs = extra.assignedOfficers || safeJsonParse<string[]>(row[7], []);
+  const rawAssignedDivs = extra.assignedDivisions !== undefined ? extra.assignedDivisions : row[6];
+  const assignedDivs = ensureStringArray(rawAssignedDivs).map(migrateDivision).filter(Boolean);
+  const rawAssignedOffs = extra.assignedOfficers !== undefined ? extra.assignedOfficers : row[7];
+  const assignedOffs = ensureStringArray(rawAssignedOffs);
 
   return {
     ...extra,
@@ -227,8 +219,8 @@ const normalizeUser = (row: any[]): User => {
     Role: (row[3] ?? extra.Role ?? 'User') as UserRole,
     Division: migrateDivision(String(row[4] ?? extra.Division ?? '')),
     Status: (row[5] ?? extra.Status ?? 'Active'),
-    assignedDivisions: assignedDivs && assignedDivs.length > 0 ? assignedDivs.map(migrateDivision) : undefined,
-    assignedOfficers: assignedOffs && assignedOffs.length > 0 ? assignedOffs : undefined,
+    assignedDivisions: assignedDivs.length > 0 ? assignedDivs : undefined,
+    assignedOfficers: assignedOffs.length > 0 ? assignedOffs : undefined,
   };
 };
 
@@ -237,21 +229,27 @@ export default function App() {
     try {
       const saved = localStorage.getItem('kpn_vaharai_users_v2');
       if (saved) {
-        const parsed: User[] = JSON.parse(saved);
-        const seen = new Set<string>();
-        const uniqueUsers: User[] = [];
-        for (const u of parsed) {
-          const uid = (u.User_ID || '').trim().toLowerCase();
-          if (uid && !seen.has(uid)) {
-            seen.add(uid);
-            uniqueUsers.push({
-              ...u,
-              Division: migrateDivision(u.Division),
-              assignedDivisions: u.assignedDivisions ? u.assignedDivisions.map(migrateDivision) : undefined,
-            });
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          const seen = new Set<string>();
+          const uniqueUsers: User[] = [];
+          for (const u of parsed) {
+            if (!u || typeof u !== 'object') continue;
+            const uid = (u.User_ID || '').trim().toLowerCase();
+            if (uid && !seen.has(uid)) {
+              seen.add(uid);
+              const assignedDivs = ensureStringArray(u.assignedDivisions).map(migrateDivision).filter(Boolean);
+              const assignedOffs = ensureStringArray(u.assignedOfficers);
+              uniqueUsers.push({
+                ...u,
+                Division: migrateDivision(u.Division),
+                assignedDivisions: assignedDivs.length > 0 ? assignedDivs : undefined,
+                assignedOfficers: assignedOffs.length > 0 ? assignedOffs : undefined,
+              });
+            }
           }
+          if (uniqueUsers.length > 0) return uniqueUsers;
         }
-        if (uniqueUsers.length > 0) return uniqueUsers;
       }
     } catch (e) {
       console.error(e);
@@ -263,26 +261,32 @@ export default function App() {
     try {
       const saved = localStorage.getItem('kpn_vaharai_letters_v2');
       if (saved) {
-        const parsed: Letter[] = JSON.parse(saved);
-        const seenIds = new Set<string>();
-        const uniqueLetters: Letter[] = [];
-        for (const l of parsed) {
-          const lid = (l.id || `${l.originalNo}-${l.date}`).trim();
-          if (lid && !seenIds.has(lid)) {
-            seenIds.add(lid);
-            const mappedDiv = migrateDivision(l.division);
-            const mappedFwdDivs = l.forwardedDivisions && l.forwardedDivisions.length > 0
-              ? l.forwardedDivisions.map(migrateDivision).filter(Boolean)
-              : (mappedDiv ? [mappedDiv] : []);
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          const seenIds = new Set<string>();
+          const uniqueLetters: Letter[] = [];
+          for (const l of parsed) {
+            if (!l || typeof l !== 'object') continue;
+            const lid = (l.id || `${l.originalNo}-${l.date}`).trim();
+            if (lid && !seenIds.has(lid)) {
+              seenIds.add(lid);
+              const mappedDiv = migrateDivision(l.division);
+              const fwdDivs = ensureStringArray(l.forwardedDivisions).map(migrateDivision).filter(Boolean);
+              const fwdTo = ensureStringArray(l.forwardedTo);
+              const mappedFwdDivs = fwdDivs.length > 0
+                ? fwdDivs
+                : (mappedDiv ? [mappedDiv] : []);
 
-            uniqueLetters.push({
-              ...l,
-              division: mappedDiv,
-              forwardedDivisions: mappedFwdDivs,
-            });
+              uniqueLetters.push({
+                ...l,
+                division: mappedDiv,
+                forwardedDivisions: mappedFwdDivs,
+                forwardedTo: fwdTo,
+              });
+            }
           }
+          if (uniqueLetters.length > 0) return uniqueLetters;
         }
-        if (uniqueLetters.length > 0) return uniqueLetters;
       }
     } catch (e) {
       console.error(e);
@@ -294,12 +298,17 @@ export default function App() {
     try {
       const savedUser = localStorage.getItem('kpn_vaharai_current_user_v2');
       if (savedUser) {
-        const parsed: User = JSON.parse(savedUser);
-        return {
-          ...parsed,
-          Division: migrateDivision(parsed.Division),
-          assignedDivisions: parsed.assignedDivisions ? parsed.assignedDivisions.map(migrateDivision) : undefined,
-        };
+        const parsed = JSON.parse(savedUser);
+        if (parsed && typeof parsed === 'object') {
+          const assignedDivs = ensureStringArray(parsed.assignedDivisions).map(migrateDivision).filter(Boolean);
+          const assignedOffs = ensureStringArray(parsed.assignedOfficers);
+          return {
+            ...parsed,
+            Division: migrateDivision(parsed.Division),
+            assignedDivisions: assignedDivs.length > 0 ? assignedDivs : undefined,
+            assignedOfficers: assignedOffs.length > 0 ? assignedOffs : undefined,
+          };
+        }
       }
     } catch (e) {
       console.error(e);
@@ -433,57 +442,67 @@ export default function App() {
 
   // Requirement 1 & 2: Mail Officer Registration with Excel & Cloud logging
   const handleSaveNewLetter = (newLetter: Letter) => {
-    setLetters((prev) => [newLetter, ...prev]);
+    const sanitized: Letter = {
+      ...newLetter,
+      forwardedDivisions: ensureStringArray(newLetter.forwardedDivisions),
+      forwardedTo: ensureStringArray(newLetter.forwardedTo),
+    };
+    setLetters((prev) => [sanitized, ...prev]);
     cloudWrite({
       action: 'ADD_LETTER',
-      id: newLetter.id,
-      originalNo: newLetter.originalNo,
-      date: newLetter.date,
-      dispatchedDate: newLetter.dispatchedDate,
-      letterType: newLetter.letterType,
-      registeredPostNo: newLetter.registeredPostNo,
-      inwardNo: newLetter.inwardNo,
-      fromWhom: newLetter.fromWhom,
-      subject: newLetter.subject,
-      division: newLetter.division || DIVISIONS[0],
-      forwardedDivisions: newLetter.forwardedDivisions || [],
-      forwardedTo: newLetter.forwardedTo || [],
-      actionStatus: newLetter.action || 'Not Yet Viewed',
-      replyResponse: newLetter.replyResponse || '',
-      fileNo: newLetter.fileNo || '',
-      extraData: newLetter,
+      id: sanitized.id,
+      originalNo: sanitized.originalNo,
+      date: sanitized.date,
+      dispatchedDate: sanitized.dispatchedDate,
+      letterType: sanitized.letterType,
+      registeredPostNo: sanitized.registeredPostNo,
+      inwardNo: sanitized.inwardNo,
+      fromWhom: sanitized.fromWhom,
+      subject: sanitized.subject,
+      division: sanitized.division || DIVISIONS[0],
+      forwardedDivisions: sanitized.forwardedDivisions || [],
+      forwardedTo: sanitized.forwardedTo || [],
+      actionStatus: sanitized.action || 'Not Yet Viewed',
+      replyResponse: sanitized.replyResponse || '',
+      fileNo: sanitized.fileNo || '',
+      extraData: sanitized,
     });
-    alert(`Mail Record (${newLetter.originalNo}) registered and synced successfully!`);
+    alert(`Mail Record (${sanitized.originalNo}) registered and synced successfully!`);
   };
 
   // Update existing letter (All information editable later by Mail Officer / Super Admin)
   const handleUpdateLetter = (updated: Letter) => {
-    setLetters((prev) => prev.map((l) => (l.id === updated.id ? updated : l)));
-    if (selectedLetter && selectedLetter.id === updated.id) {
-      setSelectedLetter(updated);
+    const sanitized: Letter = {
+      ...updated,
+      forwardedDivisions: ensureStringArray(updated.forwardedDivisions),
+      forwardedTo: ensureStringArray(updated.forwardedTo),
+    };
+    setLetters((prev) => prev.map((l) => (l.id === sanitized.id ? sanitized : l)));
+    if (selectedLetter && selectedLetter.id === sanitized.id) {
+      setSelectedLetter(sanitized);
     }
-    if (editingLetter && editingLetter.id === updated.id) {
-      setEditingLetter(updated);
+    if (editingLetter && editingLetter.id === sanitized.id) {
+      setEditingLetter(sanitized);
     }
 
     cloudWrite({
       action: 'UPDATE_LETTER',
-      id: updated.id,
-      originalNo: updated.originalNo,
-      date: updated.date,
-      dispatchedDate: updated.dispatchedDate,
-      letterType: updated.letterType,
-      registeredPostNo: updated.registeredPostNo,
-      inwardNo: updated.inwardNo,
-      fromWhom: updated.fromWhom,
-      subject: updated.subject,
-      division: updated.division || DIVISIONS[0],
-      forwardedDivisions: updated.forwardedDivisions || [],
-      forwardedTo: updated.forwardedTo || [],
-      actionStatus: updated.action || 'Not Yet Viewed',
-      replyResponse: updated.replyResponse || '',
-      fileNo: updated.fileNo || '',
-      extraData: updated,
+      id: sanitized.id,
+      originalNo: sanitized.originalNo,
+      date: sanitized.date,
+      dispatchedDate: sanitized.dispatchedDate,
+      letterType: sanitized.letterType,
+      registeredPostNo: sanitized.registeredPostNo,
+      inwardNo: sanitized.inwardNo,
+      fromWhom: sanitized.fromWhom,
+      subject: sanitized.subject,
+      division: sanitized.division || DIVISIONS[0],
+      forwardedDivisions: sanitized.forwardedDivisions || [],
+      forwardedTo: sanitized.forwardedTo || [],
+      actionStatus: sanitized.action || 'Not Yet Viewed',
+      replyResponse: sanitized.replyResponse || '',
+      fileNo: sanitized.fileNo || '',
+      extraData: sanitized,
     });
   };
 
@@ -564,10 +583,13 @@ export default function App() {
       return true;
     }
 
+    const fwdDivs = ensureStringArray(letter.forwardedDivisions);
+    const fwdTo = ensureStringArray(letter.forwardedTo);
+
     // Multiple Luxury Roles see their assigned divisions or assigned officers
     if (currentUser.Role === 'Luxury') {
-      const allowedDivs = currentUser.assignedDivisions || [];
-      const allowedOfficers = currentUser.assignedOfficers || [];
+      const allowedDivs = ensureStringArray(currentUser.assignedDivisions);
+      const allowedOfficers = ensureStringArray(currentUser.assignedOfficers);
 
       // If no restrictions configured, Luxury user has executive oversight of all divisions
       if (allowedDivs.length === 0 && allowedOfficers.length === 0) {
@@ -577,10 +599,10 @@ export default function App() {
       // Check if letter belongs to an assigned division
       const inAssignedDiv =
         allowedDivs.includes(letter.division) ||
-        (letter.forwardedDivisions || []).some((d) => allowedDivs.includes(d));
+        fwdDivs.some((d) => allowedDivs.includes(d));
 
       // Check if letter forwarded to an assigned officer or to luxury user themselves
-      const inAssignedOfficer = (letter.forwardedTo || []).some(
+      const inAssignedOfficer = fwdTo.some(
         (uid) => allowedOfficers.includes(uid) || uid === currentUser.User_ID
       );
 
@@ -591,21 +613,21 @@ export default function App() {
     if (currentUser.Role === 'Normal') {
       const matchesDivision =
         letter.division === currentUser.Division ||
-        (letter.forwardedDivisions || []).includes(currentUser.Division);
+        fwdDivs.includes(currentUser.Division);
 
-      const hasDivisionOfficer = (letter.forwardedTo || []).some((uid) => {
+      const hasDivisionOfficer = fwdTo.some((uid) => {
         const u = usersMap.get(uid);
         return u && u.Division === currentUser.Division;
       });
 
-      const directlyForwarded = (letter.forwardedTo || []).includes(currentUser.User_ID);
+      const directlyForwarded = fwdTo.includes(currentUser.User_ID);
 
       return matchesDivision || hasDivisionOfficer || directlyForwarded;
     }
 
     // Field Officer (User Role): Only letters directly forwarded to their ID
     if (currentUser.Role === 'User') {
-      return (letter.forwardedTo || []).includes(currentUser.User_ID);
+      return fwdTo.includes(currentUser.User_ID);
     }
 
     return false;
@@ -621,12 +643,15 @@ export default function App() {
       if (actionFilter === 'Not Yet Viewed' && letter.action !== 'Not Yet Viewed' && letter.action !== 'இன்னும் பார்க்கவில்லை') return false;
     }
 
+    const fwdDivs = ensureStringArray(letter.forwardedDivisions);
+    const fwdTo = ensureStringArray(letter.forwardedTo);
+
     // Division Filter
     if (selectedDivisionFilter !== 'All') {
       const matchesDiv =
         letter.division === selectedDivisionFilter ||
-        (letter.forwardedDivisions || []).includes(selectedDivisionFilter) ||
-        letter.forwardedTo.some((uid) => usersMap.get(uid)?.Division === selectedDivisionFilter);
+        fwdDivs.includes(selectedDivisionFilter) ||
+        fwdTo.some((uid) => usersMap.get(uid)?.Division === selectedDivisionFilter);
       if (!matchesDiv) return false;
     }
 
@@ -634,7 +659,7 @@ export default function App() {
     if (!searchQuery.trim()) return true;
     const q = searchQuery.toLowerCase().trim();
 
-    const forwardedNames = (letter.forwardedTo || [])
+    const forwardedNames = fwdTo
       .map((id) => usersMap.get(id)?.Name || id)
       .join(' ')
       .toLowerCase();

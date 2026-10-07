@@ -29,6 +29,7 @@ import {
   shareViaWhatsApp,
   downloadLetterAttachment,
   printLandscapeReport,
+  ensureStringArray,
 } from '../utils/helpers';
 import { scanLetterWithAI } from '../utils/aiScanner';
 import { ForwardSelect } from './ForwardUserSelect';
@@ -155,12 +156,13 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
       setEditFromWhom(letter.fromWhom);
       setEditSubject(letter.subject);
       setEditDivision(migrateDivision(letter.division));
+      const rawDivs = ensureStringArray(letter.forwardedDivisions).map(migrateDivision).filter(Boolean);
       setEditForwardedDivisions(
-        letter.forwardedDivisions && letter.forwardedDivisions.length > 0
-          ? letter.forwardedDivisions.map(migrateDivision)
+        rawDivs.length > 0
+          ? rawDivs
           : [migrateDivision(letter.division)]
       );
-      setEditForwardedTo(letter.forwardedTo || []);
+      setEditForwardedTo(ensureStringArray(letter.forwardedTo));
       setCurrentAction(letter.action);
       setCurrentReply(letter.replyResponse || '');
       setEditFileNo(letter.fileNo || '');
@@ -899,25 +901,33 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
 
                   {/* Display Forwarded Divisions */}
                   <div className="flex flex-wrap gap-1.5">
-                    {(letter.forwardedDivisions || [letter.division || 'General']).map((div) => (
-                      <span
-                        key={div}
-                        className="inline-flex items-center gap-1 rounded-md bg-purple-50 px-2.5 py-1 text-xs font-semibold text-purple-900 border border-purple-200"
-                      >
-                        <Building2 className="h-3.5 w-3.5 text-purple-700" />
-                        <span>Division: {div}</span>
-                      </span>
-                    ))}
+                    {(() => {
+                      const rawDivs = ensureStringArray(letter.forwardedDivisions);
+                      const displayDivs = rawDivs.length > 0 ? rawDivs : [letter.division || 'General'];
+                      return displayDivs.map((div) => (
+                        <span
+                          key={div}
+                          className="inline-flex items-center gap-1 rounded-md bg-purple-50 px-2.5 py-1 text-xs font-semibold text-purple-900 border border-purple-200"
+                        >
+                          <Building2 className="h-3.5 w-3.5 text-purple-700" />
+                          <span>Division: {div}</span>
+                        </span>
+                      ));
+                    })()}
                   </div>
 
                   {/* Display Forwarded Officers */}
                   <div className="flex flex-wrap gap-1.5">
-                    {(letter.forwardedTo || []).length === 0 ? (
-                      <span className="text-xs text-gray-400 italic">
-                        No specific individual officers assigned
-                      </span>
-                    ) : (
-                      letter.forwardedTo.map((uid) => {
+                    {(() => {
+                      const fwdOfficers = ensureStringArray(letter.forwardedTo);
+                      if (fwdOfficers.length === 0) {
+                        return (
+                          <span className="text-xs text-gray-400 italic">
+                            No specific individual officers assigned
+                          </span>
+                        );
+                      }
+                      return fwdOfficers.map((uid) => {
                         const userObj = usersMap.get(uid);
                         return (
                           <span
@@ -931,8 +941,8 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
                             </span>
                           </span>
                         );
-                      })
-                    )}
+                      });
+                    })()}
                   </div>
 
                   {/* Re-forwarding control by Mega / Division Head / Super Admin */}

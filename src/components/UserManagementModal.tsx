@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { User, UserRole, UserStatus } from '../types';
 import { DIVISIONS } from '../data/initialData';
+import { ensureStringArray } from '../utils/helpers';
 
 interface UserManagementModalProps {
   isOpen: boolean;
@@ -440,13 +441,13 @@ export const UserManagementModal: React.FC<UserManagementModalProps> = ({
                     </div>
                     <div className="flex flex-wrap gap-1.5">
                       {DIVISIONS.map((div) => {
-                        const isAssigned = (editUserObj.assignedDivisions || []).includes(div);
+                        const curr = ensureStringArray(editUserObj.assignedDivisions);
+                        const isAssigned = curr.includes(div);
                         return (
                           <button
                             type="button"
                             key={div}
                             onClick={() => {
-                              const curr = editUserObj.assignedDivisions || [];
                               const updated = isAssigned
                                 ? curr.filter((d) => d !== div)
                                 : [...curr, div];
@@ -473,18 +474,16 @@ export const UserManagementModal: React.FC<UserManagementModalProps> = ({
                       {users
                         .filter((u) => u.User_ID !== editUserObj.User_ID)
                         .map((u, uIdx) => {
-                          const isAssigned = (editUserObj.assignedOfficers || []).includes(
-                            u.User_ID
-                          );
+                          const curr = ensureStringArray(editUserObj.assignedOfficers);
+                          const isAssigned = curr.includes(u.User_ID);
                           return (
                             <button
                               type="button"
                               key={`${u.User_ID}-${uIdx}`}
                               onClick={() => {
-                                const curr = editUserObj.assignedOfficers || [];
                                 const updated = isAssigned
-                                ? curr.filter((id) => id !== u.User_ID)
-                                : [...curr, u.User_ID];
+                                  ? curr.filter((id) => id !== u.User_ID)
+                                  : [...curr, u.User_ID];
                                 setEditUserObj({
                                   ...editUserObj,
                                   assignedOfficers: updated,
@@ -807,10 +806,10 @@ export const UserManagementModal: React.FC<UserManagementModalProps> = ({
                         {isLuxury ? (
                           <div className="max-w-[200px] space-y-0.5">
                             <span className="font-bold text-amber-900">
-                              Divisions ({(user.assignedDivisions || []).length}):
+                              Divisions ({ensureStringArray(user.assignedDivisions).length}):
                             </span>{' '}
                             <span className="text-gray-600 line-clamp-1">
-                              {(user.assignedDivisions || []).join(', ') || 'All'}
+                              {ensureStringArray(user.assignedDivisions).join(', ') || 'All'}
                             </span>
                           </div>
                         ) : (

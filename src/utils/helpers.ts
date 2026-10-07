@@ -2,6 +2,49 @@ import * as XLSX from 'xlsx';
 import { Letter, User } from '../types';
 
 /**
+ * Guaranteed safe array converter for string arrays (forwardedTo, forwardedDivisions, assignedDivisions, etc.)
+ * Handles arrays, JSON serialized arrays, comma-separated strings, objects, numbers, and null/undefined.
+ */
+export const ensureStringArray = (val: any): string[] => {
+  if (val === null || val === undefined) return [];
+  if (Array.isArray(val)) {
+    return val
+      .map((item) => (typeof item === 'string' ? item.trim() : String(item ?? '').trim()))
+      .filter((item) => item !== '' && item !== 'null' && item !== 'undefined');
+  }
+  if (typeof val === 'string') {
+    const trimmed = val.trim();
+    if (!trimmed) return [];
+    if (trimmed.startsWith('[') && trimmed.endsWith(']')) {
+      try {
+        const parsed = JSON.parse(trimmed);
+        if (Array.isArray(parsed)) {
+          return parsed
+            .map((item) => (typeof item === 'string' ? item.trim() : String(item ?? '').trim()))
+            .filter((item) => item !== '' && item !== 'null' && item !== 'undefined');
+        }
+      } catch {}
+    }
+    // Handle comma-separated list like "officer01, officer02"
+    return trimmed
+      .split(',')
+      .map((item) => item.trim())
+      .filter((item) => item !== '' && item !== 'null' && item !== 'undefined');
+  }
+  if (typeof val === 'object') {
+    try {
+      return Object.values(val)
+        .map((item) => (typeof item === 'string' ? item.trim() : String(item ?? '').trim()))
+        .filter((item) => item !== '' && item !== 'null' && item !== 'undefined');
+    } catch {
+      return [];
+    }
+  }
+  const s = String(val).trim();
+  return s && s !== 'null' && s !== 'undefined' ? [s] : [];
+};
+
+/**
  * Generate Auto Original No in standard format: KPN/DS/YYYY/MM/NNN
  */
 export const generateOriginalNo = (dateStr: string, existingLetters: Letter[]): string => {
@@ -92,7 +135,9 @@ export const exportLettersToExcel = (
   fileNamePrefix = 'Letters_Register'
 ) => {
   const rows = letters.map((l, index) => {
-    const forwardedNames = (l.forwardedTo || [])
+    const fwdTo = ensureStringArray(l.forwardedTo);
+    const fwdDivs = ensureStringArray(l.forwardedDivisions);
+    const forwardedNames = fwdTo
       .map((uid) => usersMap.get(uid)?.Name || uid)
       .join(', ');
 
@@ -107,7 +152,7 @@ export const exportLettersToExcel = (
       'From Whom': l.fromWhom,
       'Subject': l.subject,
       'Primary Division': l.division || '-',
-      'Forwarded Divisions': (l.forwardedDivisions || []).join(', ') || '-',
+      'Forwarded Divisions': fwdDivs.join(', ') || '-',
       'Forwarded To (Officers)': forwardedNames || '-',
       'Action Status': l.action,
       'Reply / Notes': l.replyResponse || '-',
@@ -169,7 +214,8 @@ export const exportLettersToCsv = (
   const csvRows: string[] = [headers.join(',')];
 
   letters.forEach((l) => {
-    const forwardedNames = (l.forwardedTo || [])
+    const fwdTo = ensureStringArray(l.forwardedTo);
+    const forwardedNames = fwdTo
       .map((uid) => usersMap.get(uid)?.Name || uid)
       .join('; ');
 
@@ -228,14 +274,14 @@ export const printLandscapeReport = (
 
   const rowsHtml = letters
     .map((l, index) => {
-      const forwardedNames = (l.forwardedTo || [])
+      const fwdTo = ensureStringArray(l.forwardedTo);
+      const forwardedNames = fwdTo
         .map((uid) => usersMap.get(uid)?.Name || uid)
         .join(', ');
 
+      const rawDivs = ensureStringArray(l.forwardedDivisions);
       const divisionsList = (
-        l.forwardedDivisions && l.forwardedDivisions.length > 0
-          ? l.forwardedDivisions
-          : [l.division]
+        rawDivs.length > 0 ? rawDivs : [l.division]
       ).filter(Boolean);
 
       return `

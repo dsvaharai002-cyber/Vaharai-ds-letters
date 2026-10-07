@@ -65,36 +65,39 @@ export const ForwardSelect: React.FC<ForwardSelectProps> = ({
     return d.toLowerCase().includes(q);
   });
 
+  const safeUserIds = Array.isArray(selectedUserIds) ? selectedUserIds : [];
+  const safeDivisions = Array.isArray(selectedDivisions) ? selectedDivisions : [];
+
   const toggleUser = (userId: string) => {
-    if (selectedUserIds.includes(userId)) {
-      onChangeUsers(selectedUserIds.filter((id) => id !== userId));
+    if (safeUserIds.includes(userId)) {
+      onChangeUsers(safeUserIds.filter((id) => id !== userId));
     } else {
-      onChangeUsers([...selectedUserIds, userId]);
+      onChangeUsers([...safeUserIds, userId]);
     }
   };
 
   const removeUser = (userId: string, e: React.MouseEvent) => {
     e.stopPropagation();
-    onChangeUsers(selectedUserIds.filter((id) => id !== userId));
+    onChangeUsers(safeUserIds.filter((id) => id !== userId));
   };
 
   const toggleDivision = (divisionName: string) => {
     if (!onChangeDivisions) return;
-    if (selectedDivisions.includes(divisionName)) {
-      onChangeDivisions(selectedDivisions.filter((d) => d !== divisionName));
+    if (safeDivisions.includes(divisionName)) {
+      onChangeDivisions(safeDivisions.filter((d) => d !== divisionName));
     } else {
-      onChangeDivisions([...selectedDivisions, divisionName]);
+      onChangeDivisions([...safeDivisions, divisionName]);
     }
   };
 
   const removeDivision = (divisionName: string, e: React.MouseEvent) => {
     e.stopPropagation();
     if (onChangeDivisions) {
-      onChangeDivisions(selectedDivisions.filter((d) => d !== divisionName));
+      onChangeDivisions(safeDivisions.filter((d) => d !== divisionName));
     }
   };
 
-  const selectedUserObjects = allUsers.filter((u) => selectedUserIds.includes(u.User_ID));
+  const selectedUserObjects = allUsers.filter((u) => safeUserIds.includes(u.User_ID));
 
   return (
     <div className="relative w-full" ref={wrapperRef}>

@@ -24,7 +24,7 @@ import {
 } from 'lucide-react';
 import { Letter, LetterAction, User } from '../types';
 import { DIVISIONS, POST_TYPES, migrateDivision } from '../data/initialData';
-import { printLandscapeReport, downloadLetterAttachment } from '../utils/helpers';
+import { printLandscapeReport, downloadLetterAttachment, ensureStringArray } from '../utils/helpers';
 
 interface DateFoldersListProps {
   letters: Letter[];
@@ -333,14 +333,13 @@ export const DateFoldersList: React.FC<DateFoldersListProps> = ({
                   </thead>
                   <tbody className="divide-y divide-gray-100">
                     {dateLetters.map((ltr, ltrIdx) => {
-                      const forwardedNames = (ltr.forwardedTo || [])
+                      const forwardedNames = ensureStringArray(ltr.forwardedTo)
                         .map((id) => usersMap.get(id)?.Name || id)
                         .join(', ');
 
+                      const rawFwdDivs = ensureStringArray(ltr.forwardedDivisions);
                       const divisionsList = (
-                        ltr.forwardedDivisions && ltr.forwardedDivisions.length > 0
-                          ? ltr.forwardedDivisions
-                          : [ltr.division]
+                        rawFwdDivs.length > 0 ? rawFwdDivs : [ltr.division]
                       ).filter(Boolean);
 
                       return (
