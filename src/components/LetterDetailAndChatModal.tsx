@@ -30,6 +30,7 @@ import {
   downloadLetterAttachment,
   printLandscapeReport,
   ensureStringArray,
+  normalizeAction,
 } from '../utils/helpers';
 import { scanLetterWithAI } from '../utils/aiScanner';
 import { ForwardSelect } from './ForwardUserSelect';
@@ -233,9 +234,9 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
       fromWhom: editFromWhom.trim(),
       subject: editSubject.trim(),
       division: editDivision,
-      forwardedDivisions: Array.from(new Set([editDivision, ...editForwardedDivisions])),
-      forwardedTo: editForwardedTo,
-      action: currentAction,
+      forwardedDivisions: Array.from(new Set([editDivision, ...ensureStringArray(editForwardedDivisions)])),
+      forwardedTo: ensureStringArray(editForwardedTo),
+      action: normalizeAction(currentAction),
       replyResponse: currentReply.trim(),
       fileNo: editFileNo.trim() || undefined,
       image: editImage,
@@ -253,11 +254,11 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
   const handleQuickActionUpdate = () => {
     const updated: Letter = {
       ...letter,
-      action: currentAction,
+      action: normalizeAction(currentAction),
       replyResponse: currentReply.trim(),
       fileNo: editFileNo.trim() || undefined,
-      forwardedDivisions: Array.from(new Set([editDivision, ...editForwardedDivisions])),
-      forwardedTo: editForwardedTo,
+      forwardedDivisions: Array.from(new Set([editDivision, ...ensureStringArray(editForwardedDivisions)])),
+      forwardedTo: ensureStringArray(editForwardedTo),
       handledByMega: isMega ? true : letter.handledByMega,
       megaHandledNote: isMega ? 'Handled and routed by Mega User' : letter.megaHandledNote,
     };

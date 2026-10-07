@@ -1,5 +1,52 @@
 import * as XLSX from 'xlsx';
-import { Letter, User } from '../types';
+import { Letter, User, LetterAction } from '../types';
+
+/**
+ * Normalizes any Action Status string into a strict LetterAction standard value.
+ * Handles Tamil and English variations and protects against RPC command strings like UPDATE_LETTER.
+ */
+export const normalizeAction = (val?: any): LetterAction => {
+  if (!val) return 'Not Yet Viewed';
+  const str = String(val).trim();
+  if (
+    str === 'UPDATE_LETTER' ||
+    str === 'ADD_LETTER' ||
+    str === 'DELETE_LETTER' ||
+    str === 'Pending' ||
+    str === 'Not Yet Viewed' ||
+    str === 'இன்னும் பார்க்கவில்லை'
+  ) {
+    return 'Not Yet Viewed';
+  }
+  if (
+    str === 'Action Taken' ||
+    str === 'நடவடிக்கை எடுக்கப்பட்டது' ||
+    str.toLowerCase().includes('taken') ||
+    str.toLowerCase().includes('எடுக்கப்பட்டது') ||
+    str.toLowerCase().includes('completed') ||
+    str.toLowerCase().includes('done')
+  ) {
+    return 'Action Taken';
+  }
+  if (
+    str === 'Action Not Taken' ||
+    str === 'நடவடிக்கை எடுக்கப்படவில்லை' ||
+    str.toLowerCase().includes('not taken') ||
+    str.toLowerCase().includes('எடுக்கப்படவில்லை')
+  ) {
+    return 'Action Not Taken';
+  }
+  if (
+    str === 'Under Investigation' ||
+    str === 'கள ஆய்வில்' ||
+    str.toLowerCase().includes('investig') ||
+    str.toLowerCase().includes('ஆய்வில்') ||
+    str.toLowerCase().includes('field')
+  ) {
+    return 'Under Investigation';
+  }
+  return 'Not Yet Viewed';
+};
 
 /**
  * Guaranteed safe array converter for string arrays (forwardedTo, forwardedDivisions, assignedDivisions, etc.)
@@ -9,19 +56,31 @@ export const ensureStringArray = (val: any): string[] => {
   if (val === null || val === undefined) return [];
   if (Array.isArray(val)) {
     return val
-      .map((item) => (typeof item === 'string' ? item.trim() : String(item ?? '').trim()))
-      .filter((item) => item !== '' && item !== 'null' && item !== 'undefined');
+      .map((item) => {
+        if (typeof item === 'string') return item.trim();
+        if (item && typeof item === 'object') {
+          return String(item.User_ID || item.userId || item.id || item.Name || item.name || '').trim();
+        }
+        return String(item ?? '').trim();
+      })
+      .filter((item) => item !== '' && item !== 'null' && item !== 'undefined' && item !== '[object Object]');
   }
   if (typeof val === 'string') {
     const trimmed = val.trim();
-    if (!trimmed) return [];
+    if (!trimmed || trimmed === '[object Object]') return [];
     if (trimmed.startsWith('[') && trimmed.endsWith(']')) {
       try {
         const parsed = JSON.parse(trimmed);
         if (Array.isArray(parsed)) {
           return parsed
-            .map((item) => (typeof item === 'string' ? item.trim() : String(item ?? '').trim()))
-            .filter((item) => item !== '' && item !== 'null' && item !== 'undefined');
+            .map((item) => {
+              if (typeof item === 'string') return item.trim();
+              if (item && typeof item === 'object') {
+                return String(item.User_ID || item.userId || item.id || item.Name || item.name || '').trim();
+              }
+              return String(item ?? '').trim();
+            })
+            .filter((item) => item !== '' && item !== 'null' && item !== 'undefined' && item !== '[object Object]');
         }
       } catch {}
     }
@@ -29,19 +88,126 @@ export const ensureStringArray = (val: any): string[] => {
     return trimmed
       .split(',')
       .map((item) => item.trim())
-      .filter((item) => item !== '' && item !== 'null' && item !== 'undefined');
+      .filter((item) => item !== '' && item !== 'null' && item !== 'undefined' && item !== '[object Object]');
   }
   if (typeof val === 'object') {
+    if (val.User_ID || val.userId || val.id || val.Name || val.name) {
+      const extracted = String(val.User_ID || val.userId || val.id || val.Name || val.name).trim();
+      if (extracted) return [extracted];
+    }
     try {
       return Object.values(val)
-        .map((item) => (typeof item === 'string' ? item.trim() : String(item ?? '').trim()))
-        .filter((item) => item !== '' && item !== 'null' && item !== 'undefined');
+        .map((item) => {
+          if (typeof item === 'string') return item.trim();
+          if (item && typeof item === 'object') {
+            return String((item as any).User_ID || (item as any).userId || (item as any).id || (item as any).Name || '').trim();
+          }
+          return String(item ?? '').trim();
+        })
+        .filter((item) => item !== '' && item !== 'null' && item !== 'undefined' && item !== '[object Object]');
     } catch {
       return [];
     }
   }
   const s = String(val).trim();
-  return s && s !== 'null' && s !== 'undefined' ? [s] : [];
+  return s && s !== 'null' && s !== 'undefined' && s !== '[object Object]' ? [s] : [];
+};
+
+/**
+ * Resolves an officer's display name from either their User_ID or existing Name.
+ */
+export const getOfficerDisplayName = (idOrName: string, allUsers: User[]): string => {
+  if (!idOrName) return '';
+  const clean = idOrName.trim().toLowerCase();
+  const matched = allUsers.find(
+    (u) =>
+      u.User_ID.trim().toLowerCase() === clean ||
+      u.Name.trim().toLowerCase() === clean
+  );
+  return matched ? matched.Name : idOrName.trim();
+};
+
+/**
+ * Checks whether a letter is forwarded to or associated with an officer matching the search query.
+ * Handles search by officer Name (Tamil/English), User_ID, designation, etc.
+ */
+export const doesLetterMatchOfficer = (
+  letter: Letter,
+  query: string,
+  allUsers: User[]
+): boolean => {
+  if (!query || !query.trim()) return false;
+  const q = query.trim().toLowerCase();
+  const fwdTo = ensureStringArray(letter.forwardedTo);
+  const fwdDivs = ensureStringArray(letter.forwardedDivisions).map((d) => d.trim().toLowerCase());
+  const letterDiv = (letter.division || '').trim().toLowerCase();
+
+  // 1. Direct check on forwardedTo array items
+  for (const item of fwdTo) {
+    const clean = item.toLowerCase();
+    if (clean.includes(q) || q.includes(clean)) return true;
+    const displayName = getOfficerDisplayName(item, allUsers).toLowerCase();
+    if (displayName.includes(q) || q.includes(displayName)) return true;
+  }
+
+  // 2. Resolve users for each forwardedTo recipient
+  for (const recipient of fwdTo) {
+    const clean = recipient.trim().toLowerCase();
+    const u = allUsers.find(
+      (usr) =>
+        usr.User_ID.trim().toLowerCase() === clean ||
+        usr.Name.trim().toLowerCase() === clean ||
+        clean.includes(usr.User_ID.trim().toLowerCase()) ||
+        clean.includes(usr.Name.trim().toLowerCase())
+    );
+    if (u) {
+      if ((u.Name || '').toLowerCase().includes(q)) return true;
+      if ((u.User_ID || '').toLowerCase().includes(q)) return true;
+      if (u.designation && u.designation.toLowerCase().includes(q)) return true;
+      if (u.Division && u.Division.toLowerCase().includes(q)) return true;
+    }
+  }
+
+  // 3. Find any user in allUsers matching query (by Name, ID, Designation)
+  const matchingOfficers = allUsers.filter((u) => {
+    const uName = (u.Name || '').toLowerCase();
+    const uId = (u.User_ID || '').toLowerCase();
+    const uDesig = (u.designation || '').toLowerCase();
+    return uName.includes(q) || uId.includes(q) || uDesig.includes(q) || q.includes(uName);
+  });
+
+  for (const officer of matchingOfficers) {
+    const officerId = (officer.User_ID || '').trim().toLowerCase();
+    const officerName = (officer.Name || '').trim().toLowerCase();
+
+    // Check if letter was forwarded to this officer directly (ID or Name or substring)
+    const isForwarded = fwdTo.some((item) => {
+      const clean = item.trim().toLowerCase();
+      return (
+        clean === officerId ||
+        clean === officerName ||
+        clean.includes(officerId) ||
+        officerName.includes(clean) ||
+        clean.includes(officerName)
+      );
+    });
+    if (isForwarded) return true;
+
+    // Check if letter belongs to this officer's department/division
+    const officerDiv = (officer.Division || '').trim().toLowerCase();
+    if (
+      officerDiv &&
+      (letterDiv === officerDiv || fwdDivs.some((d) => d === officerDiv || d.includes(officerDiv)))
+    ) {
+      return true;
+    }
+
+    // Check if registered by this officer
+    if (letter.registeredBy && letter.registeredBy.trim().toLowerCase() === officerId) return true;
+    if (letter.registeredByName && letter.registeredByName.toLowerCase().includes(officerName)) return true;
+  }
+
+  return false;
 };
 
 /**

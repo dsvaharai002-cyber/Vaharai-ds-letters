@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Folder,
   FolderOpen,
@@ -24,7 +24,13 @@ import {
 } from 'lucide-react';
 import { Letter, LetterAction, User } from '../types';
 import { DIVISIONS, POST_TYPES, migrateDivision } from '../data/initialData';
-import { printLandscapeReport, downloadLetterAttachment, ensureStringArray } from '../utils/helpers';
+import {
+  printLandscapeReport,
+  downloadLetterAttachment,
+  ensureStringArray,
+  getOfficerDisplayName,
+  normalizeAction,
+} from '../utils/helpers';
 
 interface DateFoldersListProps {
   letters: Letter[];
@@ -60,9 +66,12 @@ export const DateFoldersList: React.FC<DateFoldersListProps> = ({
 
   const handleActionChange = (ltr: Letter, newAction: LetterAction) => {
     if (!onUpdateLetter) return;
+    const safeAction = normalizeAction(newAction);
     const updated: Letter = {
       ...ltr,
-      action: newAction,
+      action: safeAction,
+      forwardedDivisions: ensureStringArray(ltr.forwardedDivisions),
+      forwardedTo: ensureStringArray(ltr.forwardedTo),
     };
     onUpdateLetter(updated);
     setSyncedLetterId(ltr.id);
@@ -79,6 +88,8 @@ export const DateFoldersList: React.FC<DateFoldersListProps> = ({
     const updated: Letter = {
       ...ltr,
       fileNo: tempFileNo.trim(),
+      forwardedDivisions: ensureStringArray(ltr.forwardedDivisions),
+      forwardedTo: ensureStringArray(ltr.forwardedTo),
     };
     onUpdateLetter(updated);
     setEditingFileNoId(null);
@@ -89,8 +100,14 @@ export const DateFoldersList: React.FC<DateFoldersListProps> = ({
   const handleSaveQuickEdit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!quickEditLetter || !onUpdateLetter) return;
-    onUpdateLetter(quickEditLetter);
-    setSyncedLetterId(quickEditLetter.id);
+    const sanitizedQuickEdit: Letter = {
+      ...quickEditLetter,
+      action: normalizeAction(quickEditLetter.action),
+      forwardedDivisions: ensureStringArray(quickEditLetter.forwardedDivisions),
+      forwardedTo: ensureStringArray(quickEditLetter.forwardedTo),
+    };
+    onUpdateLetter(sanitizedQuickEdit);
+    setSyncedLetterId(sanitizedQuickEdit.id);
     setQuickEditLetter(null);
     setTimeout(() => setSyncedLetterId(null), 2500);
     alert('✓ கடித விவரங்கள் Google Sheet இல் உடனே மாற்றப்பட்டு பதிவாகியது!');
@@ -118,14 +135,27 @@ export const DateFoldersList: React.FC<DateFoldersListProps> = ({
     ? sortedDates
     : sortedDates.slice(startIndex, startIndex + DAYS_PER_VIEW);
 
-  // Default open the first 2 folders of the active view
+  // Default open folders
   const [openFolders, setOpenFolders] = useState<Record<string, boolean>>(() => {
     const initial: Record<string, boolean> = {};
-    sortedDates.slice(0, 2).forEach((d) => {
+    sortedDates.forEach((d) => {
       initial[d] = true;
     });
     return initial;
   });
+
+  // Automatically ensure active date folders are open when filtered or updated
+  useEffect(() => {
+    if (sortedDates.length > 0) {
+      setOpenFolders((prev) => {
+        const next: Record<string, boolean> = { ...prev };
+        sortedDates.forEach((d) => {
+          next[d] = true;
+        });
+        return next;
+      });
+    }
+  }, [letters.length, sortedDates.join(',')]);
 
   const toggleFolder = (d: string) => {
     setOpenFolders((prev) => ({
@@ -333,9 +363,10 @@ export const DateFoldersList: React.FC<DateFoldersListProps> = ({
                   </thead>
                   <tbody className="divide-y divide-gray-100">
                     {dateLetters.map((ltr, ltrIdx) => {
-                      const forwardedNames = ensureStringArray(ltr.forwardedTo)
-                        .map((id) => usersMap.get(id)?.Name || id)
-                        .join(', ');
+                      const fwdToArr = ensureStringArray(ltr.forwardedTo);
+                      const forwardedOfficerNames = fwdToArr
+                        .map((id) => getOfficerDisplayName(id, allUsers))
+                        .filter(Boolean);
 
                       const rawFwdDivs = ensureStringArray(ltr.forwardedDivisions);
                       const divisionsList = (
@@ -387,12 +418,15 @@ export const DateFoldersList: React.FC<DateFoldersListProps> = ({
                             >
                               🏢 {divisionsList.join(', ') || '-'}
                             </div>
-                            {forwardedNames && (
+                            {forwardedOfficerNames.length > 0 && (
                               <div
-                                className="text-gray-600 truncate mt-0.5"
-                                title={forwardedNames}
+                                className="text-gray-800 truncate mt-1 flex items-center gap-1 font-semibold"
+                                title={`Forwarded Recipient Officers: ${forwardedOfficerNames.join(', ')}`}
                               >
-                                👤 {forwardedNames}
+                                <span className="text-blue-700 font-bold shrink-0">👤</span>
+                                <span className="text-blue-950 font-bold truncate">
+                                  {forwardedOfficerNames.join(', ')}
+                                </span>
                               </div>
                             )}
                           </td>

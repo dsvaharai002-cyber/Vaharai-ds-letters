@@ -17,10 +17,18 @@ import {
   Crown,
   Layers,
   ArrowUpDown,
+  X,
+  UserCheck,
 } from 'lucide-react';
 import { User, Letter, UserRole, LetterAction } from './types';
 import { INITIAL_USERS, INITIAL_LETTERS, DIVISIONS, migrateDivision } from './data/initialData';
-import { printLandscapeReport, ensureStringArray } from './utils/helpers';
+import {
+  printLandscapeReport,
+  ensureStringArray,
+  normalizeAction,
+  doesLetterMatchOfficer,
+  getOfficerDisplayName,
+} from './utils/helpers';
 import { LoginScreen } from './components/LoginScreen';
 import { DivisionActionChart } from './components/DivisionActionChart';
 import { DateFoldersList } from './components/DateFoldersList';
@@ -49,6 +57,14 @@ const sendDataToGoogleCloud = async (payload: CloudPayload): Promise<boolean> =>
     const action = String(payload.action ?? '').trim();
     if (!action) throw new Error('Cloud action is missing.');
 
+    const safeLetterAction = normalizeAction(
+      payload.actionStatus ||
+        payload.letterAction ||
+        payload.extraData?.action ||
+        payload.extraData?.actionStatus ||
+        'Not Yet Viewed'
+    );
+
     const bodyData = {
       action: action,
       id: String(payload.id ?? ''),
@@ -67,11 +83,11 @@ const sendDataToGoogleCloud = async (payload: CloudPayload): Promise<boolean> =>
       Subject: String(payload.subject ?? ''),
       division: String(payload.division ?? ''),
       Division: String(payload.Division ?? ''),
-      forwardedDivisions: payload.forwardedDivisions ?? [],
-      forwardedTo: payload.forwardedTo ?? [],
-      actionStatus: String(payload.actionStatus ?? payload.action ?? payload.letterAction ?? 'Pending'),
-      ActionStatus: String(payload.actionStatus ?? payload.action ?? payload.letterAction ?? 'Pending'),
-      Action: String(payload.actionStatus ?? payload.action ?? payload.letterAction ?? 'Pending'),
+      forwardedDivisions: ensureStringArray(payload.forwardedDivisions),
+      forwardedTo: ensureStringArray(payload.forwardedTo),
+      actionStatus: safeLetterAction,
+      ActionStatus: safeLetterAction,
+      Action: safeLetterAction,
       replyResponse: String(payload.replyResponse ?? ''),
       ReplyResponse: String(payload.replyResponse ?? ''),
       fileNo: String(payload.fileNo ?? ''),
@@ -191,7 +207,7 @@ const normalizeLetter = (row: any[]): Letter => {
     division: primaryDiv,
     forwardedDivisions: parsedForwardedDivisions,
     forwardedTo: parsedForwardedTo,
-    action: (String(extra.action ?? extra.actionStatus ?? extra.ActionStatus ?? row[12] ?? 'Not Yet Viewed') as LetterAction),
+    action: normalizeAction(row[12] || extra.action || extra.actionStatus || extra.ActionStatus || 'Not Yet Viewed'),
     replyResponse: String(extra.replyResponse ?? extra.ReplyResponse ?? row[13] ?? ''),
     fileNo: String(extra.fileNo ?? extra.FileNo ?? (row[14] && !String(row[14]).trim().startsWith('{') ? row[14] : (row[15] ?? ''))),
     registeredBy: String(extra.registeredBy ?? 'mail01'),
@@ -325,6 +341,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [actionFilter, setActionFilter] = useState<string>('All');
   const [selectedDivisionFilter, setSelectedDivisionFilter] = useState<string>('All');
+  const [selectedOfficerFilter, setSelectedOfficerFilter] = useState<string>('All');
   const [loadingCloud, setLoadingCloud] = useState(false);
   const [cloudMessage, setCloudMessage] = useState('Google Sheets Cloud synchronization active.');
 
@@ -474,6 +491,7 @@ export default function App() {
   const handleUpdateLetter = (updated: Letter) => {
     const sanitized: Letter = {
       ...updated,
+      action: normalizeAction(updated.action),
       forwardedDivisions: ensureStringArray(updated.forwardedDivisions),
       forwardedTo: ensureStringArray(updated.forwardedTo),
     };
@@ -483,6 +501,11 @@ export default function App() {
     }
     if (editingLetter && editingLetter.id === sanitized.id) {
       setEditingLetter(sanitized);
+    }
+
+    // Reset actionFilter if active so the updated letter remains visible on screen
+    if (actionFilter !== 'All') {
+      setActionFilter('All');
     }
 
     cloudWrite({
@@ -585,11 +608,13 @@ export default function App() {
 
     const fwdDivs = ensureStringArray(letter.forwardedDivisions);
     const fwdTo = ensureStringArray(letter.forwardedTo);
+    const myId = currentUser.User_ID.trim().toLowerCase();
+    const myName = currentUser.Name.trim().toLowerCase();
 
     // Multiple Luxury Roles see their assigned divisions or assigned officers
     if (currentUser.Role === 'Luxury') {
       const allowedDivs = ensureStringArray(currentUser.assignedDivisions);
-      const allowedOfficers = ensureStringArray(currentUser.assignedOfficers);
+      const allowedOfficers = ensureStringArray(currentUser.assignedOfficers).map((s) => s.trim().toLowerCase());
 
       // If no restrictions configured, Luxury user has executive oversight of all divisions
       if (allowedDivs.length === 0 && allowedOfficers.length === 0) {
@@ -602,45 +627,88 @@ export default function App() {
         fwdDivs.some((d) => allowedDivs.includes(d));
 
       // Check if letter forwarded to an assigned officer or to luxury user themselves
-      const inAssignedOfficer = fwdTo.some(
-        (uid) => allowedOfficers.includes(uid) || uid === currentUser.User_ID
-      );
+      const inAssignedOfficer = fwdTo.some((uid) => {
+        const clean = uid.trim().toLowerCase();
+        if (clean === myId || clean === myName) return true;
+        if (myId && clean.includes(myId)) return true;
+        if (myName && (clean.includes(myName) || myName.includes(clean))) return true;
+        if (allowedOfficers.includes(clean)) return true;
+        return allowedOfficers.some((ao) => {
+          const u = users.find(
+            (usr) =>
+              usr.User_ID.trim().toLowerCase() === ao ||
+              usr.Name.trim().toLowerCase() === ao
+          );
+          return (
+            u &&
+            (u.User_ID.trim().toLowerCase() === clean ||
+              u.Name.trim().toLowerCase() === clean ||
+              clean.includes(u.User_ID.trim().toLowerCase()) ||
+              clean.includes(u.Name.trim().toLowerCase()))
+          );
+        });
+      });
 
       return inAssignedDiv || inAssignedOfficer;
     }
 
     // Requirement 3: Normal User (Division Head) MUST receive letters routed to their division!
     if (currentUser.Role === 'Normal') {
+      const myDiv = (currentUser.Division || '').trim().toLowerCase();
+      const letterDiv = (letter.division || '').trim().toLowerCase();
       const matchesDivision =
-        letter.division === currentUser.Division ||
-        fwdDivs.includes(currentUser.Division);
+        letterDiv === myDiv ||
+        fwdDivs.some((d) => d.trim().toLowerCase() === myDiv);
 
       const hasDivisionOfficer = fwdTo.some((uid) => {
-        const u = usersMap.get(uid);
-        return u && u.Division === currentUser.Division;
+        const clean = uid.trim().toLowerCase();
+        const u = users.find(
+          (usr) =>
+            usr.User_ID.trim().toLowerCase() === clean ||
+            usr.Name.trim().toLowerCase() === clean
+        );
+        return u && (u.Division || '').trim().toLowerCase() === myDiv;
       });
 
-      const directlyForwarded = fwdTo.includes(currentUser.User_ID);
+      const directlyForwarded = fwdTo.some((id) => {
+        const clean = id.trim().toLowerCase();
+        return (
+          clean === myId ||
+          clean === myName ||
+          (myId && clean.includes(myId)) ||
+          (myName && (clean.includes(myName) || myName.includes(clean)))
+        );
+      });
 
       return matchesDivision || hasDivisionOfficer || directlyForwarded;
     }
 
-    // Field Officer (User Role): Only letters directly forwarded to their ID
+    // Field Officer (User Role): Letters directly forwarded to their ID or Name
     if (currentUser.Role === 'User') {
-      return fwdTo.includes(currentUser.User_ID);
+      return fwdTo.some((id) => {
+        const clean = id.trim().toLowerCase();
+        if (clean === myId || clean === myName) return true;
+        if (myId && clean.includes(myId)) return true;
+        if (myName && (clean.includes(myName) || myName.includes(clean))) return true;
+        const resolved = users.find(
+          (u) =>
+            u.User_ID.trim().toLowerCase() === clean ||
+            u.Name.trim().toLowerCase() === clean
+        );
+        return resolved?.User_ID.trim().toLowerCase() === myId;
+      });
     }
 
     return false;
   });
 
-  // Apply Search, Status Filter & Division Filter
+  // Apply Search, Status Filter, Officer Filter & Division Filter
   const displayedLetters = roleFilteredLetters.filter((letter) => {
-    // Status Filter
+    // Status Filter (with bilingual safety via normalizeAction)
     if (actionFilter !== 'All') {
-      if (actionFilter === 'Action Taken' && letter.action !== 'Action Taken' && letter.action !== 'நடவடிக்கை எடுக்கப்பட்டது') return false;
-      if (actionFilter === 'Action Not Taken' && letter.action !== 'Action Not Taken' && letter.action !== 'நடவடிக்கை எடுக்கப்படவில்லை') return false;
-      if (actionFilter === 'Under Investigation' && letter.action !== 'Under Investigation' && letter.action !== 'கள ஆய்வில்') return false;
-      if (actionFilter === 'Not Yet Viewed' && letter.action !== 'Not Yet Viewed' && letter.action !== 'இன்னும் பார்க்கவில்லை') return false;
+      const normLetterAction = normalizeAction(letter.action);
+      const normFilter = normalizeAction(actionFilter);
+      if (normLetterAction !== normFilter) return false;
     }
 
     const fwdDivs = ensureStringArray(letter.forwardedDivisions);
@@ -648,33 +716,54 @@ export default function App() {
 
     // Division Filter
     if (selectedDivisionFilter !== 'All') {
+      const targetDiv = selectedDivisionFilter.trim().toLowerCase();
+      const letterDiv = (letter.division || '').trim().toLowerCase();
       const matchesDiv =
-        letter.division === selectedDivisionFilter ||
-        fwdDivs.includes(selectedDivisionFilter) ||
-        fwdTo.some((uid) => usersMap.get(uid)?.Division === selectedDivisionFilter);
+        letterDiv === targetDiv ||
+        fwdDivs.some((d) => d.trim().toLowerCase() === targetDiv) ||
+        fwdTo.some((uid) => {
+          const clean = uid.trim().toLowerCase();
+          const u = users.find(
+            (usr) =>
+              usr.User_ID.trim().toLowerCase() === clean ||
+              usr.Name.trim().toLowerCase() === clean
+          );
+          return (u?.Division || '').trim().toLowerCase() === targetDiv;
+        });
       if (!matchesDiv) return false;
     }
 
-    // Search Query
+    // Officer Filter (from toolbar dropdown)
+    if (selectedOfficerFilter !== 'All') {
+      const matchesSelectedOfficer = doesLetterMatchOfficer(letter, selectedOfficerFilter, users);
+      if (!matchesSelectedOfficer) return false;
+    }
+
+    // Search Query (Comprehensive search by Officer Name / ID / Designation, Original No, Inward No, Subject, From, Dates, Division, Notes)
     if (!searchQuery.trim()) return true;
     const q = searchQuery.toLowerCase().trim();
 
+    const matchesOfficerSearch = doesLetterMatchOfficer(letter, q, users);
+
     const forwardedNames = fwdTo
-      .map((id) => usersMap.get(id)?.Name || id)
+      .map((id) => getOfficerDisplayName(id, users))
+      .filter(Boolean)
       .join(' ')
       .toLowerCase();
 
     return (
-      letter.originalNo.toLowerCase().includes(q) ||
-      letter.inwardNo.toLowerCase().includes(q) ||
-      (letter.fileNo && letter.fileNo.toLowerCase().includes(q)) ||
-      (letter.registeredPostNo && letter.registeredPostNo.toLowerCase().includes(q)) ||
-      letter.fromWhom.toLowerCase().includes(q) ||
-      letter.subject.toLowerCase().includes(q) ||
-      letter.date.toLowerCase().includes(q) ||
-      (letter.dispatchedDate && letter.dispatchedDate.toLowerCase().includes(q)) ||
-      (letter.division && letter.division.toLowerCase().includes(q)) ||
-      forwardedNames.includes(q)
+      (letter.originalNo || '').toLowerCase().includes(q) ||
+      (letter.inwardNo || '').toLowerCase().includes(q) ||
+      (letter.fileNo || '').toLowerCase().includes(q) ||
+      (letter.registeredPostNo || '').toLowerCase().includes(q) ||
+      (letter.fromWhom || '').toLowerCase().includes(q) ||
+      (letter.subject || '').toLowerCase().includes(q) ||
+      (letter.date || '').toLowerCase().includes(q) ||
+      (letter.dispatchedDate || '').toLowerCase().includes(q) ||
+      (letter.division || '').toLowerCase().includes(q) ||
+      (letter.replyResponse || '').toLowerCase().includes(q) ||
+      forwardedNames.includes(q) ||
+      matchesOfficerSearch
     );
   });
 
@@ -829,22 +918,51 @@ export default function App() {
         />
 
         {/* Toolbar: Search, Filters, Excel Export & 10pt Print */}
-        <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-xs">
+        <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-xs space-y-3">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            {/* Search Input */}
+            {/* Search Input with Clear Button */}
             <div className="relative flex-1 min-w-[280px] max-w-md">
               <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search by Original No, Inward No, Subject, Sender..."
-                className="w-full rounded-xl border border-gray-300 bg-white py-2 pl-9 pr-3 text-xs text-gray-900 focus:border-blue-700 focus:outline-hidden"
+                placeholder="Search by Officer Name (உத்தியோகத்தர்), No, Subject, Division..."
+                className="w-full rounded-xl border border-gray-300 bg-white py-2 pl-9 pr-8 text-xs text-gray-900 focus:border-blue-700 focus:outline-hidden"
               />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-2.5 top-2.5 text-gray-400 hover:text-gray-700"
+                  title="Clear Search"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              )}
             </div>
 
             {/* Filter controls */}
             <div className="flex flex-wrap items-center gap-2.5">
+              {/* Officer Filter Dropdown */}
+              <div className="flex items-center gap-1.5 text-xs">
+                <Users className="h-4 w-4 text-blue-600" />
+                <span className="font-bold text-gray-700">Officer (உத்தியோகத்தர்):</span>
+                <select
+                  value={selectedOfficerFilter}
+                  onChange={(e) => setSelectedOfficerFilter(e.target.value)}
+                  className="rounded-lg border border-gray-300 bg-white px-2.5 py-1.5 text-xs font-semibold text-gray-800 focus:border-blue-700 focus:outline-hidden max-w-[180px] truncate"
+                >
+                  <option value="All">All Officers (அனைவரும்)</option>
+                  {users.map((u) => (
+                    <option key={u.User_ID} value={u.User_ID}>
+                      {u.Name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Status Filter Dropdown */}
               <div className="flex items-center gap-1.5 text-xs">
                 <Filter className="h-4 w-4 text-gray-500" />
                 <span className="font-bold text-gray-700">Status:</span>
@@ -853,7 +971,7 @@ export default function App() {
                   onChange={(e) => setActionFilter(e.target.value)}
                   className="rounded-lg border border-gray-300 bg-white px-2.5 py-1.5 text-xs font-semibold text-gray-800 focus:border-blue-700 focus:outline-hidden"
                 >
-                  <option value="All">All Statuses</option>
+                  <option value="All">All Statuses (அனைத்தும்)</option>
                   <option value="Action Taken">Action Taken (முடிந்தது)</option>
                   <option value="Action Not Taken">Action Not Taken (நிலுவை)</option>
                   <option value="Under Investigation">Under Investigation (கள ஆய்வு)</option>
@@ -881,6 +999,79 @@ export default function App() {
               </div>
             </div>
           </div>
+
+          {/* Active Filter Indicators & Result Count */}
+          {(actionFilter !== 'All' || selectedOfficerFilter !== 'All' || selectedDivisionFilter !== 'All' || searchQuery.trim()) && (
+            <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-gray-100 text-xs">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="font-bold text-gray-500">Active Filters:</span>
+                {actionFilter !== 'All' && (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-blue-100 px-2.5 py-0.5 font-bold text-blue-900 text-[11px]">
+                    Status: {actionFilter}
+                    <button
+                      type="button"
+                      onClick={() => setActionFilter('All')}
+                      className="hover:text-red-700 ml-0.5"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </span>
+                )}
+                {selectedOfficerFilter !== 'All' && (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-purple-100 px-2.5 py-0.5 font-bold text-purple-900 text-[11px]">
+                    Officer: {getOfficerDisplayName(selectedOfficerFilter, users)}
+                    <button
+                      type="button"
+                      onClick={() => setSelectedOfficerFilter('All')}
+                      className="hover:text-red-700 ml-0.5"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </span>
+                )}
+                {selectedDivisionFilter !== 'All' && (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2.5 py-0.5 font-bold text-emerald-900 text-[11px]">
+                    Division: {selectedDivisionFilter}
+                    <button
+                      type="button"
+                      onClick={() => setSelectedDivisionFilter('All')}
+                      className="hover:text-red-700 ml-0.5"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </span>
+                )}
+                {searchQuery.trim() && (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2.5 py-0.5 font-bold text-amber-900 text-[11px]">
+                    Search: &ldquo;{searchQuery}&rdquo;
+                    <button
+                      type="button"
+                      onClick={() => setSearchQuery('')}
+                      className="hover:text-red-700 ml-0.5"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </span>
+                )}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActionFilter('All');
+                    setSelectedOfficerFilter('All');
+                    setSelectedDivisionFilter('All');
+                    setSearchQuery('');
+                  }}
+                  className="text-[11px] text-red-600 font-bold hover:underline ml-1"
+                >
+                  Clear All Filters (அனைத்தும் அழி)
+                </button>
+              </div>
+
+              <span className="text-[11px] font-bold text-slate-700 bg-slate-100 px-2.5 py-1 rounded-lg">
+                Matching: {displayedLetters.length} Mail {displayedLetters.length === 1 ? 'Record' : 'Records'}
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Requirement 7: 5-Day Folder Structure */}

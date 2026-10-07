@@ -18,7 +18,12 @@ import {
 } from 'lucide-react';
 import { Letter, LetterAction, User } from '../types';
 import { DIVISIONS, POST_TYPES, migrateDivision } from '../data/initialData';
-import { generateOriginalNo, compressImageToTarget } from '../utils/helpers';
+import {
+  generateOriginalNo,
+  compressImageToTarget,
+  ensureStringArray,
+  normalizeAction,
+} from '../utils/helpers';
 import { scanLetterWithAI } from '../utils/aiScanner';
 import { ForwardSelect } from './ForwardUserSelect';
 import { CameraCaptureModal } from './CameraCaptureModal';
@@ -75,98 +80,149 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
   const [scanSuccessMsg, setScanSuccessMsg] = useState<string | null>(null);
   const [scanErrorMsg, setScanErrorMsg] = useState<string | null>(null);
   const [autoFilledFields, setAutoFilledFields] = useState<string[]>([]);
+  const [preservedUserFields, setPreservedUserFields] = useState<string[]>([]);
+  const [aiExtractedData, setAiExtractedData] = useState<any>(null);
+  
+  // Track fields manually edited by the letter registrar to NEVER overwrite their changes
+  const [userEditedFields, setUserEditedFields] = useState<Set<string>>(new Set());
+  const userEditedFieldsRef = useRef<Set<string>>(new Set());
+  const scanIdRef = useRef<number>(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const markFieldEdited = (fieldName: string) => {
+    userEditedFieldsRef.current.add(fieldName);
+    setUserEditedFields((prev) => new Set(prev).add(fieldName));
+    setAutoFilledFields((prev) =>
+      prev.filter((f) => !f.toLowerCase().includes(fieldName.toLowerCase()))
+    );
+  };
 
   // AI Document Scanning & Auto-Fill Handler
   const triggerScan = async (dataUrl: string) => {
+    scanIdRef.current += 1;
+    const thisScanId = scanIdRef.current;
+
     setIsScanning(true);
     setScanSuccessMsg(null);
     setScanErrorMsg(null);
-    setAutoFilledFields([]);
+    setPreservedUserFields([]);
 
     try {
       const res = await scanLetterWithAI(dataUrl);
+      if (thisScanId !== scanIdRef.current) return; // Discard superseded scan
+
       if (!res.success || !res.data) {
-        // Quiet fallback without technical JSON errors
         setScanErrorMsg(null);
         return;
       }
 
       const { data: d } = res;
+      setAiExtractedData(d);
       const filled: string[] = [];
+      const preserved: string[] = [];
+      const userEdited = userEditedFieldsRef.current;
 
       // 1. Dispatched Date (கடிதம் அனுப்பப்பட்ட திகதி)
       let cleanDate = d.dispatchedDate ? d.dispatchedDate.trim().replace(/[./]/g, '-') : '';
       const dateParts = cleanDate.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
       if (dateParts) {
         cleanDate = `${dateParts[1]}-${dateParts[2].padStart(2, '0')}-${dateParts[3].padStart(2, '0')}`;
-        setDispatchedDate(cleanDate);
-        filled.push('Dispatched Date (அனுப்பிய திகதி)');
       } else if (d.dispatchedDate) {
-        // Fallback for DD-MM-YYYY
         const dmyParts = d.dispatchedDate.trim().match(/^(\d{1,2})[./-](\d{1,2})[./-](\d{4})$/);
         if (dmyParts) {
           cleanDate = `${dmyParts[3]}-${dmyParts[2].padStart(2, '0')}-${dmyParts[1].padStart(2, '0')}`;
+        }
+      }
+      if (cleanDate) {
+        if (!userEdited.has('dispatchedDate')) {
           setDispatchedDate(cleanDate);
           filled.push('Dispatched Date (அனுப்பிய திகதி)');
+        } else {
+          preserved.push('Dispatched Date');
         }
       }
 
       // 2. Inward No (கடிதத்தில் உள்ள கடித இலக்கம் / Letter No)
       const scannedLetterNumber = (d.inwardNo || d.originalNo || (d as any).letterNo || '').trim();
       if (scannedLetterNumber) {
-        setInwardNo(scannedLetterNumber);
-        filled.push('Inward No (கடித இலக்கம்)');
+        if (!userEdited.has('inwardNo')) {
+          setInwardNo(scannedLetterNumber);
+          filled.push('Inward No (கடித இலக்கம்)');
+        } else {
+          preserved.push('Inward No');
+        }
       }
 
       // 3. Sender / From Whom (அனுப்புனர்)
       if (d.fromWhom && d.fromWhom.trim()) {
-        setFromWhom(d.fromWhom.trim());
-        filled.push('From Whom (அனுப்புனர்)');
+        if (!userEdited.has('fromWhom')) {
+          setFromWhom(d.fromWhom.trim());
+          filled.push('From Whom (அனுப்புனர்)');
+        } else {
+          preserved.push('From Whom');
+        }
       }
 
       // 4. Subject (விடயம் / தலைப்பு)
       if (d.subject && d.subject.trim()) {
-        setSubject(d.subject.trim());
-        filled.push('Subject (விடயம்)');
+        if (!userEdited.has('subject')) {
+          setSubject(d.subject.trim());
+          filled.push('Subject (விடயம்)');
+        } else {
+          preserved.push('Subject');
+        }
       }
 
       // 5. Registered Post Number (பதிவுத் தபால் எண்)
       if (d.registeredPostNo && d.registeredPostNo.trim()) {
-        setRegisteredPostNo(d.registeredPostNo.trim());
-        setLetterType('Registered Post');
-        filled.push('Reg. Post No (பதிவுத் தபால் எண்)');
+        if (!userEdited.has('registeredPostNo')) {
+          setRegisteredPostNo(d.registeredPostNo.trim());
+          setLetterType('Registered Post');
+          filled.push('Reg. Post No (பதிவுத் தபால் எண்)');
+        } else {
+          preserved.push('Reg. Post No');
+        }
       } else if (d.postType && (POST_TYPES as readonly string[]).includes(d.postType)) {
-        setLetterType(d.postType);
+        if (!userEdited.has('letterType')) {
+          setLetterType(d.postType);
+        }
       }
 
       // 6. Suggested Division Matching (Only the matched division receives it)
       if (d.suggestedDivision) {
         const match = migrateDivision(d.suggestedDivision);
         if (match) {
-          setPrimaryDivision(match);
-          setForwardedDivisions([match]);
-          filled.push(`Division: ${match}`);
+          if (!userEdited.has('primaryDivision')) {
+            setPrimaryDivision(match);
+            setForwardedDivisions([match]);
+            filled.push(`Division: ${match}`);
+          } else {
+            preserved.push('Division');
+          }
         }
       }
 
       // 7. Summary note if available
-      if (d.summary && !initialNote) {
+      if (d.summary && !initialNote && !userEdited.has('initialNote')) {
         setInitialNote(d.summary);
       }
 
       setAutoFilledFields(filled);
-      if (filled.length > 0) {
-        setScanSuccessMsg(
-          `✓ கடிதப் படம் வெற்றிகரமாக ஸ்கேன் செய்யப்பட்டது! ${filled.length} முக்கிய விவரங்கள் தானாகப் பூர்த்தி செய்யப்பட்டன.`
-        );
+      setPreservedUserFields(preserved);
+
+      if (filled.length > 0 || preserved.length > 0) {
+        let msg = `✓ கடிதப் படம் வெற்றிகரமாக ஸ்கேன் செய்யப்பட்டது!`;
+        if (filled.length > 0) msg += ` ${filled.length} விவரங்கள் Auto-Fill செய்யப்பட்டன.`;
+        if (preserved.length > 0) msg += ` (பதிவாளர் மாற்றிய ${preserved.length} விவரங்கள் அவ்வாறே பாதுகாக்கப்பட்டன).`;
+        setScanSuccessMsg(msg);
       }
     } catch (err: unknown) {
-      // Never show scary JSON code to user; simply enable direct manual entry
       console.log('AI scan notice (direct manual entry available):', err);
       setScanErrorMsg(null);
     } finally {
-      setIsScanning(false);
+      if (thisScanId === scanIdRef.current) {
+        setIsScanning(false);
+      }
     }
   };
 
@@ -184,7 +240,6 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
       console.error('File load error:', err);
       setErrorMsg('Failed to process image file.');
     } finally {
-      // Clear input so same file can be selected again if needed
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }
@@ -215,9 +270,9 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
     }
   };
 
-  // Auto-generate Original No when date or letters change
+  // Auto-generate Original No when date or letters change, but respect manual edits
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && !userEditedFieldsRef.current.has('originalNo')) {
       const generated = generateOriginalNo(date, existingLetters);
       setOriginalNo(generated);
     }
@@ -248,6 +303,10 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
       setScanSuccessMsg(null);
       setScanErrorMsg(null);
       setAutoFilledFields([]);
+      setPreservedUserFields([]);
+      setAiExtractedData(null);
+      setUserEditedFields(new Set());
+      userEditedFieldsRef.current = new Set();
     }
   }, [isOpen]);
 
@@ -295,8 +354,8 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
       subject: subject.trim(),
       division: primaryDivision,
       forwardedDivisions: sanitizedForwardedDivs,
-      forwardedTo,
-      action,
+      forwardedTo: ensureStringArray(forwardedTo),
+      action: normalizeAction(action),
       fileNo: fileNo.trim() || undefined,
       replyResponse: replyResponse.trim(),
       image,
@@ -565,7 +624,10 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
                   type="text"
                   required
                   value={originalNo}
-                  onChange={(e) => setOriginalNo(e.target.value)}
+                  onChange={(e) => {
+                    markFieldEdited('originalNo');
+                    setOriginalNo(e.target.value);
+                  }}
                   placeholder="KPN/DS/YYYY/MM/NNN"
                   className="w-full rounded-lg border border-blue-300 bg-blue-50/60 px-3 py-2 text-xs font-mono font-bold text-blue-950 focus:border-blue-600 focus:bg-white focus:outline-hidden shadow-2xs"
                 />
@@ -582,7 +644,10 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
                   type="date"
                   required
                   value={date}
-                  onChange={(e) => setDate(e.target.value)}
+                  onChange={(e) => {
+                    markFieldEdited('date');
+                    setDate(e.target.value);
+                  }}
                   className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-xs text-gray-900 focus:border-blue-600 focus:outline-hidden"
                 />
               </div>
@@ -590,9 +655,14 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
               <div>
                 <label className="mb-1 flex items-center justify-between text-xs font-bold text-gray-700">
                   <span>Dispatched Date (அனுப்பிய திகதி) *</span>
-                  {autoFilledFields.includes('Dispatched Date (அனுப்பிய திகதி)') && (
+                  {autoFilledFields.includes('Dispatched Date (அனுப்பிய திகதி)') && !userEditedFields.has('dispatchedDate') && (
                     <span className="rounded bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800">
                       ✨ AI Extracted
+                    </span>
+                  )}
+                  {userEditedFields.has('dispatchedDate') && (
+                    <span className="rounded bg-blue-100 px-1.5 py-0.5 text-[10px] font-bold text-blue-800">
+                      ✏️ பதிவாளர் மாற்றம்
                     </span>
                   )}
                 </label>
@@ -600,10 +670,15 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
                   type="date"
                   required
                   value={dispatchedDate}
-                  onChange={(e) => setDispatchedDate(e.target.value)}
+                  onChange={(e) => {
+                    markFieldEdited('dispatchedDate');
+                    setDispatchedDate(e.target.value);
+                  }}
                   className={`w-full rounded-lg border px-3 py-2 text-xs text-gray-900 focus:outline-hidden ${
-                    autoFilledFields.includes('Dispatched Date (அனுப்பிய திகதி)')
+                    autoFilledFields.includes('Dispatched Date (அனுப்பிய திகதி)') && !userEditedFields.has('dispatchedDate')
                       ? 'border-emerald-400 bg-emerald-50/40 focus:border-emerald-600'
+                      : userEditedFields.has('dispatchedDate')
+                      ? 'border-blue-400 bg-blue-50/20 focus:border-blue-600 font-medium'
                       : 'border-gray-300 bg-white focus:border-blue-600'
                   }`}
                 />
@@ -618,7 +693,10 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
                 </label>
                 <select
                   value={letterType}
-                  onChange={(e) => setLetterType(e.target.value)}
+                  onChange={(e) => {
+                    markFieldEdited('letterType');
+                    setLetterType(e.target.value);
+                  }}
                   className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-xs font-semibold text-gray-800 focus:border-blue-600 focus:outline-hidden"
                 >
                   {POST_TYPES.map((pt) => (
@@ -632,19 +710,27 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
               <div>
                 <label className="mb-1 flex items-center justify-between text-xs font-bold text-gray-700">
                   <span>Reg. Post No (பதிவுத் தபால்)</span>
-                  {autoFilledFields.includes('Reg. Post No (பதிவுத் தபால் எண்)') && (
+                  {autoFilledFields.includes('Reg. Post No (பதிவுத் தபால் எண்)') && !userEditedFields.has('registeredPostNo') && (
                     <span className="rounded bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800">
                       ✨ AI Extracted
+                    </span>
+                  )}
+                  {userEditedFields.has('registeredPostNo') && (
+                    <span className="rounded bg-blue-100 px-1.5 py-0.5 text-[10px] font-bold text-blue-800">
+                      ✏️ பதிவாளர் மாற்றம்
                     </span>
                   )}
                 </label>
                 <input
                   type="text"
                   value={registeredPostNo}
-                  onChange={(e) => setRegisteredPostNo(e.target.value)}
+                  onChange={(e) => {
+                    markFieldEdited('registeredPostNo');
+                    setRegisteredPostNo(e.target.value);
+                  }}
                   placeholder="e.g. RP-884920-LK"
                   className={`w-full rounded-lg border px-3 py-2 text-xs font-mono text-gray-900 focus:outline-hidden ${
-                    autoFilledFields.includes('Reg. Post No (பதிவுத் தபால் எண்)')
+                    autoFilledFields.includes('Reg. Post No (பதிவுத் தபால் எண்)') && !userEditedFields.has('registeredPostNo')
                       ? 'border-emerald-400 bg-emerald-50/40 focus:border-emerald-600'
                       : 'border-gray-300 bg-white focus:border-blue-600'
                   }`}
@@ -654,9 +740,14 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
               <div>
                 <label className="mb-1 flex items-center justify-between text-xs font-bold text-gray-700">
                   <span>Inward No (கடித இலக்கம் - Letter No) *</span>
-                  {autoFilledFields.includes('Inward No (கடித இலக்கம்)') && (
+                  {autoFilledFields.includes('Inward No (கடித இலக்கம்)') && !userEditedFields.has('inwardNo') && (
                     <span className="rounded bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800">
                       ✨ AI Extracted
+                    </span>
+                  )}
+                  {userEditedFields.has('inwardNo') && (
+                    <span className="rounded bg-blue-100 px-1.5 py-0.5 text-[10px] font-bold text-blue-800">
+                      ✏️ பதிவாளர் மாற்றம்
                     </span>
                   )}
                 </label>
@@ -664,17 +755,34 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
                   type="text"
                   required
                   value={inwardNo}
-                  onChange={(e) => setInwardNo(e.target.value)}
+                  onChange={(e) => {
+                    markFieldEdited('inwardNo');
+                    setInwardNo(e.target.value);
+                  }}
                   placeholder="கடிதத்தில் உள்ள கடித இலக்கம் (Letter Ref No)"
                   className={`w-full rounded-lg border px-3 py-2 text-xs font-bold focus:outline-hidden ${
-                    autoFilledFields.includes('Inward No (கடித இலக்கம்)')
+                    autoFilledFields.includes('Inward No (கடித இலக்கம்)') && !userEditedFields.has('inwardNo')
                       ? 'border-emerald-400 bg-emerald-50/40 text-emerald-950 focus:border-emerald-600'
+                      : userEditedFields.has('inwardNo')
+                      ? 'border-blue-400 bg-blue-50/20 text-blue-950 focus:border-blue-600'
                       : 'border-gray-300 bg-white text-gray-900 focus:border-blue-600'
                   }`}
                 />
                 <p className="mt-1 text-[10px] text-gray-500">
                   கடிதத்தில் உள்ள கடித இலக்கம் (Letter No / Reference No)
                 </p>
+                {aiExtractedData?.inwardNo && userEditedFields.has('inwardNo') && inwardNo !== aiExtractedData.inwardNo && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setInwardNo(aiExtractedData.inwardNo);
+                      setAutoFilledFields((prev) => [...prev, 'Inward No (கடித இலக்கம்)']);
+                    }}
+                    className="mt-1 inline-flex items-center gap-1 text-[10px] font-bold text-indigo-700 hover:underline"
+                  >
+                    <span>⚡ AI கண்டறிந்த இலக்கம்: &quot;{aiExtractedData.inwardNo}&quot; (இதைப் பொருத்து)</span>
+                  </button>
+                )}
               </div>
             </div>
 
@@ -682,9 +790,14 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
             <div>
               <label className="mb-1 flex items-center justify-between text-xs font-bold text-gray-700">
                 <span>From Whom (அனுப்புனர் / Department / Citizen) *</span>
-                {autoFilledFields.includes('From Whom (அனுப்புனர்)') && (
+                {autoFilledFields.includes('From Whom (அனுப்புனர்)') && !userEditedFields.has('fromWhom') && (
                   <span className="rounded bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800">
                     ✨ AI Extracted
+                  </span>
+                )}
+                {userEditedFields.has('fromWhom') && (
+                  <span className="rounded bg-blue-100 px-1.5 py-0.5 text-[10px] font-bold text-blue-800">
+                    ✏️ பதிவாளர் மாற்றம்
                   </span>
                 )}
               </label>
@@ -692,11 +805,16 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
                 type="text"
                 required
                 value={fromWhom}
-                onChange={(e) => setFromWhom(e.target.value)}
+                onChange={(e) => {
+                  markFieldEdited('fromWhom');
+                  setFromWhom(e.target.value);
+                }}
                 placeholder="e.g. District Secretariat, Batticaloa / Land Commissioner Department"
                 className={`w-full rounded-lg border px-3 py-2 text-xs text-gray-900 focus:outline-hidden ${
-                  autoFilledFields.includes('From Whom (அனுப்புனர்)')
+                  autoFilledFields.includes('From Whom (அனுப்புனர்)') && !userEditedFields.has('fromWhom')
                     ? 'border-emerald-400 bg-emerald-50/40 focus:border-emerald-600'
+                    : userEditedFields.has('fromWhom')
+                    ? 'border-blue-400 bg-blue-50/20 focus:border-blue-600 font-medium'
                     : 'border-gray-300 bg-white focus:border-blue-600'
                 }`}
               />
@@ -706,9 +824,14 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
             <div>
               <label className="mb-1 flex items-center justify-between text-xs font-bold text-gray-700">
                 <span>Subject (விடயம் / தலைப்பு) *</span>
-                {autoFilledFields.includes('Subject (விடயம்)') && (
+                {autoFilledFields.includes('Subject (விடயம்)') && !userEditedFields.has('subject') && (
                   <span className="rounded bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800">
                     ✨ AI Extracted
+                  </span>
+                )}
+                {userEditedFields.has('subject') && (
+                  <span className="rounded bg-blue-100 px-1.5 py-0.5 text-[10px] font-bold text-blue-800">
+                    ✏️ பதிவாளர் மாற்றம்
                   </span>
                 )}
               </label>
@@ -716,11 +839,16 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
                 required
                 rows={2}
                 value={subject}
-                onChange={(e) => setSubject(e.target.value)}
+                onChange={(e) => {
+                  markFieldEdited('subject');
+                  setSubject(e.target.value);
+                }}
                 placeholder="Brief summary and context of the incoming mail..."
                 className={`w-full rounded-lg border px-3 py-2 text-xs text-gray-900 focus:outline-hidden ${
-                  autoFilledFields.includes('Subject (விடயம்)')
+                  autoFilledFields.includes('Subject (விடயம்)') && !userEditedFields.has('subject')
                     ? 'border-emerald-400 bg-emerald-50/40 focus:border-emerald-600'
+                    : userEditedFields.has('subject')
+                    ? 'border-blue-400 bg-blue-50/20 focus:border-blue-600 font-medium'
                     : 'border-gray-300 bg-white focus:border-blue-600'
                 }`}
               />
@@ -735,6 +863,7 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
                 required
                 value={primaryDivision}
                 onChange={(e) => {
+                  markFieldEdited('primaryDivision');
                   const newDiv = e.target.value;
                   const prevDiv = primaryDivision;
                   setPrimaryDivision(newDiv);
