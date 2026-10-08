@@ -181,7 +181,7 @@ export const INITIAL_LETTERS: Letter[] = [
     date: '2026-10-02',
     dispatchedDate: '2026-10-01',
     letterType: 'Normal Post',
-    registeredPostNo: '',
+    registeredPostNo: 'No',
     inwardNo: 'MOF/EXP/2026/89',
     fromWhom: 'பொது நிதியமைச்சு மற்றும் திறைசேரி (Ministry of Finance)',
     subject: '2026 ஆம் ஆண்டிற்கான மூலதன செலவின நிதி ஒதுக்கீடு மற்றும் காலாண்டு நிதி அறிக்கை',

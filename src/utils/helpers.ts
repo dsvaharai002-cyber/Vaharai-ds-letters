@@ -2,6 +2,54 @@ import * as XLSX from 'xlsx';
 import { Letter, User, LetterAction } from '../types';
 
 /**
+ * Checks whether a value is genuinely a valid Action Status string (English or Tamil),
+ * rather than shifted column data (like ForwardedTo, ReplyResponse, or JSON ExtraData).
+ */
+export const isKnownActionValue = (val?: any): boolean => {
+  if (!val || typeof val !== 'string') return false;
+  const str = val.trim();
+  if (!str || str.startsWith('{') || str.startsWith('[')) return false;
+  const lower = str.toLowerCase();
+  return (
+    str === 'Not Yet Viewed' ||
+    str === 'Action Taken' ||
+    str === 'Action Not Taken' ||
+    str === 'Under Investigation' ||
+    str === 'Pending' ||
+    str === 'இன்னும் பார்க்கவில்லை' ||
+    str === 'நடவடிக்கை எடுக்கப்பட்டது' ||
+    str === 'நடவடிக்கை எடுக்கப்படவில்லை' ||
+    str === 'கள ஆய்வில்' ||
+    lower === 'not yet viewed' ||
+    lower === 'action taken' ||
+    lower === 'action not taken' ||
+    lower === 'under investigation'
+  );
+};
+
+/**
+ * Ensures Registered Post No is never empty in the Sheet or system.
+ * If no postal registration number is provided, automatically returns "No".
+ */
+export const normalizeRegisteredPostNo = (val?: any): string => {
+  if (val === null || val === undefined) return 'No';
+  const str = String(val).trim();
+  if (
+    !str ||
+    str === '-' ||
+    str === '_' ||
+    str.toLowerCase() === 'null' ||
+    str.toLowerCase() === 'undefined' ||
+    str.toLowerCase() === 'none' ||
+    str.toLowerCase() === 'n/a' ||
+    str.toLowerCase() === 'no'
+  ) {
+    return 'No';
+  }
+  return str;
+};
+
+/**
  * Normalizes any Action Status string into a strict LetterAction standard value.
  * Handles Tamil and English variations and protects against RPC command strings like UPDATE_LETTER.
  */
@@ -313,7 +361,7 @@ export const exportLettersToExcel = (
       'Registered Date': l.date,
       'Dispatched Date': l.dispatchedDate || l.date,
       'Post Type': l.letterType || 'Registered Post',
-      'Registered Post No': l.registeredPostNo || '-',
+      'Registered Post No': normalizeRegisteredPostNo(l.registeredPostNo),
       'Inward No': l.inwardNo,
       'From Whom': l.fromWhom,
       'Subject': l.subject,
@@ -322,6 +370,7 @@ export const exportLettersToExcel = (
       'Forwarded To (Officers)': forwardedNames || '-',
       'Action Status': l.action,
       'Reply / Notes': l.replyResponse || '-',
+      'File No': l.fileNo || '-',
       'Registered By': l.registeredByName || l.registeredBy,
     };
   });
@@ -344,6 +393,7 @@ export const exportLettersToExcel = (
     { wch: 30 }, // Forwarded To
     { wch: 18 }, // Action Status
     { wch: 30 }, // Reply / Notes
+    { wch: 20 }, // File No
     { wch: 24 }, // Registered By
   ];
   worksheet['!cols'] = columnWidths;
@@ -375,6 +425,7 @@ export const exportLettersToCsv = (
     'ForwardedTo',
     'ActionStatus',
     'Reply',
+    'FileNo',
   ];
 
   const csvRows: string[] = [headers.join(',')];
@@ -393,7 +444,7 @@ export const exportLettersToCsv = (
         clean(l.originalNo),
         clean(l.dispatchedDate || l.date),
         clean(l.letterType || 'Registered Post'),
-        clean(l.registeredPostNo || '-'),
+        clean(normalizeRegisteredPostNo(l.registeredPostNo)),
         clean(l.inwardNo),
         clean(l.fromWhom),
         clean(l.subject),
@@ -401,6 +452,7 @@ export const exportLettersToCsv = (
         clean(forwardedNames),
         clean(l.action),
         clean(l.replyResponse || ''),
+        clean(l.fileNo || ''),
       ].join(',')
     );
   });

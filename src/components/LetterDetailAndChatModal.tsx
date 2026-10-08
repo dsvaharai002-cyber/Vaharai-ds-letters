@@ -31,6 +31,7 @@ import {
   printLandscapeReport,
   ensureStringArray,
   normalizeAction,
+  normalizeRegisteredPostNo,
 } from '../utils/helpers';
 import { scanLetterWithAI } from '../utils/aiScanner';
 import { ForwardSelect } from './ForwardUserSelect';
@@ -152,7 +153,7 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
       setEditDate(letter.date);
       setEditDispatchedDate(letter.dispatchedDate || letter.date);
       setLetterType(letter.letterType || 'Registered Post');
-      setEditRegPostNo(letter.registeredPostNo || '');
+      setEditRegPostNo(normalizeRegisteredPostNo(letter.registeredPostNo));
       setEditInwardNo(letter.inwardNo);
       setEditFromWhom(letter.fromWhom);
       setEditSubject(letter.subject);
@@ -228,8 +229,8 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
       originalNo: editOriginalNo.trim(),
       date: editDate,
       dispatchedDate: editDispatchedDate,
-      letterType: editLetterType,
-      registeredPostNo: editRegPostNo.trim(),
+      letterType: (editLetterType || 'Registered Post').trim() || 'Registered Post',
+      registeredPostNo: normalizeRegisteredPostNo(editRegPostNo),
       inwardNo: editInwardNo.trim(),
       fromWhom: editFromWhom.trim(),
       subject: editSubject.trim(),
@@ -238,7 +239,7 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
       forwardedTo: ensureStringArray(editForwardedTo),
       action: normalizeAction(currentAction),
       replyResponse: currentReply.trim(),
-      fileNo: editFileNo.trim() || undefined,
+      fileNo: editFileNo.trim(),
       image: editImage,
       imageSizeKb: editImageSizeKb,
       handledByMega: isMega ? true : letter.handledByMega,
@@ -254,9 +255,11 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
   const handleQuickActionUpdate = () => {
     const updated: Letter = {
       ...letter,
+      letterType: (letter.letterType || editLetterType || 'Registered Post').trim() || 'Registered Post',
+      registeredPostNo: normalizeRegisteredPostNo(letter.registeredPostNo || editRegPostNo),
       action: normalizeAction(currentAction),
       replyResponse: currentReply.trim(),
-      fileNo: editFileNo.trim() || undefined,
+      fileNo: editFileNo.trim(),
       forwardedDivisions: Array.from(new Set([editDivision, ...ensureStringArray(editForwardedDivisions)])),
       forwardedTo: ensureStringArray(editForwardedTo),
       handledByMega: isMega ? true : letter.handledByMega,
@@ -507,11 +510,22 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
                     </select>
                   </div>
                   <div>
-                    <label className="font-bold text-gray-700">Reg. Post No (Barcode)</label>
+                    <label className="font-bold text-gray-700">Reg. Post No (Barcode / No)</label>
                     <input
                       type="text"
                       value={editRegPostNo}
+                      onFocus={(e) => {
+                        if (editRegPostNo.trim().toLowerCase() === 'no') {
+                          e.target.select();
+                        }
+                      }}
+                      onBlur={() => {
+                        if (!editRegPostNo.trim()) {
+                          setEditRegPostNo('No');
+                        }
+                      }}
                       onChange={(e) => setEditRegPostNo(e.target.value)}
+                      placeholder="No"
                       className="w-full rounded-lg border border-gray-300 bg-white p-2 font-mono"
                     />
                   </div>
@@ -819,7 +833,7 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
                       </span>
                       <p className="text-gray-800">
                         {letter.letterType || 'Registered Post'}{' '}
-                        {letter.registeredPostNo ? `(${letter.registeredPostNo})` : ''}
+                        ({normalizeRegisteredPostNo(letter.registeredPostNo)})
                       </p>
                     </div>
                     <div>

@@ -30,6 +30,7 @@ import {
   ensureStringArray,
   getOfficerDisplayName,
   normalizeAction,
+  normalizeRegisteredPostNo,
 } from '../utils/helpers';
 
 interface DateFoldersListProps {
@@ -69,6 +70,9 @@ export const DateFoldersList: React.FC<DateFoldersListProps> = ({
     const safeAction = normalizeAction(newAction);
     const updated: Letter = {
       ...ltr,
+      letterType: (ltr.letterType || 'Registered Post').trim() || 'Registered Post',
+      registeredPostNo: normalizeRegisteredPostNo(ltr.registeredPostNo),
+      fileNo: (ltr.fileNo || '').trim(),
       action: safeAction,
       forwardedDivisions: ensureStringArray(ltr.forwardedDivisions),
       forwardedTo: ensureStringArray(ltr.forwardedTo),
@@ -87,6 +91,9 @@ export const DateFoldersList: React.FC<DateFoldersListProps> = ({
     if (!onUpdateLetter) return;
     const updated: Letter = {
       ...ltr,
+      letterType: (ltr.letterType || 'Registered Post').trim() || 'Registered Post',
+      registeredPostNo: normalizeRegisteredPostNo(ltr.registeredPostNo),
+      action: normalizeAction(ltr.action),
       fileNo: tempFileNo.trim(),
       forwardedDivisions: ensureStringArray(ltr.forwardedDivisions),
       forwardedTo: ensureStringArray(ltr.forwardedTo),
@@ -102,6 +109,9 @@ export const DateFoldersList: React.FC<DateFoldersListProps> = ({
     if (!quickEditLetter || !onUpdateLetter) return;
     const sanitizedQuickEdit: Letter = {
       ...quickEditLetter,
+      letterType: (quickEditLetter.letterType || 'Registered Post').trim() || 'Registered Post',
+      registeredPostNo: normalizeRegisteredPostNo(quickEditLetter.registeredPostNo),
+      fileNo: (quickEditLetter.fileNo || '').trim(),
       action: normalizeAction(quickEditLetter.action),
       forwardedDivisions: ensureStringArray(quickEditLetter.forwardedDivisions),
       forwardedTo: ensureStringArray(quickEditLetter.forwardedTo),
@@ -388,13 +398,9 @@ export const DateFoldersList: React.FC<DateFoldersListProps> = ({
                             <span className="rounded bg-slate-100 px-2 py-0.5 font-medium text-slate-800 text-[11px] block w-fit">
                               {ltr.letterType || 'Registered Post'}
                             </span>
-                            {ltr.registeredPostNo &&
-                              ltr.registeredPostNo !== '-' &&
-                              ltr.registeredPostNo !== '_' && (
-                                <div className="font-mono text-[10px] text-blue-700 mt-0.5">
-                                  Reg: {ltr.registeredPostNo}
-                                </div>
-                              )}
+                            <div className="font-mono text-[10px] text-blue-700 mt-0.5">
+                              Reg: {normalizeRegisteredPostNo(ltr.registeredPostNo)}
+                            </div>
                           </td>
                           <td className="py-2.5 px-3 font-semibold text-gray-900 whitespace-nowrap">
                             {ltr.inwardNo}
@@ -613,6 +619,48 @@ export const DateFoldersList: React.FC<DateFoldersListProps> = ({
             </div>
 
             <form onSubmit={handleSaveQuickEdit} className="p-5 space-y-3.5 overflow-y-auto text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-bold text-gray-700 mb-1">
+                    Post Type *
+                  </label>
+                  <select
+                    value={quickEditLetter.letterType || 'Registered Post'}
+                    onChange={(e) => setQuickEditLetter({ ...quickEditLetter, letterType: e.target.value })}
+                    className="w-full rounded-lg border border-gray-300 p-2 font-semibold text-gray-900 bg-white"
+                  >
+                    {POST_TYPES.map((pt) => (
+                      <option key={pt} value={pt}>
+                        {pt}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block font-bold text-gray-700 mb-1">
+                    Reg. Post No (பதிவுத் தபால் எண் / இல்லாவிட்டால் &quot;No&quot;)
+                  </label>
+                  <input
+                    type="text"
+                    value={quickEditLetter.registeredPostNo || 'No'}
+                    onFocus={(e) => {
+                      if ((quickEditLetter.registeredPostNo || 'No').trim().toLowerCase() === 'no') {
+                        e.target.select();
+                      }
+                    }}
+                    onBlur={() => {
+                      if (!quickEditLetter.registeredPostNo?.trim()) {
+                        setQuickEditLetter({ ...quickEditLetter, registeredPostNo: 'No' });
+                      }
+                    }}
+                    onChange={(e) => setQuickEditLetter({ ...quickEditLetter, registeredPostNo: e.target.value })}
+                    placeholder="No"
+                    className="w-full rounded-lg border border-gray-300 p-2 font-mono text-gray-900 bg-white"
+                  />
+                </div>
+              </div>
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block font-bold text-gray-700 mb-1">

@@ -23,6 +23,7 @@ import {
   compressImageToTarget,
   ensureStringArray,
   normalizeAction,
+  normalizeRegisteredPostNo,
 } from '../utils/helpers';
 import { scanLetterWithAI } from '../utils/aiScanner';
 import { ForwardSelect } from './ForwardUserSelect';
@@ -58,7 +59,7 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
   );
   const [originalNo, setOriginalNo] = useState<string>('');
   const [letterType, setLetterType] = useState<string>('Registered Post');
-  const [registeredPostNo, setRegisteredPostNo] = useState<string>('');
+  const [registeredPostNo, setRegisteredPostNo] = useState<string>('No');
   const [inwardNo, setInwardNo] = useState<string>('');
   const [fromWhom, setFromWhom] = useState<string>('');
   const [subject, setSubject] = useState<string>('');
@@ -173,8 +174,8 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
         }
       }
 
-      // 5. Registered Post Number (பதிவுத் தபால் எண்)
-      if (d.registeredPostNo && d.registeredPostNo.trim()) {
+      // 5. Registered Post Number (பதிவுத் தபால் எண்) - போஸ்டர் நம்பர் இல்லாவிட்டால் தானாக "No"
+      if (d.registeredPostNo && d.registeredPostNo.trim() && d.registeredPostNo.trim().toLowerCase() !== 'no') {
         if (!userEdited.has('registeredPostNo')) {
           setRegisteredPostNo(d.registeredPostNo.trim());
           setLetterType('Registered Post');
@@ -182,9 +183,14 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
         } else {
           preserved.push('Reg. Post No');
         }
-      } else if (d.postType && (POST_TYPES as readonly string[]).includes(d.postType)) {
-        if (!userEdited.has('letterType')) {
-          setLetterType(d.postType);
+      } else {
+        if (!userEdited.has('registeredPostNo')) {
+          setRegisteredPostNo('No');
+        }
+        if (d.postType && (POST_TYPES as readonly string[]).includes(d.postType)) {
+          if (!userEdited.has('letterType')) {
+            setLetterType(d.postType);
+          }
         }
       }
 
@@ -285,7 +291,7 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
       setDate(today);
       setDispatchedDate(today);
       setLetterType('Registered Post');
-      setRegisteredPostNo('');
+      setRegisteredPostNo('No');
       setInwardNo('');
       setFromWhom('');
       setSubject('');
@@ -342,13 +348,15 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
     );
 
     const newLetterId = `LTR-${Date.now()}`;
+    const safeLetterType = (letterType || 'Registered Post').trim() || 'Registered Post';
+    const safeRegPostNo = normalizeRegisteredPostNo(registeredPostNo);
     const newLetter: Letter = {
       id: newLetterId,
       originalNo: originalNo.trim(),
       date,
       dispatchedDate,
-      letterType,
-      registeredPostNo: registeredPostNo.trim(),
+      letterType: safeLetterType,
+      registeredPostNo: safeRegPostNo,
       inwardNo: inwardNo.trim(),
       fromWhom: fromWhom.trim(),
       subject: subject.trim(),
@@ -356,7 +364,7 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
       forwardedDivisions: sanitizedForwardedDivs,
       forwardedTo: ensureStringArray(forwardedTo),
       action: normalizeAction(action),
-      fileNo: fileNo.trim() || undefined,
+      fileNo: fileNo.trim(),
       replyResponse: replyResponse.trim(),
       image,
       imageSizeKb,
@@ -724,17 +732,30 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
                 <input
                   type="text"
                   value={registeredPostNo}
+                  onFocus={(e) => {
+                    if (registeredPostNo.trim().toLowerCase() === 'no') {
+                      e.target.select();
+                    }
+                  }}
+                  onBlur={() => {
+                    if (!registeredPostNo.trim()) {
+                      setRegisteredPostNo('No');
+                    }
+                  }}
                   onChange={(e) => {
                     markFieldEdited('registeredPostNo');
                     setRegisteredPostNo(e.target.value);
                   }}
-                  placeholder="e.g. RP-884920-LK"
+                  placeholder="No (அல்லது RP-884920-LK)"
                   className={`w-full rounded-lg border px-3 py-2 text-xs font-mono text-gray-900 focus:outline-hidden ${
                     autoFilledFields.includes('Reg. Post No (பதிவுத் தபால் எண்)') && !userEditedFields.has('registeredPostNo')
                       ? 'border-emerald-400 bg-emerald-50/40 focus:border-emerald-600'
                       : 'border-gray-300 bg-white focus:border-blue-600'
                   }`}
                 />
+                <p className="mt-1 text-[10px] text-gray-500">
+                  போஸ்டர் நம்பர் இல்லாவிட்டால் தானாக <b>&quot;No&quot;</b> என சீட்டில் பதியப்படும்
+                </p>
               </div>
 
               <div>

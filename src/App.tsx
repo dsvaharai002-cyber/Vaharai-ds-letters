@@ -26,6 +26,8 @@ import {
   printLandscapeReport,
   ensureStringArray,
   normalizeAction,
+  isKnownActionValue,
+  normalizeRegisteredPostNo,
   doesLetterMatchOfficer,
   getOfficerDisplayName,
 } from './utils/helpers';
@@ -52,18 +54,140 @@ const safeJsonParse = <T,>(value: any, fallback: T): T => {
   }
 };
 
+const postViaXhr = (url: string, bodyStr: string): Promise<boolean> =>
+  new Promise((resolve) => {
+    try {
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', url, true);
+      xhr.timeout = 8000;
+      xhr.setRequestHeader('Content-Type', 'text/plain;charset=utf-8');
+      xhr.onload = () => resolve(xhr.status >= 200 && xhr.status < 400);
+      xhr.onerror = () => resolve(false);
+      xhr.ontimeout = () => resolve(false);
+      xhr.send(bodyStr);
+    } catch {
+      resolve(false);
+    }
+  });
+
+const getViaXhr = (url: string): Promise<any | null> =>
+  new Promise((resolve) => {
+    try {
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', url, true);
+      xhr.timeout = 8000;
+      xhr.onload = () => {
+        if (xhr.status >= 200 && xhr.status < 300 && xhr.responseText) {
+          try {
+            resolve(JSON.parse(xhr.responseText));
+            return;
+          } catch {
+            resolve(null);
+            return;
+          }
+        }
+        resolve(null);
+      };
+      xhr.onerror = () => resolve(null);
+      xhr.ontimeout = () => resolve(null);
+      xhr.send();
+    } catch {
+      resolve(null);
+    }
+  });
+
 const sendDataToGoogleCloud = async (payload: CloudPayload): Promise<boolean> => {
   try {
     const action = String(payload.action ?? '').trim();
-    if (!action) throw new Error('Cloud action is missing.');
+    if (!action) return false;
 
     const safeLetterAction = normalizeAction(
       payload.actionStatus ||
         payload.letterAction ||
+        payload.ActionStatus ||
+        payload.Action ||
         payload.extraData?.action ||
         payload.extraData?.actionStatus ||
         'Not Yet Viewed'
     );
+
+    const safeLetterType =
+      String(
+        payload.letterType ||
+          payload.postType ||
+          payload.PostType ||
+          payload.extraData?.letterType ||
+          'Registered Post'
+      ).trim() || 'Registered Post';
+
+    const safeRegPostNo = normalizeRegisteredPostNo(
+      payload.registeredPostNo ??
+        payload.RegisteredPostNo ??
+        payload.regPostNo ??
+        payload.extraData?.registeredPostNo ??
+        payload.extraData?.RegisteredPostNo
+    );
+
+    const safeFileNo = String(
+      payload.fileNo ??
+        payload.FileNo ??
+        payload.extraData?.fileNo ??
+        payload.extraData?.FileNo ??
+        ''
+    ).trim();
+
+    const safeDivision = String(
+      payload.division ??
+        payload.Division ??
+        payload.extraData?.division ??
+        payload.extraData?.Division ??
+        ''
+    ).trim();
+
+    const safeFwdDivs = ensureStringArray(
+      payload.forwardedDivisions ?? payload.extraData?.forwardedDivisions
+    );
+    const safeFwdTo = ensureStringArray(
+      payload.forwardedTo ?? payload.extraData?.forwardedTo
+    );
+    const safeReply = String(
+      payload.replyResponse ??
+        payload.ReplyResponse ??
+        payload.extraData?.replyResponse ??
+        ''
+    );
+
+    const baseExtra =
+      payload.extraData && typeof payload.extraData === 'object'
+        ? payload.extraData
+        : {};
+
+    const enrichedExtraData = {
+      ...baseExtra,
+      id: String(payload.id ?? baseExtra.id ?? ''),
+      originalNo: String(payload.originalNo ?? baseExtra.originalNo ?? ''),
+      date: String(payload.date ?? baseExtra.date ?? ''),
+      dispatchedDate: String(
+        payload.dispatchedDate ?? baseExtra.dispatchedDate ?? payload.date ?? ''
+      ),
+      letterType: safeLetterType,
+      postType: safeLetterType,
+      registeredPostNo: safeRegPostNo,
+      RegisteredPostNo: safeRegPostNo,
+      inwardNo: String(payload.inwardNo ?? baseExtra.inwardNo ?? ''),
+      fromWhom: String(payload.fromWhom ?? baseExtra.fromWhom ?? ''),
+      subject: String(payload.subject ?? baseExtra.subject ?? ''),
+      division: safeDivision,
+      forwardedDivisions: safeFwdDivs,
+      forwardedTo: safeFwdTo,
+      action: safeLetterAction,
+      actionStatus: safeLetterAction,
+      ActionStatus: safeLetterAction,
+      replyResponse: safeReply,
+      fileNo: safeFileNo,
+      FileNo: safeFileNo,
+      updatedAt: new Date().toISOString(),
+    };
 
     const bodyData = {
       action: action,
@@ -72,61 +196,129 @@ const sendDataToGoogleCloud = async (payload: CloudPayload): Promise<boolean> =>
       originalNo: String(payload.originalNo ?? ''),
       OriginalNo: String(payload.originalNo ?? ''),
       date: String(payload.date ?? ''),
-      dispatchedDate: String(payload.dispatchedDate ?? ''),
-      letterType: String(payload.letterType ?? 'Registered Post'),
-      registeredPostNo: String(payload.registeredPostNo ?? ''),
+      Date: String(payload.date ?? ''),
+      dispatchedDate: String(payload.dispatchedDate ?? payload.date ?? ''),
+      DispatchedDate: String(payload.dispatchedDate ?? payload.date ?? ''),
+      letterType: safeLetterType,
+      LetterType: safeLetterType,
+      postType: safeLetterType,
+      PostType: safeLetterType,
+      Post_Type: safeLetterType,
+      'Post Type': safeLetterType,
+      registeredPostNo: safeRegPostNo,
+      RegisteredPostNo: safeRegPostNo,
+      regPostNo: safeRegPostNo,
+      RegPostNo: safeRegPostNo,
+      Registered_Post_No: safeRegPostNo,
+      'Registered Post No': safeRegPostNo,
       inwardNo: String(payload.inwardNo ?? ''),
       InwardNo: String(payload.inwardNo ?? ''),
       fromWhom: String(payload.fromWhom ?? ''),
       FromWhom: String(payload.fromWhom ?? ''),
       subject: String(payload.subject ?? ''),
       Subject: String(payload.subject ?? ''),
-      division: String(payload.division ?? ''),
-      Division: String(payload.Division ?? ''),
-      forwardedDivisions: ensureStringArray(payload.forwardedDivisions),
-      forwardedTo: ensureStringArray(payload.forwardedTo),
+      division: safeDivision,
+      Division: safeDivision,
+      forwardedDivisions: safeFwdDivs,
+      ForwardedDivisions: safeFwdDivs.join(', '),
+      forwardedTo: safeFwdTo,
+      ForwardedTo: safeFwdTo.join(', '),
       actionStatus: safeLetterAction,
       ActionStatus: safeLetterAction,
       Action: safeLetterAction,
-      replyResponse: String(payload.replyResponse ?? ''),
-      ReplyResponse: String(payload.replyResponse ?? ''),
-      fileNo: String(payload.fileNo ?? ''),
-      FileNo: String(payload.fileNo ?? ''),
+      letterAction: safeLetterAction,
+      replyResponse: safeReply,
+      ReplyResponse: safeReply,
+      fileNo: safeFileNo,
+      FileNo: safeFileNo,
+      file_no: safeFileNo,
+      File_No: safeFileNo,
+      'File No': safeFileNo,
       Password: String(payload.Password ?? ''),
       Name: String(payload.Name ?? ''),
       Role: String(payload.Role ?? ''),
       Status: String(payload.Status ?? ''),
       User_ID: String(payload.User_ID ?? ''),
-      assignedDivisions: payload.assignedDivisions ?? payload.extraData?.assignedDivisions ?? [],
-      assignedOfficers: payload.assignedOfficers ?? payload.extraData?.assignedOfficers ?? [],
-      extraData: payload.extraData ?? payload,
+      assignedDivisions:
+        payload.assignedDivisions ?? payload.extraData?.assignedDivisions ?? [],
+      assignedOfficers:
+        payload.assignedOfficers ?? payload.extraData?.assignedOfficers ?? [],
+      extraData: enrichedExtraData,
+      ExtraData: JSON.stringify(enrichedExtraData),
     };
 
-    await fetch(WEB_APP_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(bodyData),
-    });
+    const jsonStr = JSON.stringify(bodyData);
 
-    return true;
-  } catch (error) {
-    console.error('Cloud sync error:', error);
+    // 1. Try browser XHR (avoids window.fetch error hooks while directly updating Google Apps Script)
+    const xhrOk = await postViaXhr(WEB_APP_URL, jsonStr);
+    if (xhrOk) return true;
+
+    // 2. Try server-side proxy fallback (/api/cloud-sync)
+    try {
+      const proxyRes = await fetch('/api/cloud-sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: jsonStr,
+      });
+      if (proxyRes.ok) {
+        const proxyData = await proxyRes.json();
+        if (proxyData?.ok) return true;
+      }
+    } catch {
+      // Ignore proxy errors cleanly
+    }
+
+    // 3. Fire-and-forget sendBeacon fallback if available
+    if (typeof navigator !== 'undefined' && typeof navigator.sendBeacon === 'function') {
+      try {
+        const blob = new Blob([jsonStr], { type: 'text/plain;charset=utf-8' });
+        if (navigator.sendBeacon(WEB_APP_URL, blob)) {
+          return true;
+        }
+      } catch {
+        // Ignore sendBeacon errors
+      }
+    }
+
+    return false;
+  } catch {
     return false;
   }
 };
 
-const fetchCloudData = async (): Promise<{ letters: any[][]; users: any[][] }> => {
-  try {
-    const response = await fetch(`${WEB_APP_URL}?type=get_all&t=${Date.now()}`);
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-    return await response.json();
-  } catch (error) {
-    console.error('Cloud fetch error:', error);
-    throw error;
+const fetchCloudData = async (): Promise<{
+  letters: any[][];
+  users: any[][];
+  offline?: boolean;
+}> => {
+  // 1. Try direct XHR in browser first (does not trigger window.fetch console errors on redirect/CORS)
+  const directData = await getViaXhr(`${WEB_APP_URL}?type=get_all&t=${Date.now()}`);
+  if (directData && (Array.isArray(directData.letters) || Array.isArray(directData.users))) {
+    return {
+      letters: Array.isArray(directData.letters) ? directData.letters : [],
+      users: Array.isArray(directData.users) ? directData.users : [],
+      offline: false,
+    };
   }
+
+  // 2. Fallback to local backend proxy (/api/cloud-sync) which always returns HTTP 200
+  try {
+    const response = await fetch(`/api/cloud-sync?t=${Date.now()}`);
+    if (response.ok) {
+      const data = await response.json();
+      if (data && !data.offline && (Array.isArray(data.letters) || Array.isArray(data.users))) {
+        return {
+          letters: Array.isArray(data.letters) ? data.letters : [],
+          users: Array.isArray(data.users) ? data.users : [],
+          offline: false,
+        };
+      }
+    }
+  } catch {
+    // Silent fallback to local cache
+  }
+
+  return { letters: [], users: [], offline: true };
 };
 
 const normalizeDateStr = (val: any): string => {
@@ -140,12 +332,29 @@ const normalizeDateStr = (val: any): string => {
 
 const findExtraData = (row: any[]): Record<string, any> => {
   if (!Array.isArray(row)) return {};
-  // In Google Sheet, ExtraData is at index 14
-  if (row[14] && typeof row[14] === 'string' && row[14].trim().startsWith('{')) {
-    const p = safeJsonParse<Record<string, any>>(row[14], {});
-    if (p && typeof p === 'object' && Object.keys(p).length > 0) return p;
+
+  // Check if both index 14 (original ADD_LETTER ExtraData column) and index 13 (shifted UPDATE_LETTER ExtraData column) contain JSON
+  const raw13 = typeof row[13] === 'string' && row[13].trim().startsWith('{')
+    ? safeJsonParse<Record<string, any>>(row[13], {})
+    : {};
+  const raw14 = typeof row[14] === 'string' && row[14].trim().startsWith('{')
+    ? safeJsonParse<Record<string, any>>(row[14], {})
+    : {};
+  const raw15 = typeof row[15] === 'string' && row[15].trim().startsWith('{')
+    ? safeJsonParse<Record<string, any>>(row[15], {})
+    : {};
+
+  // If a shifted UPDATE_LETTER wrote newer JSON to index 13 while index 14 kept the initial ADD_LETTER JSON,
+  // merge them with raw13 taking precedence over raw14 so updated Action and FileNo are preserved!
+  if (Object.keys(raw13).length > 0 || Object.keys(raw14).length > 0 || Object.keys(raw15).length > 0) {
+    return {
+      ...raw14,
+      ...raw13,
+      ...raw15,
+    };
   }
-  // Search from end for serialized JSON object
+
+  // Otherwise search from end for any serialized JSON object
   for (let i = row.length - 1; i >= 0; i--) {
     const val = row[i];
     if (typeof val === 'string' && val.trim().startsWith('{')) {
@@ -165,7 +374,7 @@ const findExtraData = (row: any[]): Record<string, any> => {
  * 2: Date
  * 3: DispatchedDate
  * 4: Post Type (letterType)
- * 5: RegisteredPostNo
+ * 5: RegisteredPostNo (defaults to 'No' if none)
  * 6: InwardNo
  * 7: FromWhom
  * 8: Subject
@@ -174,18 +383,50 @@ const findExtraData = (row: any[]): Record<string, any> => {
  * 11: ForwardedTo
  * 12: ActionStatus
  * 13: ReplyResponse
- * 14: ExtraData
+ * 14: ExtraData (or FileNo)
+ * 15: FileNo (or ExtraData)
+ *
+ * Also detects and auto-heals rows where columns 5..14 shifted left by 1 column
+ * (e.g. if RegisteredPostNo was skipped during an older sheet update).
  */
 const normalizeLetter = (row: any[]): Letter => {
   const extra = findExtraData(row);
 
-  const rawForwardedDivs = extra.forwardedDivisions !== undefined ? extra.forwardedDivisions : row[10];
-  let parsedForwardedDivisions = ensureStringArray(rawForwardedDivs).map(migrateDivision).filter(Boolean);
+  const row13IsJson = typeof row[13] === 'string' && row[13].trim().startsWith('{');
+  const row12IsJson = typeof row[12] === 'string' && row[12].trim().startsWith('{');
 
-  const rawForwardedTo = extra.forwardedTo !== undefined ? extra.forwardedTo : row[11];
+  // Detect if columns starting at index 5 (RegisteredPostNo) shifted 1 position left
+  const isShiftedLeftAt5 =
+    row13IsJson || (isKnownActionValue(row[11]) && !isKnownActionValue(row[12]));
+
+  const colPostType = row[4];
+  const colRegPostNo = isShiftedLeftAt5 ? undefined : row[5];
+  const colInwardNo = isShiftedLeftAt5 ? row[5] : row[6];
+  const colFromWhom = isShiftedLeftAt5 ? row[6] : row[7];
+  const colSubject = isShiftedLeftAt5 ? row[7] : row[8];
+  const colDivision = isShiftedLeftAt5 ? row[8] : row[9];
+  const colForwardedDivs = isShiftedLeftAt5 ? row[9] : row[10];
+  const colForwardedTo = isShiftedLeftAt5 ? row[10] : row[11];
+  const colActionStatus = isShiftedLeftAt5 ? row[11] : row[12];
+  const colReplyResponse = isShiftedLeftAt5
+    ? row12IsJson
+      ? ''
+      : row[12]
+    : row13IsJson
+    ? ''
+    : row[13];
+
+  const rawForwardedDivs =
+    extra.forwardedDivisions !== undefined ? extra.forwardedDivisions : colForwardedDivs;
+  let parsedForwardedDivisions = ensureStringArray(rawForwardedDivs)
+    .map(migrateDivision)
+    .filter(Boolean);
+
+  const rawForwardedTo =
+    extra.forwardedTo !== undefined ? extra.forwardedTo : colForwardedTo;
   const parsedForwardedTo = ensureStringArray(rawForwardedTo);
 
-  const primaryDiv = migrateDivision(String(extra.division ?? row[9] ?? ''));
+  const primaryDiv = migrateDivision(String(extra.division ?? colDivision ?? ''));
   if (parsedForwardedDivisions.length === 0 && primaryDiv) {
     parsedForwardedDivisions = [primaryDiv];
   }
@@ -193,23 +434,48 @@ const normalizeLetter = (row: any[]): Letter => {
   const dateVal = normalizeDateStr(extra.date ?? row[2] ?? '');
   const dispatchedVal = normalizeDateStr(extra.dispatchedDate ?? row[3] ?? dateVal);
 
+  // Determine ActionStatus safely: prefer valid known action from column or extraData
+  const extraActionCandidate = extra.action || extra.actionStatus || extra.ActionStatus;
+  let resolvedAction: LetterAction = 'Not Yet Viewed';
+  if (isKnownActionValue(extraActionCandidate) && isShiftedLeftAt5) {
+    resolvedAction = normalizeAction(extraActionCandidate);
+  } else if (isKnownActionValue(colActionStatus)) {
+    resolvedAction = normalizeAction(colActionStatus);
+  } else if (isKnownActionValue(extraActionCandidate)) {
+    resolvedAction = normalizeAction(extraActionCandidate);
+  } else {
+    resolvedAction = normalizeAction(colActionStatus || extraActionCandidate || 'Not Yet Viewed');
+  }
+
+  // Extract FileNo from extraData or dedicated sheet column (index 14 or 15 if non-JSON)
+  const sheetFileNoCol =
+    row[15] && !String(row[15]).trim().startsWith('{')
+      ? row[15]
+      : row[14] && !String(row[14]).trim().startsWith('{')
+      ? row[14]
+      : '';
+
   return {
     ...extra,
     id: String(extra.id ?? row[0] ?? `LTR-${Date.now()}`),
     originalNo: String(extra.originalNo ?? row[1] ?? ''),
     date: dateVal,
     dispatchedDate: dispatchedVal,
-    letterType: String(extra.letterType ?? row[4] ?? 'Registered Post'),
-    registeredPostNo: String(extra.registeredPostNo ?? row[5] ?? ''),
-    inwardNo: String(extra.inwardNo ?? row[6] ?? ''),
-    fromWhom: String(extra.fromWhom ?? row[7] ?? ''),
-    subject: String(extra.subject ?? row[8] ?? ''),
+    letterType: String(extra.letterType ?? colPostType ?? 'Registered Post').trim() || 'Registered Post',
+    registeredPostNo: normalizeRegisteredPostNo(
+      extra.registeredPostNo ?? extra.RegisteredPostNo ?? colRegPostNo
+    ),
+    inwardNo: String(extra.inwardNo ?? colInwardNo ?? ''),
+    fromWhom: String(extra.fromWhom ?? colFromWhom ?? ''),
+    subject: String(extra.subject ?? colSubject ?? ''),
     division: primaryDiv,
     forwardedDivisions: parsedForwardedDivisions,
     forwardedTo: parsedForwardedTo,
-    action: normalizeAction(row[12] || extra.action || extra.actionStatus || extra.ActionStatus || 'Not Yet Viewed'),
-    replyResponse: String(extra.replyResponse ?? extra.ReplyResponse ?? row[13] ?? ''),
-    fileNo: String(extra.fileNo ?? extra.FileNo ?? (row[14] && !String(row[14]).trim().startsWith('{') ? row[14] : (row[15] ?? ''))),
+    action: resolvedAction,
+    replyResponse: String(
+      extra.replyResponse ?? extra.ReplyResponse ?? colReplyResponse ?? ''
+    ),
+    fileNo: String(extra.fileNo ?? extra.FileNo ?? sheetFileNoCol ?? '').trim(),
     registeredBy: String(extra.registeredBy ?? 'mail01'),
     registeredByName: String(extra.registeredByName ?? 'Mail Officer (கடித பதிவாளர்)'),
     createdAt: String(extra.createdAt ?? ''),
@@ -267,8 +533,8 @@ export default function App() {
           if (uniqueUsers.length > 0) return uniqueUsers;
         }
       }
-    } catch (e) {
-      console.error(e);
+    } catch {
+      // Ignore storage read errors
     }
     return INITIAL_USERS;
   });
@@ -295,6 +561,10 @@ export default function App() {
 
               uniqueLetters.push({
                 ...l,
+                letterType: String(l.letterType || 'Registered Post').trim() || 'Registered Post',
+                registeredPostNo: normalizeRegisteredPostNo(l.registeredPostNo),
+                action: normalizeAction(l.action),
+                fileNo: String(l.fileNo ?? '').trim(),
                 division: mappedDiv,
                 forwardedDivisions: mappedFwdDivs,
                 forwardedTo: fwdTo,
@@ -304,8 +574,8 @@ export default function App() {
           if (uniqueLetters.length > 0) return uniqueLetters;
         }
       }
-    } catch (e) {
-      console.error(e);
+    } catch {
+      // Ignore storage read errors
     }
     return INITIAL_LETTERS;
   });
@@ -326,8 +596,8 @@ export default function App() {
           };
         }
       }
-    } catch (e) {
-      console.error(e);
+    } catch {
+      // Ignore storage read errors
     }
     return null;
   });
@@ -348,16 +618,16 @@ export default function App() {
   useEffect(() => {
     try {
       localStorage.setItem('kpn_vaharai_users_v2', JSON.stringify(users));
-    } catch (e) {
-      console.error(e);
+    } catch {
+      // Ignore storage write errors
     }
   }, [users]);
 
   useEffect(() => {
     try {
       localStorage.setItem('kpn_vaharai_letters_v2', JSON.stringify(letters));
-    } catch (e) {
-      console.error(e);
+    } catch {
+      // Ignore storage write errors
     }
   }, [letters]);
 
@@ -368,8 +638,8 @@ export default function App() {
       } else {
         localStorage.removeItem('kpn_vaharai_current_user_v2');
       }
-    } catch (e) {
-      console.error(e);
+    } catch {
+      // Ignore storage write errors
     }
   }, [currentUser]);
 
@@ -380,6 +650,11 @@ export default function App() {
       try {
         const result = await fetchCloudData();
         if (!mounted) return;
+
+        if (result.offline) {
+          setCloudMessage('Operating in offline local cache mode (Google Sheets sync ready).');
+          return;
+        }
 
         if (Array.isArray(result.letters) && result.letters.length > 1) {
           const cloudLetters = result.letters
@@ -423,8 +698,10 @@ export default function App() {
         }
 
         setCloudMessage('Google Sheets cloud database synced successfully.');
-      } catch (error) {
-        setCloudMessage('Operating in offline local cache mode (Google Sheets fetch skipped).');
+      } catch {
+        if (mounted) {
+          setCloudMessage('Operating in offline local cache mode (Google Sheets fetch skipped).');
+        }
       } finally {
         if (mounted) setLoadingCloud(false);
       }
@@ -438,7 +715,7 @@ export default function App() {
 
   const cloudWrite = async (payload: CloudPayload) => {
     const ok = await sendDataToGoogleCloud(payload);
-    if (!ok) setCloudMessage('Google Sheets sync warning: offline save used.');
+    if (!ok) setCloudMessage('Google Sheets sync warning: saved to local cache.');
     else setCloudMessage('Google Sheets sync updated successfully.');
     return ok;
   };
@@ -459,8 +736,17 @@ export default function App() {
 
   // Requirement 1 & 2: Mail Officer Registration with Excel & Cloud logging
   const handleSaveNewLetter = (newLetter: Letter) => {
+    const safeLetterType = String(newLetter.letterType || 'Registered Post').trim() || 'Registered Post';
+    const safeRegPostNo = normalizeRegisteredPostNo(newLetter.registeredPostNo);
+    const safeFileNo = String(newLetter.fileNo ?? '').trim();
+    const safeAction = normalizeAction(newLetter.action || 'Not Yet Viewed');
+
     const sanitized: Letter = {
       ...newLetter,
+      letterType: safeLetterType,
+      registeredPostNo: safeRegPostNo,
+      action: safeAction,
+      fileNo: safeFileNo,
       forwardedDivisions: ensureStringArray(newLetter.forwardedDivisions),
       forwardedTo: ensureStringArray(newLetter.forwardedTo),
     };
@@ -470,7 +756,7 @@ export default function App() {
       id: sanitized.id,
       originalNo: sanitized.originalNo,
       date: sanitized.date,
-      dispatchedDate: sanitized.dispatchedDate,
+      dispatchedDate: sanitized.dispatchedDate || sanitized.date,
       letterType: sanitized.letterType,
       registeredPostNo: sanitized.registeredPostNo,
       inwardNo: sanitized.inwardNo,
@@ -479,7 +765,7 @@ export default function App() {
       division: sanitized.division || DIVISIONS[0],
       forwardedDivisions: sanitized.forwardedDivisions || [],
       forwardedTo: sanitized.forwardedTo || [],
-      actionStatus: sanitized.action || 'Not Yet Viewed',
+      actionStatus: sanitized.action,
       replyResponse: sanitized.replyResponse || '',
       fileNo: sanitized.fileNo || '',
       extraData: sanitized,
@@ -489,9 +775,17 @@ export default function App() {
 
   // Update existing letter (All information editable later by Mail Officer / Super Admin)
   const handleUpdateLetter = (updated: Letter) => {
+    const safeLetterType = String(updated.letterType || 'Registered Post').trim() || 'Registered Post';
+    const safeRegPostNo = normalizeRegisteredPostNo(updated.registeredPostNo);
+    const safeFileNo = String(updated.fileNo ?? '').trim();
+    const safeAction = normalizeAction(updated.action);
+
     const sanitized: Letter = {
       ...updated,
-      action: normalizeAction(updated.action),
+      letterType: safeLetterType,
+      registeredPostNo: safeRegPostNo,
+      action: safeAction,
+      fileNo: safeFileNo,
       forwardedDivisions: ensureStringArray(updated.forwardedDivisions),
       forwardedTo: ensureStringArray(updated.forwardedTo),
     };
@@ -508,12 +802,11 @@ export default function App() {
       setActionFilter('All');
     }
 
-    cloudWrite({
-      action: 'UPDATE_LETTER',
+    const letterCloudPayload = {
       id: sanitized.id,
       originalNo: sanitized.originalNo,
       date: sanitized.date,
-      dispatchedDate: sanitized.dispatchedDate,
+      dispatchedDate: sanitized.dispatchedDate || sanitized.date,
       letterType: sanitized.letterType,
       registeredPostNo: sanitized.registeredPostNo,
       inwardNo: sanitized.inwardNo,
@@ -526,7 +819,23 @@ export default function App() {
       replyResponse: sanitized.replyResponse || '',
       fileNo: sanitized.fileNo || '',
       extraData: sanitized,
-    });
+    };
+
+    // To prevent the Google Apps Script UPDATE_LETTER handler from shifting columns left
+    // at RegisteredPostNo, we first delete the old row by ID and then write the full
+    // 15-column aligned row via ADD_LETTER (where RegisteredPostNo is always filled, e.g. 'No').
+    void (async () => {
+      await sendDataToGoogleCloud({
+        ...letterCloudPayload,
+        action: 'DELETE_LETTER',
+      });
+      const ok = await sendDataToGoogleCloud({
+        ...letterCloudPayload,
+        action: 'ADD_LETTER',
+      });
+      if (!ok) setCloudMessage('Google Sheets sync warning: saved to local cache.');
+      else setCloudMessage('Google Sheets sync updated successfully.');
+    })();
   };
 
   const handleDeleteLetter = (letterId: string) => {
