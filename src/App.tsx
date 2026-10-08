@@ -54,48 +54,6 @@ const safeJsonParse = <T,>(value: any, fallback: T): T => {
   }
 };
 
-const postViaXhr = (url: string, bodyStr: string): Promise<boolean> =>
-  new Promise((resolve) => {
-    try {
-      const xhr = new XMLHttpRequest();
-      xhr.open('POST', url, true);
-      xhr.timeout = 8000;
-      xhr.setRequestHeader('Content-Type', 'text/plain;charset=utf-8');
-      xhr.onload = () => resolve(xhr.status >= 200 && xhr.status < 400);
-      xhr.onerror = () => resolve(false);
-      xhr.ontimeout = () => resolve(false);
-      xhr.send(bodyStr);
-    } catch {
-      resolve(false);
-    }
-  });
-
-const getViaXhr = (url: string): Promise<any | null> =>
-  new Promise((resolve) => {
-    try {
-      const xhr = new XMLHttpRequest();
-      xhr.open('GET', url, true);
-      xhr.timeout = 8000;
-      xhr.onload = () => {
-        if (xhr.status >= 200 && xhr.status < 300 && xhr.responseText) {
-          try {
-            resolve(JSON.parse(xhr.responseText));
-            return;
-          } catch {
-            resolve(null);
-            return;
-          }
-        }
-        resolve(null);
-      };
-      xhr.onerror = () => resolve(null);
-      xhr.ontimeout = () => resolve(null);
-      xhr.send();
-    } catch {
-      resolve(null);
-    }
-  });
-
 const sendDataToGoogleCloud = async (payload: CloudPayload): Promise<boolean> => {
   try {
     const action = String(payload.action ?? '').trim();
@@ -249,11 +207,7 @@ const sendDataToGoogleCloud = async (payload: CloudPayload): Promise<boolean> =>
 
     const jsonStr = JSON.stringify(bodyData);
 
-    // 1. Try browser XHR (avoids window.fetch error hooks while directly updating Google Apps Script)
-    const xhrOk = await postViaXhr(WEB_APP_URL, jsonStr);
-    if (xhrOk) return true;
-
-    // 2. Try server-side proxy fallback (/api/cloud-sync)
+    // 1. Try server-side proxy (/api/cloud-sync works on both Vercel and Express)
     try {
       const proxyRes = await fetch('/api/cloud-sync', {
         method: 'POST',
@@ -265,22 +219,20 @@ const sendDataToGoogleCloud = async (payload: CloudPayload): Promise<boolean> =>
         if (proxyData?.ok) return true;
       }
     } catch {
-      // Ignore proxy errors cleanly
+      // Fall through to no-cors browser POST
     }
 
-    // 3. Fire-and-forget sendBeacon fallback if available
-    if (typeof navigator !== 'undefined' && typeof navigator.sendBeacon === 'function') {
-      try {
-        const blob = new Blob([jsonStr], { type: 'text/plain;charset=utf-8' });
-        if (navigator.sendBeacon(WEB_APP_URL, blob)) {
-          return true;
-        }
-      } catch {
-        // Ignore sendBeacon errors
-      }
-    }
+    // 2. Browser no-cors POST with text/plain (CORS-safelisted, never triggers CORS error in console)
+    await fetch(WEB_APP_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8',
+      },
+      body: jsonStr,
+    });
 
-    return false;
+    return true;
   } catch {
     return false;
   }
@@ -291,17 +243,7 @@ const fetchCloudData = async (): Promise<{
   users: any[][];
   offline?: boolean;
 }> => {
-  // 1. Try direct XHR in browser first (does not trigger window.fetch console errors on redirect/CORS)
-  const directData = await getViaXhr(`${WEB_APP_URL}?type=get_all&t=${Date.now()}`);
-  if (directData && (Array.isArray(directData.letters) || Array.isArray(directData.users))) {
-    return {
-      letters: Array.isArray(directData.letters) ? directData.letters : [],
-      users: Array.isArray(directData.users) ? directData.users : [],
-      offline: false,
-    };
-  }
-
-  // 2. Fallback to local backend proxy (/api/cloud-sync) which always returns HTTP 200
+  // Fetch via same-origin /api/cloud-sync endpoint (works in both Express and Vercel without CORS/403 errors)
   try {
     const response = await fetch(`/api/cloud-sync?t=${Date.now()}`);
     if (response.ok) {

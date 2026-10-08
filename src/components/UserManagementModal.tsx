@@ -65,6 +65,7 @@ export const UserManagementModal: React.FC<UserManagementModalProps> = ({
 
   // Edit user state
   const [editUserObj, setEditUserObj] = useState<User | null>(null);
+  const [roleFilter, setRoleFilter] = useState<string>('All');
 
   if (!isOpen) return null;
 
@@ -147,8 +148,6 @@ export const UserManagementModal: React.FC<UserManagementModalProps> = ({
       onDeleteUser(userId);
     }
   };
-
-  const [roleFilter, setRoleFilter] = useState<string>('All');
 
   const filteredUsers = users.filter((u) => {
     if (roleFilter !== 'All') {
@@ -552,6 +551,7 @@ export const UserManagementModal: React.FC<UserManagementModalProps> = ({
                   <input
                     type="password"
                     required
+                    autoComplete="new-password"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
                     placeholder="Password"

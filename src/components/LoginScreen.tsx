@@ -78,6 +78,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ users, onLoginSuccess 
                 <input
                   type="text"
                   required
+                  autoComplete="username"
                   value={userId}
                   onChange={(e) => setUserId(e.target.value)}
                   placeholder="e.g. admin / mega01 / luxury01 / mail01"
@@ -95,6 +96,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ users, onLoginSuccess 
                 <input
                   type="password"
                   required
+                  autoComplete="current-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
