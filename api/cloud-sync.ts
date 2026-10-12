@@ -38,11 +38,22 @@ export const setStoredWebAppUrl = (url: string): void => {
  * Tests connection to a Google Apps Script Web App URL and diagnoses permissions.
  */
 async function testConnection(url: string) {
+  const cleanUrl = String(url || '').trim();
+  if (!cleanUrl) {
+    return {
+      ok: false,
+      statusCode: 400,
+      errorType: 'MISSING_URL',
+      url: '',
+      message: 'Google Apps Script URL தேவை (URL is required).',
+    };
+  }
+
   try {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 12000);
+    const timeout = setTimeout(() => controller.abort(), 25000);
 
-    const res = await fetch(`${url}?type=ping&t=${Date.now()}`, {
+    const res = await fetch(`${cleanUrl}?type=ping&t=${Date.now()}`, {
       method: 'GET',
       redirect: 'follow',
       signal: controller.signal,
@@ -64,7 +75,7 @@ async function testConnection(url: string) {
         ok: false,
         statusCode: 403,
         errorType: 'ACCESS_DENIED',
-        url,
+        url: cleanUrl,
         message:
           'Google Apps Script அனுமதி மறுக்கப்பட்டது (403 Forbidden / Access Denied). Web App Deploy அமைப்பில் "Who has access" என்பதை "Anyone" (அனைவருக்கும்) என அமைக்க வேண்டும்.',
       };
@@ -72,74 +83,93 @@ async function testConnection(url: string) {
 
     try {
       const json = JSON.parse(text);
-      if (json && (json.ok !== undefined || json.status === 'connected' || Array.isArray(json.letters))) {
+      const isSuccess =
+        json &&
+        (json.ok !== undefined ||
+          json.status === 'connected' ||
+          json.result === 'success' ||
+          json.result === 'ok' ||
+          json.success === true ||
+          Array.isArray(json.letters) ||
+          (res.status === 200 && !json.error));
+
+      if (isSuccess) {
         return {
           ok: true,
           statusCode: 200,
-          url,
+          url: cleanUrl,
           message: 'Google Sheets API வெற்றிகரமாக இணைக்கப்பட்டுள்ளது (Connected successfully)!',
+          letterCount: Array.isArray(json.letters) ? Math.max(0, json.letters.length - 1) : undefined,
           data: json,
         };
       }
     } catch {
-      // If it returned non-JSON text
-    }
-
-    // Try get_all as secondary check if ping isn't specifically handled by older script
-    const controller2 = new AbortController();
-    const timeout2 = setTimeout(() => controller2.abort(), 12000);
-    const res2 = await fetch(`${url}?type=get_all&t=${Date.now()}`, {
-      method: 'GET',
-      redirect: 'follow',
-      signal: controller2.signal,
-    });
-    clearTimeout(timeout2);
-    const text2 = await res2.text();
-
-    if (
-      res2.status === 403 ||
-      text2.includes('accounts.google.com') ||
-      text2.includes('You need access')
-    ) {
-      return {
-        ok: false,
-        statusCode: 403,
-        errorType: 'ACCESS_DENIED',
-        url,
-        message:
-          'Google Apps Script அனுமதி மறுக்கப்பட்டது (403 Forbidden). Web App Deploy அமைப்பில் "Who has access" என்பதை "Anyone" (அனைவருக்கும்) என அமைக்க வேண்டும்.',
-      };
-    }
-
-    try {
-      const json2 = JSON.parse(text2);
-      if (json2 && (json2.ok !== undefined || Array.isArray(json2.letters))) {
+      // If it returned non-JSON text but valid 200 response
+      if (res.status === 200 && (text.includes('success') || text.includes('connected') || text.includes('ok'))) {
         return {
           ok: true,
           statusCode: 200,
-          url,
+          url: cleanUrl,
           message: 'Google Sheets API வெற்றிகரமாக இணைக்கப்பட்டுள்ளது (Connected successfully)!',
-          letterCount: Array.isArray(json2.letters) ? Math.max(0, json2.letters.length - 1) : 0,
+        };
+      }
+    }
+
+    // Secondary lightweight check: POST ping
+    try {
+      const postController = new AbortController();
+      const postTimeout = setTimeout(() => postController.abort(), 15000);
+      const postRes = await fetch(cleanUrl, {
+        method: 'POST',
+        redirect: 'follow',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ action: 'PING' }),
+        signal: postController.signal,
+      });
+      clearTimeout(postTimeout);
+      const postText = await postRes.text();
+      const postJson = JSON.parse(postText);
+      if (
+        postJson &&
+        (postJson.result === 'success' ||
+          postJson.result === 'ok' ||
+          postJson.ok ||
+          postJson.success !== false ||
+          (postRes.status === 200 && !postJson.error))
+      ) {
+        return {
+          ok: true,
+          statusCode: 200,
+          url: cleanUrl,
+          message: 'Google Sheets API வெற்றிகரமாக இணைக்கப்பட்டுள்ளது (Connected successfully)!',
+          data: postJson,
         };
       }
     } catch {
-      // not JSON
+      // POST fallback check failed
     }
 
     return {
       ok: false,
       statusCode: res.status,
       errorType: 'INVALID_RESPONSE',
-      url,
-      message: 'Google Sheets Web App பதில் செல்லுபடியாகவில்லை (Valid JSON கிடைக்கவில்லை).',
+      url: cleanUrl,
+      message: 'Google Sheets Web App பதில் செல்லுபடியாகவில்லை (Valid response கிடைக்கவில்லை).',
     };
   } catch (err: any) {
+    const isTimeout =
+      err?.name === 'AbortError' ||
+      String(err?.message || '').toLowerCase().includes('aborted') ||
+      String(err?.message || '').toLowerCase().includes('timeout');
+
     return {
       ok: false,
-      statusCode: 500,
-      errorType: 'NETWORK_ERROR',
-      url,
-      message: `கூகிள் சேவையக இணைப்பு தோல்வி: ${err?.message || 'Connection timeout or network failure'}`,
+      statusCode: isTimeout ? 504 : 500,
+      errorType: isTimeout ? 'TIMEOUT' : 'NETWORK_ERROR',
+      url: cleanUrl,
+      message: isTimeout
+        ? 'கூகிள் சேவையக இணைப்பு நேரம் கடந்துவிட்டது (Timeout). Apps Script சர்வர் பதிலளிக்க அதிக நேரம் எடுத்தது. தயவுசெய்து சிறிது நேரம் கழித்து மீண்டும் சோதிக்கவும்.'
+        : `கூகிள் சேவையக இணைப்பு தோல்வி: ${err?.message || 'Connection timeout or network failure'}`,
     };
   }
 }
@@ -185,7 +215,7 @@ export default async function handler(req: Request, res: Response): Promise<void
   // GET: Fetch letters and users from Google Sheets
   if (req.method === 'GET') {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 15000);
+    const timeout = setTimeout(() => controller.abort(), 45000);
 
     try {
       const response = await fetch(`${resolvedUrl}?type=get_all&t=${Date.now()}`, {
@@ -238,12 +268,18 @@ export default async function handler(req: Request, res: Response): Promise<void
       return;
     } catch (err: any) {
       clearTimeout(timeout);
+      const isTimeout =
+        err?.name === 'AbortError' ||
+        String(err?.message || '').toLowerCase().includes('aborted');
+
       res.status(200).json({
         ok: false,
         offline: true,
-        statusCode: 500,
-        errorType: 'FETCH_ERROR',
-        message: err?.message || 'Google Sheets fetch timeout',
+        statusCode: isTimeout ? 504 : 500,
+        errorType: isTimeout ? 'TIMEOUT' : 'FETCH_ERROR',
+        message: isTimeout
+          ? 'Google Sheets தகவல்கள் பெற அதிக நேரம் எடுத்தது (Timeout). இணைய இணைப்பைச் சோதிக்கவும்.'
+          : err?.message || 'Google Sheets fetch timeout',
         letters: [],
         users: [],
       });
@@ -271,7 +307,7 @@ export default async function handler(req: Request, res: Response): Promise<void
 
     // Action: Data push (ADD_LETTER, UPDATE_LETTER, BATCH_ADD_LETTERS, etc.)
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 20000);
+    const timeout = setTimeout(() => controller.abort(), 45000);
 
     try {
       const bodyStr = typeof req.body === 'string' ? req.body : JSON.stringify(req.body ?? {});
@@ -314,9 +350,14 @@ export default async function handler(req: Request, res: Response): Promise<void
         // Plain text response from script
       }
 
-      const isSuccess =
-        response.ok &&
-        (!parsedJson || (parsedJson.ok !== false && parsedJson.success !== false));
+      const hasError =
+        Boolean(parsedJson?.error) ||
+        parsedJson?.result === 'error' ||
+        parsedJson?.status === 'error' ||
+        parsedJson?.ok === false ||
+        parsedJson?.success === false;
+
+      const isSuccess = response.ok && !hasError;
 
       res.status(200).json({
         ok: isSuccess,

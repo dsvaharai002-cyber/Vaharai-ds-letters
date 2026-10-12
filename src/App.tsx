@@ -267,7 +267,19 @@ const sendDataToGoogleCloud = async (
           message: 'Google Apps Script 403 Forbidden: "Who has access" அமைப்பை "Anyone" என அமைக்கவும்.',
         };
       }
-      return { ok: directRes.ok, statusCode: directRes.status };
+
+      let parsedDirect: any = null;
+      try {
+        parsedDirect = JSON.parse(txt);
+      } catch {}
+
+      const hasDirectError =
+        Boolean(parsedDirect?.error) ||
+        parsedDirect?.result === 'error' ||
+        parsedDirect?.status === 'error' ||
+        parsedDirect?.ok === false;
+
+      return { ok: directRes.ok && !hasDirectError, statusCode: directRes.status };
     } catch (err: any) {
       return {
         ok: false,
@@ -291,6 +303,9 @@ const fetchCloudData = async (
   errorType?: string;
   message?: string;
 }> => {
+  const targetUrl = (activeUrl || WEB_APP_URL).trim();
+
+  // 1. Try server proxy endpoint
   try {
     const headers: Record<string, string> = {};
     if (activeUrl) {
@@ -311,16 +326,56 @@ const fetchCloudData = async (
           statusCode: 200,
         };
       }
-      if (data && data.offline) {
+      if (data && data.offline && (data.statusCode === 403 || data.errorType === 'ACCESS_DENIED')) {
         return {
           letters: [],
           users: [],
           offline: true,
-          statusCode: data.statusCode,
-          errorType: data.errorType,
+          statusCode: 403,
+          errorType: 'ACCESS_DENIED',
           message: data.message,
         };
       }
+    }
+  } catch {
+    // Fall through to direct fetch (crucial for large datasets / serverless timeouts)
+  }
+
+  // 2. Direct browser fetch fallback (bypasses serverless timeouts for large Google Sheet data)
+  try {
+    const directRes = await fetch(`${targetUrl}?type=get_all&t=${Date.now()}`, {
+      method: 'GET',
+      redirect: 'follow',
+    });
+
+    if (directRes.ok) {
+      const rawText = await directRes.text();
+      if (
+        directRes.status === 403 ||
+        rawText.includes('accounts.google.com') ||
+        rawText.includes('You need access')
+      ) {
+        return {
+          letters: [],
+          users: [],
+          offline: true,
+          statusCode: 403,
+          errorType: 'ACCESS_DENIED',
+          message: 'Google Apps Script 403 Forbidden: "Who has access: Anyone" என மாற்ற வேண்டும்.',
+        };
+      }
+
+      try {
+        const directData = JSON.parse(rawText);
+        if (directData && (Array.isArray(directData.letters) || Array.isArray(directData.users))) {
+          return {
+            letters: Array.isArray(directData.letters) ? directData.letters : [],
+            users: Array.isArray(directData.users) ? directData.users : [],
+            offline: false,
+            statusCode: 200,
+          };
+        }
+      } catch {}
     }
   } catch (err: any) {
     return {
@@ -785,7 +840,12 @@ export default function App() {
   };
 
   const handleTestCloudConnection = async (urlToTest?: string) => {
-    const target = urlToTest || cloudUrl;
+    const target = (urlToTest || cloudUrl).trim();
+    if (!target) {
+      return { ok: false, statusCode: 400, message: 'URL தேவை (URL is required)' };
+    }
+
+    // 1. Try server proxy endpoint
     try {
       const res = await fetch(
         `/api/cloud-sync?type=test&webAppUrl=${encodeURIComponent(target)}&t=${Date.now()}`
@@ -795,21 +855,97 @@ export default function App() {
         if (data.ok) {
           setCloudStatus('connected');
           setCloudMessage('Google Sheets cloud database இணைக்கப்பட்டு நேரலையில் ஒத்திசைக்கப்பட்டது.');
+          return data;
         } else if (data.statusCode === 403 || data.errorType === 'ACCESS_DENIED') {
           setCloudStatus('error_403');
           setCloudMessage(
             'Google Sheets அனுமதி பிழை (403 Forbidden): Apps Script அமைப்பில் "Who has access: Anyone" என அமைக்க வேண்டும்.'
           );
-        } else {
-          setCloudStatus('offline');
-          setCloudMessage('Google Sheets இணைப்பு தோல்வி (Offline mode).');
+          return data;
         }
-        return data;
+        // If server proxy returned a 500/timeout error (e.g. Vercel function timeout), fall through to direct browser fetch
       }
-    } catch (err: any) {
-      return { ok: false, statusCode: 500, errorType: 'NETWORK_ERROR', message: err?.message };
+    } catch {
+      // Fall through to direct browser fetch
     }
-    return { ok: false, statusCode: 500, message: 'Connection test failed' };
+
+    // 2. Direct browser test fallback (essential when running on Vercel or when serverless times out)
+    try {
+      const directController = new AbortController();
+      const directTimeout = setTimeout(() => directController.abort(), 20000);
+      const directRes = await fetch(`${target}?type=ping&t=${Date.now()}`, {
+        method: 'GET',
+        redirect: 'follow',
+        signal: directController.signal,
+      });
+      clearTimeout(directTimeout);
+      const directText = await directRes.text();
+
+      if (
+        directRes.status === 403 ||
+        directText.includes('accounts.google.com') ||
+        directText.includes('You need access')
+      ) {
+        setCloudStatus('error_403');
+        setCloudMessage(
+          'Google Sheets அனுமதி பிழை (403 Forbidden): Apps Script அமைப்பில் "Who has access: Anyone" என அமைக்க வேண்டும்.'
+        );
+        return {
+          ok: false,
+          statusCode: 403,
+          errorType: 'ACCESS_DENIED',
+          message: 'Google Apps Script அனுமதி மறுக்கப்பட்டது (403 Forbidden). "Who has access: Anyone" என அமைக்கவும்.',
+        };
+      }
+
+      let directJson: any = null;
+      try {
+        directJson = JSON.parse(directText);
+      } catch {}
+
+      const isDirectOk =
+        directRes.ok &&
+        (directJson
+          ? (directJson.result === 'success' ||
+              directJson.result === 'ok' ||
+              directJson.status === 'connected' ||
+              directJson.ok !== undefined ||
+              directJson.success === true ||
+              Array.isArray(directJson.letters) ||
+              !directJson.error)
+          : directText.includes('success') || directText.includes('ok'));
+
+      if (isDirectOk) {
+        setCloudStatus('connected');
+        setCloudMessage('Google Sheets cloud database இணைக்கப்பட்டு நேரலையில் ஒத்திசைக்கப்பட்டது.');
+        return {
+          ok: true,
+          statusCode: 200,
+          message: 'Google Sheets API வெற்றிகரமாக இணைக்கப்பட்டுள்ளது (Connected successfully)!',
+          letterCount: Array.isArray(directJson?.letters) ? Math.max(0, directJson.letters.length - 1) : undefined,
+          data: directJson,
+        };
+      }
+    } catch (directErr: any) {
+      const isTimeout =
+        directErr?.name === 'AbortError' ||
+        String(directErr?.message || '').toLowerCase().includes('aborted');
+      const msg = isTimeout
+        ? 'கூகிள் சேவையக இணைப்பு நேரம் கடந்துவிட்டது (Timeout). Apps Script சர்வர் பதிலளிக்க நீண்ட நேரம் எடுத்தது. தயவுசெய்து சிறிது நேரம் கழித்து மீண்டும் சோதிக்கவும்.'
+        : `கூகிள் சேவையக இணைப்பு தோல்வி: ${directErr?.message || 'Network error'}`;
+      setCloudStatus('offline');
+      setCloudMessage('Google Sheets இணைப்பு தோல்வி (Offline mode).');
+      return {
+        ok: false,
+        statusCode: isTimeout ? 504 : 500,
+        errorType: isTimeout ? 'TIMEOUT' : 'NETWORK_ERROR',
+        message: msg,
+      };
+    }
+
+    setCloudStatus('offline');
+    setCloudMessage('Google Sheets இணைப்பு தோல்வி (Offline mode).');
+    return { ok: false, statusCode: 500, message: 'Google Sheets இணைப்பு தோல்வி.' };
   };
 
   const handleSyncAllLetters = async (onProgress: (done: number, total: number) => void) => {
