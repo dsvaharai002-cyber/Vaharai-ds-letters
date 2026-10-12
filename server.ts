@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import scanLetterHandler from './api/scan-letter.ts';
+import cloudSyncHandler from './api/cloud-sync.ts';
 
 dotenv.config();
 
@@ -18,6 +19,9 @@ app.use(express.urlencoded({ extended: true, limit: '30mb' }));
 
 // Mount modular AI letter scan endpoint
 app.post('/api/scan-letter', scanLetterHandler);
+
+// Mount Google Sheets cloud sync endpoint (works both in Express and on Vercel)
+app.all('/api/cloud-sync', cloudSyncHandler);
 
 // Mount Vite middleware in development or serve static in production
 const isProd = process.env.NODE_ENV === 'production';
