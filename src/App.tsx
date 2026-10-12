@@ -17,23 +17,44 @@ import {
   Crown,
   Layers,
   ArrowUpDown,
+  X,
+  UserCheck,
+  Cloud,
+  CloudOff,
+  AlertTriangle,
 } from 'lucide-react';
 import { User, Letter, UserRole, LetterAction } from './types';
 import { INITIAL_USERS, INITIAL_LETTERS, DIVISIONS, migrateDivision } from './data/initialData';
-import { printLandscapeReport } from './utils/helpers';
+import {
+  printLandscapeReport,
+  ensureStringArray,
+  normalizeAction,
+  isKnownActionValue,
+  normalizeRegisteredPostNo,
+  doesLetterMatchOfficer,
+  getOfficerDisplayName,
+} from './utils/helpers';
 import { LoginScreen } from './components/LoginScreen';
 import { DivisionActionChart } from './components/DivisionActionChart';
 import { DateFoldersList } from './components/DateFoldersList';
 import { LetterRegisterModal } from './components/LetterRegisterModal';
 import { LetterDetailAndChatModal } from './components/LetterDetailAndChatModal';
 import { UserManagementModal } from './components/UserManagementModal';
+import { CloudSyncSettingsModal } from './components/CloudSyncSettingsModal';
 import { VaharaiLogo } from './components/VaharaiLogo';
 
 // --- Google Sheets Cloud Integration Setup ---
-const WEB_APP_URL =
+export const WEB_APP_URL =
   'https://script.google.com/macros/s/AKfycbzbfOEJuI00Rkg5dg18mpPRKJN5j4-r2uKyK7hM2EUKmL3n417m14MxOTnQuplJ_GyzMw/exec';
 
 type CloudPayload = Record<string, any>;
+
+export interface CloudWriteResult {
+  ok: boolean;
+  statusCode?: number;
+  errorType?: string;
+  message?: string;
+}
 
 const safeJsonParse = <T,>(value: any, fallback: T): T => {
   if (value === null || value === undefined || value === '') return fallback;
@@ -44,59 +65,275 @@ const safeJsonParse = <T,>(value: any, fallback: T): T => {
   }
 };
 
-const sendDataToGoogleCloud = async (payload: CloudPayload): Promise<boolean> => {
+const sendDataToGoogleCloud = async (
+  payload: CloudPayload,
+  activeUrl?: string
+): Promise<CloudWriteResult> => {
   try {
     const action = String(payload.action ?? '').trim();
-    if (!action) throw new Error('Cloud action is missing.');
+    if (!action) return { ok: false, message: 'Action is required' };
 
-    await fetch(WEB_APP_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        action: action,
-        id: String(payload.id ?? ''),
-        originalNo: String(payload.originalNo ?? ''),
-        date: String(payload.date ?? ''),
-        dispatchedDate: String(payload.dispatchedDate ?? ''),
-        letterType: String(payload.letterType ?? 'Registered Post'),
-        registeredPostNo: String(payload.registeredPostNo ?? ''),
-        inwardNo: String(payload.inwardNo ?? ''),
-        fromWhom: String(payload.fromWhom ?? ''),
-        subject: String(payload.subject ?? ''),
-        division: String(payload.division ?? ''),
-        forwardedDivisions: payload.forwardedDivisions ?? [],
-        forwardedTo: payload.forwardedTo ?? [],
-        actionStatus: String(payload.actionStatus ?? payload.action ?? 'Pending'),
-        replyResponse: String(payload.replyResponse ?? ''),
-        Password: String(payload.Password ?? ''),
-        Name: String(payload.Name ?? ''),
-        Role: String(payload.Role ?? ''),
-        Division: String(payload.Division ?? ''),
-        Status: String(payload.Status ?? ''),
-        User_ID: String(payload.User_ID ?? ''),
-        extraData: payload.extraData ?? payload,
-      }),
-    });
+    const safeLetterAction = normalizeAction(
+      payload.actionStatus ||
+        payload.letterAction ||
+        payload.ActionStatus ||
+        payload.Action ||
+        payload.extraData?.action ||
+        payload.extraData?.actionStatus ||
+        'Not Yet Viewed'
+    );
 
-    return true;
-  } catch (error) {
-    console.error('Cloud sync error:', error);
-    return false;
+    const safeLetterType =
+      String(
+        payload.letterType ||
+          payload.postType ||
+          payload.PostType ||
+          payload.extraData?.letterType ||
+          'Registered Post'
+      ).trim() || 'Registered Post';
+
+    const safeRegPostNo = normalizeRegisteredPostNo(
+      payload.registeredPostNo ??
+        payload.RegisteredPostNo ??
+        payload.regPostNo ??
+        payload.extraData?.registeredPostNo ??
+        payload.extraData?.RegisteredPostNo
+    );
+
+    const safeFileNo = String(
+      payload.fileNo ??
+        payload.FileNo ??
+        payload.extraData?.fileNo ??
+        payload.extraData?.FileNo ??
+        ''
+    ).trim();
+
+    const safeDivision = String(
+      payload.division ??
+        payload.Division ??
+        payload.extraData?.division ??
+        payload.extraData?.Division ??
+        ''
+    ).trim();
+
+    const safeFwdDivs = ensureStringArray(
+      payload.forwardedDivisions ?? payload.extraData?.forwardedDivisions
+    );
+    const safeFwdTo = ensureStringArray(
+      payload.forwardedTo ?? payload.extraData?.forwardedTo
+    );
+    const safeReply = String(
+      payload.replyResponse ??
+        payload.ReplyResponse ??
+        payload.extraData?.replyResponse ??
+        ''
+    );
+
+    const baseExtra =
+      payload.extraData && typeof payload.extraData === 'object'
+        ? payload.extraData
+        : {};
+
+    const enrichedExtraData = {
+      ...baseExtra,
+      id: String(payload.id ?? baseExtra.id ?? ''),
+      originalNo: String(payload.originalNo ?? baseExtra.originalNo ?? ''),
+      date: String(payload.date ?? baseExtra.date ?? ''),
+      dispatchedDate: String(
+        payload.dispatchedDate ?? baseExtra.dispatchedDate ?? payload.date ?? ''
+      ),
+      letterType: safeLetterType,
+      postType: safeLetterType,
+      registeredPostNo: safeRegPostNo,
+      RegisteredPostNo: safeRegPostNo,
+      inwardNo: String(payload.inwardNo ?? baseExtra.inwardNo ?? ''),
+      fromWhom: String(payload.fromWhom ?? baseExtra.fromWhom ?? ''),
+      subject: String(payload.subject ?? baseExtra.subject ?? ''),
+      division: safeDivision,
+      forwardedDivisions: safeFwdDivs,
+      forwardedTo: safeFwdTo,
+      action: safeLetterAction,
+      actionStatus: safeLetterAction,
+      ActionStatus: safeLetterAction,
+      replyResponse: safeReply,
+      fileNo: safeFileNo,
+      FileNo: safeFileNo,
+      updatedAt: new Date().toISOString(),
+    };
+
+    const bodyData = {
+      action: action,
+      id: String(payload.id ?? ''),
+      ID: String(payload.id ?? ''),
+      originalNo: String(payload.originalNo ?? ''),
+      OriginalNo: String(payload.originalNo ?? ''),
+      date: String(payload.date ?? ''),
+      Date: String(payload.date ?? ''),
+      dispatchedDate: String(payload.dispatchedDate ?? payload.date ?? ''),
+      DispatchedDate: String(payload.dispatchedDate ?? payload.date ?? ''),
+      letterType: safeLetterType,
+      LetterType: safeLetterType,
+      postType: safeLetterType,
+      PostType: safeLetterType,
+      Post_Type: safeLetterType,
+      'Post Type': safeLetterType,
+      registeredPostNo: safeRegPostNo,
+      RegisteredPostNo: safeRegPostNo,
+      regPostNo: safeRegPostNo,
+      RegPostNo: safeRegPostNo,
+      Registered_Post_No: safeRegPostNo,
+      'Registered Post No': safeRegPostNo,
+      inwardNo: String(payload.inwardNo ?? ''),
+      InwardNo: String(payload.inwardNo ?? ''),
+      fromWhom: String(payload.fromWhom ?? ''),
+      FromWhom: String(payload.fromWhom ?? ''),
+      subject: String(payload.subject ?? ''),
+      Subject: String(payload.subject ?? ''),
+      division: safeDivision,
+      Division: safeDivision,
+      forwardedDivisions: safeFwdDivs,
+      ForwardedDivisions: safeFwdDivs.join(', '),
+      forwardedTo: safeFwdTo,
+      ForwardedTo: safeFwdTo.join(', '),
+      actionStatus: safeLetterAction,
+      ActionStatus: safeLetterAction,
+      Action: safeLetterAction,
+      letterAction: safeLetterAction,
+      replyResponse: safeReply,
+      ReplyResponse: safeReply,
+      fileNo: safeFileNo,
+      FileNo: safeFileNo,
+      file_no: safeFileNo,
+      File_No: safeFileNo,
+      'File No': safeFileNo,
+      Password: String(payload.Password ?? ''),
+      Name: String(payload.Name ?? ''),
+      Role: String(payload.Role ?? ''),
+      Status: String(payload.Status ?? ''),
+      User_ID: String(payload.User_ID ?? ''),
+      assignedDivisions:
+        payload.assignedDivisions ?? payload.extraData?.assignedDivisions ?? [],
+      assignedOfficers:
+        payload.assignedOfficers ?? payload.extraData?.assignedOfficers ?? [],
+      extraData: enrichedExtraData,
+      ExtraData: JSON.stringify(enrichedExtraData),
+    };
+
+    const jsonStr = JSON.stringify(bodyData);
+    const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+    if (activeUrl) {
+      headers['X-Web-App-Url'] = activeUrl;
+    }
+
+    // Server-side proxy with permission detection and detailed feedback
+    try {
+      const proxyRes = await fetch('/api/cloud-sync', {
+        method: 'POST',
+        headers,
+        body: jsonStr,
+      });
+
+      if (proxyRes.ok) {
+        const proxyData = await proxyRes.json();
+        return {
+          ok: Boolean(proxyData?.ok),
+          statusCode: proxyData?.statusCode,
+          errorType: proxyData?.errorType,
+          message: proxyData?.message,
+        };
+      }
+    } catch {
+      // Fall through to direct fetch if proxy fails
+    }
+
+    // Direct browser fetch fallback
+    const directUrl = activeUrl || WEB_APP_URL;
+    try {
+      const directRes = await fetch(directUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: jsonStr,
+      });
+      const txt = await directRes.text();
+      if (
+        directRes.status === 403 ||
+        txt.includes('accounts.google.com') ||
+        txt.includes('You need access')
+      ) {
+        return {
+          ok: false,
+          statusCode: 403,
+          errorType: 'ACCESS_DENIED',
+          message: 'Google Apps Script 403 Forbidden: "Who has access" அமைப்பை "Anyone" என அமைக்கவும்.',
+        };
+      }
+      return { ok: directRes.ok, statusCode: directRes.status };
+    } catch (err: any) {
+      return {
+        ok: false,
+        statusCode: 500,
+        errorType: 'NETWORK_ERROR',
+        message: err?.message || 'Network error',
+      };
+    }
+  } catch (err: any) {
+    return { ok: false, message: err?.message || 'Unexpected sync error' };
   }
 };
 
-const fetchCloudData = async (): Promise<{ letters: any[][]; users: any[][] }> => {
+const fetchCloudData = async (
+  activeUrl?: string
+): Promise<{
+  letters: any[][];
+  users: any[][];
+  offline?: boolean;
+  statusCode?: number;
+  errorType?: string;
+  message?: string;
+}> => {
   try {
-    const response = await fetch(`${WEB_APP_URL}?type=get_all&t=${Date.now()}`);
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-    return await response.json();
-  } catch (error) {
-    console.error('Cloud fetch error:', error);
-    throw error;
+    const headers: Record<string, string> = {};
+    if (activeUrl) {
+      headers['X-Web-App-Url'] = activeUrl;
+    }
+
+    const response = await fetch(`/api/cloud-sync?t=${Date.now()}`, {
+      headers,
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      if (data && !data.offline && (Array.isArray(data.letters) || Array.isArray(data.users))) {
+        return {
+          letters: Array.isArray(data.letters) ? data.letters : [],
+          users: Array.isArray(data.users) ? data.users : [],
+          offline: false,
+          statusCode: 200,
+        };
+      }
+      if (data && data.offline) {
+        return {
+          letters: [],
+          users: [],
+          offline: true,
+          statusCode: data.statusCode,
+          errorType: data.errorType,
+          message: data.message,
+        };
+      }
+    }
+  } catch (err: any) {
+    return {
+      letters: [],
+      users: [],
+      offline: true,
+      statusCode: 500,
+      errorType: 'NETWORK_ERROR',
+      message: err?.message,
+    };
   }
+
+  return { letters: [], users: [], offline: true };
 };
 
 const normalizeDateStr = (val: any): string => {
@@ -110,12 +347,29 @@ const normalizeDateStr = (val: any): string => {
 
 const findExtraData = (row: any[]): Record<string, any> => {
   if (!Array.isArray(row)) return {};
-  // In Google Sheet, ExtraData is at index 14
-  if (row[14] && typeof row[14] === 'string' && row[14].trim().startsWith('{')) {
-    const p = safeJsonParse<Record<string, any>>(row[14], {});
-    if (p && typeof p === 'object' && Object.keys(p).length > 0) return p;
+
+  // Check if both index 14 (original ADD_LETTER ExtraData column) and index 13 (shifted UPDATE_LETTER ExtraData column) contain JSON
+  const raw13 = typeof row[13] === 'string' && row[13].trim().startsWith('{')
+    ? safeJsonParse<Record<string, any>>(row[13], {})
+    : {};
+  const raw14 = typeof row[14] === 'string' && row[14].trim().startsWith('{')
+    ? safeJsonParse<Record<string, any>>(row[14], {})
+    : {};
+  const raw15 = typeof row[15] === 'string' && row[15].trim().startsWith('{')
+    ? safeJsonParse<Record<string, any>>(row[15], {})
+    : {};
+
+  // If a shifted UPDATE_LETTER wrote newer JSON to index 13 while index 14 kept the initial ADD_LETTER JSON,
+  // merge them with raw13 taking precedence over raw14 so updated Action and FileNo are preserved!
+  if (Object.keys(raw13).length > 0 || Object.keys(raw14).length > 0 || Object.keys(raw15).length > 0) {
+    return {
+      ...raw14,
+      ...raw13,
+      ...raw15,
+    };
   }
-  // Search from end for serialized JSON object
+
+  // Otherwise search from end for any serialized JSON object
   for (let i = row.length - 1; i >= 0; i--) {
     const val = row[i];
     if (typeof val === 'string' && val.trim().startsWith('{')) {
@@ -135,7 +389,7 @@ const findExtraData = (row: any[]): Record<string, any> => {
  * 2: Date
  * 3: DispatchedDate
  * 4: Post Type (letterType)
- * 5: RegisteredPostNo
+ * 5: RegisteredPostNo (defaults to 'No' if none)
  * 6: InwardNo
  * 7: FromWhom
  * 8: Subject
@@ -144,28 +398,50 @@ const findExtraData = (row: any[]): Record<string, any> => {
  * 11: ForwardedTo
  * 12: ActionStatus
  * 13: ReplyResponse
- * 14: ExtraData
+ * 14: ExtraData (or FileNo)
+ * 15: FileNo (or ExtraData)
+ *
+ * Also detects and auto-heals rows where columns 5..14 shifted left by 1 column
+ * (e.g. if RegisteredPostNo was skipped during an older sheet update).
  */
 const normalizeLetter = (row: any[]): Letter => {
   const extra = findExtraData(row);
 
-  let parsedForwardedDivisions: string[] = [];
-  const rawForwardedDivs = extra.forwardedDivisions ?? row[10];
-  if (Array.isArray(rawForwardedDivs)) {
-    parsedForwardedDivisions = rawForwardedDivs.map(migrateDivision).filter(Boolean);
-  } else {
-    parsedForwardedDivisions = safeJsonParse<string[]>(rawForwardedDivs, []).map(migrateDivision).filter(Boolean);
-  }
+  const row13IsJson = typeof row[13] === 'string' && row[13].trim().startsWith('{');
+  const row12IsJson = typeof row[12] === 'string' && row[12].trim().startsWith('{');
 
-  let parsedForwardedTo: string[] = [];
-  const rawForwardedTo = extra.forwardedTo ?? row[11];
-  if (Array.isArray(rawForwardedTo)) {
-    parsedForwardedTo = rawForwardedTo;
-  } else {
-    parsedForwardedTo = safeJsonParse<string[]>(rawForwardedTo, []);
-  }
+  // Detect if columns starting at index 5 (RegisteredPostNo) shifted 1 position left
+  const isShiftedLeftAt5 =
+    row13IsJson || (isKnownActionValue(row[11]) && !isKnownActionValue(row[12]));
 
-  const primaryDiv = migrateDivision(String(extra.division ?? row[9] ?? ''));
+  const colPostType = row[4];
+  const colRegPostNo = isShiftedLeftAt5 ? undefined : row[5];
+  const colInwardNo = isShiftedLeftAt5 ? row[5] : row[6];
+  const colFromWhom = isShiftedLeftAt5 ? row[6] : row[7];
+  const colSubject = isShiftedLeftAt5 ? row[7] : row[8];
+  const colDivision = isShiftedLeftAt5 ? row[8] : row[9];
+  const colForwardedDivs = isShiftedLeftAt5 ? row[9] : row[10];
+  const colForwardedTo = isShiftedLeftAt5 ? row[10] : row[11];
+  const colActionStatus = isShiftedLeftAt5 ? row[11] : row[12];
+  const colReplyResponse = isShiftedLeftAt5
+    ? row12IsJson
+      ? ''
+      : row[12]
+    : row13IsJson
+    ? ''
+    : row[13];
+
+  const rawForwardedDivs =
+    extra.forwardedDivisions !== undefined ? extra.forwardedDivisions : colForwardedDivs;
+  let parsedForwardedDivisions = ensureStringArray(rawForwardedDivs)
+    .map(migrateDivision)
+    .filter(Boolean);
+
+  const rawForwardedTo =
+    extra.forwardedTo !== undefined ? extra.forwardedTo : colForwardedTo;
+  const parsedForwardedTo = ensureStringArray(rawForwardedTo);
+
+  const primaryDiv = migrateDivision(String(extra.division ?? colDivision ?? ''));
   if (parsedForwardedDivisions.length === 0 && primaryDiv) {
     parsedForwardedDivisions = [primaryDiv];
   }
@@ -173,25 +449,50 @@ const normalizeLetter = (row: any[]): Letter => {
   const dateVal = normalizeDateStr(extra.date ?? row[2] ?? '');
   const dispatchedVal = normalizeDateStr(extra.dispatchedDate ?? row[3] ?? dateVal);
 
+  // Determine ActionStatus safely: prefer valid known action from column or extraData
+  const extraActionCandidate = extra.action || extra.actionStatus || extra.ActionStatus;
+  let resolvedAction: LetterAction = 'Not Yet Viewed';
+  if (isKnownActionValue(extraActionCandidate) && isShiftedLeftAt5) {
+    resolvedAction = normalizeAction(extraActionCandidate);
+  } else if (isKnownActionValue(colActionStatus)) {
+    resolvedAction = normalizeAction(colActionStatus);
+  } else if (isKnownActionValue(extraActionCandidate)) {
+    resolvedAction = normalizeAction(extraActionCandidate);
+  } else {
+    resolvedAction = normalizeAction(colActionStatus || extraActionCandidate || 'Not Yet Viewed');
+  }
+
+  // Extract FileNo from extraData or dedicated sheet column (index 14 or 15 if non-JSON)
+  const sheetFileNoCol =
+    row[15] && !String(row[15]).trim().startsWith('{')
+      ? row[15]
+      : row[14] && !String(row[14]).trim().startsWith('{')
+      ? row[14]
+      : '';
+
   return {
     ...extra,
     id: String(extra.id ?? row[0] ?? `LTR-${Date.now()}`),
     originalNo: String(extra.originalNo ?? row[1] ?? ''),
     date: dateVal,
     dispatchedDate: dispatchedVal,
-    letterType: String(extra.letterType ?? row[4] ?? 'Registered Post'),
-    registeredPostNo: String(extra.registeredPostNo ?? row[5] ?? ''),
-    inwardNo: String(extra.inwardNo ?? row[6] ?? ''),
-    fromWhom: String(extra.fromWhom ?? row[7] ?? ''),
-    subject: String(extra.subject ?? row[8] ?? ''),
+    letterType: String(extra.letterType ?? colPostType ?? 'Registered Post').trim() || 'Registered Post',
+    registeredPostNo: normalizeRegisteredPostNo(
+      extra.registeredPostNo ?? extra.RegisteredPostNo ?? colRegPostNo
+    ),
+    inwardNo: String(extra.inwardNo ?? colInwardNo ?? ''),
+    fromWhom: String(extra.fromWhom ?? colFromWhom ?? ''),
+    subject: String(extra.subject ?? colSubject ?? ''),
     division: primaryDiv,
     forwardedDivisions: parsedForwardedDivisions,
     forwardedTo: parsedForwardedTo,
-    action: (String(extra.action ?? row[12] ?? 'Not Yet Viewed') as LetterAction),
-    replyResponse: String(extra.replyResponse ?? row[13] ?? ''),
-    fileNo: String(extra.fileNo ?? ''),
+    action: resolvedAction,
+    replyResponse: String(
+      extra.replyResponse ?? extra.ReplyResponse ?? colReplyResponse ?? ''
+    ),
+    fileNo: String(extra.fileNo ?? extra.FileNo ?? sheetFileNoCol ?? '').trim(),
     registeredBy: String(extra.registeredBy ?? 'mail01'),
-    registeredByName: String(extra.registeredByName ?? 'Mail Officer'),
+    registeredByName: String(extra.registeredByName ?? 'Mail Officer (கடித பதிவாளர்)'),
     createdAt: String(extra.createdAt ?? ''),
   };
 };
@@ -202,8 +503,10 @@ const normalizeLetter = (row: any[]): Letter => {
  */
 const normalizeUser = (row: any[]): User => {
   const extra = safeJsonParse<Record<string, any>>(row[8] || row[row.length - 1], {});
-  const assignedDivs = extra.assignedDivisions || safeJsonParse<string[]>(row[6], []);
-  const assignedOffs = extra.assignedOfficers || safeJsonParse<string[]>(row[7], []);
+  const rawAssignedDivs = extra.assignedDivisions !== undefined ? extra.assignedDivisions : row[6];
+  const assignedDivs = ensureStringArray(rawAssignedDivs).map(migrateDivision).filter(Boolean);
+  const rawAssignedOffs = extra.assignedOfficers !== undefined ? extra.assignedOfficers : row[7];
+  const assignedOffs = ensureStringArray(rawAssignedOffs);
 
   return {
     ...extra,
@@ -213,8 +516,8 @@ const normalizeUser = (row: any[]): User => {
     Role: (row[3] ?? extra.Role ?? 'User') as UserRole,
     Division: migrateDivision(String(row[4] ?? extra.Division ?? '')),
     Status: (row[5] ?? extra.Status ?? 'Active'),
-    assignedDivisions: assignedDivs && assignedDivs.length > 0 ? assignedDivs.map(migrateDivision) : undefined,
-    assignedOfficers: assignedOffs && assignedOffs.length > 0 ? assignedOffs : undefined,
+    assignedDivisions: assignedDivs.length > 0 ? assignedDivs : undefined,
+    assignedOfficers: assignedOffs.length > 0 ? assignedOffs : undefined,
   };
 };
 
@@ -223,24 +526,30 @@ export default function App() {
     try {
       const saved = localStorage.getItem('kpn_vaharai_users_v2');
       if (saved) {
-        const parsed: User[] = JSON.parse(saved);
-        const seen = new Set<string>();
-        const uniqueUsers: User[] = [];
-        for (const u of parsed) {
-          const uid = (u.User_ID || '').trim().toLowerCase();
-          if (uid && !seen.has(uid)) {
-            seen.add(uid);
-            uniqueUsers.push({
-              ...u,
-              Division: migrateDivision(u.Division),
-              assignedDivisions: u.assignedDivisions ? u.assignedDivisions.map(migrateDivision) : undefined,
-            });
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          const seen = new Set<string>();
+          const uniqueUsers: User[] = [];
+          for (const u of parsed) {
+            if (!u || typeof u !== 'object') continue;
+            const uid = (u.User_ID || '').trim().toLowerCase();
+            if (uid && !seen.has(uid)) {
+              seen.add(uid);
+              const assignedDivs = ensureStringArray(u.assignedDivisions).map(migrateDivision).filter(Boolean);
+              const assignedOffs = ensureStringArray(u.assignedOfficers);
+              uniqueUsers.push({
+                ...u,
+                Division: migrateDivision(u.Division),
+                assignedDivisions: assignedDivs.length > 0 ? assignedDivs : undefined,
+                assignedOfficers: assignedOffs.length > 0 ? assignedOffs : undefined,
+              });
+            }
           }
+          if (uniqueUsers.length > 0) return uniqueUsers;
         }
-        if (uniqueUsers.length > 0) return uniqueUsers;
       }
-    } catch (e) {
-      console.error(e);
+    } catch {
+      // Ignore storage read errors
     }
     return INITIAL_USERS;
   });
@@ -249,29 +558,39 @@ export default function App() {
     try {
       const saved = localStorage.getItem('kpn_vaharai_letters_v2');
       if (saved) {
-        const parsed: Letter[] = JSON.parse(saved);
-        const seenIds = new Set<string>();
-        const uniqueLetters: Letter[] = [];
-        for (const l of parsed) {
-          const lid = (l.id || `${l.originalNo}-${l.date}`).trim();
-          if (lid && !seenIds.has(lid)) {
-            seenIds.add(lid);
-            const mappedDiv = migrateDivision(l.division);
-            const mappedFwdDivs = l.forwardedDivisions && l.forwardedDivisions.length > 0
-              ? l.forwardedDivisions.map(migrateDivision).filter(Boolean)
-              : (mappedDiv ? [mappedDiv] : []);
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          const seenIds = new Set<string>();
+          const uniqueLetters: Letter[] = [];
+          for (const l of parsed) {
+            if (!l || typeof l !== 'object') continue;
+            const lid = (l.id || `${l.originalNo}-${l.date}`).trim();
+            if (lid && !seenIds.has(lid)) {
+              seenIds.add(lid);
+              const mappedDiv = migrateDivision(l.division);
+              const fwdDivs = ensureStringArray(l.forwardedDivisions).map(migrateDivision).filter(Boolean);
+              const fwdTo = ensureStringArray(l.forwardedTo);
+              const mappedFwdDivs = fwdDivs.length > 0
+                ? fwdDivs
+                : (mappedDiv ? [mappedDiv] : []);
 
-            uniqueLetters.push({
-              ...l,
-              division: mappedDiv,
-              forwardedDivisions: mappedFwdDivs,
-            });
+              uniqueLetters.push({
+                ...l,
+                letterType: String(l.letterType || 'Registered Post').trim() || 'Registered Post',
+                registeredPostNo: normalizeRegisteredPostNo(l.registeredPostNo),
+                action: normalizeAction(l.action),
+                fileNo: String(l.fileNo ?? '').trim(),
+                division: mappedDiv,
+                forwardedDivisions: mappedFwdDivs,
+                forwardedTo: fwdTo,
+              });
+            }
           }
+          if (uniqueLetters.length > 0) return uniqueLetters;
         }
-        if (uniqueLetters.length > 0) return uniqueLetters;
       }
-    } catch (e) {
-      console.error(e);
+    } catch {
+      // Ignore storage read errors
     }
     return INITIAL_LETTERS;
   });
@@ -280,15 +599,20 @@ export default function App() {
     try {
       const savedUser = localStorage.getItem('kpn_vaharai_current_user_v2');
       if (savedUser) {
-        const parsed: User = JSON.parse(savedUser);
-        return {
-          ...parsed,
-          Division: migrateDivision(parsed.Division),
-          assignedDivisions: parsed.assignedDivisions ? parsed.assignedDivisions.map(migrateDivision) : undefined,
-        };
+        const parsed = JSON.parse(savedUser);
+        if (parsed && typeof parsed === 'object') {
+          const assignedDivs = ensureStringArray(parsed.assignedDivisions).map(migrateDivision).filter(Boolean);
+          const assignedOffs = ensureStringArray(parsed.assignedOfficers);
+          return {
+            ...parsed,
+            Division: migrateDivision(parsed.Division),
+            assignedDivisions: assignedDivs.length > 0 ? assignedDivs : undefined,
+            assignedOfficers: assignedOffs.length > 0 ? assignedOffs : undefined,
+          };
+        }
       }
-    } catch (e) {
-      console.error(e);
+    } catch {
+      // Ignore storage read errors
     }
     return null;
   });
@@ -302,22 +626,34 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [actionFilter, setActionFilter] = useState<string>('All');
   const [selectedDivisionFilter, setSelectedDivisionFilter] = useState<string>('All');
+  const [selectedOfficerFilter, setSelectedOfficerFilter] = useState<string>('All');
   const [loadingCloud, setLoadingCloud] = useState(false);
-  const [cloudMessage, setCloudMessage] = useState('Google Sheets Cloud synchronization active.');
+  const [cloudMessage, setCloudMessage] = useState('Google Sheets Cloud இணைப்பைச் சரிபார்க்கிறது...');
+  const [cloudStatus, setCloudStatus] = useState<'connected' | 'error_403' | 'offline' | 'checking'>('checking');
+  const [isCloudSettingsOpen, setIsCloudSettingsOpen] = useState(false);
+  const [cloudUrl, setCloudUrl] = useState<string>(() => {
+    try {
+      const saved = localStorage.getItem('kpn_vaharai_cloud_url');
+      if (saved && saved.trim()) return saved.trim();
+    } catch {
+      // Ignore read errors
+    }
+    return WEB_APP_URL;
+  });
 
   useEffect(() => {
     try {
       localStorage.setItem('kpn_vaharai_users_v2', JSON.stringify(users));
-    } catch (e) {
-      console.error(e);
+    } catch {
+      // Ignore storage write errors
     }
   }, [users]);
 
   useEffect(() => {
     try {
       localStorage.setItem('kpn_vaharai_letters_v2', JSON.stringify(letters));
-    } catch (e) {
-      console.error(e);
+    } catch {
+      // Ignore storage write errors
     }
   }, [letters]);
 
@@ -328,8 +664,8 @@ export default function App() {
       } else {
         localStorage.removeItem('kpn_vaharai_current_user_v2');
       }
-    } catch (e) {
-      console.error(e);
+    } catch {
+      // Ignore storage write errors
     }
   }, [currentUser]);
 
@@ -337,9 +673,24 @@ export default function App() {
     let mounted = true;
     const loadCloud = async () => {
       setLoadingCloud(true);
+      setCloudStatus('checking');
       try {
-        const result = await fetchCloudData();
+        const result = await fetchCloudData(cloudUrl);
         if (!mounted) return;
+
+        if (result.statusCode === 403 || result.errorType === 'ACCESS_DENIED') {
+          setCloudStatus('error_403');
+          setCloudMessage(
+            'Google Sheets அனுமதி மறுக்கப்பட்டது (403 Forbidden): Apps Script அமைப்பில் "Who has access: Anyone" என மாற்ற வேண்டும் (Click to fix).'
+          );
+          return;
+        }
+
+        if (result.offline) {
+          setCloudStatus('offline');
+          setCloudMessage('உள்ளூர் சேமிப்பக முறைமையில் இயங்குகிறது (Google Sheets இணைக்கப்படவில்லை - Click to connect).');
+          return;
+        }
 
         if (Array.isArray(result.letters) && result.letters.length > 1) {
           const cloudLetters = result.letters
@@ -382,9 +733,13 @@ export default function App() {
           if (uniqueCloudUsers.length) setUsers(uniqueCloudUsers);
         }
 
-        setCloudMessage('Google Sheets cloud database synced successfully.');
-      } catch (error) {
-        setCloudMessage('Operating in offline local cache mode (Google Sheets fetch skipped).');
+        setCloudStatus('connected');
+        setCloudMessage('Google Sheets cloud database இணைக்கப்பட்டு நேரலையில் ஒத்திசைக்கப்பட்டது.');
+      } catch {
+        if (mounted) {
+          setCloudStatus('offline');
+          setCloudMessage('உள்ளூர் சேமிப்பக முறைமையில் இயங்குகிறது (Google Sheets fetch skipped).');
+        }
       } finally {
         if (mounted) setLoadingCloud(false);
       }
@@ -394,13 +749,108 @@ export default function App() {
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [cloudUrl]);
 
-  const cloudWrite = async (payload: CloudPayload) => {
-    const ok = await sendDataToGoogleCloud(payload);
-    if (!ok) setCloudMessage('Google Sheets sync warning: offline save used.');
-    else setCloudMessage('Google Sheets sync updated successfully.');
-    return ok;
+  const cloudWrite = async (payload: CloudPayload): Promise<CloudWriteResult> => {
+    const res = await sendDataToGoogleCloud(payload, cloudUrl);
+    if (!res.ok) {
+      if (res.statusCode === 403 || res.errorType === 'ACCESS_DENIED') {
+        setCloudStatus('error_403');
+        setCloudMessage(
+          'Google Sheets அனுமதி பிழை (403 Forbidden): Apps Script அமைப்பில் "Who has access: Anyone" என மாற்ற வேண்டும்.'
+        );
+      } else {
+        setCloudMessage(`Google Sheets எச்சரிக்கை: ${res.message || 'Saved to local cache only.'}`);
+      }
+    } else {
+      setCloudStatus('connected');
+      setCloudMessage('Google Sheets cloud database நேரலையில் ஒத்திசைக்கப்பட்டது.');
+    }
+    return res;
+  };
+
+  const handleSaveCloudUrl = async (newUrl: string): Promise<boolean> => {
+    try {
+      localStorage.setItem('kpn_vaharai_cloud_url', newUrl);
+      setCloudUrl(newUrl);
+      await fetch('/api/cloud-sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'SET_CONFIG_URL', url: newUrl }),
+      });
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  const handleTestCloudConnection = async (urlToTest?: string) => {
+    const target = urlToTest || cloudUrl;
+    try {
+      const res = await fetch(
+        `/api/cloud-sync?type=test&webAppUrl=${encodeURIComponent(target)}&t=${Date.now()}`
+      );
+      if (res.ok) {
+        const data = await res.json();
+        if (data.ok) {
+          setCloudStatus('connected');
+          setCloudMessage('Google Sheets cloud database இணைக்கப்பட்டு நேரலையில் ஒத்திசைக்கப்பட்டது.');
+        } else if (data.statusCode === 403 || data.errorType === 'ACCESS_DENIED') {
+          setCloudStatus('error_403');
+          setCloudMessage(
+            'Google Sheets அனுமதி பிழை (403 Forbidden): Apps Script அமைப்பில் "Who has access: Anyone" என அமைக்க வேண்டும்.'
+          );
+        } else {
+          setCloudStatus('offline');
+          setCloudMessage('Google Sheets இணைப்பு தோல்வி (Offline mode).');
+        }
+        return data;
+      }
+    } catch (err: any) {
+      return { ok: false, statusCode: 500, errorType: 'NETWORK_ERROR', message: err?.message };
+    }
+    return { ok: false, statusCode: 500, message: 'Connection test failed' };
+  };
+
+  const handleSyncAllLetters = async (onProgress: (done: number, total: number) => void) => {
+    let success = 0;
+    let failed = 0;
+    const total = letters.length;
+    for (let i = 0; i < total; i++) {
+      const l = letters[i];
+      const res = await sendDataToGoogleCloud(
+        {
+          action: 'ADD_LETTER',
+          id: l.id,
+          originalNo: l.originalNo,
+          date: l.date,
+          dispatchedDate: l.dispatchedDate || l.date,
+          letterType: l.letterType,
+          registeredPostNo: l.registeredPostNo,
+          inwardNo: l.inwardNo,
+          fromWhom: l.fromWhom,
+          subject: l.subject,
+          division: l.division,
+          forwardedDivisions: l.forwardedDivisions || [],
+          forwardedTo: l.forwardedTo || [],
+          actionStatus: l.action,
+          replyResponse: l.replyResponse || '',
+          fileNo: l.fileNo || '',
+          extraData: l,
+        },
+        cloudUrl
+      );
+
+      if (res.ok) success++;
+      else failed++;
+      onProgress(i + 1, total);
+    }
+
+    if (success > 0) {
+      setCloudStatus('connected');
+      setCloudMessage(`${success} கடிதங்கள் Google Sheet-இல் வெற்றிகரமாகப் பதிவேற்றப்பட்டது!`);
+    }
+    return { success, failed };
   };
 
   const handleLogout = () => {
@@ -418,59 +868,137 @@ export default function App() {
   };
 
   // Requirement 1 & 2: Mail Officer Registration with Excel & Cloud logging
-  const handleSaveNewLetter = (newLetter: Letter) => {
-    setLetters((prev) => [newLetter, ...prev]);
-    cloudWrite({
+  const handleSaveNewLetter = async (newLetter: Letter) => {
+    const safeLetterType = String(newLetter.letterType || 'Registered Post').trim() || 'Registered Post';
+    const safeRegPostNo = normalizeRegisteredPostNo(newLetter.registeredPostNo);
+    const safeFileNo = String(newLetter.fileNo ?? '').trim();
+    const safeAction = normalizeAction(newLetter.action || 'Not Yet Viewed');
+
+    const sanitized: Letter = {
+      ...newLetter,
+      letterType: safeLetterType,
+      registeredPostNo: safeRegPostNo,
+      action: safeAction,
+      fileNo: safeFileNo,
+      forwardedDivisions: ensureStringArray(newLetter.forwardedDivisions),
+      forwardedTo: ensureStringArray(newLetter.forwardedTo),
+    };
+
+    // Save locally immediately to guarantee no data loss
+    setLetters((prev) => [sanitized, ...prev]);
+
+    // Push to Google Sheets cloud
+    const res = await cloudWrite({
       action: 'ADD_LETTER',
-      id: newLetter.id,
-      originalNo: newLetter.originalNo,
-      date: newLetter.date,
-      dispatchedDate: newLetter.dispatchedDate,
-      letterType: newLetter.letterType,
-      registeredPostNo: newLetter.registeredPostNo,
-      inwardNo: newLetter.inwardNo,
-      fromWhom: newLetter.fromWhom,
-      subject: newLetter.subject,
-      division: newLetter.division || DIVISIONS[0],
-      forwardedDivisions: newLetter.forwardedDivisions || [],
-      forwardedTo: newLetter.forwardedTo || [],
-      actionStatus: newLetter.action || 'Not Yet Viewed',
-      replyResponse: newLetter.replyResponse || '',
-      fileNo: newLetter.fileNo || '',
-      extraData: newLetter,
+      id: sanitized.id,
+      originalNo: sanitized.originalNo,
+      date: sanitized.date,
+      dispatchedDate: sanitized.dispatchedDate || sanitized.date,
+      letterType: sanitized.letterType,
+      registeredPostNo: sanitized.registeredPostNo,
+      inwardNo: sanitized.inwardNo,
+      fromWhom: sanitized.fromWhom,
+      subject: sanitized.subject,
+      division: sanitized.division || DIVISIONS[0],
+      forwardedDivisions: sanitized.forwardedDivisions || [],
+      forwardedTo: sanitized.forwardedTo || [],
+      actionStatus: sanitized.action,
+      replyResponse: sanitized.replyResponse || '',
+      fileNo: sanitized.fileNo || '',
+      extraData: sanitized,
     });
-    alert(`Mail Record (${newLetter.originalNo}) registered and synced successfully!`);
+
+    if (res.ok) {
+      alert(`Mail Record (${sanitized.originalNo}) Google Sheet மற்றும் கணினியில் வெற்றிகரமாகப் பதிவு செய்யப்பட்டது!`);
+    } else {
+      const is403 = res.statusCode === 403 || res.errorType === 'ACCESS_DENIED';
+      if (is403) {
+        const openSettings = confirm(
+          `Mail Record (${sanitized.originalNo}) கணினியில் (Local Storage) பாதுகாப்பாக பதிவு செய்யப்பட்டது!\n\nஆனால் Google Sheet-இல் சேமிக்க முடியவில்லை.\nகாரணம்: 403 Forbidden (அனுமதி இல்லை).\nGoogle Apps Script அமைப்பில் "Who has access" என்பதை "Anyone" (அனைவருக்கும்) என அமைக்க வேண்டும்.\n\nஇப்போது Google Sheets அமைப்புகள் பக்கத்தைத் திறந்து சரிசெய்ய விரும்புகிறீர்களா?`
+        );
+        if (openSettings) {
+          setIsCloudSettingsOpen(true);
+        }
+      } else {
+        alert(
+          `Mail Record (${sanitized.originalNo}) கணினியில் (Local Storage) சேமிக்கப்பட்டது! ஆனால் Google Sheet உடன் இணைக்க முடியவில்லை (${res.message || 'Offline'}). Google Sheets அமைப்பைச் சரிபார்க்கவும்.`
+        );
+      }
+    }
   };
 
   // Update existing letter (All information editable later by Mail Officer / Super Admin)
   const handleUpdateLetter = (updated: Letter) => {
-    setLetters((prev) => prev.map((l) => (l.id === updated.id ? updated : l)));
-    if (selectedLetter && selectedLetter.id === updated.id) {
-      setSelectedLetter(updated);
+    const safeLetterType = String(updated.letterType || 'Registered Post').trim() || 'Registered Post';
+    const safeRegPostNo = normalizeRegisteredPostNo(updated.registeredPostNo);
+    const safeFileNo = String(updated.fileNo ?? '').trim();
+    const safeAction = normalizeAction(updated.action);
+
+    const sanitized: Letter = {
+      ...updated,
+      letterType: safeLetterType,
+      registeredPostNo: safeRegPostNo,
+      action: safeAction,
+      fileNo: safeFileNo,
+      forwardedDivisions: ensureStringArray(updated.forwardedDivisions),
+      forwardedTo: ensureStringArray(updated.forwardedTo),
+    };
+    setLetters((prev) => prev.map((l) => (l.id === sanitized.id ? sanitized : l)));
+    if (selectedLetter && selectedLetter.id === sanitized.id) {
+      setSelectedLetter(sanitized);
     }
-    if (editingLetter && editingLetter.id === updated.id) {
-      setEditingLetter(updated);
+    if (editingLetter && editingLetter.id === sanitized.id) {
+      setEditingLetter(sanitized);
     }
 
-    cloudWrite({
-      action: 'UPDATE_LETTER',
-      id: updated.id,
-      originalNo: updated.originalNo,
-      date: updated.date,
-      dispatchedDate: updated.dispatchedDate,
-      letterType: updated.letterType,
-      registeredPostNo: updated.registeredPostNo,
-      inwardNo: updated.inwardNo,
-      fromWhom: updated.fromWhom,
-      subject: updated.subject,
-      division: updated.division || DIVISIONS[0],
-      forwardedDivisions: updated.forwardedDivisions || [],
-      forwardedTo: updated.forwardedTo || [],
-      actionStatus: updated.action || 'Not Yet Viewed',
-      replyResponse: updated.replyResponse || '',
-      fileNo: updated.fileNo || '',
-      extraData: updated,
-    });
+    // Reset actionFilter if active so the updated letter remains visible on screen
+    if (actionFilter !== 'All') {
+      setActionFilter('All');
+    }
+
+    const letterCloudPayload = {
+      id: sanitized.id,
+      originalNo: sanitized.originalNo,
+      date: sanitized.date,
+      dispatchedDate: sanitized.dispatchedDate || sanitized.date,
+      letterType: sanitized.letterType,
+      registeredPostNo: sanitized.registeredPostNo,
+      inwardNo: sanitized.inwardNo,
+      fromWhom: sanitized.fromWhom,
+      subject: sanitized.subject,
+      division: sanitized.division || DIVISIONS[0],
+      forwardedDivisions: sanitized.forwardedDivisions || [],
+      forwardedTo: sanitized.forwardedTo || [],
+      actionStatus: sanitized.action || 'Not Yet Viewed',
+      replyResponse: sanitized.replyResponse || '',
+      fileNo: sanitized.fileNo || '',
+      extraData: sanitized,
+    };
+
+    // To prevent the Google Apps Script UPDATE_LETTER handler from shifting columns left
+    // at RegisteredPostNo, we first delete the old row by ID and then write the full
+    // 15-column aligned row via ADD_LETTER (where RegisteredPostNo is always filled, e.g. 'No').
+    void (async () => {
+      await sendDataToGoogleCloud({
+        ...letterCloudPayload,
+        action: 'DELETE_LETTER',
+      }, cloudUrl);
+      const res = await sendDataToGoogleCloud({
+        ...letterCloudPayload,
+        action: 'ADD_LETTER',
+      }, cloudUrl);
+      if (!res.ok) {
+        if (res.statusCode === 403 || res.errorType === 'ACCESS_DENIED') {
+          setCloudStatus('error_403');
+          setCloudMessage('Google Sheets அனுமதி பிழை (403 Forbidden): "Who has access: Anyone" என மாற்ற வேண்டும்.');
+        } else {
+          setCloudMessage('Google Sheets sync warning: saved to local cache.');
+        }
+      } else {
+        setCloudStatus('connected');
+        setCloudMessage('Google Sheets sync updated successfully.');
+      }
+    })();
   };
 
   const handleDeleteLetter = (letterId: string) => {
@@ -550,87 +1078,164 @@ export default function App() {
       return true;
     }
 
-    // Requirement 5: Luxury Role sees their assigned divisions or assigned officers
+    const fwdDivs = ensureStringArray(letter.forwardedDivisions);
+    const fwdTo = ensureStringArray(letter.forwardedTo);
+    const myId = currentUser.User_ID.trim().toLowerCase();
+    const myName = currentUser.Name.trim().toLowerCase();
+
+    // Multiple Luxury Roles see their assigned divisions or assigned officers
     if (currentUser.Role === 'Luxury') {
-      const allowedDivs = currentUser.assignedDivisions || [];
-      const allowedOfficers = currentUser.assignedOfficers || [];
+      const allowedDivs = ensureStringArray(currentUser.assignedDivisions);
+      const allowedOfficers = ensureStringArray(currentUser.assignedOfficers).map((s) => s.trim().toLowerCase());
+
+      // If no restrictions configured, Luxury user has executive oversight of all divisions
+      if (allowedDivs.length === 0 && allowedOfficers.length === 0) {
+        return true;
+      }
 
       // Check if letter belongs to an assigned division
       const inAssignedDiv =
         allowedDivs.includes(letter.division) ||
-        (letter.forwardedDivisions || []).some((d) => allowedDivs.includes(d));
+        fwdDivs.some((d) => allowedDivs.includes(d));
 
       // Check if letter forwarded to an assigned officer or to luxury user themselves
-      const inAssignedOfficer = (letter.forwardedTo || []).some(
-        (uid) => allowedOfficers.includes(uid) || uid === currentUser.User_ID
-      );
+      const inAssignedOfficer = fwdTo.some((uid) => {
+        const clean = uid.trim().toLowerCase();
+        if (clean === myId || clean === myName) return true;
+        if (myId && clean.includes(myId)) return true;
+        if (myName && (clean.includes(myName) || myName.includes(clean))) return true;
+        if (allowedOfficers.includes(clean)) return true;
+        return allowedOfficers.some((ao) => {
+          const u = users.find(
+            (usr) =>
+              usr.User_ID.trim().toLowerCase() === ao ||
+              usr.Name.trim().toLowerCase() === ao
+          );
+          return (
+            u &&
+            (u.User_ID.trim().toLowerCase() === clean ||
+              u.Name.trim().toLowerCase() === clean ||
+              clean.includes(u.User_ID.trim().toLowerCase()) ||
+              clean.includes(u.Name.trim().toLowerCase()))
+          );
+        });
+      });
 
       return inAssignedDiv || inAssignedOfficer;
     }
 
     // Requirement 3: Normal User (Division Head) MUST receive letters routed to their division!
     if (currentUser.Role === 'Normal') {
+      const myDiv = (currentUser.Division || '').trim().toLowerCase();
+      const letterDiv = (letter.division || '').trim().toLowerCase();
       const matchesDivision =
-        letter.division === currentUser.Division ||
-        (letter.forwardedDivisions || []).includes(currentUser.Division);
+        letterDiv === myDiv ||
+        fwdDivs.some((d) => d.trim().toLowerCase() === myDiv);
 
-      const hasDivisionOfficer = (letter.forwardedTo || []).some((uid) => {
-        const u = usersMap.get(uid);
-        return u && u.Division === currentUser.Division;
+      const hasDivisionOfficer = fwdTo.some((uid) => {
+        const clean = uid.trim().toLowerCase();
+        const u = users.find(
+          (usr) =>
+            usr.User_ID.trim().toLowerCase() === clean ||
+            usr.Name.trim().toLowerCase() === clean
+        );
+        return u && (u.Division || '').trim().toLowerCase() === myDiv;
       });
 
-      const directlyForwarded = (letter.forwardedTo || []).includes(currentUser.User_ID);
+      const directlyForwarded = fwdTo.some((id) => {
+        const clean = id.trim().toLowerCase();
+        return (
+          clean === myId ||
+          clean === myName ||
+          (myId && clean.includes(myId)) ||
+          (myName && (clean.includes(myName) || myName.includes(clean)))
+        );
+      });
 
       return matchesDivision || hasDivisionOfficer || directlyForwarded;
     }
 
-    // Field Officer (User Role): Only letters directly forwarded to their ID
+    // Field Officer (User Role): Letters directly forwarded to their ID or Name
     if (currentUser.Role === 'User') {
-      return (letter.forwardedTo || []).includes(currentUser.User_ID);
+      return fwdTo.some((id) => {
+        const clean = id.trim().toLowerCase();
+        if (clean === myId || clean === myName) return true;
+        if (myId && clean.includes(myId)) return true;
+        if (myName && (clean.includes(myName) || myName.includes(clean))) return true;
+        const resolved = users.find(
+          (u) =>
+            u.User_ID.trim().toLowerCase() === clean ||
+            u.Name.trim().toLowerCase() === clean
+        );
+        return resolved?.User_ID.trim().toLowerCase() === myId;
+      });
     }
 
     return false;
   });
 
-  // Apply Search, Status Filter & Division Filter
+  // Apply Search, Status Filter, Officer Filter & Division Filter
   const displayedLetters = roleFilteredLetters.filter((letter) => {
-    // Status Filter
+    // Status Filter (with bilingual safety via normalizeAction)
     if (actionFilter !== 'All') {
-      if (actionFilter === 'Action Taken' && letter.action !== 'Action Taken' && letter.action !== 'நடவடிக்கை எடுக்கப்பட்டது') return false;
-      if (actionFilter === 'Action Not Taken' && letter.action !== 'Action Not Taken' && letter.action !== 'நடவடிக்கை எடுக்கப்படவில்லை') return false;
-      if (actionFilter === 'Under Investigation' && letter.action !== 'Under Investigation' && letter.action !== 'கள ஆய்வில்') return false;
-      if (actionFilter === 'Not Yet Viewed' && letter.action !== 'Not Yet Viewed' && letter.action !== 'இன்னும் பார்க்கவில்லை') return false;
+      const normLetterAction = normalizeAction(letter.action);
+      const normFilter = normalizeAction(actionFilter);
+      if (normLetterAction !== normFilter) return false;
     }
+
+    const fwdDivs = ensureStringArray(letter.forwardedDivisions);
+    const fwdTo = ensureStringArray(letter.forwardedTo);
 
     // Division Filter
     if (selectedDivisionFilter !== 'All') {
+      const targetDiv = selectedDivisionFilter.trim().toLowerCase();
+      const letterDiv = (letter.division || '').trim().toLowerCase();
       const matchesDiv =
-        letter.division === selectedDivisionFilter ||
-        (letter.forwardedDivisions || []).includes(selectedDivisionFilter) ||
-        letter.forwardedTo.some((uid) => usersMap.get(uid)?.Division === selectedDivisionFilter);
+        letterDiv === targetDiv ||
+        fwdDivs.some((d) => d.trim().toLowerCase() === targetDiv) ||
+        fwdTo.some((uid) => {
+          const clean = uid.trim().toLowerCase();
+          const u = users.find(
+            (usr) =>
+              usr.User_ID.trim().toLowerCase() === clean ||
+              usr.Name.trim().toLowerCase() === clean
+          );
+          return (u?.Division || '').trim().toLowerCase() === targetDiv;
+        });
       if (!matchesDiv) return false;
     }
 
-    // Search Query
+    // Officer Filter (from toolbar dropdown)
+    if (selectedOfficerFilter !== 'All') {
+      const matchesSelectedOfficer = doesLetterMatchOfficer(letter, selectedOfficerFilter, users);
+      if (!matchesSelectedOfficer) return false;
+    }
+
+    // Search Query (Comprehensive search by Officer Name / ID / Designation, Original No, Inward No, Subject, From, Dates, Division, Notes)
     if (!searchQuery.trim()) return true;
     const q = searchQuery.toLowerCase().trim();
 
-    const forwardedNames = (letter.forwardedTo || [])
-      .map((id) => usersMap.get(id)?.Name || id)
+    const matchesOfficerSearch = doesLetterMatchOfficer(letter, q, users);
+
+    const forwardedNames = fwdTo
+      .map((id) => getOfficerDisplayName(id, users))
+      .filter(Boolean)
       .join(' ')
       .toLowerCase();
 
     return (
-      letter.originalNo.toLowerCase().includes(q) ||
-      letter.inwardNo.toLowerCase().includes(q) ||
-      (letter.fileNo && letter.fileNo.toLowerCase().includes(q)) ||
-      (letter.registeredPostNo && letter.registeredPostNo.toLowerCase().includes(q)) ||
-      letter.fromWhom.toLowerCase().includes(q) ||
-      letter.subject.toLowerCase().includes(q) ||
-      letter.date.toLowerCase().includes(q) ||
-      (letter.dispatchedDate && letter.dispatchedDate.toLowerCase().includes(q)) ||
-      (letter.division && letter.division.toLowerCase().includes(q)) ||
-      forwardedNames.includes(q)
+      (letter.originalNo || '').toLowerCase().includes(q) ||
+      (letter.inwardNo || '').toLowerCase().includes(q) ||
+      (letter.fileNo || '').toLowerCase().includes(q) ||
+      (letter.registeredPostNo || '').toLowerCase().includes(q) ||
+      (letter.fromWhom || '').toLowerCase().includes(q) ||
+      (letter.subject || '').toLowerCase().includes(q) ||
+      (letter.date || '').toLowerCase().includes(q) ||
+      (letter.dispatchedDate || '').toLowerCase().includes(q) ||
+      (letter.division || '').toLowerCase().includes(q) ||
+      (letter.replyResponse || '').toLowerCase().includes(q) ||
+      forwardedNames.includes(q) ||
+      matchesOfficerSearch
     );
   });
 
@@ -691,6 +1296,34 @@ export default function App() {
                 </button>
               )}
 
+              {/* Google Sheets Sync Settings & Status Trigger */}
+              <button
+                type="button"
+                onClick={() => setIsCloudSettingsOpen(true)}
+                title="Google Sheets Cloud Synchronization Settings & Diagnostics"
+                className={`flex items-center gap-1.5 rounded-xl px-2.5 sm:px-3 py-1.5 text-xs font-bold transition shadow-xs cursor-pointer ${
+                  cloudStatus === 'connected'
+                    ? 'bg-emerald-700 hover:bg-emerald-800 text-white border border-emerald-500/50'
+                    : cloudStatus === 'error_403'
+                    ? 'bg-red-600 hover:bg-red-700 text-white border border-red-300 animate-pulse'
+                    : 'bg-amber-600 hover:bg-amber-700 text-white border border-amber-400/50'
+                }`}
+              >
+                {cloudStatus === 'connected' ? (
+                  <Cloud className="h-3.5 w-3.5 text-emerald-200" />
+                ) : (
+                  <CloudOff className="h-3.5 w-3.5 text-white" />
+                )}
+                <span className="hidden sm:inline">
+                  {cloudStatus === 'connected'
+                    ? 'Sheet Synced'
+                    : cloudStatus === 'error_403'
+                    ? 'Sheet 403 Error (Click to fix)'
+                    : 'Sheet Offline'}
+                </span>
+                <span className="sm:hidden">Sheet</span>
+              </button>
+
               <button
                 type="button"
                 onClick={handleResetData}
@@ -715,11 +1348,32 @@ export default function App() {
         </div>
       </header>
 
-      {/* Cloud Status Banner */}
-      <div className="bg-blue-50 border-b border-blue-200 px-4 py-1.5 text-center text-xs text-blue-900 font-medium flex items-center justify-center gap-2">
-        <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+      {/* Interactive Cloud Status Banner */}
+      <button
+        type="button"
+        onClick={() => setIsCloudSettingsOpen(true)}
+        className={`w-full border-b px-4 py-1.5 text-center text-xs font-medium flex items-center justify-center gap-2 cursor-pointer transition ${
+          cloudStatus === 'connected'
+            ? 'bg-emerald-50 border-emerald-200 text-emerald-900 hover:bg-emerald-100'
+            : cloudStatus === 'error_403'
+            ? 'bg-red-50 border-red-200 text-red-900 hover:bg-red-100 font-bold'
+            : 'bg-amber-50 border-amber-200 text-amber-900 hover:bg-amber-100'
+        }`}
+      >
+        <span
+          className={`h-2 w-2 rounded-full shrink-0 ${
+            cloudStatus === 'connected'
+              ? 'bg-emerald-500 animate-pulse'
+              : cloudStatus === 'error_403'
+              ? 'bg-red-600 animate-ping'
+              : 'bg-amber-500'
+          }`}
+        ></span>
         <span>{cloudMessage}</span>
-      </div>
+        <span className="underline text-[11px] ml-1 font-bold text-blue-700">
+          (சீட் அமைப்புகள் / Settings)
+        </span>
+      </button>
 
       {/* Role Context Bar */}
       <div className="border-b border-gray-200 bg-white px-4 py-2.5 shadow-2xs">
@@ -785,22 +1439,51 @@ export default function App() {
         />
 
         {/* Toolbar: Search, Filters, Excel Export & 10pt Print */}
-        <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-xs">
+        <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-xs space-y-3">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            {/* Search Input */}
+            {/* Search Input with Clear Button */}
             <div className="relative flex-1 min-w-[280px] max-w-md">
               <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search by Original No, Inward No, Subject, Sender..."
-                className="w-full rounded-xl border border-gray-300 bg-white py-2 pl-9 pr-3 text-xs text-gray-900 focus:border-blue-700 focus:outline-hidden"
+                placeholder="Search by Officer Name (உத்தியோகத்தர்), No, Subject, Division..."
+                className="w-full rounded-xl border border-gray-300 bg-white py-2 pl-9 pr-8 text-xs text-gray-900 focus:border-blue-700 focus:outline-hidden"
               />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-2.5 top-2.5 text-gray-400 hover:text-gray-700"
+                  title="Clear Search"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              )}
             </div>
 
             {/* Filter controls */}
             <div className="flex flex-wrap items-center gap-2.5">
+              {/* Officer Filter Dropdown */}
+              <div className="flex items-center gap-1.5 text-xs">
+                <Users className="h-4 w-4 text-blue-600" />
+                <span className="font-bold text-gray-700">Officer (உத்தியோகத்தர்):</span>
+                <select
+                  value={selectedOfficerFilter}
+                  onChange={(e) => setSelectedOfficerFilter(e.target.value)}
+                  className="rounded-lg border border-gray-300 bg-white px-2.5 py-1.5 text-xs font-semibold text-gray-800 focus:border-blue-700 focus:outline-hidden max-w-[180px] truncate"
+                >
+                  <option value="All">All Officers (அனைவரும்)</option>
+                  {users.map((u) => (
+                    <option key={u.User_ID} value={u.User_ID}>
+                      {u.Name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Status Filter Dropdown */}
               <div className="flex items-center gap-1.5 text-xs">
                 <Filter className="h-4 w-4 text-gray-500" />
                 <span className="font-bold text-gray-700">Status:</span>
@@ -809,7 +1492,7 @@ export default function App() {
                   onChange={(e) => setActionFilter(e.target.value)}
                   className="rounded-lg border border-gray-300 bg-white px-2.5 py-1.5 text-xs font-semibold text-gray-800 focus:border-blue-700 focus:outline-hidden"
                 >
-                  <option value="All">All Statuses</option>
+                  <option value="All">All Statuses (அனைத்தும்)</option>
                   <option value="Action Taken">Action Taken (முடிந்தது)</option>
                   <option value="Action Not Taken">Action Not Taken (நிலுவை)</option>
                   <option value="Under Investigation">Under Investigation (கள ஆய்வு)</option>
@@ -837,6 +1520,79 @@ export default function App() {
               </div>
             </div>
           </div>
+
+          {/* Active Filter Indicators & Result Count */}
+          {(actionFilter !== 'All' || selectedOfficerFilter !== 'All' || selectedDivisionFilter !== 'All' || searchQuery.trim()) && (
+            <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-gray-100 text-xs">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="font-bold text-gray-500">Active Filters:</span>
+                {actionFilter !== 'All' && (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-blue-100 px-2.5 py-0.5 font-bold text-blue-900 text-[11px]">
+                    Status: {actionFilter}
+                    <button
+                      type="button"
+                      onClick={() => setActionFilter('All')}
+                      className="hover:text-red-700 ml-0.5"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </span>
+                )}
+                {selectedOfficerFilter !== 'All' && (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-purple-100 px-2.5 py-0.5 font-bold text-purple-900 text-[11px]">
+                    Officer: {getOfficerDisplayName(selectedOfficerFilter, users)}
+                    <button
+                      type="button"
+                      onClick={() => setSelectedOfficerFilter('All')}
+                      className="hover:text-red-700 ml-0.5"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </span>
+                )}
+                {selectedDivisionFilter !== 'All' && (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2.5 py-0.5 font-bold text-emerald-900 text-[11px]">
+                    Division: {selectedDivisionFilter}
+                    <button
+                      type="button"
+                      onClick={() => setSelectedDivisionFilter('All')}
+                      className="hover:text-red-700 ml-0.5"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </span>
+                )}
+                {searchQuery.trim() && (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2.5 py-0.5 font-bold text-amber-900 text-[11px]">
+                    Search: &ldquo;{searchQuery}&rdquo;
+                    <button
+                      type="button"
+                      onClick={() => setSearchQuery('')}
+                      className="hover:text-red-700 ml-0.5"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </span>
+                )}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActionFilter('All');
+                    setSelectedOfficerFilter('All');
+                    setSelectedDivisionFilter('All');
+                    setSearchQuery('');
+                  }}
+                  className="text-[11px] text-red-600 font-bold hover:underline ml-1"
+                >
+                  Clear All Filters (அனைத்தும் அழி)
+                </button>
+              </div>
+
+              <span className="text-[11px] font-bold text-slate-700 bg-slate-100 px-2.5 py-1 rounded-lg">
+                Matching: {displayedLetters.length} Mail {displayedLetters.length === 1 ? 'Record' : 'Records'}
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Requirement 7: 5-Day Folder Structure */}
@@ -863,6 +1619,7 @@ export default function App() {
               setIsLetterEditMode(true);
             }}
             onDeleteLetter={handleDeleteLetter}
+            onUpdateLetter={handleUpdateLetter}
           />
         </div>
       </main>
@@ -906,6 +1663,20 @@ export default function App() {
         onUpdateUser={handleUpdateUser}
         onDeleteUser={handleDeleteUser}
       />
+
+      {/* Google Sheets Cloud Synchronization & Diagnostics Modal */}
+      <CloudSyncSettingsModal
+        isOpen={isCloudSettingsOpen}
+        onClose={() => setIsCloudSettingsOpen(false)}
+        currentUrl={cloudUrl}
+        onSaveUrl={handleSaveCloudUrl}
+        onTestConnection={handleTestCloudConnection}
+        letters={letters}
+        onSyncAllLetters={handleSyncAllLetters}
+        cloudStatus={cloudStatus}
+        cloudMessage={cloudMessage}
+      />
     </div>
   );
 }
+

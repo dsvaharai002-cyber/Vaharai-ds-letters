@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import { Letter, LetterAction, User } from '../types';
 import { DIVISIONS } from '../data/initialData';
-import { exportLettersToExcel, printLandscapeReport } from '../utils/helpers';
+import { exportLettersToExcel, printLandscapeReport, ensureStringArray } from '../utils/helpers';
 
 interface DivisionActionChartProps {
   letters: Letter[];
@@ -53,8 +53,8 @@ export const DivisionActionChart: React.FC<DivisionActionChartProps> = ({
       : letters.filter(
           (l) =>
             l.division === selectedDivision ||
-            l.forwardedDivisions?.includes(selectedDivision) ||
-            l.forwardedTo.some((uid) => usersMap.get(uid)?.Division === selectedDivision)
+            ensureStringArray(l.forwardedDivisions).includes(selectedDivision) ||
+            ensureStringArray(l.forwardedTo).some((uid) => usersMap.get(uid)?.Division === selectedDivision)
         );
 
   const getCounts = (letterList: Letter[]) => {
@@ -304,8 +304,8 @@ export const DivisionActionChart: React.FC<DivisionActionChartProps> = ({
                 const divLtrs = letters.filter(
                   (l) =>
                     l.division === divName ||
-                    l.forwardedDivisions?.includes(divName) ||
-                    l.forwardedTo.some((uid) => usersMap.get(uid)?.Division === divName)
+                    ensureStringArray(l.forwardedDivisions).includes(divName) ||
+                    ensureStringArray(l.forwardedTo).some((uid) => usersMap.get(uid)?.Division === divName)
                 );
                 const divCounts = getCounts(divLtrs);
                 const rate =
