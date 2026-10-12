@@ -19,12 +19,9 @@ import {
   ArrowUpDown,
   X,
   UserCheck,
-<<<<<<< HEAD
   Cloud,
   CloudOff,
   AlertTriangle,
-=======
->>>>>>> fafe196c989f202585a478295be1c2f977ee96b6
 } from 'lucide-react';
 import { User, Letter, UserRole, LetterAction } from './types';
 import { INITIAL_USERS, INITIAL_LETTERS, DIVISIONS, migrateDivision } from './data/initialData';
@@ -74,11 +71,7 @@ const sendDataToGoogleCloud = async (
 ): Promise<CloudWriteResult> => {
   try {
     const action = String(payload.action ?? '').trim();
-<<<<<<< HEAD
     if (!action) return { ok: false, message: 'Action is required' };
-=======
-    if (!action) return false;
->>>>>>> fafe196c989f202585a478295be1c2f977ee96b6
 
     const safeLetterAction = normalizeAction(
       payload.actionStatus ||
@@ -89,7 +82,6 @@ const sendDataToGoogleCloud = async (
         payload.extraData?.actionStatus ||
         'Not Yet Viewed'
     );
-<<<<<<< HEAD
 
     const safeLetterType =
       String(
@@ -309,186 +301,6 @@ const fetchCloudData = async (
       headers,
     });
 
-=======
-
-    const safeLetterType =
-      String(
-        payload.letterType ||
-          payload.postType ||
-          payload.PostType ||
-          payload.extraData?.letterType ||
-          'Registered Post'
-      ).trim() || 'Registered Post';
-
-    const safeRegPostNo = normalizeRegisteredPostNo(
-      payload.registeredPostNo ??
-        payload.RegisteredPostNo ??
-        payload.regPostNo ??
-        payload.extraData?.registeredPostNo ??
-        payload.extraData?.RegisteredPostNo
-    );
-
-    const safeFileNo = String(
-      payload.fileNo ??
-        payload.FileNo ??
-        payload.extraData?.fileNo ??
-        payload.extraData?.FileNo ??
-        ''
-    ).trim();
-
-    const safeDivision = String(
-      payload.division ??
-        payload.Division ??
-        payload.extraData?.division ??
-        payload.extraData?.Division ??
-        ''
-    ).trim();
-
-    const safeFwdDivs = ensureStringArray(
-      payload.forwardedDivisions ?? payload.extraData?.forwardedDivisions
-    );
-    const safeFwdTo = ensureStringArray(
-      payload.forwardedTo ?? payload.extraData?.forwardedTo
-    );
-    const safeReply = String(
-      payload.replyResponse ??
-        payload.ReplyResponse ??
-        payload.extraData?.replyResponse ??
-        ''
-    );
-
-    const baseExtra =
-      payload.extraData && typeof payload.extraData === 'object'
-        ? payload.extraData
-        : {};
-
-    const enrichedExtraData = {
-      ...baseExtra,
-      id: String(payload.id ?? baseExtra.id ?? ''),
-      originalNo: String(payload.originalNo ?? baseExtra.originalNo ?? ''),
-      date: String(payload.date ?? baseExtra.date ?? ''),
-      dispatchedDate: String(
-        payload.dispatchedDate ?? baseExtra.dispatchedDate ?? payload.date ?? ''
-      ),
-      letterType: safeLetterType,
-      postType: safeLetterType,
-      registeredPostNo: safeRegPostNo,
-      RegisteredPostNo: safeRegPostNo,
-      inwardNo: String(payload.inwardNo ?? baseExtra.inwardNo ?? ''),
-      fromWhom: String(payload.fromWhom ?? baseExtra.fromWhom ?? ''),
-      subject: String(payload.subject ?? baseExtra.subject ?? ''),
-      division: safeDivision,
-      forwardedDivisions: safeFwdDivs,
-      forwardedTo: safeFwdTo,
-      action: safeLetterAction,
-      actionStatus: safeLetterAction,
-      ActionStatus: safeLetterAction,
-      replyResponse: safeReply,
-      fileNo: safeFileNo,
-      FileNo: safeFileNo,
-      updatedAt: new Date().toISOString(),
-    };
-
-    const bodyData = {
-      action: action,
-      id: String(payload.id ?? ''),
-      ID: String(payload.id ?? ''),
-      originalNo: String(payload.originalNo ?? ''),
-      OriginalNo: String(payload.originalNo ?? ''),
-      date: String(payload.date ?? ''),
-      Date: String(payload.date ?? ''),
-      dispatchedDate: String(payload.dispatchedDate ?? payload.date ?? ''),
-      DispatchedDate: String(payload.dispatchedDate ?? payload.date ?? ''),
-      letterType: safeLetterType,
-      LetterType: safeLetterType,
-      postType: safeLetterType,
-      PostType: safeLetterType,
-      Post_Type: safeLetterType,
-      'Post Type': safeLetterType,
-      registeredPostNo: safeRegPostNo,
-      RegisteredPostNo: safeRegPostNo,
-      regPostNo: safeRegPostNo,
-      RegPostNo: safeRegPostNo,
-      Registered_Post_No: safeRegPostNo,
-      'Registered Post No': safeRegPostNo,
-      inwardNo: String(payload.inwardNo ?? ''),
-      InwardNo: String(payload.inwardNo ?? ''),
-      fromWhom: String(payload.fromWhom ?? ''),
-      FromWhom: String(payload.fromWhom ?? ''),
-      subject: String(payload.subject ?? ''),
-      Subject: String(payload.subject ?? ''),
-      division: safeDivision,
-      Division: safeDivision,
-      forwardedDivisions: safeFwdDivs,
-      ForwardedDivisions: safeFwdDivs.join(', '),
-      forwardedTo: safeFwdTo,
-      ForwardedTo: safeFwdTo.join(', '),
-      actionStatus: safeLetterAction,
-      ActionStatus: safeLetterAction,
-      Action: safeLetterAction,
-      letterAction: safeLetterAction,
-      replyResponse: safeReply,
-      ReplyResponse: safeReply,
-      fileNo: safeFileNo,
-      FileNo: safeFileNo,
-      file_no: safeFileNo,
-      File_No: safeFileNo,
-      'File No': safeFileNo,
-      Password: String(payload.Password ?? ''),
-      Name: String(payload.Name ?? ''),
-      Role: String(payload.Role ?? ''),
-      Status: String(payload.Status ?? ''),
-      User_ID: String(payload.User_ID ?? ''),
-      assignedDivisions:
-        payload.assignedDivisions ?? payload.extraData?.assignedDivisions ?? [],
-      assignedOfficers:
-        payload.assignedOfficers ?? payload.extraData?.assignedOfficers ?? [],
-      extraData: enrichedExtraData,
-      ExtraData: JSON.stringify(enrichedExtraData),
-    };
-
-    const jsonStr = JSON.stringify(bodyData);
-
-    // 1. Try server-side proxy (/api/cloud-sync works on both Vercel and Express)
-    try {
-      const proxyRes = await fetch('/api/cloud-sync', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: jsonStr,
-      });
-      if (proxyRes.ok) {
-        const proxyData = await proxyRes.json();
-        if (proxyData?.ok) return true;
-      }
-    } catch {
-      // Fall through to no-cors browser POST
-    }
-
-    // 2. Browser no-cors POST with text/plain (CORS-safelisted, never triggers CORS error in console)
-    await fetch(WEB_APP_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: {
-        'Content-Type': 'text/plain;charset=utf-8',
-      },
-      body: jsonStr,
-    });
-
-    return true;
-  } catch {
-    return false;
-  }
-};
-
-const fetchCloudData = async (): Promise<{
-  letters: any[][];
-  users: any[][];
-  offline?: boolean;
-}> => {
-  // Fetch via same-origin /api/cloud-sync endpoint (works in both Express and Vercel without CORS/403 errors)
-  try {
-    const response = await fetch(`/api/cloud-sync?t=${Date.now()}`);
->>>>>>> fafe196c989f202585a478295be1c2f977ee96b6
     if (response.ok) {
       const data = await response.json();
       if (data && !data.offline && (Array.isArray(data.letters) || Array.isArray(data.users))) {
@@ -496,7 +308,6 @@ const fetchCloudData = async (): Promise<{
           letters: Array.isArray(data.letters) ? data.letters : [],
           users: Array.isArray(data.users) ? data.users : [],
           offline: false,
-<<<<<<< HEAD
           statusCode: 200,
         };
       }
@@ -520,13 +331,6 @@ const fetchCloudData = async (): Promise<{
       errorType: 'NETWORK_ERROR',
       message: err?.message,
     };
-=======
-        };
-      }
-    }
-  } catch {
-    // Silent fallback to local cache
->>>>>>> fafe196c989f202585a478295be1c2f977ee96b6
   }
 
   return { letters: [], users: [], offline: true };
@@ -874,7 +678,6 @@ export default function App() {
         const result = await fetchCloudData(cloudUrl);
         if (!mounted) return;
 
-<<<<<<< HEAD
         if (result.statusCode === 403 || result.errorType === 'ACCESS_DENIED') {
           setCloudStatus('error_403');
           setCloudMessage(
@@ -886,10 +689,6 @@ export default function App() {
         if (result.offline) {
           setCloudStatus('offline');
           setCloudMessage('உள்ளூர் சேமிப்பக முறைமையில் இயங்குகிறது (Google Sheets இணைக்கப்படவில்லை - Click to connect).');
-=======
-        if (result.offline) {
-          setCloudMessage('Operating in offline local cache mode (Google Sheets sync ready).');
->>>>>>> fafe196c989f202585a478295be1c2f977ee96b6
           return;
         }
 
@@ -934,19 +733,12 @@ export default function App() {
           if (uniqueCloudUsers.length) setUsers(uniqueCloudUsers);
         }
 
-<<<<<<< HEAD
         setCloudStatus('connected');
         setCloudMessage('Google Sheets cloud database இணைக்கப்பட்டு நேரலையில் ஒத்திசைக்கப்பட்டது.');
       } catch {
         if (mounted) {
           setCloudStatus('offline');
           setCloudMessage('உள்ளூர் சேமிப்பக முறைமையில் இயங்குகிறது (Google Sheets fetch skipped).');
-=======
-        setCloudMessage('Google Sheets cloud database synced successfully.');
-      } catch {
-        if (mounted) {
-          setCloudMessage('Operating in offline local cache mode (Google Sheets fetch skipped).');
->>>>>>> fafe196c989f202585a478295be1c2f977ee96b6
         }
       } finally {
         if (mounted) setLoadingCloud(false);
@@ -959,7 +751,6 @@ export default function App() {
     };
   }, [cloudUrl]);
 
-<<<<<<< HEAD
   const cloudWrite = async (payload: CloudPayload): Promise<CloudWriteResult> => {
     const res = await sendDataToGoogleCloud(payload, cloudUrl);
     if (!res.ok) {
@@ -1060,13 +851,6 @@ export default function App() {
       setCloudMessage(`${success} கடிதங்கள் Google Sheet-இல் வெற்றிகரமாகப் பதிவேற்றப்பட்டது!`);
     }
     return { success, failed };
-=======
-  const cloudWrite = async (payload: CloudPayload) => {
-    const ok = await sendDataToGoogleCloud(payload);
-    if (!ok) setCloudMessage('Google Sheets sync warning: saved to local cache.');
-    else setCloudMessage('Google Sheets sync updated successfully.');
-    return ok;
->>>>>>> fafe196c989f202585a478295be1c2f977ee96b6
   };
 
   const handleLogout = () => {
@@ -1084,11 +868,7 @@ export default function App() {
   };
 
   // Requirement 1 & 2: Mail Officer Registration with Excel & Cloud logging
-<<<<<<< HEAD
   const handleSaveNewLetter = async (newLetter: Letter) => {
-=======
-  const handleSaveNewLetter = (newLetter: Letter) => {
->>>>>>> fafe196c989f202585a478295be1c2f977ee96b6
     const safeLetterType = String(newLetter.letterType || 'Registered Post').trim() || 'Registered Post';
     const safeRegPostNo = normalizeRegisteredPostNo(newLetter.registeredPostNo);
     const safeFileNo = String(newLetter.fileNo ?? '').trim();
@@ -1103,17 +883,12 @@ export default function App() {
       forwardedDivisions: ensureStringArray(newLetter.forwardedDivisions),
       forwardedTo: ensureStringArray(newLetter.forwardedTo),
     };
-<<<<<<< HEAD
 
     // Save locally immediately to guarantee no data loss
     setLetters((prev) => [sanitized, ...prev]);
 
     // Push to Google Sheets cloud
     const res = await cloudWrite({
-=======
-    setLetters((prev) => [sanitized, ...prev]);
-    cloudWrite({
->>>>>>> fafe196c989f202585a478295be1c2f977ee96b6
       action: 'ADD_LETTER',
       id: sanitized.id,
       originalNo: sanitized.originalNo,
@@ -1132,7 +907,6 @@ export default function App() {
       fileNo: sanitized.fileNo || '',
       extraData: sanitized,
     });
-<<<<<<< HEAD
 
     if (res.ok) {
       alert(`Mail Record (${sanitized.originalNo}) Google Sheet மற்றும் கணினியில் வெற்றிகரமாகப் பதிவு செய்யப்பட்டது!`);
@@ -1151,9 +925,6 @@ export default function App() {
         );
       }
     }
-=======
-    alert(`Mail Record (${sanitized.originalNo}) registered and synced successfully!`);
->>>>>>> fafe196c989f202585a478295be1c2f977ee96b6
   };
 
   // Update existing letter (All information editable later by Mail Officer / Super Admin)
@@ -1211,7 +982,6 @@ export default function App() {
       await sendDataToGoogleCloud({
         ...letterCloudPayload,
         action: 'DELETE_LETTER',
-<<<<<<< HEAD
       }, cloudUrl);
       const res = await sendDataToGoogleCloud({
         ...letterCloudPayload,
@@ -1228,15 +998,6 @@ export default function App() {
         setCloudStatus('connected');
         setCloudMessage('Google Sheets sync updated successfully.');
       }
-=======
-      });
-      const ok = await sendDataToGoogleCloud({
-        ...letterCloudPayload,
-        action: 'ADD_LETTER',
-      });
-      if (!ok) setCloudMessage('Google Sheets sync warning: saved to local cache.');
-      else setCloudMessage('Google Sheets sync updated successfully.');
->>>>>>> fafe196c989f202585a478295be1c2f977ee96b6
     })();
   };
 

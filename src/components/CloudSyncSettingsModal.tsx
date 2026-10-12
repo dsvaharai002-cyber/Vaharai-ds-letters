@@ -5,13 +5,9 @@ import {
   CheckCircle2,
   AlertTriangle,
   RefreshCw,
-  Copy,
   Check,
-  ExternalLink,
   X,
   UploadCloud,
-  Code2,
-  HelpCircle,
   ShieldAlert,
 } from 'lucide-react';
 import { Letter } from '../types';
@@ -36,217 +32,6 @@ interface CloudSyncSettingsModalProps {
   cloudStatus: 'connected' | 'error_403' | 'offline' | 'checking';
   cloudMessage: string;
 }
-
-export const APPS_SCRIPT_CODE = `/**
- * Vaharai Divisional Secretariat - Mail Management System
- * Google Apps Script (Code.gs)
- *
- * அறிவுறுத்தல்கள்:
- * 1. Google Sheet -> Extensions -> Apps Script திறக்கவும்.
- * 2. இக்குறியீட்டை Code.gs-ல் ஒட்டி Save செய்யவும்.
- * 3. Deploy -> New deployment -> Web app தேர்ந்தெடுக்கவும்.
- * 4. Execute as: Me
- * 5. **மிக முக்கியம்**: Who has access: Anyone (அனைவருக்கும்) என அமைக்கவும்!
- */
-
-function doGet(e) {
-  var type = (e && e.parameter && e.parameter.type) || 'get_all';
-  
-  if (type === 'ping' || type === 'test') {
-    return ContentService.createTextOutput(JSON.stringify({
-      ok: true,
-      status: 'connected',
-      message: 'Vaharai DS Mail System API connected successfully!'
-    })).setMimeType(ContentService.MimeType.JSON);
-  }
-  
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var lettersSheet = getOrCreateSheet(ss, 'Letters', getLetterHeaders());
-  var usersSheet = getOrCreateSheet(ss, 'Users', getUserHeaders());
-  
-  var lettersData = lettersSheet.getDataRange().getValues();
-  var usersData = usersSheet.getDataRange().getValues();
-  
-  return ContentService.createTextOutput(JSON.stringify({
-    ok: true,
-    letters: lettersData,
-    users: usersData
-  })).setMimeType(ContentService.MimeType.JSON);
-}
-
-function doPost(e) {
-  try {
-    var raw = e.postData ? e.postData.contents : '';
-    var data = {};
-    try {
-      data = JSON.parse(raw);
-    } catch(err) {
-      data = {};
-    }
-    
-    var action = data.action || '';
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
-    
-    if (action === 'ADD_LETTER') {
-      var sheet = getOrCreateSheet(ss, 'Letters', getLetterHeaders());
-      var row = letterToRow(data);
-      sheet.appendRow(row);
-      SpreadsheetApp.flush();
-      return jsonResponse({ ok: true, action: action, id: data.id || '' });
-    }
-    
-    if (action === 'UPDATE_LETTER') {
-      var sheet = getOrCreateSheet(ss, 'Letters', getLetterHeaders());
-      var id = String(data.id || '').trim();
-      var originalNo = String(data.originalNo || '').trim();
-      var values = sheet.getDataRange().getValues();
-      var rowIndex = -1;
-      
-      for (var i = 1; i < values.length; i++) {
-        if ((id && String(values[i][0]).trim() === id) || (originalNo && String(values[i][1]).trim() === originalNo)) {
-          rowIndex = i + 1;
-          break;
-        }
-      }
-      
-      var row = letterToRow(data);
-      if (rowIndex > 0) {
-        sheet.getRange(rowIndex, 1, 1, row.length).setValues([row]);
-      } else {
-        sheet.appendRow(row);
-      }
-      SpreadsheetApp.flush();
-      return jsonResponse({ ok: true, action: action, id: id });
-    }
-
-    if (action === 'DELETE_LETTER') {
-      var sheet = getOrCreateSheet(ss, 'Letters', getLetterHeaders());
-      var id = String(data.id || '').trim();
-      var values = sheet.getDataRange().getValues();
-      for (var i = 1; i < values.length; i++) {
-        if (id && String(values[i][0]).trim() === id) {
-          sheet.deleteRow(i + 1);
-          break;
-        }
-      }
-      SpreadsheetApp.flush();
-      return jsonResponse({ ok: true, action: action, id: id });
-    }
-    
-    if (action === 'ADD_USER' || action === 'UPDATE_USER') {
-      var sheet = getOrCreateSheet(ss, 'Users', getUserHeaders());
-      var uid = String(data.User_ID || data.id || '').trim().toLowerCase();
-      var values = sheet.getDataRange().getValues();
-      var rowIndex = -1;
-      for (var u = 1; u < values.length; u++) {
-        if (String(values[u][0]).trim().toLowerCase() === uid) {
-          rowIndex = u + 1;
-          break;
-        }
-      }
-      var userRow = userToRow(data);
-      if (rowIndex > 0 && action === 'UPDATE_USER') {
-        sheet.getRange(rowIndex, 1, 1, userRow.length).setValues([userRow]);
-      } else {
-        sheet.appendRow(userRow);
-      }
-      SpreadsheetApp.flush();
-      return jsonResponse({ ok: true, action: action, User_ID: uid });
-    }
-    
-    if (action === 'DELETE_USER') {
-      var sheet = getOrCreateSheet(ss, 'Users', getUserHeaders());
-      var uid = String(data.User_ID || data.id || '').trim().toLowerCase();
-      var values = sheet.getDataRange().getValues();
-      for (var d = 1; d < values.length; d++) {
-        if (String(values[d][0]).trim().toLowerCase() === uid) {
-          sheet.deleteRow(d + 1);
-          break;
-        }
-      }
-      SpreadsheetApp.flush();
-      return jsonResponse({ ok: true, action: action });
-    }
-    
-    return jsonResponse({ ok: true, note: 'Processed' });
-  } catch(error) {
-    return jsonResponse({ ok: false, error: error.toString() });
-  }
-}
-
-function letterToRow(d) {
-  var extra = d.extraData || {};
-  var fwdDivs = d.forwardedDivisions || extra.forwardedDivisions || [];
-  var fwdTo = d.forwardedTo || extra.forwardedTo || [];
-  return [
-    String(d.id || extra.id || ''),
-    String(d.originalNo || extra.originalNo || ''),
-    String(d.date || extra.date || ''),
-    String(d.dispatchedDate || extra.dispatchedDate || d.date || ''),
-    String(d.letterType || extra.letterType || 'Registered Post'),
-    String(d.registeredPostNo || extra.registeredPostNo || 'No'),
-    String(d.inwardNo || extra.inwardNo || ''),
-    String(d.fromWhom || extra.fromWhom || ''),
-    String(d.subject || extra.subject || ''),
-    String(d.division || extra.division || ''),
-    Array.isArray(fwdDivs) ? fwdDivs.join(', ') : String(fwdDivs),
-    Array.isArray(fwdTo) ? fwdTo.join(', ') : String(fwdTo),
-    String(d.actionStatus || d.action || extra.action || 'Not Yet Viewed'),
-    String(d.replyResponse || extra.replyResponse || ''),
-    String(d.fileNo || extra.fileNo || ''),
-    JSON.stringify(extra)
-  ];
-}
-
-function userToRow(u) {
-  var extra = u.extraData || {};
-  var divs = u.assignedDivisions || extra.assignedDivisions || [];
-  var offs = u.assignedOfficers || extra.assignedOfficers || [];
-  return [
-    String(u.User_ID || u.id || ''),
-    String(u.Password || ''),
-    String(u.Name || ''),
-    String(u.Role || 'User'),
-    String(u.Division || ''),
-    String(u.Status || 'Active'),
-    Array.isArray(divs) ? divs.join(', ') : String(divs),
-    Array.isArray(offs) ? offs.join(', ') : String(offs),
-    JSON.stringify(extra)
-  ];
-}
-
-function getLetterHeaders() {
-  return [
-    'ID', 'OriginalNo', 'Date', 'DispatchedDate', 'Post Type',
-    'RegisteredPostNo', 'InwardNo', 'FromWhom', 'Subject',
-    'Division', 'ForwardedDivisions', 'ForwardedTo', 'ActionStatus',
-    'ReplyResponse', 'FileNo', 'ExtraData'
-  ];
-}
-
-function getUserHeaders() {
-  return [
-    'User_ID', 'Password', 'Name', 'Role', 'Division',
-    'Status', 'AssignedDivisions', 'AssignedOfficers', 'ExtraData'
-  ];
-}
-
-function getOrCreateSheet(ss, name, headers) {
-  var sheet = ss.getSheetByName(name);
-  if (!sheet) {
-    sheet = ss.insertSheet(name);
-    if (headers && headers.length) {
-      sheet.appendRow(headers);
-      sheet.setFrozenRows(1);
-    }
-  }
-  return sheet;
-}
-
-function jsonResponse(obj) {
-  return ContentService.createTextOutput(JSON.stringify(obj))
-    .setMimeType(ContentService.MimeType.JSON);
-}`;
 
 export const CloudSyncSettingsModal: React.FC<CloudSyncSettingsModalProps> = ({
   isOpen,
@@ -273,8 +58,6 @@ export const CloudSyncSettingsModal: React.FC<CloudSyncSettingsModalProps> = ({
   const [isSyncingAll, setIsSyncingAll] = useState(false);
   const [syncProgress, setSyncProgress] = useState<{ done: number; total: number } | null>(null);
   const [syncSummary, setSyncSummary] = useState<{ success: number; failed: number } | null>(null);
-  const [copiedScript, setCopiedScript] = useState(false);
-  const [showScriptGuide, setShowScriptGuide] = useState(false);
 
   if (!isOpen) return null;
 
@@ -302,12 +85,6 @@ export const CloudSyncSettingsModal: React.FC<CloudSyncSettingsModalProps> = ({
     } finally {
       setIsSaving(false);
     }
-  };
-
-  const handleCopyScript = () => {
-    navigator.clipboard.writeText(APPS_SCRIPT_CODE);
-    setCopiedScript(true);
-    setTimeout(() => setCopiedScript(false), 2500);
   };
 
   const handleBatchSync = async () => {
@@ -554,48 +331,7 @@ export const CloudSyncSettingsModal: React.FC<CloudSyncSettingsModalProps> = ({
             )}
           </div>
 
-          {/* Collapsible: Google Apps Script Code & Step-by-Step Setup */}
-          <div className="rounded-xl border border-slate-200 bg-white overflow-hidden">
-            <button
-              type="button"
-              onClick={() => setShowScriptGuide((prev) => !prev)}
-              className="w-full flex items-center justify-between px-4 py-3 bg-slate-50 hover:bg-slate-100 transition text-left text-xs font-bold text-slate-800"
-            >
-              <div className="flex items-center gap-2">
-                <Code2 className="h-4 w-4 text-purple-600" />
-                <span>Google Apps Script (Code.gs) முழுமையான குறியீடு & அமைக்கும் முறை</span>
-              </div>
-              <span className="text-blue-600 font-medium">
-                {showScriptGuide ? 'மறைக்க (Hide)' : 'காட்டுக (View Code)'}
-              </span>
-            </button>
 
-            {showScriptGuide && (
-              <div className="p-4 border-t border-slate-200 space-y-3 bg-slate-50/50">
-                <div className="flex items-center justify-between">
-                  <p className="text-xs text-slate-600">
-                    புதிய Google Sheet உருவாக்கி, Apps Script-இல் ஒட்டுவதற்கான முழுமையான குறியீடு:
-                  </p>
-                  <button
-                    type="button"
-                    onClick={handleCopyScript}
-                    className="flex items-center gap-1.5 rounded-lg bg-slate-800 px-3 py-1.5 text-[11px] font-bold text-white hover:bg-slate-700 transition"
-                  >
-                    {copiedScript ? (
-                      <Check className="h-3.5 w-3.5 text-emerald-400" />
-                    ) : (
-                      <Copy className="h-3.5 w-3.5" />
-                    )}
-                    <span>{copiedScript ? 'நகலெடுக்கப்பட்டது!' : 'குறியீட்டை நகலெடு (Copy Code)'}</span>
-                  </button>
-                </div>
-
-                <pre className="max-h-60 overflow-y-auto rounded-lg bg-slate-900 p-3 font-mono text-[11px] text-emerald-400 border border-slate-800">
-                  {APPS_SCRIPT_CODE}
-                </pre>
-              </div>
-            )}
-          </div>
         </div>
 
         {/* Modal Footer */}
