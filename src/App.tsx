@@ -438,7 +438,7 @@ const findExtraData = (row: any[]): Record<string, any> => {
 };
 
 /**
- * Google Sheet Letters columns schema:
+ * Official Google Sheet Letters columns schema (15 columns):
  * 0: ID
  * 1: OriginalNo
  * 2: Date
@@ -450,102 +450,132 @@ const findExtraData = (row: any[]): Record<string, any> => {
  * 8: Subject
  * 9: Division
  * 10: ForwardedDivisions
- * 11: ForwardedTo
- * 12: ActionStatus
+ * 11: ActionStatus
+ * 12: ForwardedTo
  * 13: ReplyResponse
- * 14: ExtraData (or FileNo)
- * 15: FileNo (or ExtraData)
- *
- * Also detects and auto-heals rows where columns 5..14 shifted left by 1 column
- * (e.g. if RegisteredPostNo was skipped during an older sheet update).
+ * 14: ExtraData (JSON backup)
  */
 const normalizeLetter = (row: any[]): Letter => {
   const extra = findExtraData(row);
+  const hasValidExtra = Boolean(
+    extra &&
+      (extra.originalNo || extra.id) &&
+      (extra.subject || extra.fromWhom || extra.division)
+  );
 
-  const row13IsJson = typeof row[13] === 'string' && row[13].trim().startsWith('{');
-  const row12IsJson = typeof row[12] === 'string' && row[12].trim().startsWith('{');
+  const rowId = String(row[0] ?? extra.id ?? `LTR-${Date.now()}`);
+  const rowOrigNo = String(row[1] ?? extra.originalNo ?? '');
+  const rowDate = normalizeDateStr(row[2] ?? extra.date ?? '');
+  const rowDispDate = normalizeDateStr(row[3] ?? extra.dispatchedDate ?? rowDate);
 
-  // Detect if columns starting at index 5 (RegisteredPostNo) shifted 1 position left
-  const isShiftedLeftAt5 =
-    row13IsJson || (isKnownActionValue(row[11]) && !isKnownActionValue(row[12]));
+  // Column 4: Post Type
+  const rawPostType = String(
+    row[4] || extra.letterType || extra.postType || 'Normal Post'
+  ).trim();
+  const letterType = rawPostType || 'Normal Post';
 
-  const colPostType = row[4];
-  const colRegPostNo = isShiftedLeftAt5 ? undefined : row[5];
-  const colInwardNo = isShiftedLeftAt5 ? row[5] : row[6];
-  const colFromWhom = isShiftedLeftAt5 ? row[6] : row[7];
-  const colSubject = isShiftedLeftAt5 ? row[7] : row[8];
-  const colDivision = isShiftedLeftAt5 ? row[8] : row[9];
-  const colForwardedDivs = isShiftedLeftAt5 ? row[9] : row[10];
-  const colForwardedTo = isShiftedLeftAt5 ? row[10] : row[11];
-  const colActionStatus = isShiftedLeftAt5 ? row[11] : row[12];
-  const colReplyResponse = isShiftedLeftAt5
-    ? row12IsJson
-      ? ''
-      : row[12]
-    : row13IsJson
-    ? ''
-    : row[13];
+  // Column 5: Registered Post No
+  const rawRegPostNo = normalizeRegisteredPostNo(
+    row[5] !== undefined && row[5] !== ''
+      ? row[5]
+      : (extra.registeredPostNo ?? extra.RegisteredPostNo)
+  );
 
-  const rawForwardedDivs =
-    extra.forwardedDivisions !== undefined ? extra.forwardedDivisions : colForwardedDivs;
-  let parsedForwardedDivisions = ensureStringArray(rawForwardedDivs)
+  // Column 6: Inward No
+  const rawInwardNo = String(
+    hasValidExtra && extra.inwardNo !== undefined
+      ? extra.inwardNo
+      : (row[6] !== undefined && row[6] !== '' ? row[6] : (extra.inwardNo ?? ''))
+  ).trim();
+
+  // Column 7: From Whom
+  const rawFromWhom = String(
+    hasValidExtra && extra.fromWhom !== undefined
+      ? extra.fromWhom
+      : (row[7] !== undefined && row[7] !== '' ? row[7] : (extra.fromWhom ?? ''))
+  ).trim();
+
+  // Column 8: Subject
+  const rawSubject = String(
+    hasValidExtra && extra.subject !== undefined
+      ? extra.subject
+      : (row[8] !== undefined && row[8] !== '' ? row[8] : (extra.subject ?? ''))
+  ).trim();
+
+  // Column 9: Division
+  const rawDivision = migrateDivision(
+    String(
+      hasValidExtra && extra.division
+        ? extra.division
+        : (row[9] !== undefined && row[9] !== '' ? row[9] : (extra.division ?? ''))
+    )
+  );
+
+  // Column 10: Forwarded Divisions
+  const rawFwdDivs =
+    row[10] !== undefined && row[10] !== '' && !isKnownActionValue(row[10])
+      ? row[10]
+      : (extra.forwardedDivisions !== undefined ? extra.forwardedDivisions : '');
+  let parsedForwardedDivisions = ensureStringArray(rawFwdDivs)
     .map(migrateDivision)
     .filter(Boolean);
 
-  const rawForwardedTo =
-    extra.forwardedTo !== undefined ? extra.forwardedTo : colForwardedTo;
-  const parsedForwardedTo = ensureStringArray(rawForwardedTo);
-
-  const primaryDiv = migrateDivision(String(extra.division ?? colDivision ?? ''));
-  if (parsedForwardedDivisions.length === 0 && primaryDiv) {
-    parsedForwardedDivisions = [primaryDiv];
+  if (parsedForwardedDivisions.length === 0 && rawDivision) {
+    parsedForwardedDivisions = [rawDivision];
   }
 
-  const dateVal = normalizeDateStr(extra.date ?? row[2] ?? '');
-  const dispatchedVal = normalizeDateStr(extra.dispatchedDate ?? row[3] ?? dateVal);
-
-  // Determine ActionStatus safely: prefer valid known action from column or extraData
-  const extraActionCandidate = extra.action || extra.actionStatus || extra.ActionStatus;
+  // Column 11: Action Status (Primary position in Google Sheet)
   let resolvedAction: LetterAction = 'Not Yet Viewed';
-  if (isKnownActionValue(extraActionCandidate) && isShiftedLeftAt5) {
-    resolvedAction = normalizeAction(extraActionCandidate);
-  } else if (isKnownActionValue(colActionStatus)) {
-    resolvedAction = normalizeAction(colActionStatus);
-  } else if (isKnownActionValue(extraActionCandidate)) {
-    resolvedAction = normalizeAction(extraActionCandidate);
+  if (isKnownActionValue(row[11])) {
+    resolvedAction = normalizeAction(row[11]);
+  } else if (isKnownActionValue(extra.action || extra.actionStatus || extra.ActionStatus)) {
+    resolvedAction = normalizeAction(extra.action || extra.actionStatus || extra.ActionStatus);
+  } else if (isKnownActionValue(row[10])) {
+    // Gracefully handle legacy rows where an older script put action into Column 10
+    resolvedAction = normalizeAction(row[10]);
   } else {
-    resolvedAction = normalizeAction(colActionStatus || extraActionCandidate || 'Not Yet Viewed');
+    resolvedAction = normalizeAction(extra.action || extra.actionStatus || 'Not Yet Viewed');
   }
 
-  // Extract FileNo from extraData or dedicated sheet column (index 14 or 15 if non-JSON)
+  // Column 12: Forwarded To
+  const rawFwdTo =
+    row[12] !== undefined && row[12] !== '' && !String(row[12]).trim().startsWith('{')
+      ? row[12]
+      : (extra.forwardedTo !== undefined ? extra.forwardedTo : []);
+  const parsedForwardedTo = ensureStringArray(rawFwdTo);
+
+  // Column 13: Reply / Response
+  const colReplyResponse =
+    row[13] !== undefined && !String(row[13]).trim().startsWith('{')
+      ? String(row[13])
+      : String(extra.replyResponse ?? extra.ReplyResponse ?? '');
+
+  // Column 14 / 15: File No
   const sheetFileNoCol =
     row[15] && !String(row[15]).trim().startsWith('{')
       ? row[15]
       : row[14] && !String(row[14]).trim().startsWith('{')
       ? row[14]
       : '';
+  const resolvedFileNo = String(extra.fileNo ?? extra.FileNo ?? sheetFileNoCol ?? '').trim();
 
   return {
     ...extra,
-    id: String(extra.id ?? row[0] ?? `LTR-${Date.now()}`),
-    originalNo: String(extra.originalNo ?? row[1] ?? ''),
-    date: dateVal,
-    dispatchedDate: dispatchedVal,
-    letterType: String(extra.letterType ?? colPostType ?? 'Registered Post').trim() || 'Registered Post',
-    registeredPostNo: normalizeRegisteredPostNo(
-      extra.registeredPostNo ?? extra.RegisteredPostNo ?? colRegPostNo
-    ),
-    inwardNo: String(extra.inwardNo ?? colInwardNo ?? ''),
-    fromWhom: String(extra.fromWhom ?? colFromWhom ?? ''),
-    subject: String(extra.subject ?? colSubject ?? ''),
-    division: primaryDiv,
+    id: rowId,
+    originalNo: rowOrigNo,
+    date: rowDate,
+    dispatchedDate: rowDispDate,
+    letterType: letterType,
+    registeredPostNo: rawRegPostNo,
+    inwardNo: rawInwardNo,
+    fromWhom: rawFromWhom,
+    subject: rawSubject,
+    division: rawDivision,
     forwardedDivisions: parsedForwardedDivisions,
     forwardedTo: parsedForwardedTo,
     action: resolvedAction,
-    replyResponse: String(
-      extra.replyResponse ?? extra.ReplyResponse ?? colReplyResponse ?? ''
-    ),
-    fileNo: String(extra.fileNo ?? extra.FileNo ?? sheetFileNoCol ?? '').trim(),
+    replyResponse: colReplyResponse,
+    fileNo: resolvedFileNo,
     registeredBy: String(extra.registeredBy ?? 'mail01'),
     registeredByName: String(extra.registeredByName ?? 'Mail Officer (கடித பதிவாளர்)'),
     createdAt: String(extra.createdAt ?? ''),
@@ -1111,28 +1141,25 @@ export default function App() {
       extraData: sanitized,
     };
 
-    // To prevent the Google Apps Script UPDATE_LETTER handler from shifting columns left
-    // at RegisteredPostNo, we first delete the old row by ID and then write the full
-    // 15-column aligned row via ADD_LETTER (where RegisteredPostNo is always filled, e.g. 'No').
+    // Send single in-place update (fast, non-blocking, and preserves row order)
     void (async () => {
-      await sendDataToGoogleCloud({
-        ...letterCloudPayload,
-        action: 'DELETE_LETTER',
-      }, cloudUrl);
-      const res = await sendDataToGoogleCloud({
-        ...letterCloudPayload,
-        action: 'ADD_LETTER',
-      }, cloudUrl);
+      const res = await sendDataToGoogleCloud(
+        {
+          ...letterCloudPayload,
+          action: 'UPDATE_LETTER',
+        },
+        cloudUrl
+      );
       if (!res.ok) {
         if (res.statusCode === 403 || res.errorType === 'ACCESS_DENIED') {
           setCloudStatus('error_403');
           setCloudMessage('Google Sheets அனுமதி பிழை (403 Forbidden): "Who has access: Anyone" என மாற்ற வேண்டும்.');
         } else {
-          setCloudMessage('Google Sheets sync warning: saved to local cache.');
+          setCloudMessage(`Google Sheets எச்சரிக்கை: ${res.message || 'கணினியில் சேமிக்கப்பட்டது.'}`);
         }
       } else {
         setCloudStatus('connected');
-        setCloudMessage('Google Sheets sync updated successfully.');
+        setCloudMessage('Google Sheets நேரலையில் வெற்றிகரமாகப் புதுப்பிக்கப்பட்டது.');
       }
     })();
   };

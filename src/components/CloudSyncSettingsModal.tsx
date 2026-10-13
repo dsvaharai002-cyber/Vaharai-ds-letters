@@ -9,8 +9,13 @@ import {
   X,
   UploadCloud,
   ShieldAlert,
+  Copy,
+  Code,
+  ChevronDown,
+  ChevronUp,
 } from 'lucide-react';
 import { Letter } from '../types';
+import { OFFICIAL_APPS_SCRIPT_CODE } from '../data/appsScriptCode';
 
 interface CloudSyncSettingsModalProps {
   isOpen: boolean;
@@ -58,6 +63,14 @@ export const CloudSyncSettingsModal: React.FC<CloudSyncSettingsModalProps> = ({
   const [isSyncingAll, setIsSyncingAll] = useState(false);
   const [syncProgress, setSyncProgress] = useState<{ done: number; total: number } | null>(null);
   const [syncSummary, setSyncSummary] = useState<{ success: number; failed: number } | null>(null);
+  const [copiedScript, setCopiedScript] = useState(false);
+  const [showScriptCode, setShowScriptCode] = useState(false);
+
+  const handleCopyScript = () => {
+    navigator.clipboard.writeText(OFFICIAL_APPS_SCRIPT_CODE);
+    setCopiedScript(true);
+    setTimeout(() => setCopiedScript(false), 3000);
+  };
 
   if (!isOpen) return null;
 
@@ -281,6 +294,60 @@ export const CloudSyncSettingsModal: React.FC<CloudSyncSettingsModalProps> = ({
                     சீட்டில் தற்போதுள்ள கடிதங்களின் எண்ணிக்கை: {testResult.letterCount}
                   </p>
                 )}
+              </div>
+            )}
+          </div>
+
+          {/* Official Google Apps Script (15-Columns Aligned Fix) */}
+          <div className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-4 space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h3 className="font-bold text-slate-900 text-xs sm:text-sm flex items-center gap-2">
+                  <Code className="h-4 w-4 text-indigo-600" />
+                  <span>Google Apps Script புதிய குறியீடு (15-Columns Aligned Code)</span>
+                </h3>
+                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                  action நிலை மாற்றும்போது தரவுகள் முன்னைய கொலத்திற்கு நகர்வதைத் தடுத்து, நேரலையாக குறித்த இடத்தில் விரைவாகப் பதிய உதவும் அதிகாரப்பூர்வ Apps Script குறியீடு.
+                </p>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <button
+                  type="button"
+                  onClick={handleCopyScript}
+                  className="flex items-center gap-1.5 rounded-lg bg-indigo-600 px-3.5 py-2 text-xs font-bold text-white hover:bg-indigo-700 transition shadow-xs"
+                >
+                  {copiedScript ? (
+                    <Check className="h-3.5 w-3.5 text-emerald-200" />
+                  ) : (
+                    <Copy className="h-3.5 w-3.5" />
+                  )}
+                  <span>{copiedScript ? 'நகலெடுக்கப்பட்டது!' : 'குறியீட்டை நகலெடு (Copy Code)'}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowScriptCode(!showScriptCode)}
+                  className="flex items-center gap-1 rounded-lg border border-indigo-300 bg-white px-2.5 py-2 text-xs font-semibold text-indigo-700 hover:bg-indigo-50 transition"
+                  title="குறியீட்டைப் பார்"
+                >
+                  {showScriptCode ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                </button>
+              </div>
+            </div>
+
+            <div className="rounded-lg bg-white p-3 border border-indigo-100 text-xs text-slate-700 space-y-2">
+              <p className="font-bold text-slate-900">
+                சீட்டில் கொலங்கள் நகர்வதை நிரந்தரமாக சரிசெய்ய 3 எளிய வழிமுறைகள்:
+              </p>
+              <ol className="list-decimal pl-5 space-y-1 text-slate-600">
+                <li>உங்கள் <strong>Google Sheet</strong>-இல் சென்று <strong>Extensions &gt; Apps Script</strong> என்பதைத் திறக்கவும்.</li>
+                <li>அங்குள்ள பழைய குறியீடுகளை நீக்கிவிட்டு, மேலே உள்ள <strong>&quot;குறியீட்டை நகலெடு (Copy Code)&quot;</strong> பொத்தானை அழுத்திப் பெற்று ஒட்டவும் (Paste).</li>
+                <li><strong>Deploy &gt; Manage deployments</strong> சென்று, <strong>Edit</strong> செய்து <strong>Version: New version</strong> எனத் தெரிவுசெய்து <strong>Deploy</strong> செய்யவும்.</li>
+              </ol>
+            </div>
+
+            {showScriptCode && (
+              <div className="rounded-lg border border-slate-300 bg-slate-900 p-3 text-slate-100 font-mono text-[11px] max-h-56 overflow-y-auto leading-relaxed">
+                <pre className="whitespace-pre-wrap">{OFFICIAL_APPS_SCRIPT_CODE}</pre>
               </div>
             )}
           </div>
