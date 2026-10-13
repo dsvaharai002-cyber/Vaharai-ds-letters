@@ -34,6 +34,11 @@ interface CloudSyncSettingsModalProps {
     success: number;
     failed: number;
   }>;
+  onRepairShiftedRows?: () => Promise<{
+    ok: boolean;
+    message?: string;
+    fixedCount?: number;
+  }>;
   cloudStatus: 'connected' | 'error_403' | 'offline' | 'checking';
   cloudMessage: string;
 }
@@ -46,6 +51,7 @@ export const CloudSyncSettingsModal: React.FC<CloudSyncSettingsModalProps> = ({
   onTestConnection,
   letters,
   onSyncAllLetters,
+  onRepairShiftedRows,
   cloudStatus,
   cloudMessage,
 }) => {
@@ -63,8 +69,28 @@ export const CloudSyncSettingsModal: React.FC<CloudSyncSettingsModalProps> = ({
   const [isSyncingAll, setIsSyncingAll] = useState(false);
   const [syncProgress, setSyncProgress] = useState<{ done: number; total: number } | null>(null);
   const [syncSummary, setSyncSummary] = useState<{ success: number; failed: number } | null>(null);
+  const [isRepairing, setIsRepairing] = useState(false);
+  const [repairResult, setRepairResult] = useState<string | null>(null);
   const [copiedScript, setCopiedScript] = useState(false);
   const [showScriptCode, setShowScriptCode] = useState(false);
+
+  const handleRepairRows = async () => {
+    if (!onRepairShiftedRows) return;
+    setIsRepairing(true);
+    setRepairResult(null);
+    try {
+      const res = await onRepairShiftedRows();
+      if (res.ok) {
+        setRepairResult(`✓ சீட்டில் நகர்ந்த வரிகள் வெற்றிகரமாக சீரமைக்கப்பட்டது! (${res.fixedCount ?? 0} வரிகள் திருத்தப்பட்டது)`);
+      } else {
+        setRepairResult(`எச்சரிக்கை: ${res.message || 'Apps Script புதிய பதிப்பு Deploy செய்யப்பட்ட பின் இதை இயக்கவும்.'}`);
+      }
+    } catch (err: any) {
+      setRepairResult(`பிழை: ${err?.message || 'Repair failed'}`);
+    } finally {
+      setIsRepairing(false);
+    }
+  };
 
   const handleCopyScript = () => {
     navigator.clipboard.writeText(OFFICIAL_APPS_SCRIPT_CODE);
@@ -334,15 +360,45 @@ export const CloudSyncSettingsModal: React.FC<CloudSyncSettingsModalProps> = ({
               </div>
             </div>
 
-            <div className="rounded-lg bg-white p-3 border border-indigo-100 text-xs text-slate-700 space-y-2">
-              <p className="font-bold text-slate-900">
-                சீட்டில் கொலங்கள் நகர்வதை நிரந்தரமாக சரிசெய்ய 3 எளிய வழிமுறைகள்:
+            <div className="rounded-lg bg-white p-3 border border-indigo-100 text-xs text-slate-700 space-y-2.5">
+              <p className="font-bold text-slate-900 flex items-center gap-1.5">
+                <span className="text-amber-600">⚠️</span>
+                <span>சீட்டில் கொலங்கள் நகர்வதை நிரந்தரமாக சரிசெய்ய 3 எளிய வழிமுறைகள்:</span>
               </p>
-              <ol className="list-decimal pl-5 space-y-1 text-slate-600">
+              <ol className="list-decimal pl-5 space-y-1 text-slate-700">
                 <li>உங்கள் <strong>Google Sheet</strong>-இல் சென்று <strong>Extensions &gt; Apps Script</strong> என்பதைத் திறக்கவும்.</li>
-                <li>அங்குள்ள பழைய குறியீடுகளை நீக்கிவிட்டு, மேலே உள்ள <strong>&quot;குறியீட்டை நகலெடு (Copy Code)&quot;</strong> பொத்தானை அழுத்திப் பெற்று ஒட்டவும் (Paste).</li>
-                <li><strong>Deploy &gt; Manage deployments</strong> சென்று, <strong>Edit</strong> செய்து <strong>Version: New version</strong> எனத் தெரிவுசெய்து <strong>Deploy</strong> செய்யவும்.</li>
+                <li>அங்குள்ள பழைய குறியீடுகளை முழுவதும் அழித்துவிட்டு, மேலே உள்ள <strong>&quot;குறியீட்டை நகலெடு (Copy Code)&quot;</strong> பொத்தானை அழுத்திப் பெற்று ஒட்டவும் (Paste).</li>
+                <li>
+                  <strong className="text-indigo-800">மிக முக்கியம்:</strong> மேல் வலதுபுறம் உள்ள <strong>Deploy &gt; Manage deployments</strong> சென்று, பென்சில் ஐகானை (<strong>Edit</strong>) கிளிக் செய்து, <strong>Version</strong> என்பதில் <strong className="text-red-700 underline">&quot;New version&quot; (புதிய பதிப்பு)</strong> எனத் தெரிவுசெய்து <strong>Deploy</strong> செய்யவும்! (புதிய version தெரிவு செய்யாவிட்டால் பழைய ஸ்கிரிப்டே இயங்கும்).
+                </li>
               </ol>
+
+              {onRepairShiftedRows && (
+                <div className="pt-2 border-t border-indigo-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <span className="text-[11px] text-slate-600">
+                    சீட்டில் ஏற்கெனவே நகர்ந்துள்ள Action Status வரிகளை தானாக நேராக்க:
+                  </span>
+                  <button
+                    type="button"
+                    onClick={handleRepairRows}
+                    disabled={isRepairing}
+                    className="inline-flex items-center gap-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 text-xs font-bold transition shadow-xs shrink-0 disabled:opacity-50"
+                  >
+                    {isRepairing ? (
+                      <RefreshCw className="h-3.5 w-3.5 animate-spin" />
+                    ) : (
+                      <Check className="h-3.5 w-3.5" />
+                    )}
+                    <span>சீட்டில் நகர்ந்த வரிகளை சீரமைக்க (Fix Shifted Rows)</span>
+                  </button>
+                </div>
+              )}
+
+              {repairResult && (
+                <div className="p-2 rounded bg-indigo-50 border border-indigo-200 text-xs font-semibold text-indigo-900 mt-1">
+                  {repairResult}
+                </div>
+              )}
             </div>
 
             {showScriptCode && (

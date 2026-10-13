@@ -511,9 +511,17 @@ const normalizeLetter = (row: any[]): Letter => {
     )
   );
 
-  // Column 10: Forwarded Divisions
+  // Column 10 (Index 10) is ForwardedDivisions, Column 11 (Index 11) is ActionStatus
+  const col10Val = row[10] !== undefined ? String(row[10]).trim() : '';
+  const col11Val = row[11] !== undefined ? String(row[11]).trim() : '';
+  const isCol10Action = isKnownActionValue(col10Val);
+  const isCol11Action = isKnownActionValue(col11Val);
+  const extraAction = extra.action || extra.actionStatus || extra.ActionStatus;
+  const isExtraAction = isKnownActionValue(extraAction);
+
+  // Column 10: Forwarded Divisions (ensure action strings like "Action Taken" are never parsed as divisions)
   const rawFwdDivs =
-    row[10] !== undefined && row[10] !== '' && !isKnownActionValue(row[10])
+    !isCol10Action && col10Val !== ''
       ? row[10]
       : (extra.forwardedDivisions !== undefined ? extra.forwardedDivisions : '');
   let parsedForwardedDivisions = ensureStringArray(rawFwdDivs)
@@ -524,17 +532,23 @@ const normalizeLetter = (row: any[]): Letter => {
     parsedForwardedDivisions = [rawDivision];
   }
 
-  // Column 11: Action Status (Primary position in Google Sheet)
+  // Resolve Action Status with priority to active status changes (e.g. Action Taken / Under Investigation / Action Not Taken)
   let resolvedAction: LetterAction = 'Not Yet Viewed';
-  if (isKnownActionValue(row[11])) {
-    resolvedAction = normalizeAction(row[11]);
-  } else if (isKnownActionValue(extra.action || extra.actionStatus || extra.ActionStatus)) {
-    resolvedAction = normalizeAction(extra.action || extra.actionStatus || extra.ActionStatus);
-  } else if (isKnownActionValue(row[10])) {
-    // Gracefully handle legacy rows where an older script put action into Column 10
-    resolvedAction = normalizeAction(row[10]);
+  if (isCol11Action && col11Val !== 'Not Yet Viewed') {
+    resolvedAction = normalizeAction(col11Val);
+  } else if (isCol10Action && col10Val !== 'Not Yet Viewed') {
+    // If an older script mistakenly saved the action status into Column 10 (ForwardedDivisions)
+    resolvedAction = normalizeAction(col10Val);
+  } else if (isExtraAction && extraAction !== 'Not Yet Viewed') {
+    resolvedAction = normalizeAction(extraAction);
+  } else if (isCol11Action) {
+    resolvedAction = normalizeAction(col11Val);
+  } else if (isCol10Action) {
+    resolvedAction = normalizeAction(col10Val);
+  } else if (isExtraAction) {
+    resolvedAction = normalizeAction(extraAction);
   } else {
-    resolvedAction = normalizeAction(extra.action || extra.actionStatus || 'Not Yet Viewed');
+    resolvedAction = 'Not Yet Viewed';
   }
 
   // Column 12: Forwarded To
@@ -1017,6 +1031,25 @@ export default function App() {
       setCloudMessage(`${success} கடிதங்கள் Google Sheet-இல் வெற்றிகரமாகப் பதிவேற்றப்பட்டது!`);
     }
     return { success, failed };
+  };
+
+  const handleRepairShiftedRows = async () => {
+    const res = await sendDataToGoogleCloud(
+      { action: 'FIX_SHIFTED_ROWS' },
+      cloudUrl
+    );
+    if (res.ok) {
+      setCloudStatus('connected');
+      setCloudMessage('சீட்டில் நகர்ந்த Action status வரிகள் வெற்றிகரமாக சீரமைக்கப்பட்டது!');
+      void (async () => {
+        const fresh = await fetchCloudData(cloudUrl);
+        if (fresh && Array.isArray(fresh.letters) && fresh.letters.length > 1) {
+          const cloudLetters = fresh.letters.slice(1).filter((r) => r && r.length).map(normalizeLetter).filter((l) => l.originalNo || l.subject);
+          if (cloudLetters.length) setLetters(cloudLetters);
+        }
+      })();
+    }
+    return res;
   };
 
   const handleLogout = () => {
@@ -1836,6 +1869,7 @@ export default function App() {
         onTestConnection={handleTestCloudConnection}
         letters={letters}
         onSyncAllLetters={handleSyncAllLetters}
+        onRepairShiftedRows={handleRepairShiftedRows}
         cloudStatus={cloudStatus}
         cloudMessage={cloudMessage}
       />
