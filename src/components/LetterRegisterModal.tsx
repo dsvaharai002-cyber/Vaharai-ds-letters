@@ -24,6 +24,8 @@ import {
   ensureStringArray,
   normalizeAction,
   normalizeRegisteredPostNo,
+  classifySubjectCategory,
+  SUBJECT_CATEGORIES_CONFIG,
 } from '../utils/helpers';
 import { scanLetterWithAI } from '../utils/aiScanner';
 import { ForwardSelect } from './ForwardUserSelect';
@@ -873,6 +875,69 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
                     : 'border-gray-300 bg-white focus:border-blue-600'
                 }`}
               />
+
+              {/* Live Subject Classification Badge & Quick Category Prefixes */}
+              <div className="mt-1.5 flex flex-wrap items-center justify-between gap-2 text-[11px]">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-gray-500 font-medium">Dashboard Category:</span>
+                  {(() => {
+                    const cat = classifySubjectCategory(subject);
+                    const cfg = SUBJECT_CATEGORIES_CONFIG.find((c) => c.key === cat);
+                    if (!cfg) return null;
+                    return (
+                      <span
+                        className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 font-bold border ${cfg.badgeBg} ${cfg.badgeColor} ${cfg.badgeBorder}`}
+                      >
+                        {cfg.englishLabel} ({cfg.tamilLabel})
+                      </span>
+                    );
+                  })()}
+                </div>
+
+                <div className="flex items-center gap-1 text-[10px] text-gray-500">
+                  <span>Quick Prefixes:</span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      markFieldEdited('subject');
+                      setSubject((prev) => (prev.startsWith('கோரிக்கை: ') ? prev : `கோரிக்கை: ${prev}`));
+                    }}
+                    className="rounded bg-blue-50 hover:bg-blue-100 text-blue-700 px-1.5 py-0.5 border border-blue-200"
+                  >
+                    + கோரிக்கை (Request)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      markFieldEdited('subject');
+                      setSubject((prev) => (prev.startsWith('முறைப்பாடு: ') ? prev : `முறைப்பாடு: ${prev}`));
+                    }}
+                    className="rounded bg-rose-50 hover:bg-rose-100 text-rose-700 px-1.5 py-0.5 border border-rose-200"
+                  >
+                    + முறைப்பாடு (Complaint)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      markFieldEdited('subject');
+                      setSubject((prev) => (prev.startsWith('அழைப்பிதழ்: ') ? prev : `அழைப்பிதழ்: ${prev}`));
+                    }}
+                    className="rounded bg-purple-50 hover:bg-purple-100 text-purple-700 px-1.5 py-0.5 border border-purple-200"
+                  >
+                    + அழைப்பு (Invite)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      markFieldEdited('subject');
+                      setSubject((prev) => (prev.startsWith('மீள் ஞாபகமூட்டல்: ') ? prev : `மீள் ஞாபகமூட்டல்: ${prev}`));
+                    }}
+                    className="rounded bg-amber-50 hover:bg-amber-100 text-amber-700 px-1.5 py-0.5 border border-amber-200"
+                  >
+                    + நினைவூட்டல் (Reminder)
+                  </button>
+                </div>
+              </div>
             </div>
 
             {/* Row 5: Primary Division */}

@@ -1,5 +1,237 @@
 import * as XLSX from 'xlsx';
-import { Letter, User, LetterAction } from '../types';
+import { Letter, User, LetterAction, SubjectCategory } from '../types';
+
+export interface SubjectCategoryConfig {
+  key: SubjectCategory;
+  englishLabel: string;
+  tamilLabel: string;
+  shortLabel: string;
+  badgeColor: string;
+  badgeBg: string;
+  badgeBorder: string;
+  cardBg: string;
+  cardBorder: string;
+  accentBg: string;
+  accentText: string;
+  description: string;
+}
+
+export const SUBJECT_CATEGORIES_CONFIG: SubjectCategoryConfig[] = [
+  {
+    key: 'Requests & Appeals',
+    englishLabel: 'Requests & Appeals',
+    tamilLabel: 'கோரிக்கை அல்லது வேண்டுகோள்கள்',
+    shortLabel: 'Requests',
+    badgeColor: 'text-blue-800',
+    badgeBg: 'bg-blue-50',
+    badgeBorder: 'border-blue-200',
+    cardBg: 'bg-blue-50/40 hover:bg-blue-50/70',
+    cardBorder: 'border-blue-200',
+    accentBg: 'bg-blue-600',
+    accentText: 'text-blue-900',
+    description: 'Citizen requests, welfare appeals, grant applications & public petitions',
+  },
+  {
+    key: 'Complaints',
+    englishLabel: 'Complaints',
+    tamilLabel: 'முறைப்பாடுகள்',
+    shortLabel: 'Complaints',
+    badgeColor: 'text-rose-800',
+    badgeBg: 'bg-rose-50',
+    badgeBorder: 'border-rose-200',
+    cardBg: 'bg-rose-50/40 hover:bg-rose-50/70',
+    cardBorder: 'border-rose-200',
+    accentBg: 'bg-rose-600',
+    accentText: 'text-rose-900',
+    description: 'Public grievances, unauthorized encroachment disputes & formal complaints',
+  },
+  {
+    key: 'Event Invitations',
+    englishLabel: 'Event Invitations',
+    tamilLabel: 'நிகழ்வுகளுக்கான அழைப்பிதல்கள்',
+    shortLabel: 'Invitations',
+    badgeColor: 'text-purple-800',
+    badgeBg: 'bg-purple-50',
+    badgeBorder: 'border-purple-200',
+    cardBg: 'bg-purple-50/40 hover:bg-purple-50/70',
+    cardBorder: 'border-purple-200',
+    accentBg: 'bg-purple-600',
+    accentText: 'text-purple-900',
+    description: 'Ceremonies, departmental meetings, inaugurations, seminars & celebrations',
+  },
+  {
+    key: 'Reminder Letters',
+    englishLabel: 'Reminder Letters',
+    tamilLabel: 'மீள் ஞாபகமூட்டல் கடிதங்கள்',
+    shortLabel: 'Reminders',
+    badgeColor: 'text-amber-800',
+    badgeBg: 'bg-amber-50',
+    badgeBorder: 'border-amber-200',
+    cardBg: 'bg-amber-50/40 hover:bg-amber-50/70',
+    cardBorder: 'border-amber-200',
+    accentBg: 'bg-amber-500',
+    accentText: 'text-amber-900',
+    description: 'Subsequent follow-ups, urgent reminders & pending response notifications',
+  },
+  {
+    key: 'Other Official Letters',
+    englishLabel: 'Other Official Letters',
+    tamilLabel: 'ஏனைய உத்தியோகபூர்வ கடிதங்கள்',
+    shortLabel: 'General Mail',
+    badgeColor: 'text-slate-800',
+    badgeBg: 'bg-slate-100',
+    badgeBorder: 'border-slate-300',
+    cardBg: 'bg-slate-50/60 hover:bg-slate-100/60',
+    cardBorder: 'border-slate-200',
+    accentBg: 'bg-slate-600',
+    accentText: 'text-slate-900',
+    description: 'General administrative circulars, gazettes, accounts & standard correspondence',
+  },
+];
+
+/**
+ * Automatically classifies a letter into one of the 4 requested categories based on its subject:
+ * 1. Requests & Appeals (கோரிக்கை அல்லது வேண்டுகோள்கள்)
+ * 2. Complaints (முறைப்பாடுகள்)
+ * 3. Event Invitations (நிகழ்வுகளுக்கான அழைப்பிதல்கள்)
+ * 4. Reminder Letters (மீள் ஞாபகமூட்டல் கடிதங்கள்)
+ * (or 'Other Official Letters' for general correspondence)
+ */
+export const classifySubjectCategory = (subject?: string): SubjectCategory => {
+  if (!subject || typeof subject !== 'string') return 'Other Official Letters';
+  const text = subject.toLowerCase().trim();
+  if (!text) return 'Other Official Letters';
+
+  // 1. Reminder Letters (மீள் ஞாபகமூட்டல் கடிதங்கள்)
+  // Check reminders first because subjects often say "Reminder: Regarding Request ..."
+  const isReminder =
+    text.includes('reminder') ||
+    text.includes('remind') ||
+    text.includes('follow-up') ||
+    text.includes('follow up') ||
+    text.includes('followup') ||
+    text.includes('subsequent') ||
+    text.includes('pending response') ||
+    text.includes('urgent reminder') ||
+    text.includes('recollection') ||
+    text.includes('recall') ||
+    text.includes('மீள் ஞாபகமூட்டல்') ||
+    text.includes('மீள் நினைவூட்டல்') ||
+    text.includes('ஞாபகமூட்டல்') ||
+    text.includes('நினைவூட்டல்') ||
+    text.includes('நினைவூட்டு') ||
+    text.includes('தொடர் கடிதம்') ||
+    text.includes('மீள் நினைவூட்டு');
+
+  if (isReminder) return 'Reminder Letters';
+
+  // 2. Complaints (முறைப்பாடுகள்)
+  const isComplaint =
+    text.includes('complaint') ||
+    text.includes('grievance') ||
+    text.includes('dispute') ||
+    text.includes('objection') ||
+    text.includes('allegation') ||
+    text.includes('dissatisfaction') ||
+    text.includes('violation') ||
+    text.includes('illegal') ||
+    text.includes('encroachment') ||
+    text.includes('unauthorized') ||
+    text.includes('irregularity') ||
+    text.includes('misconduct') ||
+    text.includes('protest') ||
+    text.includes('petition against') ||
+    text.includes('report against') ||
+    text.includes('முறைப்பாடு') ||
+    text.includes('முறைப்பாடுகள்') ||
+    text.includes('குறைதீர்ப்பு') ||
+    text.includes('புகார்') ||
+    text.includes('ஆட்சேபனை') ||
+    text.includes('அத்துமீறல்') ||
+    text.includes('அனுமதியற்ற') ||
+    text.includes('முறைகேடு') ||
+    text.includes('எதிர்ப்பு') ||
+    text.includes('பிணக்கு');
+
+  if (isComplaint) return 'Complaints';
+
+  // 3. Event Invitations (நிகழ்வுகளுக்கான அழைப்பிதல்கள்)
+  const isInvitation =
+    text.includes('invitation') ||
+    text.includes('invite') ||
+    text.includes('event') ||
+    text.includes('ceremony') ||
+    text.includes('celebration') ||
+    text.includes('opening') ||
+    text.includes('inauguration') ||
+    text.includes('workshop') ||
+    text.includes('seminar') ||
+    text.includes('conference') ||
+    text.includes('function') ||
+    text.includes('meeting notice') ||
+    text.includes('meeting') ||
+    text.includes('annual general') ||
+    text.includes('festival') ||
+    text.includes('commemoration') ||
+    text.includes('anniversary') ||
+    text.includes('symposium') ||
+    text.includes('shramadana') ||
+    text.includes('programme') ||
+    text.includes('program') ||
+    text.includes('அழைப்பிதழ்') ||
+    text.includes('அழைப்பு') ||
+    text.includes('நிகழ்வு') ||
+    text.includes('நிகழ்வுகள்') ||
+    text.includes('விழா') ||
+    text.includes('வைபவம்') ||
+    text.includes('மாநாடு') ||
+    text.includes('கருத்தரங்கு') ||
+    text.includes('ஆரம்ப விழா') ||
+    text.includes('திறப்பு விழா') ||
+    text.includes('கூட்ட அழைப்பு') ||
+    text.includes('கூட்டம்') ||
+    text.includes('சிரமதானம்');
+
+  if (isInvitation) return 'Event Invitations';
+
+  // 4. Requests & Appeals (கோரிக்கை அல்லது வேண்டுகோள்கள்)
+  const isRequest =
+    text.includes('request') ||
+    text.includes('appeal') ||
+    text.includes('application') ||
+    text.includes('requisition') ||
+    text.includes('petition') ||
+    text.includes('plea') ||
+    text.includes('claim') ||
+    text.includes('assistance') ||
+    text.includes('subsidy') ||
+    text.includes('welfare') ||
+    text.includes('grant') ||
+    text.includes('seeking') ||
+    text.includes('apply') ||
+    text.includes('solicitation') ||
+    text.includes('tender request') ||
+    text.includes('fund allocation') ||
+    text.includes('approval for') ||
+    text.includes('permission for') ||
+    text.includes('கோரிக்கை') ||
+    text.includes('வேண்டுகோள்') ||
+    text.includes('விண்ணப்பம்') ||
+    text.includes('வேண்டுதல்') ||
+    text.includes('மனு') ||
+    text.includes('உதவி கோரி') ||
+    text.includes('கோரிக்கை') ||
+    text.includes('அனுமதி கோரி') ||
+    text.includes('கோரல்') ||
+    text.includes('கொடுப்பனவு') ||
+    text.includes('அஸ்வெசும') ||
+    text.includes('வழங்குதல்') ||
+    text.includes('ஒதுக்கீடு செய்யுமாறு');
+
+  if (isRequest) return 'Requests & Appeals';
+
+  return 'Other Official Letters';
+};
 
 /**
  * Checks whether a value is genuinely a valid Action Status string (English or Tamil),

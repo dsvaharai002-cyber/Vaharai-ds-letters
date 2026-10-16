@@ -13,6 +13,13 @@ export type LetterAction =
   | 'நடவடிக்கை எடுக்கப்படவில்லை'
   | 'கள ஆய்வில்';
 
+export type SubjectCategory =
+  | 'Requests & Appeals'
+  | 'Complaints'
+  | 'Event Invitations'
+  | 'Reminder Letters'
+  | 'Other Official Letters';
+
 export interface LetterChatMessage {
   id: string;
   letterId: string;
@@ -33,6 +40,7 @@ export interface Letter {
   inwardNo: string;
   fromWhom: string;
   subject: string;
+  subjectCategory?: SubjectCategory;
   division: string;
   forwardedDivisions?: string[]; // Multiple forwarded divisions
   forwardedTo: string[]; // User IDs

@@ -32,6 +32,8 @@ import {
   ensureStringArray,
   normalizeAction,
   normalizeRegisteredPostNo,
+  classifySubjectCategory,
+  SUBJECT_CATEGORIES_CONFIG,
 } from '../utils/helpers';
 import { scanLetterWithAI } from '../utils/aiScanner';
 import { ForwardSelect } from './ForwardUserSelect';
@@ -896,10 +898,24 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
                   </div>
 
                   <div className="col-span-full border-t border-gray-200 pt-3">
-                    <span className="font-bold text-gray-500 uppercase tracking-wider text-[10px]">
-                      Mail Subject / Title
-                    </span>
-                    <p className="mt-1 text-sm font-semibold text-gray-900 leading-relaxed">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <span className="font-bold text-gray-500 uppercase tracking-wider text-[10px]">
+                        Mail Subject / Title (கடித தலைப்பு)
+                      </span>
+                      {(() => {
+                        const cat = classifySubjectCategory(letter.subject);
+                        const catCfg = SUBJECT_CATEGORIES_CONFIG.find((c) => c.key === cat);
+                        if (!catCfg) return null;
+                        return (
+                          <span
+                            className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-[11px] font-bold border ${catCfg.badgeBg} ${catCfg.badgeColor} ${catCfg.badgeBorder}`}
+                          >
+                            {catCfg.englishLabel} ({catCfg.tamilLabel})
+                          </span>
+                        );
+                      })()}
+                    </div>
+                    <p className="mt-1.5 text-sm font-semibold text-gray-900 leading-relaxed">
                       {letter.subject}
                     </p>
                   </div>

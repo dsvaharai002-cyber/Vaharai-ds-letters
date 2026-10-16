@@ -33,9 +33,12 @@ import {
   normalizeRegisteredPostNo,
   doesLetterMatchOfficer,
   getOfficerDisplayName,
+  classifySubjectCategory,
+  SUBJECT_CATEGORIES_CONFIG,
 } from './utils/helpers';
 import { LoginScreen } from './components/LoginScreen';
 import { DivisionActionChart } from './components/DivisionActionChart';
+import { SubjectCategoryDashboard } from './components/SubjectCategoryDashboard';
 import { DateFoldersList } from './components/DateFoldersList';
 import { LetterRegisterModal } from './components/LetterRegisterModal';
 import { LetterDetailAndChatModal } from './components/LetterDetailAndChatModal';
@@ -726,6 +729,8 @@ export default function App() {
   const [actionFilter, setActionFilter] = useState<string>('All');
   const [selectedDivisionFilter, setSelectedDivisionFilter] = useState<string>('All');
   const [selectedOfficerFilter, setSelectedOfficerFilter] = useState<string>('All');
+  const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string>('All');
+  const [subjectViewMode, setSubjectViewMode] = useState<'folders' | 'categorized_boards'>('folders');
   const [loadingCloud, setLoadingCloud] = useState(false);
   const [cloudMessage, setCloudMessage] = useState('Google Sheets Cloud இணைப்பைச் சரிபார்க்கிறது...');
   const [cloudStatus, setCloudStatus] = useState<'connected' | 'error_403' | 'offline' | 'checking'>('checking');
@@ -1407,6 +1412,12 @@ export default function App() {
       if (!matchesSelectedOfficer) return false;
     }
 
+    // Subject Category Filter (Requests & Appeals, Complaints, Event Invitations, Reminder Letters)
+    if (selectedCategoryFilter !== 'All') {
+      const category = classifySubjectCategory(letter.subject);
+      if (category !== selectedCategoryFilter) return false;
+    }
+
     // Search Query (Comprehensive search by Officer Name / ID / Designation, Original No, Inward No, Subject, From, Dates, Division, Notes)
     if (!searchQuery.trim()) return true;
     const q = searchQuery.toLowerCase().trim();
@@ -1634,6 +1645,26 @@ export default function App() {
           currentStatusFilter={actionFilter}
         />
 
+        {/* Subject-Based Categorized Mail Dashboard (Requests, Complaints, Invitations, Reminders) */}
+        <SubjectCategoryDashboard
+          letters={roleFilteredLetters}
+          allUsers={users}
+          currentUser={currentUser}
+          selectedCategoryFilter={selectedCategoryFilter}
+          onSelectCategoryFilter={setSelectedCategoryFilter}
+          onSelectLetter={(ltr) => {
+            setSelectedLetter(ltr);
+            setIsLetterEditMode(false);
+          }}
+          onEditLetter={(ltr) => {
+            setSelectedLetter(ltr);
+            setIsLetterEditMode(true);
+          }}
+          onUpdateLetter={handleUpdateLetter}
+          viewMode={subjectViewMode}
+          onToggleViewMode={setSubjectViewMode}
+        />
+
         {/* Toolbar: Search, Filters, Excel Export & 10pt Print */}
         <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-xs space-y-3">
           <div className="flex flex-wrap items-center justify-between gap-3">
@@ -1661,6 +1692,24 @@ export default function App() {
 
             {/* Filter controls */}
             <div className="flex flex-wrap items-center gap-2.5">
+              {/* Subject Category Filter Dropdown */}
+              <div className="flex items-center gap-1.5 text-xs">
+                <Layers className="h-4 w-4 text-indigo-600" />
+                <span className="font-bold text-gray-700">Category:</span>
+                <select
+                  value={selectedCategoryFilter}
+                  onChange={(e) => setSelectedCategoryFilter(e.target.value)}
+                  className="rounded-lg border border-gray-300 bg-white px-2.5 py-1.5 text-xs font-semibold text-gray-800 focus:border-blue-700 focus:outline-hidden max-w-[190px] truncate"
+                >
+                  <option value="All">All Categories (அனைத்தும்)</option>
+                  <option value="Requests & Appeals">Requests & Appeals (கோரிக்கைகள்)</option>
+                  <option value="Complaints">Complaints (முறைப்பாடுகள்)</option>
+                  <option value="Event Invitations">Event Invitations (அழைப்பிதல்கள்)</option>
+                  <option value="Reminder Letters">Reminder Letters (நினைவூட்டல்கள்)</option>
+                  <option value="Other Official Letters">Other Official Letters (ஏனையவை)</option>
+                </select>
+              </div>
+
               {/* Officer Filter Dropdown */}
               <div className="flex items-center gap-1.5 text-xs">
                 <Users className="h-4 w-4 text-blue-600" />
@@ -1668,7 +1717,7 @@ export default function App() {
                 <select
                   value={selectedOfficerFilter}
                   onChange={(e) => setSelectedOfficerFilter(e.target.value)}
-                  className="rounded-lg border border-gray-300 bg-white px-2.5 py-1.5 text-xs font-semibold text-gray-800 focus:border-blue-700 focus:outline-hidden max-w-[180px] truncate"
+                  className="rounded-lg border border-gray-300 bg-white px-2.5 py-1.5 text-xs font-semibold text-gray-800 focus:border-blue-700 focus:outline-hidden max-w-[170px] truncate"
                 >
                   <option value="All">All Officers (அனைவரும்)</option>
                   {users.map((u) => (
@@ -1702,7 +1751,9 @@ export default function App() {
                   type="button"
                   onClick={() =>
                     printLandscapeReport(
-                      'Filtered Mail Register Log',
+                      selectedCategoryFilter !== 'All'
+                        ? `${selectedCategoryFilter} Mail Register Log`
+                        : 'Filtered Mail Register Log',
                       displayedLetters,
                       usersMap
                     )
@@ -1718,10 +1769,22 @@ export default function App() {
           </div>
 
           {/* Active Filter Indicators & Result Count */}
-          {(actionFilter !== 'All' || selectedOfficerFilter !== 'All' || selectedDivisionFilter !== 'All' || searchQuery.trim()) && (
+          {(actionFilter !== 'All' || selectedOfficerFilter !== 'All' || selectedDivisionFilter !== 'All' || selectedCategoryFilter !== 'All' || searchQuery.trim()) && (
             <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-gray-100 text-xs">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="font-bold text-gray-500">Active Filters:</span>
+                {selectedCategoryFilter !== 'All' && (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-indigo-100 px-2.5 py-0.5 font-bold text-indigo-900 text-[11px]">
+                    Category: {selectedCategoryFilter}
+                    <button
+                      type="button"
+                      onClick={() => setSelectedCategoryFilter('All')}
+                      className="hover:text-red-700 ml-0.5"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </span>
+                )}
                 {actionFilter !== 'All' && (
                   <span className="inline-flex items-center gap-1 rounded-full bg-blue-100 px-2.5 py-0.5 font-bold text-blue-900 text-[11px]">
                     Status: {actionFilter}
@@ -1773,6 +1836,7 @@ export default function App() {
                 <button
                   type="button"
                   onClick={() => {
+                    setSelectedCategoryFilter('All');
                     setActionFilter('All');
                     setSelectedOfficerFilter('All');
                     setSelectedDivisionFilter('All');
@@ -1791,11 +1855,16 @@ export default function App() {
           )}
         </div>
 
-        {/* Requirement 7: 5-Day Folder Structure */}
+        {/* 5-Day Folder Structure */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-bold text-gray-900 flex items-center gap-2">
               <span>📁 Date-Wise Mail Folders (5-Day Batch Navigation)</span>
+              {selectedCategoryFilter !== 'All' && (
+                <span className="rounded-md bg-indigo-100 px-2 py-0.5 text-xs font-bold text-indigo-900">
+                  Filtered by: {selectedCategoryFilter}
+                </span>
+              )}
             </h2>
             <span className="text-xs text-gray-500">
               Each folder can be expanded or printed in 10pt A4 landscape layout.

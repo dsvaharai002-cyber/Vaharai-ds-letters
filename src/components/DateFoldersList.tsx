@@ -31,6 +31,8 @@ import {
   getOfficerDisplayName,
   normalizeAction,
   normalizeRegisteredPostNo,
+  classifySubjectCategory,
+  SUBJECT_CATEGORIES_CONFIG,
 } from '../utils/helpers';
 
 interface DateFoldersListProps {
@@ -409,13 +411,28 @@ export const DateFoldersList: React.FC<DateFoldersListProps> = ({
                             {ltr.fromWhom}
                           </td>
                           <td className="py-2.5 px-3 max-w-xs">
-                            <span
-                              onClick={() => onSelectLetter(ltr)}
-                              className="font-semibold text-gray-900 hover:text-blue-700 cursor-pointer line-clamp-2"
-                              title={ltr.subject}
-                            >
-                              {ltr.subject}
-                            </span>
+                            {(() => {
+                              const cat = classifySubjectCategory(ltr.subject);
+                              const catCfg = SUBJECT_CATEGORIES_CONFIG.find((c) => c.key === cat);
+                              return (
+                                <div className="space-y-1">
+                                  {catCfg && (
+                                    <span
+                                      className={`inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-bold border ${catCfg.badgeBg} ${catCfg.badgeColor} ${catCfg.badgeBorder}`}
+                                    >
+                                      {catCfg.englishLabel}
+                                    </span>
+                                  )}
+                                  <span
+                                    onClick={() => onSelectLetter(ltr)}
+                                    className="font-semibold text-gray-900 hover:text-blue-700 cursor-pointer line-clamp-2 block"
+                                    title={ltr.subject}
+                                  >
+                                    {ltr.subject}
+                                  </span>
+                                </div>
+                              );
+                            })()}
                           </td>
                           <td className="py-2.5 px-3 text-[11px] max-w-[200px]">
                             <div
