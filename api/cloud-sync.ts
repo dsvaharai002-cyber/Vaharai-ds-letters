@@ -2,6 +2,7 @@ import type { Request, Response } from 'express';
 import path from 'path';
 import fs from 'fs';
 import { ALL_OFFICIAL_LETTERS, ALL_OFFICIAL_USERS } from '../src/data/allOfficialLetters.ts';
+import { repairLetterRecord } from '../src/utils/helpers.ts';
 
 export const DEFAULT_DRIVE_FILE_ID = '1hp1cpRYvwRPC00OscMK-s5LmsHy-KiNM';
 export const DEFAULT_WEB_APP_URL =
@@ -21,12 +22,12 @@ function loadServerStore() {
       if (trimmed && trimmed !== '{ [ ] }' && trimmed !== '{[]}' && trimmed !== '[]' && trimmed !== '{}') {
         const parsed = JSON.parse(trimmed);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          serverLetters = parsed;
+          serverLetters = parsed.map(repairLetterRecord).filter(Boolean);
           serverUsers = [...ALL_OFFICIAL_USERS];
           return;
         } else if (parsed && typeof parsed === 'object') {
           if (Array.isArray(parsed.letters) && parsed.letters.length > 0) {
-            serverLetters = parsed.letters;
+            serverLetters = parsed.letters.map(repairLetterRecord).filter(Boolean);
             serverUsers = Array.isArray(parsed.users) && parsed.users.length > 0 ? parsed.users : [...ALL_OFFICIAL_USERS];
             return;
           }
@@ -37,7 +38,7 @@ function loadServerStore() {
     console.error('[cloud-sync] Error reading server store:', err);
   }
   // Initialize with official baseline
-  serverLetters = [...ALL_OFFICIAL_LETTERS];
+  serverLetters = ALL_OFFICIAL_LETTERS.map(repairLetterRecord).filter(Boolean);
   serverUsers = [...ALL_OFFICIAL_USERS];
   saveServerStore();
 }
@@ -801,7 +802,7 @@ export default async function handler(req: Request, res: Response): Promise<void
 
         // 1. Immediately update server-side persistent store
         if (Array.isArray(req.body.letters) && req.body.letters.length > 0) {
-          serverLetters = req.body.letters;
+          serverLetters = req.body.letters.map(repairLetterRecord).filter(Boolean);
         }
         if (Array.isArray(req.body.users) && req.body.users.length > 0) {
           serverUsers = req.body.users;
@@ -816,8 +817,8 @@ export default async function handler(req: Request, res: Response): Promise<void
             body: JSON.stringify({
               action: 'SYNC_ALL_TO_DRIVE',
               driveFileId: targetDriveId,
-              letters: req.body.letters || [],
-              users: req.body.users || [],
+              letters: serverLetters,
+              users: serverUsers,
             }),
           });
 
@@ -856,7 +857,8 @@ export default async function handler(req: Request, res: Response): Promise<void
         serverLetters = serverLetters.filter(
           (l) => !(String(l.id) === ltrId || (ltrOrig && String(l.originalNo) === ltrOrig))
         );
-        serverLetters.unshift({ ...payloadLetter, id: ltrId });
+        const toAdd = repairLetterRecord({ ...payloadLetter, id: ltrId });
+        if (toAdd) serverLetters.unshift(toAdd);
         saveServerStore();
       } else if (
         (act === 'UPDATE_LETTER' || act === 'UPDATE_STATUS' || act === 'UPDATE_ACTION') &&
@@ -868,12 +870,14 @@ export default async function handler(req: Request, res: Response): Promise<void
         serverLetters = serverLetters.map((l) => {
           if ((ltrId && String(l.id) === ltrId) || (ltrOrig && String(l.originalNo) === ltrOrig)) {
             updated = true;
-            return { ...l, ...payloadLetter };
+            const healed = repairLetterRecord({ ...l, ...payloadLetter });
+            return healed || { ...l, ...payloadLetter };
           }
           return l;
         });
         if (!updated && (ltrId || ltrOrig)) {
-          serverLetters.unshift(payloadLetter);
+          const toAdd = repairLetterRecord(payloadLetter);
+          if (toAdd) serverLetters.unshift(toAdd);
         }
         saveServerStore();
       } else if (act === 'DELETE_LETTER') {

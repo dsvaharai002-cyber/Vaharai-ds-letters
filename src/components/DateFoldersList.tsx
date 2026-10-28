@@ -33,6 +33,7 @@ import {
   normalizeRegisteredPostNo,
   classifySubjectCategory,
   SUBJECT_CATEGORIES_CONFIG,
+  repairLetterRecord,
 } from '../utils/helpers';
 
 interface DateFoldersListProps {
@@ -125,9 +126,11 @@ export const DateFoldersList: React.FC<DateFoldersListProps> = ({
     alert('✓ கடித விவரங்கள் Google Sheet இல் உடனே மாற்றப்பட்டு பதிவாகியது!');
   };
 
-  // Group letters by registration date
+  // Group valid letters by registration date (filtering out dummy records and ensuring proper column alignment)
   const groupedByDate: Record<string, Letter[]> = {};
-  letters.forEach((l) => {
+  letters.forEach((raw) => {
+    const l = repairLetterRecord(raw);
+    if (!l || !l.originalNo || l.originalNo === '-' || l.subject === 'General') return;
     const d = l.date || 'Undated';
     if (!groupedByDate[d]) groupedByDate[d] = [];
     groupedByDate[d].push(l);
@@ -398,11 +401,20 @@ export const DateFoldersList: React.FC<DateFoldersListProps> = ({
                           </td>
                           <td className="py-2.5 px-3 whitespace-nowrap">
                             <span className="rounded bg-slate-100 px-2 py-0.5 font-medium text-slate-800 text-[11px] block w-fit">
-                              {ltr.letterType || 'Registered Post'}
+                              {ltr.letterType || 'Normal Post'}
                             </span>
-                            <div className="font-mono text-[10px] text-blue-700 mt-0.5">
-                              Reg: {normalizeRegisteredPostNo(ltr.registeredPostNo)}
-                            </div>
+                            {ltr.letterType === 'Registered Post' &&
+                            ltr.registeredPostNo &&
+                            ltr.registeredPostNo !== 'No' &&
+                            ltr.registeredPostNo !== '-' ? (
+                              <div className="font-mono text-[10px] text-blue-700 mt-0.5">
+                                Reg: {ltr.registeredPostNo}
+                              </div>
+                            ) : (
+                              <div className="text-[10px] text-gray-400 mt-0.5">
+                                Reg: No
+                              </div>
+                            )}
                           </td>
                           <td className="py-2.5 px-3 font-semibold text-gray-900 whitespace-nowrap">
                             {ltr.inwardNo}

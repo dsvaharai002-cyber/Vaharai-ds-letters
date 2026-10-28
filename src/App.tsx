@@ -40,6 +40,7 @@ import {
   getOfficerDisplayName,
   classifySubjectCategory,
   SUBJECT_CATEGORIES_CONFIG,
+  repairLetterRecord,
 } from './utils/helpers';
 import { LoginScreen } from './components/LoginScreen';
 import { DivisionActionChart } from './components/DivisionActionChart';
@@ -560,13 +561,13 @@ const normalizeLetter = (rowOrObj: any): Letter => {
     const mappedDiv = migrateDivision(obj.division);
     const fwdDivs = ensureStringArray(obj.forwardedDivisions).map(migrateDivision).filter(Boolean);
     const mappedFwdDivs = fwdDivs.length > 0 ? fwdDivs : (mappedDiv ? [mappedDiv] : []);
-    return {
+    const mapped: Letter = {
       ...obj,
       id: String(obj.id || `LTR-${Date.now()}`),
       originalNo: String(obj.originalNo || ''),
       date: normalizeDateStr(obj.date || ''),
       dispatchedDate: normalizeDateStr(obj.dispatchedDate || obj.date || ''),
-      letterType: String(obj.letterType || obj.postType || 'Registered Post').trim() || 'Registered Post',
+      letterType: String(obj.letterType || obj.postType || 'Normal Post').trim() || 'Normal Post',
       registeredPostNo: normalizeRegisteredPostNo(obj.registeredPostNo),
       inwardNo: String(obj.inwardNo || ''),
       fromWhom: String(obj.fromWhom || ''),
@@ -581,6 +582,8 @@ const normalizeLetter = (rowOrObj: any): Letter => {
       registeredByName: String(obj.registeredByName || 'Mail Officer (கடித பதிவாளர்)'),
       createdAt: String(obj.createdAt || ''),
     };
+    const healed = repairLetterRecord(mapped);
+    return healed || mapped;
   }
 
   const row = Array.isArray(rowOrObj) ? rowOrObj : [];
@@ -701,7 +704,7 @@ const normalizeLetter = (rowOrObj: any): Letter => {
       : '';
   const resolvedFileNo = String(extra.fileNo ?? extra.FileNo ?? sheetFileNoCol ?? '').trim();
 
-  return {
+  const mappedRow: Letter = {
     ...extra,
     id: rowId,
     originalNo: rowOrigNo,
@@ -722,6 +725,8 @@ const normalizeLetter = (rowOrObj: any): Letter => {
     registeredByName: String(extra.registeredByName ?? 'Mail Officer (கடித பதிவாளர்)'),
     createdAt: String(extra.createdAt ?? ''),
   };
+  const healedRow = repairLetterRecord(mappedRow);
+  return healedRow || mappedRow;
 };
 
 /**
@@ -812,29 +817,15 @@ export default function App() {
           const uniqueLetters: Letter[] = [];
           for (const l of parsed) {
             if (!l || typeof l !== 'object') continue;
-            const lid = (l.id || `${l.originalNo}-${l.date}`).trim();
+            const repaired = repairLetterRecord(l);
+            if (!repaired) continue;
+            const lid = (repaired.id || `${repaired.originalNo}-${repaired.date}`).trim();
             if (lid && !seenIds.has(lid)) {
               seenIds.add(lid);
-              const mappedDiv = migrateDivision(l.division);
-              const fwdDivs = ensureStringArray(l.forwardedDivisions).map(migrateDivision).filter(Boolean);
-              const fwdTo = ensureStringArray(l.forwardedTo);
-              const mappedFwdDivs = fwdDivs.length > 0
-                ? fwdDivs
-                : (mappedDiv ? [mappedDiv] : []);
-
-              uniqueLetters.push({
-                ...l,
-                letterType: String(l.letterType || 'Registered Post').trim() || 'Registered Post',
-                registeredPostNo: normalizeRegisteredPostNo(l.registeredPostNo),
-                action: normalizeAction(l.action),
-                fileNo: String(l.fileNo ?? '').trim(),
-                division: mappedDiv,
-                forwardedDivisions: mappedFwdDivs,
-                forwardedTo: fwdTo,
-              });
+              uniqueLetters.push(repaired);
             }
           }
-          // If stored letters only has old demo data (< 50 items), upgrade to full 460 official letters
+          // If stored letters has valid items, return healed unique letters
           if (uniqueLetters.length >= 50) return uniqueLetters;
         }
       }
@@ -1163,8 +1154,16 @@ export default function App() {
     }
   };
 
-  // Requirement: All users can download the full JSON file
+  // Requirement: Only Super Admin and Admin can download the full JSON file
   const handleDownloadJson = () => {
+    if (currentUser?.Role !== 'Super Admin' && currentUser?.Role !== 'Mega') {
+      alert('அனுமதி மறுக்கப்பட்டது: Super Admin மற்றும் Admin மட்டுமே JSON கோப்பைப் பதிவிறக்கம் செய்ய முடியும்.');
+      return;
+    }
+    const cleanLetters = letters
+      .map(repairLetterRecord)
+      .filter((l): l is Letter => l !== null && Boolean(l.originalNo && l.originalNo !== '-'));
+
     const dataStr =
       'data:text/json;charset=utf-8,' +
       encodeURIComponent(
@@ -1173,9 +1172,9 @@ export default function App() {
             ok: true,
             source: 'vaharai_ds_office',
             exportedAt: new Date().toISOString(),
-            letterCount: letters.length,
+            letterCount: cleanLetters.length,
             userCount: users.length,
-            letters: letters,
+            letters: cleanLetters,
             users: users,
           },
           null,
@@ -1936,17 +1935,19 @@ export default function App() {
                 </button>
               )}
 
-              {/* Requirement: ALL users can download the JSON file */}
-              <button
-                type="button"
-                onClick={handleDownloadJson}
-                className="flex items-center gap-1.5 rounded-xl bg-teal-700 px-2.5 sm:px-3 py-1.5 text-xs font-bold text-white shadow-sm hover:bg-teal-800 transition cursor-pointer"
-                title="அனைத்து பயனர்களுக்கும்: கடிதங்கள் மற்றும் பயனர்களின் JSON கோப்பைப் பதிவிறக்கம் செய்ய (Download JSON)"
-              >
-                <Download className="h-4 w-4 text-teal-200" />
-                <span className="hidden md:inline">Download JSON</span>
-                <span className="md:hidden">JSON</span>
-              </button>
+              {/* Requirement: ONLY Super Admin and Admin (Mega) can download the JSON file */}
+              {(isSuperAdmin || currentUser?.Role === 'Mega') && (
+                <button
+                  type="button"
+                  onClick={handleDownloadJson}
+                  className="flex items-center gap-1.5 rounded-xl bg-teal-700 px-2.5 sm:px-3 py-1.5 text-xs font-bold text-white shadow-sm hover:bg-teal-800 transition cursor-pointer"
+                  title="Super Admin மற்றும் Admin மட்டும்: கடிதங்கள் மற்றும் பயனர்களின் JSON கோப்பைப் பதிவிறக்கம் செய்ய (Download JSON)"
+                >
+                  <Download className="h-4 w-4 text-teal-200" />
+                  <span className="hidden md:inline">Download JSON</span>
+                  <span className="md:hidden">JSON</span>
+                </button>
+              )}
 
               {/* Live Sync button available to all users to pull updates from other browsers */}
               <button
