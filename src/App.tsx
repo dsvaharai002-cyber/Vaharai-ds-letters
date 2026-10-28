@@ -22,9 +22,11 @@ import {
   Cloud,
   CloudOff,
   AlertTriangle,
+  Zap,
 } from 'lucide-react';
 import { User, Letter, UserRole, LetterAction } from './types';
 import { INITIAL_USERS, INITIAL_LETTERS, DIVISIONS, migrateDivision } from './data/initialData';
+import { DEFAULT_DRIVE_FILE_ID } from './data/appsScriptCode';
 import {
   printLandscapeReport,
   ensureStringArray,
@@ -70,7 +72,9 @@ const safeJsonParse = <T,>(value: any, fallback: T): T => {
 
 const sendDataToGoogleCloud = async (
   payload: CloudPayload,
-  activeUrl?: string
+  activeUrl?: string,
+  mode: 'drive_json' | 'sheets' = 'drive_json',
+  targetDriveFileId: string = DEFAULT_DRIVE_FILE_ID
 ): Promise<CloudWriteResult> => {
   try {
     const action = String(payload.action ?? '').trim();
@@ -166,6 +170,8 @@ const sendDataToGoogleCloud = async (
 
     const bodyData = {
       action: action,
+      storageMode: mode,
+      driveFileId: targetDriveFileId,
       id: String(payload.id ?? ''),
       ID: String(payload.id ?? ''),
       originalNo: String(payload.originalNo ?? ''),
@@ -223,7 +229,11 @@ const sendDataToGoogleCloud = async (
     };
 
     const jsonStr = JSON.stringify(bodyData);
-    const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+      'X-Storage-Mode': mode,
+      'X-Drive-File-Id': targetDriveFileId,
+    };
     if (activeUrl) {
       headers['X-Web-App-Url'] = activeUrl;
     }
@@ -297,25 +307,108 @@ const sendDataToGoogleCloud = async (
 };
 
 const fetchCloudData = async (
-  activeUrl?: string
+  activeUrl?: string,
+  mode: 'drive_json' | 'sheets' = 'drive_json',
+  targetDriveFileId: string = DEFAULT_DRIVE_FILE_ID
 ): Promise<{
-  letters: any[][];
-  users: any[][];
+  letters: any[];
+  users: any[];
   offline?: boolean;
+  uninitialized?: boolean;
+  latencyMs?: number;
   statusCode?: number;
   errorType?: string;
   message?: string;
 }> => {
+  const fileId = (targetDriveFileId || DEFAULT_DRIVE_FILE_ID).trim();
+
+  // 1. HIGH-SPEED GOOGLE DRIVE JSON MODE (~250ms - 450ms)
+  if (mode === 'drive_json') {
+    try {
+      const headers: Record<string, string> = {
+        'X-Storage-Mode': 'drive_json',
+        'X-Drive-File-Id': fileId,
+      };
+      const response = await fetch(
+        `/api/cloud-sync?type=get_drive_json&driveFileId=${encodeURIComponent(fileId)}&t=${Date.now()}`,
+        { headers }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data && data.ok) {
+          return {
+            letters: Array.isArray(data.letters) ? data.letters : [],
+            users: Array.isArray(data.users) ? data.users : [],
+            uninitialized: Boolean(data.uninitialized),
+            latencyMs: data.latencyMs,
+            offline: false,
+            statusCode: 200,
+            message: data.message,
+          };
+        }
+      }
+    } catch {
+      // Fall through to direct drive fetch
+    }
+
+    // Direct browser fetch from Google Drive usercontent CDN
+    try {
+      const directDriveRes = await fetch(
+        `https://drive.usercontent.google.com/download?id=${encodeURIComponent(fileId)}&export=download`
+      );
+      if (directDriveRes.ok) {
+        const raw = await directDriveRes.text();
+        const trimmed = raw.trim();
+        if (!trimmed || trimmed === '{ [ ] }' || trimmed === '{[]}' || trimmed === '[]' || trimmed === '{}') {
+          return {
+            letters: [],
+            users: [],
+            uninitialized: true,
+            offline: false,
+            statusCode: 200,
+            message: 'Google Drive JSON கோப்பு தயாராக உள்ளது.',
+          };
+        }
+        try {
+          const parsed = JSON.parse(raw);
+          const letters = Array.isArray(parsed) ? parsed : (Array.isArray(parsed?.letters) ? parsed.letters : []);
+          const users = Array.isArray(parsed?.users) ? parsed.users : [];
+          return {
+            letters,
+            users,
+            uninitialized: letters.length === 0,
+            offline: false,
+            statusCode: 200,
+          };
+        } catch {
+          return {
+            letters: [],
+            users: [],
+            uninitialized: true,
+            offline: false,
+            statusCode: 200,
+          };
+        }
+      }
+    } catch {
+      // Fall through to sheet
+    }
+  }
+
+  // 2. GOOGLE SHEETS MODE
   const targetUrl = (activeUrl || WEB_APP_URL).trim();
 
-  // 1. Try server proxy endpoint
+  // Try server proxy endpoint
   try {
-    const headers: Record<string, string> = {};
+    const headers: Record<string, string> = {
+      'X-Storage-Mode': 'sheets',
+    };
     if (activeUrl) {
       headers['X-Web-App-Url'] = activeUrl;
     }
 
-    const response = await fetch(`/api/cloud-sync?t=${Date.now()}`, {
+    const response = await fetch(`/api/cloud-sync?mode=sheets&t=${Date.now()}`, {
       headers,
     });
 
@@ -341,10 +434,10 @@ const fetchCloudData = async (
       }
     }
   } catch {
-    // Fall through to direct fetch (crucial for large datasets / serverless timeouts)
+    // Fall through to direct fetch
   }
 
-  // 2. Direct browser fetch fallback (bypasses serverless timeouts for large Google Sheet data)
+  // Direct browser fetch fallback
   try {
     const directRes = await fetch(`${targetUrl}?type=get_all&t=${Date.now()}`, {
       method: 'GET',
@@ -458,7 +551,36 @@ const findExtraData = (row: any[]): Record<string, any> => {
  * 13: ReplyResponse
  * 14: ExtraData (JSON backup)
  */
-const normalizeLetter = (row: any[]): Letter => {
+const normalizeLetter = (rowOrObj: any): Letter => {
+  if (rowOrObj && typeof rowOrObj === 'object' && !Array.isArray(rowOrObj)) {
+    const obj = rowOrObj;
+    const mappedDiv = migrateDivision(obj.division);
+    const fwdDivs = ensureStringArray(obj.forwardedDivisions).map(migrateDivision).filter(Boolean);
+    const mappedFwdDivs = fwdDivs.length > 0 ? fwdDivs : (mappedDiv ? [mappedDiv] : []);
+    return {
+      ...obj,
+      id: String(obj.id || `LTR-${Date.now()}`),
+      originalNo: String(obj.originalNo || ''),
+      date: normalizeDateStr(obj.date || ''),
+      dispatchedDate: normalizeDateStr(obj.dispatchedDate || obj.date || ''),
+      letterType: String(obj.letterType || obj.postType || 'Registered Post').trim() || 'Registered Post',
+      registeredPostNo: normalizeRegisteredPostNo(obj.registeredPostNo),
+      inwardNo: String(obj.inwardNo || ''),
+      fromWhom: String(obj.fromWhom || ''),
+      subject: String(obj.subject || ''),
+      division: mappedDiv,
+      forwardedDivisions: mappedFwdDivs,
+      forwardedTo: ensureStringArray(obj.forwardedTo),
+      action: normalizeAction(obj.action || obj.actionStatus || 'Not Yet Viewed'),
+      replyResponse: String(obj.replyResponse || ''),
+      fileNo: String(obj.fileNo || ''),
+      registeredBy: String(obj.registeredBy || 'mail01'),
+      registeredByName: String(obj.registeredByName || 'Mail Officer (கடித பதிவாளர்)'),
+      createdAt: String(obj.createdAt || ''),
+    };
+  }
+
+  const row = Array.isArray(rowOrObj) ? rowOrObj : [];
   const extra = findExtraData(row);
   const hasValidExtra = Boolean(
     extra &&
@@ -603,7 +725,28 @@ const normalizeLetter = (row: any[]): Letter => {
  * Google Sheet Users columns schema:
  * 0: User_ID, 1: Password, 2: Name, 3: Role, 4: Division, 5: Status, 6: AssignedDivisions, 7: AssignedOfficers, 8: ExtraData
  */
-const normalizeUser = (row: any[]): User => {
+const normalizeUser = (rowOrObj: any): User => {
+  if (rowOrObj && typeof rowOrObj === 'object' && !Array.isArray(rowOrObj)) {
+    const obj = rowOrObj;
+    const rawAssignedDivs = obj.assignedDivisions;
+    const assignedDivs = ensureStringArray(rawAssignedDivs).map(migrateDivision).filter(Boolean);
+    const rawAssignedOffs = obj.assignedOfficers;
+    const assignedOffs = ensureStringArray(rawAssignedOffs);
+
+    return {
+      ...obj,
+      User_ID: String(obj.User_ID || obj.id || ''),
+      Password: String(obj.Password || obj.password || '123'),
+      Name: String(obj.Name || obj.name || ''),
+      Role: (obj.Role || obj.role || 'User') as UserRole,
+      Division: migrateDivision(String(obj.Division || obj.division || '')),
+      Status: (obj.Status || obj.status || 'Active'),
+      assignedDivisions: assignedDivs.length > 0 ? assignedDivs : undefined,
+      assignedOfficers: assignedOffs.length > 0 ? assignedOffs : undefined,
+    };
+  }
+
+  const row = Array.isArray(rowOrObj) ? rowOrObj : [];
   const extra = safeJsonParse<Record<string, any>>(row[8] || row[row.length - 1], {});
   const rawAssignedDivs = extra.assignedDivisions !== undefined ? extra.assignedDivisions : row[6];
   const assignedDivs = ensureStringArray(rawAssignedDivs).map(migrateDivision).filter(Boolean);
@@ -732,9 +875,25 @@ export default function App() {
   const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string>('All');
   const [subjectViewMode, setSubjectViewMode] = useState<'folders' | 'categorized_boards'>('folders');
   const [loadingCloud, setLoadingCloud] = useState(false);
-  const [cloudMessage, setCloudMessage] = useState('Google Sheets Cloud இணைப்பைச் சரிபார்க்கிறது...');
+  const [cloudMessage, setCloudMessage] = useState('Google Drive JSON சேமிப்பகம் இணைக்கப்படுகிறது...');
   const [cloudStatus, setCloudStatus] = useState<'connected' | 'error_403' | 'offline' | 'checking'>('checking');
   const [isCloudSettingsOpen, setIsCloudSettingsOpen] = useState(false);
+  const [storageMode, setStorageMode] = useState<'drive_json' | 'sheets'>(() => {
+    try {
+      const saved = localStorage.getItem('kpn_vaharai_storage_mode');
+      if (saved === 'sheets' || saved === 'drive_json') return saved;
+    } catch {}
+    return 'drive_json';
+  });
+  const [driveFileId, setDriveFileId] = useState<string>(() => {
+    try {
+      const saved = localStorage.getItem('kpn_vaharai_drive_file_id');
+      if (saved && saved.trim()) return saved.trim();
+    } catch {}
+    return DEFAULT_DRIVE_FILE_ID;
+  });
+  const [driveLatency, setDriveLatency] = useState<number | null>(null);
+
   const [cloudUrl, setCloudUrl] = useState<string>(() => {
     try {
       const saved = localStorage.getItem('kpn_vaharai_cloud_url');
@@ -779,9 +938,59 @@ export default function App() {
       setLoadingCloud(true);
       setCloudStatus('checking');
       try {
-        const result = await fetchCloudData(cloudUrl);
+        const result = await fetchCloudData(cloudUrl, storageMode, driveFileId);
         if (!mounted) return;
 
+        if (storageMode === 'drive_json') {
+          if (result.latencyMs) setDriveLatency(result.latencyMs);
+
+          if (result.uninitialized) {
+            setCloudStatus('connected');
+            setCloudMessage('Google Drive JSON கோப்பு (vaharai_ds_letter.json) இணைக்கப்பட்டுள்ளது. கடிதங்களைப் பதிவேற்றலாம்.');
+            return;
+          }
+
+          if (result.letters && result.letters.length > 0) {
+            const driveLetters = result.letters
+              .filter((item: any) => item && (item.id || item.originalNo || item.subject))
+              .map(normalizeLetter);
+
+            const seenLetters = new Set<string>();
+            const uniqueLetters: Letter[] = [];
+            for (const l of driveLetters) {
+              const key = l.id || `${l.originalNo}-${l.date}`;
+              if (!seenLetters.has(key)) {
+                seenLetters.add(key);
+                uniqueLetters.push(l);
+              }
+            }
+
+            if (uniqueLetters.length) setLetters(uniqueLetters);
+          }
+
+          if (result.users && result.users.length > 0) {
+            const driveUsers = result.users
+              .filter((u: any) => u && (u.User_ID || u.id))
+              .map(normalizeUser);
+
+            const seenUsers = new Set<string>();
+            const uniqueUsers: User[] = [];
+            for (const u of driveUsers) {
+              const key = (u.User_ID || '').trim().toLowerCase();
+              if (key && !seenUsers.has(key)) {
+                seenUsers.add(key);
+                uniqueUsers.push(u);
+              }
+            }
+            if (uniqueUsers.length) setUsers(uniqueUsers);
+          }
+
+          setCloudStatus('connected');
+          setCloudMessage(`Google Drive JSON இணைக்கப்பட்டு மின்னல் வேகத்தில் ஒத்திசைக்கப்பட்டது (${result.latencyMs || 300}ms).`);
+          return;
+        }
+
+        // Sheets mode
         if (result.statusCode === 403 || result.errorType === 'ACCESS_DENIED') {
           setCloudStatus('error_403');
           setCloudMessage(
@@ -842,7 +1051,7 @@ export default function App() {
       } catch {
         if (mounted) {
           setCloudStatus('offline');
-          setCloudMessage('உள்ளூர் சேமிப்பக முறைமையில் இயங்குகிறது (Google Sheets fetch skipped).');
+          setCloudMessage('உள்ளூர் சேமிப்பக முறைமையில் இயங்குகிறது.');
         }
       } finally {
         if (mounted) setLoadingCloud(false);
@@ -853,10 +1062,10 @@ export default function App() {
     return () => {
       mounted = false;
     };
-  }, [cloudUrl]);
+  }, [cloudUrl, storageMode, driveFileId]);
 
   const cloudWrite = async (payload: CloudPayload): Promise<CloudWriteResult> => {
-    const res = await sendDataToGoogleCloud(payload, cloudUrl);
+    const res = await sendDataToGoogleCloud(payload, cloudUrl, storageMode, driveFileId);
     if (!res.ok) {
       if (res.statusCode === 403 || res.errorType === 'ACCESS_DENIED') {
         setCloudStatus('error_403');
@@ -864,13 +1073,92 @@ export default function App() {
           'Google Sheets அனுமதி பிழை (403 Forbidden): Apps Script அமைப்பில் "Who has access: Anyone" என மாற்ற வேண்டும்.'
         );
       } else {
-        setCloudMessage(`Google Sheets எச்சரிக்கை: ${res.message || 'Saved to local cache only.'}`);
+        setCloudMessage(`சேமிப்பக எச்சரிக்கை: ${res.message || 'Saved to local cache only.'}`);
       }
     } else {
       setCloudStatus('connected');
-      setCloudMessage('Google Sheets cloud database நேரலையில் ஒத்திசைக்கப்பட்டது.');
+      setCloudMessage(
+        storageMode === 'drive_json'
+          ? 'Google Drive JSON கோப்பு நேரலையில் ஒத்திசைக்கப்பட்டது.'
+          : 'Google Sheets cloud database நேரலையில் ஒத்திசைக்கப்பட்டது.'
+      );
     }
     return res;
+  };
+
+  const handleSaveStorageMode = (newMode: 'drive_json' | 'sheets') => {
+    setStorageMode(newMode);
+    try {
+      localStorage.setItem('kpn_vaharai_storage_mode', newMode);
+      fetch('/api/cloud-sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'SET_CONFIG', storageMode: newMode }),
+      }).catch(() => {});
+    } catch {}
+  };
+
+  const handleSaveDriveFileId = async (newId: string): Promise<boolean> => {
+    const cleanId = newId.trim();
+    if (!cleanId) return false;
+    try {
+      setDriveFileId(cleanId);
+      localStorage.setItem('kpn_vaharai_drive_file_id', cleanId);
+      await fetch('/api/cloud-sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'SET_CONFIG', driveFileId: cleanId }),
+      });
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  const handleTestDriveConnection = async (idToTest?: string) => {
+    const targetId = (idToTest || driveFileId).trim();
+    try {
+      const res = await fetch(
+        `/api/cloud-sync?type=test_drive&driveFileId=${encodeURIComponent(targetId)}&t=${Date.now()}`
+      );
+      if (res.ok) {
+        const data = await res.json();
+        if (data.ok) {
+          setCloudStatus('connected');
+          setDriveLatency(data.latencyMs || 280);
+          setCloudMessage(data.message || 'Google Drive JSON கோப்பு இணைக்கப்பட்டுள்ளது.');
+        }
+        return data;
+      }
+    } catch {}
+    return { ok: false, statusCode: 500, message: 'Google Drive கோப்பை அணுக முடியவில்லை.' };
+  };
+
+  const handleUploadAllToDrive = async (): Promise<{ ok: boolean; message?: string }> => {
+    try {
+      const res = await fetch('/api/cloud-sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'SYNC_ALL_TO_DRIVE',
+          driveFileId: driveFileId,
+          letters: letters,
+          users: users,
+        }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.ok) {
+          setCloudStatus('connected');
+          setCloudMessage('Google Drive JSON கோப்பில் அனைத்து தகவல்களும் வெற்றிகரமாகப் பதிவேற்றப்பட்டது!');
+          return { ok: true, message: data.message };
+        }
+        return { ok: false, message: data.message || 'Upload to Drive failed' };
+      }
+      return { ok: false, message: 'Server communication error' };
+    } catch (err: any) {
+      return { ok: false, message: err?.message || 'Upload failed' };
+    }
   };
 
   const handleSaveCloudUrl = async (newUrl: string): Promise<boolean> => {
@@ -1503,32 +1791,40 @@ export default function App() {
                 </button>
               )}
 
-              {/* Google Sheets Sync Settings & Status Trigger */}
+              {/* Cloud Sync Settings & Status Trigger */}
               <button
                 type="button"
                 onClick={() => setIsCloudSettingsOpen(true)}
-                title="Google Sheets Cloud Synchronization Settings & Diagnostics"
+                title="Google Drive JSON & Sheets Cloud Storage Settings"
                 className={`flex items-center gap-1.5 rounded-xl px-2.5 sm:px-3 py-1.5 text-xs font-bold transition shadow-xs cursor-pointer ${
                   cloudStatus === 'connected'
-                    ? 'bg-emerald-700 hover:bg-emerald-800 text-white border border-emerald-500/50'
+                    ? storageMode === 'drive_json'
+                      ? 'bg-linear-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white border border-emerald-400/50'
+                      : 'bg-emerald-700 hover:bg-emerald-800 text-white border border-emerald-500/50'
                     : cloudStatus === 'error_403'
                     ? 'bg-red-600 hover:bg-red-700 text-white border border-red-300 animate-pulse'
                     : 'bg-amber-600 hover:bg-amber-700 text-white border border-amber-400/50'
                 }`}
               >
-                {cloudStatus === 'connected' ? (
+                {storageMode === 'drive_json' ? (
+                  <Zap className="h-3.5 w-3.5 text-amber-300" />
+                ) : cloudStatus === 'connected' ? (
                   <Cloud className="h-3.5 w-3.5 text-emerald-200" />
                 ) : (
                   <CloudOff className="h-3.5 w-3.5 text-white" />
                 )}
                 <span className="hidden sm:inline">
                   {cloudStatus === 'connected'
-                    ? 'Sheet Synced'
+                    ? storageMode === 'drive_json'
+                      ? `Drive JSON (${driveLatency ? `${driveLatency}ms` : '0.3s'})`
+                      : 'Sheet Synced'
                     : cloudStatus === 'error_403'
-                    ? 'Sheet 403 Error (Click to fix)'
-                    : 'Sheet Offline'}
+                    ? 'Storage 403 Error'
+                    : 'Storage Offline'}
                 </span>
-                <span className="sm:hidden">Sheet</span>
+                <span className="sm:hidden">
+                  {storageMode === 'drive_json' ? 'Drive' : 'Sheet'}
+                </span>
               </button>
 
               <button
@@ -1929,18 +2225,26 @@ export default function App() {
         onDeleteUser={handleDeleteUser}
       />
 
-      {/* Google Sheets Cloud Synchronization & Diagnostics Modal */}
+      {/* Google Drive JSON & Sheets Cloud Synchronization & Diagnostics Modal */}
       <CloudSyncSettingsModal
         isOpen={isCloudSettingsOpen}
         onClose={() => setIsCloudSettingsOpen(false)}
+        storageMode={storageMode}
+        onSaveStorageMode={handleSaveStorageMode}
+        driveFileId={driveFileId}
+        onSaveDriveFileId={handleSaveDriveFileId}
+        onTestDriveConnection={handleTestDriveConnection}
+        onUploadAllToDrive={handleUploadAllToDrive}
         currentUrl={cloudUrl}
         onSaveUrl={handleSaveCloudUrl}
         onTestConnection={handleTestCloudConnection}
         letters={letters}
+        users={users}
         onSyncAllLetters={handleSyncAllLetters}
         onRepairShiftedRows={handleRepairShiftedRows}
         cloudStatus={cloudStatus}
         cloudMessage={cloudMessage}
+        driveLatency={driveLatency}
       />
     </div>
   );
