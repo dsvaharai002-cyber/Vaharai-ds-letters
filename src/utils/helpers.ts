@@ -518,7 +518,29 @@ export const compressImageToTarget = async (
   let canvas: HTMLCanvasElement;
 
   if (source instanceof HTMLCanvasElement) {
-    canvas = source;
+    const maxDimension = 1200;
+    if (source.width > maxDimension || source.height > maxDimension) {
+      let width = source.width;
+      let height = source.height;
+      if (width > height) {
+        height = Math.round((height * maxDimension) / width);
+        width = maxDimension;
+      } else {
+        width = Math.round((width * maxDimension) / height);
+        height = maxDimension;
+      }
+      canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.drawImage(source, 0, 0, width, height);
+      } else {
+        canvas = source;
+      }
+    } else {
+      canvas = source;
+    }
   } else {
     // It's a File
     canvas = await new Promise<HTMLCanvasElement>((resolve, reject) => {
@@ -532,7 +554,7 @@ export const compressImageToTarget = async (
         const c = document.createElement('canvas');
         let width = img.width;
         let height = img.height;
-        const maxDimension = 1400;
+        const maxDimension = 1200;
 
         if (width > maxDimension || height > maxDimension) {
           if (width > height) {

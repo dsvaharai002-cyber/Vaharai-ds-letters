@@ -263,6 +263,8 @@ export const CloudSyncSettingsModal: React.FC<CloudSyncSettingsModalProps> = ({
     setTimeout(() => setCopiedScript(false), 3000);
   };
 
+  if (!isOpen) return null;
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs">
       <div className="flex max-h-[94vh] w-full max-w-3xl flex-col rounded-2xl bg-white shadow-2xl overflow-hidden border border-slate-200">

@@ -23,6 +23,9 @@ import {
   CloudOff,
   AlertTriangle,
   Zap,
+  Download,
+  UploadCloud,
+  RefreshCw,
 } from 'lucide-react';
 import { User, Letter, UserRole, LetterAction } from './types';
 import { INITIAL_USERS, INITIAL_LETTERS, DIVISIONS, migrateDivision } from './data/initialData';
@@ -955,137 +958,240 @@ export default function App() {
     } catch {}
   }, []);
 
-  useEffect(() => {
-    let mounted = true;
-    const loadCloud = async () => {
-      setLoadingCloud(true);
-      setCloudStatus('checking');
-      try {
-        const result = await fetchCloudData(cloudUrl, storageMode, driveFileId);
-        if (!mounted) return;
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [isUploadingToJson, setIsUploadingToJson] = useState(false);
 
-        if (storageMode === 'drive_json') {
-          if (result.latencyMs) setDriveLatency(result.latencyMs);
+  const loadCloud = async (isManual = false) => {
+    if (isManual) setIsSyncing(true);
+    setLoadingCloud(true);
+    try {
+      const result = await fetchCloudData(cloudUrl, storageMode, driveFileId);
 
-          if (result.uninitialized) {
-            setCloudStatus('connected');
-            setCloudMessage('Google Drive JSON கோப்பு (vaharai_ds_letter.json) இணைக்கப்பட்டுள்ளது. கடிதங்களைப் பதிவேற்றலாம்.');
-            return;
-          }
+      if (storageMode === 'drive_json') {
+        if (result.latencyMs) setDriveLatency(result.latencyMs);
 
-          if (result.letters && result.letters.length > 0) {
-            const driveLetters = result.letters
-              .filter((item: any) => item && (item.id || item.originalNo || item.subject))
-              .map(normalizeLetter);
-
-            const seenLetters = new Set<string>();
-            const uniqueLetters: Letter[] = [];
-            for (const l of driveLetters) {
-              const key = l.id || `${l.originalNo}-${l.date}`;
-              if (!seenLetters.has(key)) {
-                seenLetters.add(key);
-                uniqueLetters.push(l);
-              }
-            }
-
-            if (uniqueLetters.length) setLetters(uniqueLetters);
-          }
-
-          if (result.users && result.users.length > 0) {
-            const driveUsers = result.users
-              .filter((u: any) => u && (u.User_ID || u.id))
-              .map(normalizeUser);
-
-            const seenUsers = new Set<string>();
-            const uniqueUsers: User[] = [];
-            for (const u of driveUsers) {
-              const key = (u.User_ID || '').trim().toLowerCase();
-              if (key && !seenUsers.has(key)) {
-                seenUsers.add(key);
-                uniqueUsers.push(u);
-              }
-            }
-            if (uniqueUsers.length) setUsers(uniqueUsers);
-          }
-
-          setCloudStatus('connected');
-          setCloudMessage(`Google Drive JSON இணைக்கப்பட்டு மின்னல் வேகத்தில் ஒத்திசைக்கப்பட்டது (${result.latencyMs || 300}ms).`);
-          return;
-        }
-
-        // Sheets mode
-        if (result.statusCode === 403 || result.errorType === 'ACCESS_DENIED') {
-          setCloudStatus('error_403');
-          setCloudMessage(
-            'Google Sheets அனுமதி மறுக்கப்பட்டது (403 Forbidden): Apps Script அமைப்பில் "Who has access: Anyone" என மாற்ற வேண்டும் (Click to fix).'
-          );
-          return;
-        }
-
-        if (result.offline) {
-          setCloudStatus('offline');
-          setCloudMessage('உள்ளூர் சேமிப்பக முறைமையில் இயங்குகிறது (Google Sheets இணைக்கப்படவில்லை - Click to connect).');
-          return;
-        }
-
-        if (Array.isArray(result.letters) && result.letters.length > 1) {
-          const cloudLetters = result.letters
-            .slice(1)
-            .filter((row: any[]) => row && row.length)
-            .map(normalizeLetter)
-            .filter((letter: any) => letter.id || letter.originalNo)
-            .reverse();
+        if (result.letters && result.letters.length > 0) {
+          const driveLetters = result.letters
+            .filter((item: any) => item && (item.id || item.originalNo || item.subject))
+            .map(normalizeLetter);
 
           const seenLetters = new Set<string>();
-          const uniqueCloudLetters: Letter[] = [];
-          for (const l of cloudLetters) {
+          const uniqueLetters: Letter[] = [];
+          for (const l of driveLetters) {
             const key = l.id || `${l.originalNo}-${l.date}`;
             if (!seenLetters.has(key)) {
               seenLetters.add(key);
-              uniqueCloudLetters.push(l);
+              uniqueLetters.push(l);
             }
           }
 
-          if (uniqueCloudLetters.length) setLetters(uniqueCloudLetters);
+          if (uniqueLetters.length) {
+            setLetters(uniqueLetters);
+            try {
+              localStorage.setItem('kpn_vaharai_letters_v2', JSON.stringify(uniqueLetters));
+            } catch {}
+          }
         }
 
-        if (Array.isArray(result.users) && result.users.length > 1) {
-          const cloudUsers = result.users
-            .slice(1)
-            .filter((row: any[]) => row && row.length)
-            .map(normalizeUser)
-            .filter((user: any) => user.User_ID);
+        if (result.users && result.users.length > 0) {
+          const driveUsers = result.users
+            .filter((u: any) => u && (u.User_ID || u.id))
+            .map(normalizeUser);
 
           const seenUsers = new Set<string>();
-          const uniqueCloudUsers: User[] = [];
-          for (const u of cloudUsers) {
+          const uniqueUsers: User[] = [];
+          for (const u of driveUsers) {
             const key = (u.User_ID || '').trim().toLowerCase();
             if (key && !seenUsers.has(key)) {
               seenUsers.add(key);
-              uniqueCloudUsers.push(u);
+              uniqueUsers.push(u);
             }
           }
-
-          if (uniqueCloudUsers.length) setUsers(uniqueCloudUsers);
+          if (uniqueUsers.length) {
+            setUsers(uniqueUsers);
+            try {
+              localStorage.setItem('kpn_vaharai_users_v2', JSON.stringify(uniqueUsers));
+            } catch {}
+          }
         }
 
         setCloudStatus('connected');
-        setCloudMessage('Google Sheets cloud database இணைக்கப்பட்டு நேரலையில் ஒத்திசைக்கப்பட்டது.');
-      } catch {
-        if (mounted) {
-          setCloudStatus('offline');
-          setCloudMessage('உள்ளூர் சேமிப்பக முறைமையில் இயங்குகிறது.');
+        setCloudMessage(`JSON இணைக்கப்பட்டு மின்னல் வேகத்தில் ஒத்திசைக்கப்பட்டது (${result.latencyMs || 6}ms).`);
+        if (isManual) {
+          alert(`✓ நேரலை ஒத்திசைவு முடிந்தது! ${result.letters?.length || letters.length} கடிதங்கள் தயார் நிலையில் உள்ளன.`);
         }
-      } finally {
-        if (mounted) setLoadingCloud(false);
+        return;
       }
-    };
 
+      // Sheets mode
+      if (result.statusCode === 403 || result.errorType === 'ACCESS_DENIED') {
+        setCloudStatus('error_403');
+        setCloudMessage(
+          'Google Sheets அனுமதி மறுக்கப்பட்டது (403 Forbidden): Apps Script அமைப்பில் "Who has access: Anyone" என மாற்ற வேண்டும் (Click to fix).'
+        );
+        return;
+      }
+
+      if (result.offline) {
+        setCloudStatus('offline');
+        setCloudMessage('உள்ளூர் சேமிப்பக முறைமையில் இயங்குகிறது (Google Sheets இணைக்கப்படவில்லை - Click to connect).');
+        return;
+      }
+
+      if (Array.isArray(result.letters) && result.letters.length > 1) {
+        const cloudLetters = result.letters
+          .slice(1)
+          .filter((row: any[]) => row && row.length)
+          .map(normalizeLetter)
+          .filter((letter: any) => letter.id || letter.originalNo)
+          .reverse();
+
+        const seenLetters = new Set<string>();
+        const uniqueCloudLetters: Letter[] = [];
+        for (const l of cloudLetters) {
+          const key = l.id || `${l.originalNo}-${l.date}`;
+          if (!seenLetters.has(key)) {
+            seenLetters.add(key);
+            uniqueCloudLetters.push(l);
+          }
+        }
+
+        if (uniqueCloudLetters.length) {
+          setLetters(uniqueCloudLetters);
+          try {
+            localStorage.setItem('kpn_vaharai_letters_v2', JSON.stringify(uniqueCloudLetters));
+          } catch {}
+        }
+      }
+
+      if (Array.isArray(result.users) && result.users.length > 1) {
+        const cloudUsers = result.users
+          .slice(1)
+          .filter((row: any[]) => row && row.length)
+          .map(normalizeUser)
+          .filter((user: any) => user.User_ID);
+
+        const seenUsers = new Set<string>();
+        const uniqueCloudUsers: User[] = [];
+        for (const u of cloudUsers) {
+          const key = (u.User_ID || '').trim().toLowerCase();
+          if (key && !seenUsers.has(key)) {
+            seenUsers.add(key);
+            uniqueCloudUsers.push(u);
+          }
+        }
+
+        if (uniqueCloudUsers.length) {
+          setUsers(uniqueCloudUsers);
+          try {
+            localStorage.setItem('kpn_vaharai_users_v2', JSON.stringify(uniqueCloudUsers));
+          } catch {}
+        }
+      }
+
+      setCloudStatus('connected');
+      setCloudMessage('Google Sheets cloud database இணைக்கப்பட்டு நேரலையில் ஒத்திசைக்கப்பட்டது.');
+      if (isManual) {
+        alert('✓ Google Sheets உடன் நேரலை ஒத்திசைவு வெற்றிகரமாக முடிந்தது!');
+      }
+    } catch {
+      setCloudStatus('offline');
+      setCloudMessage('உள்ளூர் சேமிப்பக முறைமையில் இயங்குகிறது.');
+    } finally {
+      setLoadingCloud(false);
+      if (isManual) setIsSyncing(false);
+    }
+  };
+
+  useEffect(() => {
     loadCloud();
+
+    // Auto-sync every 20 seconds so letters uploaded in other browsers appear automatically
+    const interval = setInterval(() => {
+      loadCloud();
+    }, 20000);
+
+    const handleFocus = () => {
+      loadCloud();
+    };
+    window.addEventListener('focus', handleFocus);
+
     return () => {
-      mounted = false;
+      clearInterval(interval);
+      window.removeEventListener('focus', handleFocus);
     };
   }, [cloudUrl, storageMode, driveFileId]);
+
+  // Requirement: Letter Registrar (கடித பதிவாளர்) only can upload from Local Storage to JSON
+  const handleUploadLocalStorageToJson = async () => {
+    if (isUploadingToJson) return;
+    const count = letters.length;
+    if (
+      !confirm(
+        `உள்ளூர் சேமிப்பகத்தில் (Local Storage) உள்ள அனைத்து ${count} கடிதங்களையும் JSON-க்கு பதிவேற்ற விரும்புகிறீர்களா? (Upload all ${count} local letters to Cloud/Server JSON)?`
+      )
+    ) {
+      return;
+    }
+
+    setIsUploadingToJson(true);
+    try {
+      const res = await fetch('/api/cloud-sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'SYNC_ALL_TO_DRIVE',
+          driveFileId: driveFileId,
+          letters: letters,
+          users: users,
+        }),
+      });
+
+      if (res.ok) {
+        setCloudStatus('connected');
+        setCloudMessage(`உள்ளூர் சேமிப்பகத்தில் உள்ள அனைத்து ${count} கடிதங்களும் JSON-இல் வெற்றிகரமாகப் பதிவேற்றப்பட்டன!`);
+        alert(
+          `✓ உள்ளூர் சேமிப்பகத்தில் உள்ள அனைத்து ${count} கடிதங்களும் JSON-க்கு வெற்றிகரமாகப் பதிவேற்றப்பட்டன!\n\nமற்ற உலாவிகள் மற்றும் கணினிகளிலும் இப்போது இக்கடிதங்கள் உடனடியாகக் காண்பிக்கப்படும்.`
+        );
+      } else {
+        alert('JSON பதிவேற்றம் தோல்வியடைந்தது. தயவுசெய்து மீண்டும் முயற்சிக்கவும்.');
+      }
+    } catch (err: any) {
+      alert(`பதிவேற்றத்தில் பிழை: ${err?.message || 'Network error'}`);
+    } finally {
+      setIsUploadingToJson(false);
+    }
+  };
+
+  // Requirement: All users can download the full JSON file
+  const handleDownloadJson = () => {
+    const dataStr =
+      'data:text/json;charset=utf-8,' +
+      encodeURIComponent(
+        JSON.stringify(
+          {
+            ok: true,
+            source: 'vaharai_ds_office',
+            exportedAt: new Date().toISOString(),
+            letterCount: letters.length,
+            userCount: users.length,
+            letters: letters,
+            users: users,
+          },
+          null,
+          2
+        )
+      );
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute('href', dataStr);
+    downloadAnchor.setAttribute(
+      'download',
+      `vaharai_ds_letter_${new Date().toISOString().split('T')[0]}.json`
+    );
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+  };
 
   const cloudWrite = async (payload: CloudPayload): Promise<CloudWriteResult> => {
     const res = await sendDataToGoogleCloud(payload, cloudUrl, storageMode, driveFileId);
@@ -1761,6 +1867,12 @@ export default function App() {
     );
   });
 
+  const isSuperAdmin = currentUser.Role === 'Super Admin';
+  const isLetterRegistrar =
+    currentUser.Role === 'Mail Officer' ||
+    currentUser.User_ID === 'mail01' ||
+    currentUser.Role === 'Super Admin';
+
   return (
     <div className="min-h-screen bg-slate-100 flex flex-col font-sans">
       {/* Top Navigation Bar */}
@@ -1780,8 +1892,8 @@ export default function App() {
             </div>
 
             {/* User Profile & Quick Actions */}
-            <div className="flex items-center gap-3">
-              <div className="hidden sm:flex flex-col items-end text-xs">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
+              <div className="hidden xl:flex flex-col items-end text-xs pr-1">
                 <span className="font-bold text-white flex items-center gap-1">
                   {currentUser.Role === 'Luxury' && <Crown className="h-3.5 w-3.5 text-amber-400" />}
                   {currentUser.Name}
@@ -1794,81 +1906,129 @@ export default function App() {
                 </span>
               </div>
 
-              {/* Requirement 1: Mail Officer "+ Register Mail" button */}
-              {(currentUser.Role === 'Mail Officer' || currentUser.Role === 'Super Admin') && (
+              {/* Requirement: Mail Officer / Letter Registrar "+ Register Mail" button */}
+              {isLetterRegistrar && (
                 <button
                   type="button"
                   onClick={() => setIsRegisterOpen(true)}
                   className="flex items-center gap-1.5 rounded-xl bg-emerald-600 px-3 py-1.5 text-xs font-bold text-white shadow-sm hover:bg-emerald-700 transition"
+                  title="புதிய உள்வரும் தபால்களைப் பதிவு செய்க"
                 >
                   <PlusCircle className="h-4 w-4" />
                   <span>+ Register Mail</span>
                 </button>
               )}
 
-              {/* Requirement 5: Super Admin User Management */}
-              {currentUser.Role === 'Super Admin' && (
+              {/* Requirement: Letter Registrar (கடித பதிவாளர்) only - Upload from Local Storage to JSON */}
+              {isLetterRegistrar && (
                 <button
                   type="button"
-                  onClick={() => setIsUserMgmtOpen(true)}
-                  className="flex items-center gap-1.5 rounded-xl bg-purple-700 px-3 py-1.5 text-xs font-bold text-white shadow-sm hover:bg-purple-800 transition"
+                  onClick={handleUploadLocalStorageToJson}
+                  disabled={isUploadingToJson}
+                  className="flex items-center gap-1.5 rounded-xl bg-indigo-600 px-2.5 sm:px-3 py-1.5 text-xs font-bold text-white shadow-sm hover:bg-indigo-700 transition disabled:opacity-60 cursor-pointer"
+                  title="கடித பதிவாளர்: உள்ளூர் சேமிப்பகத்தில் (Local Storage) உள்ள கடிதங்களை JSON-க்கு பதிவேற்றுங்கள்"
                 >
-                  <Users className="h-4 w-4" />
-                  <span>User Management</span>
+                  <UploadCloud className={`h-4 w-4 ${isUploadingToJson ? 'animate-bounce text-amber-300' : ''}`} />
+                  <span className="hidden sm:inline">
+                    {isUploadingToJson ? 'JSON-க்கு பதிவேற்றுகிறது...' : 'Upload to JSON'}
+                  </span>
+                  <span className="sm:hidden">Upload</span>
                 </button>
               )}
 
-              {/* Cloud Sync Settings & Status Trigger */}
+              {/* Requirement: ALL users can download the JSON file */}
               <button
                 type="button"
-                onClick={() => setIsCloudSettingsOpen(true)}
-                title="Google Drive JSON & Sheets Cloud Storage Settings"
-                className={`flex items-center gap-1.5 rounded-xl px-2.5 sm:px-3 py-1.5 text-xs font-bold transition shadow-xs cursor-pointer ${
-                  cloudStatus === 'connected'
-                    ? storageMode === 'drive_json'
-                      ? 'bg-linear-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white border border-emerald-400/50'
-                      : 'bg-emerald-700 hover:bg-emerald-800 text-white border border-emerald-500/50'
-                    : cloudStatus === 'error_403'
-                    ? 'bg-red-600 hover:bg-red-700 text-white border border-red-300 animate-pulse'
-                    : 'bg-amber-600 hover:bg-amber-700 text-white border border-amber-400/50'
-                }`}
+                onClick={handleDownloadJson}
+                className="flex items-center gap-1.5 rounded-xl bg-teal-700 px-2.5 sm:px-3 py-1.5 text-xs font-bold text-white shadow-sm hover:bg-teal-800 transition cursor-pointer"
+                title="அனைத்து பயனர்களுக்கும்: கடிதங்கள் மற்றும் பயனர்களின் JSON கோப்பைப் பதிவிறக்கம் செய்ய (Download JSON)"
               >
-                {storageMode === 'drive_json' ? (
-                  <Zap className="h-3.5 w-3.5 text-amber-300" />
-                ) : cloudStatus === 'connected' ? (
-                  <Cloud className="h-3.5 w-3.5 text-emerald-200" />
-                ) : (
-                  <CloudOff className="h-3.5 w-3.5 text-white" />
-                )}
-                <span className="hidden sm:inline">
-                  {cloudStatus === 'connected'
-                    ? storageMode === 'drive_json'
-                      ? `Drive JSON (${driveLatency ? `${driveLatency}ms` : '0.3s'})`
-                      : 'Sheet Synced'
-                    : cloudStatus === 'error_403'
-                    ? 'Storage 403 Error'
-                    : 'Storage Offline'}
-                </span>
-                <span className="sm:hidden">
-                  {storageMode === 'drive_json' ? 'Drive' : 'Sheet'}
-                </span>
+                <Download className="h-4 w-4 text-teal-200" />
+                <span className="hidden md:inline">Download JSON</span>
+                <span className="md:hidden">JSON</span>
               </button>
 
+              {/* Live Sync button available to all users to pull updates from other browsers */}
               <button
                 type="button"
-                onClick={handleResetData}
-                title="Restore all 460 official Secretariat letters and 108 officers"
-                className="hidden lg:flex items-center gap-1 rounded-lg border border-slate-700 bg-slate-800 px-2.5 py-1.5 text-[11px] font-medium text-slate-300 hover:bg-slate-700 hover:text-white"
+                onClick={() => loadCloud(true)}
+                disabled={isSyncing}
+                className="flex items-center gap-1 rounded-xl bg-slate-800 border border-slate-700 px-2.5 py-1.5 text-xs font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition cursor-pointer"
+                title="மற்ற உலாவிகளில் புதிதாக சேர்க்கப்பட்ட கடிதங்களை உடனடியாகப் பெற நேரலை ஒத்திசைவு (Sync Now)"
               >
-                <RotateCcw className="h-3 w-3 text-emerald-400" />
-                <span>460 கடிதங்களை மீட்டமை</span>
+                <RefreshCw className={`h-3.5 w-3.5 ${isSyncing ? 'animate-spin text-emerald-400' : 'text-slate-300'}`} />
+                <span className="hidden lg:inline">Sync</span>
               </button>
+
+              {/* Requirement: Super Admin User Management */}
+              {isSuperAdmin && (
+                <button
+                  type="button"
+                  onClick={() => setIsUserMgmtOpen(true)}
+                  className="flex items-center gap-1.5 rounded-xl bg-purple-700 px-2.5 sm:px-3 py-1.5 text-xs font-bold text-white shadow-sm hover:bg-purple-800 transition"
+                >
+                  <Users className="h-4 w-4" />
+                  <span className="hidden md:inline">User Management</span>
+                  <span className="md:hidden">Users</span>
+                </button>
+              )}
+
+              {/* Requirement: Sheet Settings ONLY visible to Super Admin */}
+              {isSuperAdmin && (
+                <button
+                  type="button"
+                  onClick={() => setIsCloudSettingsOpen(true)}
+                  title="Google Drive JSON & Sheets Cloud Storage Settings (Super Admin Only)"
+                  className={`flex items-center gap-1.5 rounded-xl px-2.5 sm:px-3 py-1.5 text-xs font-bold transition shadow-xs cursor-pointer ${
+                    cloudStatus === 'connected'
+                      ? storageMode === 'drive_json'
+                        ? 'bg-linear-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white border border-emerald-400/50'
+                        : 'bg-emerald-700 hover:bg-emerald-800 text-white border border-emerald-500/50'
+                      : cloudStatus === 'error_403'
+                      ? 'bg-red-600 hover:bg-red-700 text-white border border-red-300 animate-pulse'
+                      : 'bg-amber-600 hover:bg-amber-700 text-white border border-amber-400/50'
+                  }`}
+                >
+                  {storageMode === 'drive_json' ? (
+                    <Zap className="h-3.5 w-3.5 text-amber-300" />
+                  ) : cloudStatus === 'connected' ? (
+                    <Cloud className="h-3.5 w-3.5 text-emerald-200" />
+                  ) : (
+                    <CloudOff className="h-3.5 w-3.5 text-white" />
+                  )}
+                  <span className="hidden sm:inline">
+                    {cloudStatus === 'connected'
+                      ? storageMode === 'drive_json'
+                        ? `Drive JSON (${driveLatency ? `${driveLatency}ms` : '0.3s'})`
+                        : 'Sheet Synced'
+                      : cloudStatus === 'error_403'
+                      ? 'Storage 403 Error'
+                      : 'Storage Offline'}
+                  </span>
+                  <span className="sm:hidden">
+                    {storageMode === 'drive_json' ? 'Drive' : 'Sheet'}
+                  </span>
+                </button>
+              )}
+
+              {/* Super Admin Restore Baseline Data */}
+              {isSuperAdmin && (
+                <button
+                  type="button"
+                  onClick={handleResetData}
+                  title="Restore all 460 official Secretariat letters and 108 officers"
+                  className="hidden 2xl:flex items-center gap-1 rounded-lg border border-slate-700 bg-slate-800 px-2 py-1.5 text-[11px] font-medium text-slate-300 hover:bg-slate-700 hover:text-white"
+                >
+                  <RotateCcw className="h-3 w-3 text-emerald-400" />
+                  <span>460 கடிதங்கள்</span>
+                </button>
+              )}
 
               <button
                 type="button"
                 onClick={handleLogout}
                 title="Sign out of portal"
-                className="flex items-center gap-1 rounded-xl bg-red-600/90 px-3 py-1.5 text-xs font-bold text-white hover:bg-red-700 transition"
+                className="flex items-center gap-1 rounded-xl bg-red-600/90 px-2.5 sm:px-3 py-1.5 text-xs font-bold text-white hover:bg-red-700 transition"
               >
                 <LogOut className="h-3.5 w-3.5" />
                 <span className="hidden sm:inline">Sign Out</span>
@@ -1878,16 +2038,19 @@ export default function App() {
         </div>
       </header>
 
-      {/* Interactive Cloud Status Banner */}
-      <button
-        type="button"
-        onClick={() => setIsCloudSettingsOpen(true)}
-        className={`w-full border-b px-4 py-1.5 text-center text-xs font-medium flex items-center justify-center gap-2 cursor-pointer transition ${
+      {/* Cloud Status Banner: Settings link ONLY for Super Admin */}
+      <div
+        onClick={() => {
+          if (isSuperAdmin) setIsCloudSettingsOpen(true);
+        }}
+        className={`w-full border-b px-4 py-1.5 text-center text-xs font-medium flex items-center justify-center gap-2 transition ${
+          isSuperAdmin ? 'cursor-pointer hover:bg-opacity-90' : ''
+        } ${
           cloudStatus === 'connected'
-            ? 'bg-emerald-50 border-emerald-200 text-emerald-900 hover:bg-emerald-100'
+            ? 'bg-emerald-50 border-emerald-200 text-emerald-900'
             : cloudStatus === 'error_403'
-            ? 'bg-red-50 border-red-200 text-red-900 hover:bg-red-100 font-bold'
-            : 'bg-amber-50 border-amber-200 text-amber-900 hover:bg-amber-100'
+            ? 'bg-red-50 border-red-200 text-red-900 font-bold'
+            : 'bg-amber-50 border-amber-200 text-amber-900'
         }`}
       >
         <span
@@ -1900,10 +2063,16 @@ export default function App() {
           }`}
         ></span>
         <span>{cloudMessage}</span>
-        <span className="underline text-[11px] ml-1 font-bold text-blue-700">
-          (சீட் அமைப்புகள் / Settings)
-        </span>
-      </button>
+        {isSuperAdmin ? (
+          <span className="underline text-[11px] ml-1 font-bold text-blue-700">
+            (சீட் அமைப்புகள் / Settings)
+          </span>
+        ) : (
+          <span className="text-[11px] ml-1 text-slate-600 font-semibold">
+            • {letters.length} கடிதங்கள் நேரலையில்
+          </span>
+        )}
+      </div>
 
       {/* Role Context Bar */}
       <div className="border-b border-gray-200 bg-white px-4 py-2.5 shadow-2xs">
@@ -2252,28 +2421,30 @@ export default function App() {
         onDeleteUser={handleDeleteUser}
       />
 
-      {/* Google Drive JSON & Sheets Cloud Synchronization & Diagnostics Modal */}
-      <CloudSyncSettingsModal
-        isOpen={isCloudSettingsOpen}
-        onClose={() => setIsCloudSettingsOpen(false)}
-        storageMode={storageMode}
-        onSaveStorageMode={handleSaveStorageMode}
-        driveFileId={driveFileId}
-        onSaveDriveFileId={handleSaveDriveFileId}
-        onTestDriveConnection={handleTestDriveConnection}
-        onUploadAllToDrive={handleUploadAllToDrive}
-        currentUrl={cloudUrl}
-        onSaveUrl={handleSaveCloudUrl}
-        onTestConnection={handleTestCloudConnection}
-        letters={letters}
-        users={users}
-        onSyncAllLetters={handleSyncAllLetters}
-        onRepairShiftedRows={handleRepairShiftedRows}
-        cloudStatus={cloudStatus}
-        cloudMessage={cloudMessage}
-        driveLatency={driveLatency}
-        onRestoreBaseline={handleResetData}
-      />
+      {/* Google Drive JSON & Sheets Cloud Synchronization & Diagnostics Modal - Super Admin Only */}
+      {isSuperAdmin && (
+        <CloudSyncSettingsModal
+          isOpen={isCloudSettingsOpen}
+          onClose={() => setIsCloudSettingsOpen(false)}
+          storageMode={storageMode}
+          onSaveStorageMode={handleSaveStorageMode}
+          driveFileId={driveFileId}
+          onSaveDriveFileId={handleSaveDriveFileId}
+          onTestDriveConnection={handleTestDriveConnection}
+          onUploadAllToDrive={handleUploadAllToDrive}
+          currentUrl={cloudUrl}
+          onSaveUrl={handleSaveCloudUrl}
+          onTestConnection={handleTestCloudConnection}
+          letters={letters}
+          users={users}
+          onSyncAllLetters={handleSyncAllLetters}
+          onRepairShiftedRows={handleRepairShiftedRows}
+          cloudStatus={cloudStatus}
+          cloudMessage={cloudMessage}
+          driveLatency={driveLatency}
+          onRestoreBaseline={handleResetData}
+        />
+      )}
     </div>
   );
 }
