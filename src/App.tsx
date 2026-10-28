@@ -790,7 +790,7 @@ export default function App() {
               });
             }
           }
-          if (uniqueUsers.length > 0) return uniqueUsers;
+          if (uniqueUsers.length >= 20) return uniqueUsers;
         }
       }
     } catch {
@@ -831,7 +831,8 @@ export default function App() {
               });
             }
           }
-          if (uniqueLetters.length > 0) return uniqueLetters;
+          // If stored letters only has old demo data (< 50 items), upgrade to full 460 official letters
+          if (uniqueLetters.length >= 50) return uniqueLetters;
         }
       }
     } catch {
@@ -931,6 +932,28 @@ export default function App() {
       // Ignore storage write errors
     }
   }, [currentUser]);
+
+  // Auto-upgrade local storage: if user's browser has stale demo cache (< 50 letters), upgrade immediately to all 460 official letters
+  useEffect(() => {
+    try {
+      const savedLtrs = localStorage.getItem('kpn_vaharai_letters_v2');
+      if (savedLtrs) {
+        const parsed = JSON.parse(savedLtrs);
+        if (Array.isArray(parsed) && parsed.length < 50 && INITIAL_LETTERS.length >= 50) {
+          setLetters(INITIAL_LETTERS);
+          localStorage.setItem('kpn_vaharai_letters_v2', JSON.stringify(INITIAL_LETTERS));
+        }
+      }
+      const savedUsers = localStorage.getItem('kpn_vaharai_users_v2');
+      if (savedUsers) {
+        const parsedUsers = JSON.parse(savedUsers);
+        if (Array.isArray(parsedUsers) && parsedUsers.length < 20 && INITIAL_USERS.length >= 20) {
+          setUsers(INITIAL_USERS);
+          localStorage.setItem('kpn_vaharai_users_v2', JSON.stringify(INITIAL_USERS));
+        }
+      }
+    } catch {}
+  }, []);
 
   useEffect(() => {
     let mounted = true;
@@ -1352,10 +1375,14 @@ export default function App() {
   };
 
   const handleResetData = () => {
-    if (confirm('Reset system data to official default demonstration records?')) {
+    if (confirm('பிரதேச செயலகத்தின் உத்தியோகபூர்வ 460 கடிதங்கள் மற்றும் 108 உத்தியோகத்தர்கள் பதிவுகளை மீளமைக்க விரும்புகிறீர்களா? (Restore all 460 official letters & 108 staff)?')) {
       setUsers(INITIAL_USERS);
       setLetters(INITIAL_LETTERS);
-      alert('System records successfully restored to demo baseline.');
+      try {
+        localStorage.setItem('kpn_vaharai_letters_v2', JSON.stringify(INITIAL_LETTERS));
+        localStorage.setItem('kpn_vaharai_users_v2', JSON.stringify(INITIAL_USERS));
+      } catch {}
+      alert(`அனைத்து 460 உத்தியோகபூர்வ கடிதங்கள் மற்றும் 108 உத்தியோகத்தர்கள் விபரங்கள் வெற்றிகரமாக ஏற்றப்பட்டன! (Successfully loaded ${INITIAL_LETTERS.length} letters & ${INITIAL_USERS.length} users)`);
     }
   };
 
@@ -1830,11 +1857,11 @@ export default function App() {
               <button
                 type="button"
                 onClick={handleResetData}
-                title="Restore default demo records"
-                className="hidden lg:flex items-center gap-1 rounded-lg border border-slate-700 bg-slate-800 px-2.5 py-1.5 text-[11px] font-medium text-slate-300 hover:bg-slate-700"
+                title="Restore all 460 official Secretariat letters and 108 officers"
+                className="hidden lg:flex items-center gap-1 rounded-lg border border-slate-700 bg-slate-800 px-2.5 py-1.5 text-[11px] font-medium text-slate-300 hover:bg-slate-700 hover:text-white"
               >
-                <RotateCcw className="h-3 w-3" />
-                <span>Reset Demo</span>
+                <RotateCcw className="h-3 w-3 text-emerald-400" />
+                <span>460 கடிதங்களை மீட்டமை</span>
               </button>
 
               <button
@@ -2245,6 +2272,7 @@ export default function App() {
         cloudStatus={cloudStatus}
         cloudMessage={cloudMessage}
         driveLatency={driveLatency}
+        onRestoreBaseline={handleResetData}
       />
     </div>
   );

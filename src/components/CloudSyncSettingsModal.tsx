@@ -65,6 +65,7 @@ interface CloudSyncSettingsModalProps {
   cloudStatus: 'connected' | 'error_403' | 'offline' | 'checking';
   cloudMessage: string;
   driveLatency?: number | null;
+  onRestoreBaseline?: () => void;
 }
 
 export const CloudSyncSettingsModal: React.FC<CloudSyncSettingsModalProps> = ({
@@ -86,6 +87,7 @@ export const CloudSyncSettingsModal: React.FC<CloudSyncSettingsModalProps> = ({
   cloudStatus,
   cloudMessage,
   driveLatency,
+  onRestoreBaseline,
 }) => {
   const [activeTab, setActiveTab] = useState<'drive_json' | 'sheets' | 'script'>('drive_json');
   const [driveIdInput, setDriveIdInput] = useState(driveFileId || DEFAULT_DRIVE_FILE_ID);
@@ -552,6 +554,17 @@ export const CloudSyncSettingsModal: React.FC<CloudSyncSettingsModalProps> = ({
                       <Download className="h-3.5 w-3.5" />
                       <span className="hidden sm:inline">Download JSON</span>
                     </button>
+                    {onRestoreBaseline && (
+                      <button
+                        type="button"
+                        onClick={onRestoreBaseline}
+                        title="உத்தியோகபூர்வ 460 கடிதங்கள் & 108 உத்தியோகத்தர்களை மீளமைக்க"
+                        className="flex items-center gap-1 rounded-xl border border-blue-300 bg-blue-50 px-3 py-2 text-xs font-bold text-blue-700 hover:bg-blue-100 transition"
+                      >
+                        <RefreshCw className="h-3.5 w-3.5 text-blue-600" />
+                        <span className="hidden sm:inline">460 கடிதங்களை மீட்டெடு ({letters.length})</span>
+                      </button>
+                    )}
                   </div>
                 </div>
 
