@@ -36,7 +36,6 @@ export interface Letter {
   date: string; // Registered date YYYY-MM-DD
   dispatchedDate: string; // Date letter was sent/dispatched
   letterType: string; // Registered Post, Normal Letter, Express Post, Hand Delivery
-  postType?: string;
   registeredPostNo: string; // Registered post registration number
   inwardNo: string;
   fromWhom: string;
@@ -56,7 +55,6 @@ export interface Letter {
   megaHandledNote?: string;
   createdAt: string;
   chats?: LetterChatMessage[];
-  [key: string]: any;
 }
 
 export interface User {
