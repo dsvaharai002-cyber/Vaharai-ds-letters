@@ -958,6 +958,7 @@ export default function App() {
   const [editingLetter, setEditingLetter] = useState<Letter | null>(null);
 
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedDateFilter, setSelectedDateFilter] = useState<string>('');
   const [actionFilter, setActionFilter] = useState<string>('All');
   const [selectedDivisionFilter, setSelectedDivisionFilter] = useState<string>('All');
   const [selectedOfficerFilter, setSelectedOfficerFilter] = useState<string>('All');
@@ -1984,6 +1985,14 @@ export default function App() {
       if (category !== selectedCategoryFilter) return false;
     }
 
+    // Specific Date Filter ("குறித்த திகதி வைத்து தேடல்")
+    if (selectedDateFilter) {
+      const targetDate = selectedDateFilter.trim();
+      const matchRegDate = (letter.date || '').trim() === targetDate;
+      const matchDispDate = (letter.dispatchedDate || '').trim() === targetDate;
+      if (!matchRegDate && !matchDispDate) return false;
+    }
+
     // Search Query (Comprehensive search by Officer Name / ID / Designation, Original No, Inward No, Subject, From, Dates, Division, Notes)
     if (!searchQuery.trim()) return true;
     const q = searchQuery.toLowerCase().trim();
@@ -2020,167 +2029,166 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-100 flex flex-col font-sans">
-      {/* Top Navigation Bar */}
-      <header className="sticky top-0 z-30 border-b border-blue-900 bg-slate-900 text-white shadow-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
+      {/* Top Navigation Bar with Mobile Responsive Spacing */}
+      <header className="sticky top-0 z-30 border-b border-blue-950/80 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 text-white shadow-lg backdrop-blur-md">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-2 pb-2 sm:py-2.5">
+          {/* Row 1: Brand & User / Sign Out */}
+          <div className="flex items-center justify-between gap-2 sm:gap-4">
+            <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
               <VaharaiLogo size="md" />
-              <div>
-                <h1 className="text-sm sm:text-base font-bold tracking-tight text-white line-clamp-1">
+              <div className="min-w-0">
+                <h1 className="text-xs sm:text-base font-bold tracking-tight text-white truncate">
                   Divisional Secretariat • Koralaipattu North (Vaharai)
                 </h1>
-                <p className="text-[11px] text-blue-200">
+                <p className="text-[10px] sm:text-[11px] text-blue-200 truncate">
                   Mail Registration, Departmental Routing & Tracking System
                 </p>
               </div>
             </div>
 
-            {/* User Profile & Quick Actions */}
-            <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
-              <div className="hidden xl:flex flex-col items-end text-xs pr-1">
-                <span className="font-bold text-white flex items-center gap-1">
+            {/* User Profile & Sign Out */}
+            <div className="flex items-center gap-2 shrink-0">
+              <div className="flex flex-col items-end text-xs">
+                <span className="font-bold text-white flex items-center gap-1 text-[11px] sm:text-xs">
                   {currentUser.Role === 'Luxury' && <Crown className="h-3.5 w-3.5 text-amber-400" />}
-                  {currentUser.Name}
+                  <span className="truncate max-w-[100px] sm:max-w-none">{currentUser.Name}</span>
                 </span>
-                <span className="text-blue-200 text-[11px]">
-                  {currentUser.Division} &nbsp;|&nbsp;{' '}
-                  <span className="rounded bg-blue-700 px-1.5 py-0.2 font-bold text-white uppercase text-[10px]">
+                <span className="text-blue-200 text-[10px] flex items-center gap-1">
+                  {currentUser.Division && <span className="hidden md:inline">{currentUser.Division} • </span>}
+                  <span className="rounded bg-blue-700/90 px-1.5 py-0.2 font-bold text-white uppercase text-[9px] sm:text-[10px]">
                     {currentUser.Role}
                   </span>
                 </span>
               </div>
 
-              {/* Requirement: Mail Officer / Letter Registrar "+ Register Mail" button */}
-              {isLetterRegistrar && (
-                <button
-                  type="button"
-                  onClick={() => setIsRegisterOpen(true)}
-                  className="flex items-center gap-1.5 rounded-xl bg-emerald-600 px-3 py-1.5 text-xs font-bold text-white shadow-sm hover:bg-emerald-700 transition"
-                  title="புதிய உள்வரும் தபால்களைப் பதிவு செய்க"
-                >
-                  <PlusCircle className="h-4 w-4" />
-                  <span>+ Register Mail</span>
-                </button>
-              )}
-
-              {/* Requirement: Letter Registrar (கடித பதிவாளர்) only - Upload from Local Storage to JSON */}
-              {isLetterRegistrar && (
-                <button
-                  type="button"
-                  onClick={handleUploadLocalStorageToJson}
-                  disabled={isUploadingToJson}
-                  className="flex items-center gap-1.5 rounded-xl bg-indigo-600 px-2.5 sm:px-3 py-1.5 text-xs font-bold text-white shadow-sm hover:bg-indigo-700 transition disabled:opacity-60 cursor-pointer"
-                  title="கடித பதிவாளர்: உள்ளூர் சேமிப்பகத்தில் (Local Storage) உள்ள கடிதங்களை JSON-க்கு பதிவேற்றுங்கள்"
-                >
-                  <UploadCloud className={`h-4 w-4 ${isUploadingToJson ? 'animate-bounce text-amber-300' : ''}`} />
-                  <span className="hidden sm:inline">
-                    {isUploadingToJson ? 'JSON-க்கு பதிவேற்றுகிறது...' : 'Upload to JSON'}
-                  </span>
-                  <span className="sm:hidden">Upload</span>
-                </button>
-              )}
-
-              {/* Requirement: ONLY Super Admin and Admin (Mega) can download the JSON file */}
-              {(isSuperAdmin || currentUser?.Role === 'Mega') && (
-                <button
-                  type="button"
-                  onClick={handleDownloadJson}
-                  className="flex items-center gap-1.5 rounded-xl bg-teal-700 px-2.5 sm:px-3 py-1.5 text-xs font-bold text-white shadow-sm hover:bg-teal-800 transition cursor-pointer"
-                  title="Super Admin மற்றும் Admin மட்டும்: கடிதங்கள் மற்றும் பயனர்களின் JSON கோப்பைப் பதிவிறக்கம் செய்ய (Download JSON)"
-                >
-                  <Download className="h-4 w-4 text-teal-200" />
-                  <span className="hidden md:inline">Download JSON</span>
-                  <span className="md:hidden">JSON</span>
-                </button>
-              )}
-
-              {/* Live Sync button available to all users to pull updates from other browsers */}
-              <button
-                type="button"
-                onClick={() => loadCloud(true)}
-                disabled={isSyncing}
-                className="flex items-center gap-1 rounded-xl bg-slate-800 border border-slate-700 px-2.5 py-1.5 text-xs font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition cursor-pointer"
-                title="மற்ற உலாவிகளில் புதிதாக சேர்க்கப்பட்ட கடிதங்களை உடனடியாகப் பெற நேரலை ஒத்திசைவு (Sync Now)"
-              >
-                <RefreshCw className={`h-3.5 w-3.5 ${isSyncing ? 'animate-spin text-emerald-400' : 'text-slate-300'}`} />
-                <span className="hidden lg:inline">Sync</span>
-              </button>
-
-              {/* Requirement: Super Admin User Management */}
-              {isSuperAdmin && (
-                <button
-                  type="button"
-                  onClick={() => setIsUserMgmtOpen(true)}
-                  className="flex items-center gap-1.5 rounded-xl bg-purple-700 px-2.5 sm:px-3 py-1.5 text-xs font-bold text-white shadow-sm hover:bg-purple-800 transition"
-                >
-                  <Users className="h-4 w-4" />
-                  <span className="hidden md:inline">User Management</span>
-                  <span className="md:hidden">Users</span>
-                </button>
-              )}
-
-              {/* Requirement: Sheet Settings ONLY visible to Super Admin */}
-              {isSuperAdmin && (
-                <button
-                  type="button"
-                  onClick={() => setIsCloudSettingsOpen(true)}
-                  title="Google Drive JSON & Sheets Cloud Storage Settings (Super Admin Only)"
-                  className={`flex items-center gap-1.5 rounded-xl px-2.5 sm:px-3 py-1.5 text-xs font-bold transition shadow-xs cursor-pointer ${
-                    cloudStatus === 'connected'
-                      ? storageMode === 'drive_json'
-                        ? 'bg-linear-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white border border-emerald-400/50'
-                        : 'bg-emerald-700 hover:bg-emerald-800 text-white border border-emerald-500/50'
-                      : cloudStatus === 'error_403'
-                      ? 'bg-red-600 hover:bg-red-700 text-white border border-red-300 animate-pulse'
-                      : 'bg-amber-600 hover:bg-amber-700 text-white border border-amber-400/50'
-                  }`}
-                >
-                  {storageMode === 'drive_json' ? (
-                    <Zap className="h-3.5 w-3.5 text-amber-300" />
-                  ) : cloudStatus === 'connected' ? (
-                    <Cloud className="h-3.5 w-3.5 text-emerald-200" />
-                  ) : (
-                    <CloudOff className="h-3.5 w-3.5 text-white" />
-                  )}
-                  <span className="hidden sm:inline">
-                    {cloudStatus === 'connected'
-                      ? storageMode === 'drive_json'
-                        ? `Drive JSON (${driveLatency ? `${driveLatency}ms` : '0.3s'})`
-                        : 'Sheet Synced'
-                      : cloudStatus === 'error_403'
-                      ? 'Storage 403 Error'
-                      : 'Storage Offline'}
-                  </span>
-                  <span className="sm:hidden">
-                    {storageMode === 'drive_json' ? 'Drive' : 'Sheet'}
-                  </span>
-                </button>
-              )}
-
-              {/* Super Admin Restore Baseline Data */}
-              {isSuperAdmin && (
-                <button
-                  type="button"
-                  onClick={handleResetData}
-                  title="Restore all 460 official Secretariat letters and 108 officers"
-                  className="hidden 2xl:flex items-center gap-1 rounded-lg border border-slate-700 bg-slate-800 px-2 py-1.5 text-[11px] font-medium text-slate-300 hover:bg-slate-700 hover:text-white"
-                >
-                  <RotateCcw className="h-3 w-3 text-emerald-400" />
-                  <span>460 கடிதங்கள்</span>
-                </button>
-              )}
-
               <button
                 type="button"
                 onClick={handleLogout}
-                title="Sign out of portal"
-                className="flex items-center gap-1 rounded-xl bg-red-600/90 px-2.5 sm:px-3 py-1.5 text-xs font-bold text-white hover:bg-red-700 transition"
+                title="Sign out of portal (வெளியேறு)"
+                className="flex items-center gap-1 rounded-xl bg-red-600/90 hover:bg-red-700 active:scale-95 px-2.5 sm:px-3 py-1.5 text-xs font-bold text-white shadow-xs transition cursor-pointer min-h-[32px]"
               >
                 <LogOut className="h-3.5 w-3.5" />
                 <span className="hidden sm:inline">Sign Out</span>
               </button>
             </div>
+          </div>
+
+          {/* Row 2: Action Buttons Bar - shifted slightly down with clear margins & beautiful touch-friendly cards */}
+          <div className="mt-2 pt-2 border-t border-slate-800/80 flex flex-wrap items-center gap-1.5 sm:gap-2">
+            {/* Requirement: Mail Officer / Letter Registrar "+ Register Mail" button */}
+            {isLetterRegistrar && (
+              <button
+                type="button"
+                onClick={() => setIsRegisterOpen(true)}
+                className="flex items-center gap-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 px-3 py-1.5 text-xs font-bold text-white shadow-sm transition cursor-pointer min-h-[34px]"
+                title="புதிய உள்வரும் தபால்களைப் பதிவு செய்க (+ Register Mail)"
+              >
+                <PlusCircle className="h-4 w-4" />
+                <span>+ Register Mail</span>
+              </button>
+            )}
+
+            {/* Requirement: Letter Registrar (கடித பதிவாளர்) only - Upload from Local Storage to JSON */}
+            {isLetterRegistrar && (
+              <button
+                type="button"
+                onClick={handleUploadLocalStorageToJson}
+                disabled={isUploadingToJson}
+                className="flex items-center gap-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:scale-95 px-2.5 sm:px-3 py-1.5 text-xs font-bold text-white shadow-sm transition disabled:opacity-60 cursor-pointer min-h-[34px]"
+                title="கடித பதிவாளர்: உள்ளூர் சேமிப்பகத்தில் உள்ள கடிதங்களை JSON-க்கு பதிவேற்றுங்கள் (Upload to JSON)"
+              >
+                <UploadCloud className={`h-4 w-4 ${isUploadingToJson ? 'animate-bounce text-amber-300' : ''}`} />
+                <span>
+                  {isUploadingToJson ? 'JSON-க்கு பதிவேற்றுகிறது...' : 'Upload to JSON'}
+                </span>
+              </button>
+            )}
+
+            {/* Requirement: ONLY Super Admin and Admin (Mega) can download the JSON file */}
+            {(isSuperAdmin || currentUser?.Role === 'Mega') && (
+              <button
+                type="button"
+                onClick={handleDownloadJson}
+                className="flex items-center gap-1.5 rounded-xl bg-teal-700 hover:bg-teal-800 active:scale-95 px-2.5 sm:px-3 py-1.5 text-xs font-bold text-white shadow-sm transition cursor-pointer min-h-[34px]"
+                title="Super Admin மற்றும் Admin மட்டும்: கடிதங்கள் மற்றும் பயனர்களின் JSON கோப்பைப் பதிவிறக்கம் செய்ய (Download JSON)"
+              >
+                <Download className="h-4 w-4 text-teal-200" />
+                <span>Download JSON</span>
+              </button>
+            )}
+
+            {/* Live Sync button available to all users to pull updates from other browsers */}
+            <button
+              type="button"
+              onClick={() => loadCloud(true)}
+              disabled={isSyncing}
+              className="flex items-center gap-1.5 rounded-xl bg-slate-800 border border-slate-700 hover:bg-slate-700 active:scale-95 px-2.5 sm:px-3 py-1.5 text-xs font-bold text-slate-200 hover:text-white transition cursor-pointer min-h-[34px]"
+              title="மற்ற உலாவிகளில் புதிதாக சேர்க்கப்பட்ட கடிதங்களை உடனடியாகப் பெற நேரலை ஒத்திசைவு (Sync Now)"
+            >
+              <RefreshCw className={`h-3.5 w-3.5 ${isSyncing ? 'animate-spin text-emerald-400' : 'text-slate-300'}`} />
+              <span>Sync</span>
+            </button>
+
+            {/* Requirement: Super Admin User Management */}
+            {isSuperAdmin && (
+              <button
+                type="button"
+                onClick={() => setIsUserMgmtOpen(true)}
+                className="flex items-center gap-1.5 rounded-xl bg-purple-700 hover:bg-purple-800 active:scale-95 px-2.5 sm:px-3 py-1.5 text-xs font-bold text-white shadow-sm transition cursor-pointer min-h-[34px]"
+                title="பயனர் நிர்வாகம் (User Management)"
+              >
+                <Users className="h-4 w-4" />
+                <span>User Management</span>
+              </button>
+            )}
+
+            {/* Requirement: Sheet Settings ONLY visible to Super Admin */}
+            {isSuperAdmin && (
+              <button
+                type="button"
+                onClick={() => setIsCloudSettingsOpen(true)}
+                title="Google Drive JSON & Sheets Cloud Storage Settings (Super Admin Only)"
+                className={`flex items-center gap-1.5 rounded-xl px-2.5 sm:px-3 py-1.5 text-xs font-bold transition shadow-xs cursor-pointer min-h-[34px] ${
+                  cloudStatus === 'connected'
+                    ? storageMode === 'drive_json'
+                      ? 'bg-linear-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white border border-emerald-400/50'
+                      : 'bg-emerald-700 hover:bg-emerald-800 text-white border border-emerald-500/50'
+                    : cloudStatus === 'error_403'
+                    ? 'bg-red-600 hover:bg-red-700 text-white border border-red-300 animate-pulse'
+                    : 'bg-amber-600 hover:bg-amber-700 text-white border border-amber-400/50'
+                }`}
+              >
+                {storageMode === 'drive_json' ? (
+                  <Zap className="h-3.5 w-3.5 text-amber-300" />
+                ) : cloudStatus === 'connected' ? (
+                  <Cloud className="h-3.5 w-3.5 text-emerald-200" />
+                ) : (
+                  <CloudOff className="h-3.5 w-3.5 text-white" />
+                )}
+                <span>
+                  {cloudStatus === 'connected'
+                    ? storageMode === 'drive_json'
+                      ? `Drive JSON (${driveLatency ? `${driveLatency}ms` : '0.3s'})`
+                      : 'Sheet Synced'
+                    : cloudStatus === 'error_403'
+                    ? 'Storage 403 Error'
+                    : 'Storage Offline'}
+                </span>
+              </button>
+            )}
+
+            {/* Super Admin Restore Baseline Data */}
+            {isSuperAdmin && (
+              <button
+                type="button"
+                onClick={handleResetData}
+                title="Restore all 460 official Secretariat letters and 108 officers"
+                className="hidden xl:flex items-center gap-1 rounded-xl border border-slate-700 bg-slate-800 hover:bg-slate-700 px-2.5 py-1.5 text-xs font-medium text-slate-300 hover:text-white transition cursor-pointer min-h-[34px]"
+              >
+                <RotateCcw className="h-3 w-3 text-emerald-400" />
+                <span>460 கடிதங்கள்</span>
+              </button>
+            )}
           </div>
         </div>
       </header>
@@ -2331,6 +2339,56 @@ export default function App() {
 
             {/* Filter controls */}
             <div className="flex flex-wrap items-center gap-2.5">
+              {/* Specific Date Filter ("குறித்த திகதி வைத்து தேடல்") */}
+              <div className="flex items-center gap-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1">
+                <Calendar className="h-4 w-4 text-emerald-600 shrink-0" />
+                <span className="font-bold text-gray-700 whitespace-nowrap">திகதி (Date):</span>
+                <input
+                  type="date"
+                  value={selectedDateFilter}
+                  onChange={(e) => setSelectedDateFilter(e.target.value)}
+                  className="rounded-md border border-gray-300 bg-white px-2 py-0.5 text-xs font-semibold text-gray-800 focus:border-blue-700 focus:outline-hidden"
+                  title="குறித்த திகதியைத் தெரிவு செய்து தேடுக"
+                />
+                {selectedDateFilter && (
+                  <button
+                    type="button"
+                    onClick={() => setSelectedDateFilter('')}
+                    className="p-0.5 text-gray-400 hover:text-red-600 transition cursor-pointer"
+                    title="திகதியை நீக்குக (Clear Date Filter)"
+                  >
+                    <X className="h-3.5 w-3.5" />
+                  </button>
+                )}
+                {/* Quick Date Shortcut Buttons */}
+                <div className="flex items-center gap-1 ml-0.5">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedDateFilter('2026-10-29')}
+                    className={`px-1.5 py-0.5 rounded text-[10px] font-bold transition cursor-pointer ${
+                      selectedDateFilter === '2026-10-29'
+                        ? 'bg-emerald-600 text-white'
+                        : 'bg-emerald-100 text-emerald-900 hover:bg-emerald-200'
+                    }`}
+                    title="இன்றைய திகதி கடிதங்கள் (2026-10-29)"
+                  >
+                    இன்று
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedDateFilter('2026-10-28')}
+                    className={`px-1.5 py-0.5 rounded text-[10px] font-medium transition cursor-pointer ${
+                      selectedDateFilter === '2026-10-28'
+                        ? 'bg-slate-700 text-white'
+                        : 'bg-slate-200 text-slate-800 hover:bg-slate-300'
+                    }`}
+                    title="நேற்றைய திகதி கடிதங்கள் (2026-10-28)"
+                  >
+                    நேற்று
+                  </button>
+                </div>
+              </div>
+
               {/* Subject Category Filter Dropdown */}
               <div className="flex items-center gap-1.5 text-xs">
                 <Layers className="h-4 w-4 text-indigo-600" />
@@ -2398,7 +2456,7 @@ export default function App() {
                     )
                   }
                   title="Print Official A4 Landscape Report (10pt font) with Signature column"
-                  className="inline-flex items-center gap-1.5 rounded-xl bg-slate-900 px-3.5 py-1.5 text-xs font-bold text-white shadow-2xs hover:bg-black transition"
+                  className="inline-flex items-center gap-1.5 rounded-xl bg-slate-900 px-3.5 py-1.5 text-xs font-bold text-white shadow-2xs hover:bg-black transition cursor-pointer"
                 >
                   <Printer className="h-4 w-4" />
                   <span>Print (10pt Font)</span>
@@ -2408,10 +2466,24 @@ export default function App() {
           </div>
 
           {/* Active Filter Indicators & Result Count */}
-          {(actionFilter !== 'All' || selectedOfficerFilter !== 'All' || selectedDivisionFilter !== 'All' || selectedCategoryFilter !== 'All' || searchQuery.trim()) && (
+          {(actionFilter !== 'All' || selectedOfficerFilter !== 'All' || selectedDivisionFilter !== 'All' || selectedCategoryFilter !== 'All' || selectedDateFilter || searchQuery.trim()) && (
             <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-gray-100 text-xs">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="font-bold text-gray-500">Active Filters:</span>
+                {selectedDateFilter && (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2.5 py-0.5 font-bold text-emerald-900 text-[11px]">
+                    <Calendar className="h-3 w-3 text-emerald-700" />
+                    திகதி: {selectedDateFilter}
+                    <button
+                      type="button"
+                      onClick={() => setSelectedDateFilter('')}
+                      className="hover:text-red-700 ml-0.5 cursor-pointer"
+                      title="திகதியை நீக்குக"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </span>
+                )}
                 {selectedCategoryFilter !== 'All' && (
                   <span className="inline-flex items-center gap-1 rounded-full bg-indigo-100 px-2.5 py-0.5 font-bold text-indigo-900 text-[11px]">
                     Category: {selectedCategoryFilter}
@@ -2479,9 +2551,10 @@ export default function App() {
                     setActionFilter('All');
                     setSelectedOfficerFilter('All');
                     setSelectedDivisionFilter('All');
+                    setSelectedDateFilter('');
                     setSearchQuery('');
                   }}
-                  className="text-[11px] text-red-600 font-bold hover:underline ml-1"
+                  className="text-[11px] text-red-600 font-bold hover:underline ml-1 cursor-pointer"
                 >
                   Clear All Filters (அனைத்தும் அழி)
                 </button>
