@@ -774,6 +774,84 @@ const normalizeUser = (rowOrObj: any): User => {
   };
 };
 
+/**
+ * Non-destructive 2-way sync: Merges incoming letters from the cloud/server with local letters.
+ * CRITICAL RULE: NEVER deletes or drops any locally created or updated letters (e.g. registered on 2026-10-29).
+ */
+export const mergeLettersPreservingLocal = (
+  currentLocal: Letter[],
+  incomingCloud: Letter[],
+  deletedIds: Set<string> = new Set()
+): { merged: Letter[]; missingOnServer: Letter[] } => {
+  const cloudKeyMap = new Map<string, Letter>();
+  for (const cl of incomingCloud) {
+    if (!cl) continue;
+    const key = (cl.id || `${cl.originalNo}-${cl.date}`).trim();
+    if (key) cloudKeyMap.set(key, cl);
+  }
+
+  const mergedMap = new Map<string, Letter>();
+  const missingOnServer: Letter[] = [];
+
+  // Also include any locally saved creations that might not be in currentLocal
+  let localCreations: Letter[] = [];
+  try {
+    const raw = localStorage.getItem('kpn_vaharai_local_creations');
+    if (raw) localCreations = JSON.parse(raw);
+  } catch {}
+
+  const allLocal = [...localCreations, ...currentLocal];
+
+  // 1. Process all local letters: NEVER lose a locally created letter!
+  for (const loc of allLocal) {
+    if (!loc) continue;
+    const repaired = repairLetterRecord(loc) || loc;
+    const key = (repaired.id || `${repaired.originalNo}-${repaired.date}`).trim();
+    if (!key || deletedIds.has(repaired.id)) continue;
+
+    const cloudMatch = cloudKeyMap.get(key);
+    if (cloudMatch) {
+      // Exists in both: keep local user edits, preserve images and chat notes
+      mergedMap.set(key, {
+        ...cloudMatch,
+        ...repaired,
+        action:
+          repaired.action && repaired.action !== 'Not Yet Viewed'
+            ? repaired.action
+            : cloudMatch.action || repaired.action || 'Not Yet Viewed',
+        fileNo: repaired.fileNo || cloudMatch.fileNo || '',
+        replyResponse: repaired.replyResponse || cloudMatch.replyResponse || '',
+        image: repaired.image || cloudMatch.image,
+        imageSizeKb: repaired.imageSizeKb || cloudMatch.imageSizeKb,
+      });
+    } else {
+      // Local letter NOT yet in cloud (e.g. registered today 2026-10-29): KEEP IT!
+      mergedMap.set(key, repaired);
+      missingOnServer.push(repaired);
+    }
+  }
+
+  // 2. Add incoming cloud letters not present locally
+  for (const cl of incomingCloud) {
+    if (!cl) continue;
+    const repaired = repairLetterRecord(cl) || cl;
+    const key = (repaired.id || `${repaired.originalNo}-${repaired.date}`).trim();
+    if (!key || deletedIds.has(repaired.id)) continue;
+    if (!mergedMap.has(key)) {
+      mergedMap.set(key, repaired);
+    }
+  }
+
+  // 3. Sort by date descending (YYYY-MM-DD), then by originalNo/id descending
+  const merged = Array.from(mergedMap.values()).sort((a, b) => {
+    const dateComp = (b.date || '').localeCompare(a.date || '');
+    if (dateComp !== 0) return dateComp;
+    return (b.originalNo || b.id || '').localeCompare(a.originalNo || a.id || '');
+  });
+
+  return { merged, missingOnServer };
+};
+
 export default function App() {
   const [users, setUsers] = useState<User[]>(() => {
     try {
@@ -810,25 +888,41 @@ export default function App() {
   const [letters, setLetters] = useState<Letter[]>(() => {
     try {
       const saved = localStorage.getItem('kpn_vaharai_letters_v2');
+      let localCreations: Letter[] = [];
+      try {
+        const rawCreations = localStorage.getItem('kpn_vaharai_local_creations');
+        if (rawCreations) localCreations = JSON.parse(rawCreations);
+      } catch {}
+
+      let deletedIds = new Set<string>();
+      try {
+        const rawDel = localStorage.getItem('kpn_vaharai_deleted_ids');
+        if (rawDel) deletedIds = new Set(JSON.parse(rawDel));
+      } catch {}
+
+      let parsed: any[] = [];
       if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed)) {
-          const seenIds = new Set<string>();
-          const uniqueLetters: Letter[] = [];
-          for (const l of parsed) {
-            if (!l || typeof l !== 'object') continue;
-            const repaired = repairLetterRecord(l);
-            if (!repaired) continue;
-            const lid = (repaired.id || `${repaired.originalNo}-${repaired.date}`).trim();
-            if (lid && !seenIds.has(lid)) {
-              seenIds.add(lid);
-              uniqueLetters.push(repaired);
-            }
-          }
-          // If stored letters has valid items, return healed unique letters
-          if (uniqueLetters.length >= 50) return uniqueLetters;
+        const p = JSON.parse(saved);
+        if (Array.isArray(p)) parsed = p;
+      }
+      if (parsed.length === 0) {
+        parsed = [...INITIAL_LETTERS];
+      }
+
+      const seenIds = new Set<string>();
+      const combinedLetters: Letter[] = [];
+      for (const item of [...localCreations, ...parsed]) {
+        if (!item || typeof item !== 'object') continue;
+        const repaired = repairLetterRecord(item);
+        if (!repaired) continue;
+        const lid = (repaired.id || `${repaired.originalNo}-${repaired.date}`).trim();
+        if (lid && !seenIds.has(lid) && !deletedIds.has(repaired.id)) {
+          seenIds.add(lid);
+          combinedLetters.push(repaired);
         }
       }
+
+      if (combinedLetters.length > 0) return combinedLetters;
     } catch {
       // Ignore storage read errors
     }
@@ -966,22 +1060,36 @@ export default function App() {
             .filter((item: any) => item && (item.id || item.originalNo || item.subject))
             .map(normalizeLetter);
 
-          const seenLetters = new Set<string>();
-          const uniqueLetters: Letter[] = [];
-          for (const l of driveLetters) {
-            const key = l.id || `${l.originalNo}-${l.date}`;
-            if (!seenLetters.has(key)) {
-              seenLetters.add(key);
-              uniqueLetters.push(l);
-            }
-          }
+          let deletedIds = new Set<string>();
+          try {
+            const rawDel = localStorage.getItem('kpn_vaharai_deleted_ids');
+            if (rawDel) deletedIds = new Set(JSON.parse(rawDel));
+          } catch {}
 
-          if (uniqueLetters.length) {
-            setLetters(uniqueLetters);
+          setLetters((prevLetters) => {
+            const { merged, missingOnServer } = mergeLettersPreservingLocal(
+              prevLetters,
+              driveLetters,
+              deletedIds
+            );
             try {
-              localStorage.setItem('kpn_vaharai_letters_v2', JSON.stringify(uniqueLetters));
+              localStorage.setItem('kpn_vaharai_letters_v2', JSON.stringify(merged));
             } catch {}
-          }
+
+            // Auto-sync any locally created letters to the server in background if missing
+            if (missingOnServer.length > 0) {
+              fetch('/api/cloud-sync', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  action: 'SYNC_CLIENT_BATCH',
+                  letters: missingOnServer,
+                }),
+              }).catch(() => {});
+            }
+
+            return merged;
+          });
         }
 
         if (result.users && result.users.length > 0) {
@@ -1037,22 +1145,35 @@ export default function App() {
           .filter((letter: any) => letter.id || letter.originalNo)
           .reverse();
 
-        const seenLetters = new Set<string>();
-        const uniqueCloudLetters: Letter[] = [];
-        for (const l of cloudLetters) {
-          const key = l.id || `${l.originalNo}-${l.date}`;
-          if (!seenLetters.has(key)) {
-            seenLetters.add(key);
-            uniqueCloudLetters.push(l);
-          }
-        }
+        let deletedIds = new Set<string>();
+        try {
+          const rawDel = localStorage.getItem('kpn_vaharai_deleted_ids');
+          if (rawDel) deletedIds = new Set(JSON.parse(rawDel));
+        } catch {}
 
-        if (uniqueCloudLetters.length) {
-          setLetters(uniqueCloudLetters);
+        setLetters((prevLetters) => {
+          const { merged, missingOnServer } = mergeLettersPreservingLocal(
+            prevLetters,
+            cloudLetters,
+            deletedIds
+          );
           try {
-            localStorage.setItem('kpn_vaharai_letters_v2', JSON.stringify(uniqueCloudLetters));
+            localStorage.setItem('kpn_vaharai_letters_v2', JSON.stringify(merged));
           } catch {}
-        }
+
+          if (missingOnServer.length > 0) {
+            fetch('/api/cloud-sync', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                action: 'SYNC_CLIENT_BATCH',
+                letters: missingOnServer,
+              }),
+            }).catch(() => {});
+          }
+
+          return merged;
+        });
       }
 
       if (Array.isArray(result.users) && result.users.length > 1) {
@@ -1508,8 +1629,15 @@ export default function App() {
       forwardedTo: ensureStringArray(newLetter.forwardedTo),
     };
 
+    // Save locally to guaranteed creations store immediately
+    try {
+      const currentLocals = JSON.parse(localStorage.getItem('kpn_vaharai_local_creations') || '[]');
+      const filtered = currentLocals.filter((l: any) => l.id !== sanitized.id && l.originalNo !== sanitized.originalNo);
+      localStorage.setItem('kpn_vaharai_local_creations', JSON.stringify([sanitized, ...filtered]));
+    } catch {}
+
     // Save locally immediately to guarantee no data loss
-    setLetters((prev) => [sanitized, ...prev]);
+    setLetters((prev) => [sanitized, ...prev.filter((l) => l.id !== sanitized.id)]);
 
     // Push to Google Sheets cloud
     const res = await cloudWrite({
@@ -1627,6 +1755,17 @@ export default function App() {
     setLetters((prev) => prev.filter((l) => l.id !== letterId));
     if (selectedLetter && selectedLetter.id === letterId) setSelectedLetter(null);
     if (editingLetter && editingLetter.id === letterId) setEditingLetter(null);
+
+    try {
+      const deletedIds = JSON.parse(localStorage.getItem('kpn_vaharai_deleted_ids') || '[]');
+      if (!deletedIds.includes(letterId)) {
+        deletedIds.push(letterId);
+        localStorage.setItem('kpn_vaharai_deleted_ids', JSON.stringify(deletedIds));
+      }
+      const localCreations = JSON.parse(localStorage.getItem('kpn_vaharai_local_creations') || '[]');
+      const filteredCreations = localCreations.filter((l: any) => l.id !== letterId);
+      localStorage.setItem('kpn_vaharai_local_creations', JSON.stringify(filteredCreations));
+    } catch {}
 
     cloudWrite({
       action: 'DELETE_LETTER',

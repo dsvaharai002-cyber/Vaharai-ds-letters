@@ -704,13 +704,31 @@ export default async function handler(req: Request, res: Response): Promise<void
 
         const driveRes = await fetchGoogleDriveJson(effectiveDriveFileId);
 
-        // If valid letters exist on Google Drive, merge or sync with server store
+        // If valid letters exist on Google Drive, merge into server store safely without deleting new letters
         if (driveRes.ok && Array.isArray(driveRes.letters) && driveRes.letters.length > 0 && !driveRes.uninitialized) {
-          if (driveRes.letters.length >= serverLetters.length) {
-            serverLetters = driveRes.letters;
-            if (Array.isArray(driveRes.users) && driveRes.users.length) {
-              serverUsers = driveRes.users;
+          const existingKeys = new Set(serverLetters.map((l: any) => String(l.id || `${l.originalNo}-${l.date}`).trim()));
+          let addedCount = 0;
+          for (const dl of driveRes.letters) {
+            const repaired = repairLetterRecord(dl);
+            if (!repaired) continue;
+            const key = String(repaired.id || `${repaired.originalNo}-${repaired.date}`).trim();
+            if (key && !existingKeys.has(key)) {
+              serverLetters.push(repaired);
+              existingKeys.add(key);
+              addedCount++;
             }
+          }
+          if (Array.isArray(driveRes.users) && driveRes.users.length) {
+            const userKeys = new Set(serverUsers.map((u: any) => String(u.User_ID || u.id).trim().toLowerCase()));
+            for (const du of driveRes.users) {
+              const ukey = String(du.User_ID || du.id || '').trim().toLowerCase();
+              if (ukey && !userKeys.has(ukey)) {
+                serverUsers.push(du);
+                userKeys.add(ukey);
+              }
+            }
+          }
+          if (addedCount > 0) {
             saveServerStore();
           }
         }
@@ -886,9 +904,32 @@ export default async function handler(req: Request, res: Response): Promise<void
           serverLetters = serverLetters.filter((l) => String(l.id) !== ltrId);
           saveServerStore();
         }
+      } else if (act === 'SYNC_CLIENT_BATCH' && Array.isArray(req.body?.letters)) {
+        let addedCount = 0;
+        const existingKeys = new Set(serverLetters.map((l: any) => String(l.id || `${l.originalNo}-${l.date}`).trim()));
+        for (const cl of req.body.letters) {
+          const repaired = repairLetterRecord(cl);
+          if (!repaired) continue;
+          const key = String(repaired.id || `${repaired.originalNo}-${repaired.date}`).trim();
+          if (key && !existingKeys.has(key)) {
+            serverLetters.unshift(repaired);
+            existingKeys.add(key);
+            addedCount++;
+          }
+        }
+        if (addedCount > 0) {
+          saveServerStore();
+        }
+        res.status(200).json({
+          ok: true,
+          addedCount,
+          totalCount: serverLetters.length,
+          message: `${addedCount} புதிய கடிதங்கள் சேவையகத்தில் ஒருங்கிணைக்கப்பட்டன.`,
+        });
+        return;
       }
 
-      // Forward to Google Apps Script in background (optional cloud backup)
+      // Forward to Google Apps Script in background (optional cloud backup, non-blocking)
       try {
         const forwardPayload = {
           ...req.body,
@@ -896,38 +937,24 @@ export default async function handler(req: Request, res: Response): Promise<void
           storageMode: effectiveMode,
         };
 
-        const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 12000);
-
-        const response = await fetch(effectiveWebAppUrl, {
+        // Asynchronously forward to Google Apps Script so client doesn't wait 12s
+        fetch(effectiveWebAppUrl, {
           method: 'POST',
           redirect: 'follow',
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(forwardPayload),
-          signal: controller.signal,
+        }).catch(() => {
+          // Google Apps Script is secondary backup; server store is primary authority
         });
-        clearTimeout(timeout);
-
-        const resText = await response.text();
-        let parsedJson: any = null;
-        try {
-          parsedJson = JSON.parse(resText);
-        } catch {}
-
-        res.status(200).json({
-          ok: true,
-          data: parsedJson,
-          message: 'கடிதம் வெற்றிகரமாகப் பதிவு செய்யப்பட்டது (Synced to Server & Cloud)',
-        });
-        return;
       } catch {
-        // If Google Apps Script timed out, server store was already safely updated
-        res.status(200).json({
-          ok: true,
-          message: 'கடிதம் சேவையகத்தில் வெற்றிகரமாகப் பதிவு செய்யப்பட்டது (Saved to Server Store)',
-        });
-        return;
+        // Ignore background forward dispatch errors
       }
+
+      res.status(200).json({
+        ok: true,
+        message: 'கடிதம் சேவையகத்தில் உடனடியாகப் பாதுகாப்பாகப் பதிவு செய்யப்பட்டது (Saved to Server Store)',
+      });
+      return;
     }
 
     res.status(200).json({ ok: false, error: 'Method not supported' });

@@ -675,7 +675,16 @@ export const generateOriginalNo = (dateStr: string, existingLetters: Letter[]): 
     (l) => l.originalNo && l.originalNo.startsWith(prefix)
   );
 
-  const nextSeq = matching.length + 1;
+  let maxSeq = 0;
+  for (const l of matching) {
+    const parts = (l.originalNo || '').split('/');
+    const lastPart = parseInt(parts[parts.length - 1], 10);
+    if (!isNaN(lastPart) && lastPart > maxSeq) {
+      maxSeq = lastPart;
+    }
+  }
+
+  const nextSeq = Math.max(matching.length, maxSeq) + 1;
   return `${prefix}${String(nextSeq).padStart(3, '0')}`;
 };
 
