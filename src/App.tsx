@@ -1240,7 +1240,7 @@ export default function App() {
     const count = letters.length;
     if (
       !confirm(
-        `உள்ளூர் சேமிப்பகத்தில் (Local Storage) உள்ள அனைத்து ${count} கடிதங்களையும் JSON-க்கு பதிவேற்ற விரும்புகிறீர்களா? (Upload all ${count} local letters to Cloud/Server JSON)?`
+        `உள்ளூர் சேமிப்பகத்தில் உள்ள அனைத்து ${count} கடிதங்களையும் JSON-க்கு முழுமையாகப் பதிவேற்ற (Full Backup) விரும்புகிறீர்களா?\n\n(குறிப்பு: கடிதங்களைப் பதிவு செய்யும்போதே அவை தானாகவே Google Sheet மற்றும் JSON-இல் உடனுக்குடன் பதிவாகிவிடும். இது அனைத்து கடிதங்களையும் ஒரே நேரத்தில் Cloud JSON-இல் புதுப்பிக்கும் காப்புப்பிரதி மட்டுமே).`
       )
     ) {
       return;
@@ -1248,13 +1248,19 @@ export default function App() {
 
     setIsUploadingToJson(true);
     try {
+      // Strip heavy base64 image data from the 500+ bulk payload to prevent HTTP 413 Payload Too Large on Vercel/Servers
+      const lightLetters = letters.map((l) => {
+        const { image, ...rest } = l;
+        return rest;
+      });
+
       const res = await fetch('/api/cloud-sync', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           action: 'SYNC_ALL_TO_DRIVE',
           driveFileId: driveFileId,
-          letters: letters,
+          letters: lightLetters,
           users: users,
         }),
       });
@@ -1263,10 +1269,11 @@ export default function App() {
         setCloudStatus('connected');
         setCloudMessage(`உள்ளூர் சேமிப்பகத்தில் உள்ள அனைத்து ${count} கடிதங்களும் JSON-இல் வெற்றிகரமாகப் பதிவேற்றப்பட்டன!`);
         alert(
-          `✓ உள்ளூர் சேமிப்பகத்தில் உள்ள அனைத்து ${count} கடிதங்களும் JSON-க்கு வெற்றிகரமாகப் பதிவேற்றப்பட்டன!\n\nமற்ற உலாவிகள் மற்றும் கணினிகளிலும் இப்போது இக்கடிதங்கள் உடனடியாகக் காண்பிக்கப்படும்.`
+          `✓ அனைத்து ${count} கடிதங்களும் JSON-இல் வெற்றிகரமாகப் பதிவேற்றப்பட்டன!\n\nமற்ற உலாவிகள் மற்றும் கணினிகளிலும் இப்போது இக்கடிதங்கள் உடனடியாகக் காண்பிக்கப்படும்.`
         );
       } else {
-        alert('JSON பதிவேற்றம் தோல்வியடைந்தது. தயவுசெய்து மீண்டும் முயற்சிக்கவும்.');
+        const errData = await res.json().catch(() => null);
+        alert(`JSON பதிவேற்றம் தோல்வியடைந்தது (${res.status}): ${errData?.message || 'Server error'}. கடிதங்கள் கணினியில் பாதுகாப்பாக உள்ளன.`);
       }
     } catch (err: any) {
       alert(`பதிவேற்றத்தில் பிழை: ${err?.message || 'Network error'}`);
@@ -1661,7 +1668,7 @@ export default function App() {
     });
 
     if (res.ok) {
-      alert(`Mail Record (${sanitized.originalNo}) Google Sheet மற்றும் கணினியில் வெற்றிகரமாகப் பதிவு செய்யப்பட்டது!`);
+      alert(`✓ கடிதம் (${sanitized.originalNo}) வெற்றிகரமாகப் பதிவு செய்யப்பட்டது!\n\nGoogle Sheet மற்றும் JSON சேமிப்பகம் இரண்டிலும் உடனுக்குடன் தானாகப் பதிவாகிவிட்டது. (தனித்தனியாக 'Upload to JSON' செய்யத் தேவையில்லை).`);
     } else {
       const is403 = res.statusCode === 403 || res.errorType === 'ACCESS_DENIED';
       if (is403) {

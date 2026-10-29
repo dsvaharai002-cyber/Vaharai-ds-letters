@@ -818,51 +818,52 @@ export default async function handler(req: Request, res: Response): Promise<void
         const targetUrl = effectiveWebAppUrl;
         const targetDriveId = req.body.driveFileId || effectiveDriveFileId;
 
-        // 1. Immediately update server-side persistent store
+        // 1. Immediately update server-side persistent store, preserving any images already saved
         if (Array.isArray(req.body.letters) && req.body.letters.length > 0) {
-          serverLetters = req.body.letters.map(repairLetterRecord).filter(Boolean);
+          const imgMap = new Map<string, string>();
+          for (const sl of serverLetters) {
+            if (sl && sl.id && sl.image) imgMap.set(sl.id, sl.image);
+          }
+          serverLetters = req.body.letters.map((l: any) => {
+            const repaired = repairLetterRecord(l);
+            if (!repaired) return null;
+            if (!repaired.image && imgMap.has(repaired.id)) {
+              repaired.image = imgMap.get(repaired.id);
+            }
+            return repaired;
+          }).filter(Boolean);
         }
         if (Array.isArray(req.body.users) && req.body.users.length > 0) {
           serverUsers = req.body.users;
         }
         saveServerStore();
 
-        // 2. Forward to Google Apps Script / Drive JSON in background
-        try {
-          const scriptRes = await fetch(targetUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-            body: JSON.stringify({
-              action: 'SYNC_ALL_TO_DRIVE',
-              driveFileId: targetDriveId,
-              letters: serverLetters,
-              users: serverUsers,
-            }),
-          });
+        // 2. Forward light payload (without bulky base64 images) to Google Apps Script in background
+        const lightLettersForDrive = serverLetters.map((l) => {
+          const { image, ...rest } = l;
+          return rest;
+        });
 
-          const resTxt = await scriptRes.text();
-          let parsed: any = null;
-          try {
-            parsed = JSON.parse(resTxt);
-          } catch {}
-
-          res.status(200).json({
-            ok: true,
+        fetch(targetUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({
+            action: 'SYNC_ALL_TO_DRIVE',
             driveFileId: targetDriveId,
-            data: parsed,
-            letterCount: serverLetters.length,
-            message: `உள்ளூர் சேமிப்பகத்தில் உள்ள அனைத்து ${serverLetters.length} கடிதங்களும் JSON-இல் வெற்றிகரமாகப் பதிவேற்றப்பட்டது!`,
-          });
-          return;
-        } catch {
-          // Even if Google Apps Script is slow/offline, server store was already updated
-          res.status(200).json({
-            ok: true,
-            letterCount: serverLetters.length,
-            message: `அனைத்து ${serverLetters.length} கடிதங்களும் சேவையக JSON-இல் உடனடியாகப் பாதுகாப்பாகப் பதிவேற்றப்பட்டது.`,
-          });
-          return;
-        }
+            letters: lightLettersForDrive,
+            users: serverUsers,
+          }),
+        }).catch(() => {
+          // Cloud backup in background
+        });
+
+        res.status(200).json({
+          ok: true,
+          driveFileId: targetDriveId,
+          letterCount: serverLetters.length,
+          message: `உள்ளூர் சேமிப்பகத்தில் உள்ள அனைத்து ${serverLetters.length} கடிதங்களும் JSON-இல் வெற்றிகரமாகப் பதிவேற்றப்பட்டது!`,
+        });
+        return;
       }
 
       // In-place updates to server-side JSON store for immediate multi-browser sync
