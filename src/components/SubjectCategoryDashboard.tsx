@@ -30,6 +30,7 @@ import {
   normalizeAction,
   normalizeRegisteredPostNo,
   exportLettersToExcel,
+  repairLetterRecord,
 } from '../utils/helpers';
 
 interface SubjectCategoryDashboardProps {
@@ -85,7 +86,9 @@ export const SubjectCategoryDashboard: React.FC<SubjectCategoryDashboardProps> =
     'Other Official Letters': [],
   };
 
-  letters.forEach((l) => {
+  letters.forEach((raw) => {
+    const l = repairLetterRecord(raw);
+    if (!l || !l.originalNo || l.originalNo === '-' || l.subject === 'General') return;
     const cat = classifySubjectCategory(l.subject);
     categorizedLetters[cat].push(l);
   });
@@ -518,11 +521,20 @@ export const SubjectCategoryDashboard: React.FC<SubjectCategoryDashboardProps> =
                                   </td>
                                   <td className="py-2.5 px-3 whitespace-nowrap">
                                     <span className="rounded bg-slate-100 px-2 py-0.5 font-medium text-slate-800 text-[11px] block w-fit">
-                                      {ltr.letterType || 'Registered Post'}
+                                      {ltr.letterType || 'Normal Post'}
                                     </span>
-                                    <div className="font-mono text-[10px] text-blue-700 mt-0.5">
-                                      Reg: {normalizeRegisteredPostNo(ltr.registeredPostNo)}
-                                    </div>
+                                    {ltr.letterType === 'Registered Post' &&
+                                    ltr.registeredPostNo &&
+                                    ltr.registeredPostNo !== 'No' &&
+                                    ltr.registeredPostNo !== '-' ? (
+                                      <div className="font-mono text-[10px] text-blue-700 mt-0.5">
+                                        Reg: {ltr.registeredPostNo}
+                                      </div>
+                                    ) : (
+                                      <div className="text-[10px] text-gray-400 mt-0.5">
+                                        Reg: No
+                                      </div>
+                                    )}
                                   </td>
                                   <td className="py-2.5 px-3 font-semibold text-gray-900 whitespace-nowrap">
                                     {ltr.inwardNo}

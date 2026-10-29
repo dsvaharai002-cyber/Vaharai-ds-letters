@@ -259,6 +259,177 @@ export const isKnownActionValue = (val?: any): boolean => {
   );
 };
 
+export const KNOWN_OFFICIAL_DIVISIONS = [
+  'காணிப் பிரிவு (Land Division)',
+  'திட்டமிடல் பிரிவு (Planning)',
+  'நிர்வாகப் பிரிவு (Administration)',
+  'சமுர்த்தி (Samurdhi)',
+  'சமூக சேவை (Social)',
+  'கணக்குப் பிரிவு (Finance)',
+  'பதிவாளர் பிரிவு (Registrar Branch)',
+  'கிராம அலுவலர் பிரிவு (Grama Niladhari)',
+  'சிறுவர் பிரிவு (Field)',
+  'வெளிக்களம் (Field)',
+  'அபிவிருத்திப் பிரிவு (Development)',
+  'பொது நிர்வாகம் (General Administration)',
+];
+
+export const isOfficialDivisionName = (val?: any): boolean => {
+  if (!val || typeof val !== 'string') return false;
+  const s = val.trim();
+  if (KNOWN_OFFICIAL_DIVISIONS.includes(s)) return true;
+  if (
+    s === 'காணிப் பிரிவு' ||
+    s === 'திட்டமிடல் பிரிவு' ||
+    s === 'நிர்வாகப் பிரிவு' ||
+    s === 'சமுர்த்தி' ||
+    s === 'சமூக சேவை' ||
+    s === 'கணக்குப் பிரிவு' ||
+    s === 'பதிவாளர் பிரிவு' ||
+    s === 'கிராம அலுவலர் பிரிவு' ||
+    s === 'சிறுவர் பிரிவு' ||
+    s === 'வெளிக்களம்' ||
+    s === 'அபிவிருத்திப் பிரிவு'
+  ) {
+    return true;
+  }
+  return (
+    (s.includes('பிரிவு') ||
+      s.includes('Division') ||
+      s.includes('Samurdhi') ||
+      s.includes('சமுர்த்தி') ||
+      s.includes('Planning') ||
+      s.includes('Registrar') ||
+      s.includes('வெளிக்களம்') ||
+      s.includes('Field')) &&
+    s.length < 50
+  );
+};
+
+/**
+ * Repairs scrambled or shifted letter columns so every field appears strictly under its proper heading.
+ * Discards empty dummy rows (e.g. subject === 'General' with empty fromWhom/inwardNo).
+ */
+export const repairLetterRecord = (l: any): Letter | null => {
+  if (!l || typeof l !== 'object') return null;
+  const copy: any = { ...l };
+
+  // 1. Drop dummy empty rows
+  const isDummyNoId =
+    (!copy.originalNo || copy.originalNo === '-' || !String(copy.originalNo).trim()) &&
+    (!copy.fromWhom || copy.fromWhom === '-') &&
+    (!copy.inwardNo || copy.inwardNo === '-') &&
+    (!copy.subject || copy.subject === 'General' || copy.subject === '-');
+  const isDummyWithId =
+    copy.subject === 'General' &&
+    (!copy.fromWhom || copy.fromWhom === '-') &&
+    (!copy.inwardNo || copy.inwardNo === '-');
+  if (isDummyNoId || isDummyWithId) return null;
+
+  const isJsonOrUserIds = (val: any) => {
+    if (!val) return false;
+    if (Array.isArray(val)) return true;
+    const s = String(val).trim();
+    return s.startsWith('[') || /^[0-9]{9,12}[vVxX]?$/.test(s);
+  };
+
+  const parseUserIds = (val: any): string[] => {
+    if (!val) return [];
+    if (Array.isArray(val)) return val.map(String);
+    const s = String(val).trim();
+    if (s.startsWith('[')) {
+      try {
+        const parsed = JSON.parse(s);
+        if (Array.isArray(parsed)) return parsed.map(String);
+      } catch {}
+    }
+    if (/^[0-9]{9,12}[vVxX]?$/.test(s)) return [s];
+    return [];
+  };
+
+  // 2. Pattern B: subject is "General" & fromWhom is a division
+  if (copy.subject === 'General' && isOfficialDivisionName(copy.fromWhom)) {
+    const realInward = copy.RegisteredPostNo || copy.registeredPostNo;
+    const realSender =
+      copy.registeredPostNo && copy.registeredPostNo !== realInward
+        ? copy.registeredPostNo
+        : copy.RegisteredPostNo;
+    const realSubj = copy.inwardNo;
+    const realDiv = copy.fromWhom;
+    const users = parseUserIds(copy.division);
+
+    copy.inwardNo = realInward && realInward !== 'No' ? realInward : '-';
+    copy.fromWhom = realSender || 'District Secretariat, Batticaloa';
+    copy.subject = realSubj;
+    copy.division = realDiv;
+    copy.forwardedDivisions = [realDiv];
+    if (users.length > 0) copy.forwardedTo = users;
+    copy.letterType = copy.letterType || 'Normal Post';
+    copy.registeredPostNo =
+      copy.letterType === 'Registered Post' && copy.registeredPostNo && /^\d+$/.test(copy.registeredPostNo)
+        ? copy.registeredPostNo
+        : 'No';
+    return copy as Letter;
+  }
+
+  // 3. Pattern A: subject is a division name AND (division contains user IDs or is empty array)
+  if (
+    isOfficialDivisionName(copy.subject) &&
+    (isJsonOrUserIds(copy.division) || copy.division === '[]' || !copy.division)
+  ) {
+    const realDivision = copy.subject;
+    const realSubject = copy.fromWhom;
+    const realFromWhom = copy.inwardNo;
+    const realInwardNo =
+      copy.registeredPostNo && copy.registeredPostNo !== 'No'
+        ? copy.registeredPostNo
+        : copy.inwardNo || '-';
+    const extractedUsers = parseUserIds(copy.division);
+
+    copy.inwardNo = realInwardNo;
+    copy.fromWhom = realFromWhom;
+    copy.subject = realSubject;
+    copy.division = realDivision;
+    copy.forwardedDivisions = [realDivision];
+    if (extractedUsers.length > 0) copy.forwardedTo = extractedUsers;
+    copy.letterType = copy.letterType || 'Normal Post';
+    copy.registeredPostNo = 'No';
+    return copy as Letter;
+  }
+
+  // 4. Clean Normal Post registeredPostNo
+  if (
+    copy.letterType === 'Normal Post' &&
+    copy.registeredPostNo &&
+    copy.registeredPostNo !== 'No' &&
+    copy.registeredPostNo !== '-'
+  ) {
+    if (!copy.inwardNo || copy.inwardNo === '-' || copy.inwardNo === 'null' || copy.inwardNo === 'No') {
+      copy.inwardNo = copy.registeredPostNo;
+    }
+    copy.registeredPostNo = 'No';
+  }
+
+  // 5. If division is a json string or user ids, repair it
+  if (isJsonOrUserIds(copy.division)) {
+    const extracted = parseUserIds(copy.division);
+    if (extracted.length > 0 && (!copy.forwardedTo || copy.forwardedTo.length === 0)) {
+      copy.forwardedTo = extracted;
+    }
+    if (
+      Array.isArray(copy.forwardedDivisions) &&
+      copy.forwardedDivisions.length > 0 &&
+      isOfficialDivisionName(copy.forwardedDivisions[0])
+    ) {
+      copy.division = copy.forwardedDivisions[0];
+    } else {
+      copy.division = 'நிர்வாகப் பிரிவு (Administration)';
+    }
+  }
+
+  return copy as Letter;
+};
+
 /**
  * Ensures Registered Post No is never empty in the Sheet or system.
  * If no postal registration number is provided, automatically returns "No".
@@ -518,7 +689,29 @@ export const compressImageToTarget = async (
   let canvas: HTMLCanvasElement;
 
   if (source instanceof HTMLCanvasElement) {
-    canvas = source;
+    const maxDimension = 1200;
+    if (source.width > maxDimension || source.height > maxDimension) {
+      let width = source.width;
+      let height = source.height;
+      if (width > height) {
+        height = Math.round((height * maxDimension) / width);
+        width = maxDimension;
+      } else {
+        width = Math.round((width * maxDimension) / height);
+        height = maxDimension;
+      }
+      canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.drawImage(source, 0, 0, width, height);
+      } else {
+        canvas = source;
+      }
+    } else {
+      canvas = source;
+    }
   } else {
     // It's a File
     canvas = await new Promise<HTMLCanvasElement>((resolve, reject) => {
@@ -532,7 +725,7 @@ export const compressImageToTarget = async (
         const c = document.createElement('canvas');
         let width = img.width;
         let height = img.height;
-        const maxDimension = 1400;
+        const maxDimension = 1200;
 
         if (width > maxDimension || height > maxDimension) {
           if (width > height) {
@@ -580,7 +773,11 @@ export const exportLettersToExcel = (
   usersMap: Map<string, User>,
   fileNamePrefix = 'Letters_Register'
 ) => {
-  const rows = letters.map((l, index) => {
+  const cleanLetters = letters
+    .map((l) => repairLetterRecord(l))
+    .filter((l): l is Letter => l !== null && Boolean(l.originalNo && l.originalNo !== '-'));
+
+  const rows = cleanLetters.map((l, index) => {
     const fwdTo = ensureStringArray(l.forwardedTo);
     const fwdDivs = ensureStringArray(l.forwardedDivisions);
     const forwardedNames = fwdTo
@@ -592,11 +789,11 @@ export const exportLettersToExcel = (
       'Original No': l.originalNo,
       'Registered Date': l.date,
       'Dispatched Date': l.dispatchedDate || l.date,
-      'Post Type': l.letterType || 'Registered Post',
+      'Post Type': l.letterType || 'Normal Post',
       'Registered Post No': normalizeRegisteredPostNo(l.registeredPostNo),
-      'Inward No': l.inwardNo,
-      'From Whom': l.fromWhom,
-      'Subject': l.subject,
+      'Inward No': l.inwardNo || '-',
+      'From Whom': l.fromWhom || '-',
+      'Subject': l.subject || '-',
       'Primary Division': l.division || '-',
       'Forwarded Divisions': fwdDivs.join(', ') || '-',
       'Forwarded To (Officers)': forwardedNames || '-',
@@ -645,6 +842,10 @@ export const exportLettersToCsv = (
   usersMap: Map<string, User>,
   fileNamePrefix = 'Letters'
 ) => {
+  const cleanLetters = letters
+    .map((l) => repairLetterRecord(l))
+    .filter((l): l is Letter => l !== null && Boolean(l.originalNo && l.originalNo !== '-'));
+
   const headers = [
     'OriginalNo',
     'DispatchedDate',
@@ -662,7 +863,7 @@ export const exportLettersToCsv = (
 
   const csvRows: string[] = [headers.join(',')];
 
-  letters.forEach((l) => {
+  cleanLetters.forEach((l) => {
     const fwdTo = ensureStringArray(l.forwardedTo);
     const forwardedNames = fwdTo
       .map((uid) => usersMap.get(uid)?.Name || uid)
@@ -675,7 +876,7 @@ export const exportLettersToCsv = (
       [
         clean(l.originalNo),
         clean(l.dispatchedDate || l.date),
-        clean(l.letterType || 'Registered Post'),
+        clean(l.letterType || 'Normal Post'),
         clean(normalizeRegisteredPostNo(l.registeredPostNo)),
         clean(l.inwardNo),
         clean(l.fromWhom),
@@ -722,7 +923,11 @@ export const printLandscapeReport = (
     return;
   }
 
-  const rowsHtml = letters
+  const cleanLetters = letters
+    .map((l) => repairLetterRecord(l))
+    .filter((l): l is Letter => l !== null && Boolean(l.originalNo && l.originalNo !== '-'));
+
+  const rowsHtml = cleanLetters
     .map((l, index) => {
       const fwdTo = ensureStringArray(l.forwardedTo);
       const forwardedNames = fwdTo
@@ -740,11 +945,15 @@ export const printLandscapeReport = (
           <td style="font-weight: 700; font-family: monospace; white-space: nowrap; color: #0f172a;">${l.originalNo || '-'}</td>
           <td style="white-space: nowrap; text-align: center;">${l.dispatchedDate || l.date || '-'}</td>
           <td>
-            <div style="font-weight: bold; color: #0f172a;">${l.letterType || 'Registered Post'}</div>
+            <div style="font-weight: bold; color: #0f172a;">${l.letterType || 'Normal Post'}</div>
             ${
-              l.registeredPostNo && l.registeredPostNo !== '-' && l.registeredPostNo !== '_'
+              l.letterType === 'Registered Post' &&
+              l.registeredPostNo &&
+              l.registeredPostNo !== '-' &&
+              l.registeredPostNo !== '_' &&
+              l.registeredPostNo !== 'No'
                 ? `<div style="font-size: 8.5pt; font-family: monospace; color: #1e3a8a; margin-top: 2px;">Reg No: ${l.registeredPostNo}</div>`
-                : ''
+                : `<div style="font-size: 8pt; color: #64748b; margin-top: 1px;">Reg No: No</div>`
             }
           </td>
           <td style="font-weight: 600; font-family: monospace; color: #0f172a;">${l.inwardNo || '-'}</td>

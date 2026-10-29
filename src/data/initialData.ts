@@ -1,4 +1,5 @@
 import { User, Letter } from '../types';
+import { ALL_OFFICIAL_LETTERS, ALL_OFFICIAL_USERS } from './allOfficialLetters';
 
 export const DIVISIONS = [
   'நிர்வாகப் பிரிவு (Administration)',
@@ -45,7 +46,8 @@ export const POST_TYPES = [
   'Hand Delivery',
   'Government Special Mail',
 ];
-export const INITIAL_USERS: User[] = [
+
+export const SYSTEM_DEFAULT_USERS: User[] = [
   {
     User_ID: 'admin',
     Password: '123',
@@ -58,7 +60,7 @@ export const INITIAL_USERS: User[] = [
   {
     User_ID: 'mega01',
     Password: '123',
-    Name: 'Divisional Secretary (Mega)',
+    Name: 'Divisional Secretary (Mega Master)',
     Role: 'Mega',
     Division: 'நிர்வாகப் பிரிவு (Administration)',
     Status: 'Active',
@@ -80,199 +82,30 @@ export const INITIAL_USERS: User[] = [
     Role: 'Luxury',
     Division: 'காணிப் பிரிவு (Land Division)',
     Status: 'Active',
-    designation: 'Executive Officer - Land & Planning',
-    assignedDivisions: [
-      'காணிப் பிரிவு (Land Division)',
-      'திட்டமிடல் பிரிவு (Planning)',
-    ],
-  },
-  {
-    User_ID: 'luxury02',
-    Password: '123',
-    Name: 'Luxury Officer 2 (நிர்வாகம் & கணக்கு)',
-    Role: 'Luxury',
-    Division: 'கணக்குப் பிரிவு (Accounts & Finance)',
-    Status: 'Active',
-    designation: 'Executive Officer - Admin & Finance',
-    assignedDivisions: [
-      'நிர்வாகப் பிரிவு (Administration)',
-      'கணக்குப் பிரிவு (Accounts & Finance)',
-    ],
-  },
-  {
-    User_ID: 'luxury03',
-    Password: '123',
-    Name: 'Luxury Officer 3 (சமூகம் & சமுர்த்தி)',
-    Role: 'Luxury',
-    Division: 'சமூக சேவை (Social)',
-    Status: 'Active',
-    designation: 'Executive Officer - Social Development',
-    assignedDivisions: [
-      'சமூக சேவை (Social)',
-      'சமுர்த்தி (Samurdhi)',
-      'கிராம அபிவிருத்தி (Rural Development)',
-    ],
-  },
-  {
-    User_ID: 'luxury04',
-    Password: '123',
-    Name: 'Luxury Executive (அனைத்து பிரிவுகளும்)',
-    Role: 'Luxury',
-    Division: 'நிர்வாகப் பிரிவு (Administration)',
-    Status: 'Active',
-    designation: 'Assistant Divisional Secretary',
-    assignedDivisions: DIVISIONS,
-  },
-  {
-    User_ID: 'officer_land',
-    Password: '123',
-    Name: 'Land Branch Head',
-    Role: 'Normal',
-    Division: 'காணிப் பிரிவு (Land Division)',
-    Status: 'Active',
-    designation: 'Colonization Officer',
+    designation: 'Senior Land & Planning Officer',
+    assignedDivisions: ['காணிப் பிரிவு (Land Division)', 'திட்டமிடல் பிரிவு (Planning)', 'வெளிக்களம் (Field)'],
+    assignedOfficers: ['officer_land', 'officer_planning'],
   },
 ];
 
-export const INITIAL_LETTERS: Letter[] = [
-  {
-    id: 'LTR-2026-001',
-    originalNo: 'KPN/DS/2026/001',
-    date: '2026-10-05',
-    dispatchedDate: '2026-10-03',
-    letterType: 'Registered Post',
-    registeredPostNo: 'RP-482109',
-    inwardNo: 'WBB/OPS/POL/04',
-    fromWhom: 'நலன்புரி நன்மைகள் சபை (Welfare Benefits Board), நிதி அமைச்சு',
-    subject: 'அஸ்வெசும நலன்புரி கொடுப்பனவு தொடர்பான வழிகாட்டல் மற்றும் தகுதியற்ற கொடுப்பனவுகளை இடைநிறுத்துதல் (Aswesuma Welfare Payment Directives)',
-    division: 'சமூக சேவை (Social)',
-    forwardedDivisions: ['சமூக சேவை (Social)', 'சமுர்த்தி (Samurdhi)'],
-    forwardedTo: ['luxury03'],
-    action: 'Action Taken',
-    replyResponse: 'பிரிவு உத்தியோகத்தர்களுக்கு சுற்றறிக்கை அனுப்பி வைக்கப்பட்டு நடவடிக்கை எடுக்கப்பட்டது.',
-    fileNo: 'KN/SOC/2026/ASW-01',
-    registeredBy: 'mail01',
-    registeredByName: 'Mail Officer (கடித பதிவாளர்)',
-    createdAt: '2026-10-05T08:30:00Z',
-  },
-  {
-    id: 'LTR-2026-002',
-    originalNo: 'KPN/DS/2026/002',
-    date: '2026-10-04',
-    dispatchedDate: '2026-10-02',
-    letterType: 'Registered Post',
-    registeredPostNo: 'RP-712834',
-    inwardNo: 'BT/LND/REG/112',
-    fromWhom: 'மாவட்ட செயலகம் மட்டக்களப்பு (District Secretariat Batticaloa)',
-    subject: 'முறைப்பாடு: வாகரை பிரதேச காணி சுவீகரிப்பு மற்றும் அனுமதியற்ற குடியிருப்புகள் தொடர்பான ஆட்சேபனை மற்றும் கள அறிக்கை சமர்ப்பித்தல் (Complaint & Dispute on Unauthorized Land Occupation)',
-    division: 'காணிப் பிரிவு (Land Division)',
-    forwardedDivisions: ['காணிப் பிரிவு (Land Division)'],
-    forwardedTo: ['luxury01'],
-    action: 'Under Investigation',
-    replyResponse: 'கிராம சேவையாளர் மூலம் கள ஆய்வு மேற்கொள்ளப்பட்டு வருகின்றது.',
-    fileNo: 'KN/LND/2026/ACQ-14',
-    registeredBy: 'mail01',
-    registeredByName: 'Mail Officer (கடித பதிவாளர்)',
-    createdAt: '2026-10-04T09:15:00Z',
-  },
-  {
-    id: 'LTR-2026-003',
-    originalNo: 'KPN/DS/2026/003',
-    date: '2026-10-03',
-    dispatchedDate: '2026-10-01',
-    letterType: 'Normal Post',
-    registeredPostNo: 'No',
-    inwardNo: 'MOF/EXP/2026/89',
-    fromWhom: 'பொது நிதியமைச்சு மற்றும் திறைசேரி (Ministry of Finance)',
-    subject: '2026 ஆம் ஆண்டிற்கான மூலதன செலவின நிதி ஒதுக்கீடு மற்றும் காலாண்டு நிதி அறிக்கை (Treasury Circular on Capital Expenditure)',
-    division: 'கணக்குப் பிரிவு (Accounts & Finance)',
-    forwardedDivisions: ['கணக்குப் பிரிவு (Accounts & Finance)', 'திட்டமிடல் பிரிவு (Planning)'],
-    forwardedTo: ['luxury02'],
-    action: 'Not Yet Viewed',
-    replyResponse: '',
-    fileNo: '',
-    registeredBy: 'mail01',
-    registeredByName: 'Mail Officer (கடித பதிவாளர்)',
-    createdAt: '2026-10-03T10:00:00Z',
-  },
-  {
-    id: 'LTR-2026-004',
-    originalNo: 'KPN/DS/2026/004',
-    date: '2026-10-03',
-    dispatchedDate: '2026-10-01',
-    letterType: 'Hand Delivery',
-    registeredPostNo: 'No',
-    inwardNo: 'CUL/EVT/2026/15',
-    fromWhom: 'பிரதேச கலாச்சார பேரவை மற்றும் பண்பாட்டலுவல்கள் திணைக்களம்',
-    subject: 'நிகழ்வு அழைப்பிதழ்: வாகரை பிரதேச செயலக வருடாந்த கலாச்சார விழா மற்றும் சாதனையாளர் கௌரவிப்பு நிகழ்வுக்கான அழைப்பிதழ் (Event Invitation: Annual Cultural Festival & Ceremony)',
-    division: 'நிர்வாகப் பிரிவு (Administration)',
-    forwardedDivisions: ['நிர்வாகப் பிரிவு (Administration)', 'சமூக சேவை (Social)'],
-    forwardedTo: ['luxury04', 'mega01'],
-    action: 'Action Taken',
-    replyResponse: 'நிகழ்வுக்கான ஏற்பாடுகள் திட்டமிடப்பட்டு உத்தியோகத்தர்களுக்கு அழைப்பு பகிரப்பட்டது.',
-    fileNo: 'KN/ADM/2026/CUL-09',
-    registeredBy: 'mail01',
-    registeredByName: 'Mail Officer (கடித பதிவாளர்)',
-    createdAt: '2026-10-03T11:20:00Z',
-  },
-  {
-    id: 'LTR-2026-005',
-    originalNo: 'KPN/DS/2026/005',
-    date: '2026-10-02',
-    dispatchedDate: '2026-09-30',
-    letterType: 'Express Mail',
-    registeredPostNo: 'EP-991204',
-    inwardNo: 'DP/RUR/REM/2026/41',
-    fromWhom: 'திட்டமிடல் பணிப்பாளர், மாவட்ட செயலகம் மட்டக்களப்பு',
-    subject: 'மீள் ஞாபகமூட்டல் கடிதம்: 2026 ஆம் ஆண்டிற்கான கிராமிய அபிவிருத்தி திட்ட முன்மொழிவுகளை உடனடியாக சமர்ப்பிக்குமாறு கோரும் 2ம் நினைவூட்டல் (2nd Urgent Reminder Letter: Rural Development Project Proposals)',
-    division: 'திட்டமிடல் பிரிவு (Planning)',
-    forwardedDivisions: ['திட்டமிடல் பிரிவு (Planning)', 'கிராம அபிவிருத்தி (Rural Development)'],
-    forwardedTo: ['luxury01', 'officer_land'],
-    action: 'Action Not Taken',
-    replyResponse: 'கிராம அபிவிருத்தி உத்தியோகத்தர்களிடம் முன்மொழிவுகள் உடனடியாக கோரப்பட்டுள்ளது.',
-    fileNo: 'KN/PLN/2026/REM-02',
-    registeredBy: 'mail01',
-    registeredByName: 'Mail Officer (கடித பதிவாளர்)',
-    createdAt: '2026-10-02T09:40:00Z',
-  },
-  {
-    id: 'LTR-2026-006',
-    originalNo: 'KPN/DS/2026/006',
-    date: '2026-10-01',
-    dispatchedDate: '2026-09-29',
-    letterType: 'Registered Post',
-    registeredPostNo: 'RP-883011',
-    inwardNo: 'PUB/CMP/2026/07',
-    fromWhom: 'பால்சேனை கிராம அபிவிருத்தி சங்கம் & பொதுமக்கள்',
-    subject: 'முறைப்பாடு: பால்சேனை பகுதியில் அனுமதியற்ற சட்டவிரோத மணல் அகழ்வு மற்றும் பொது வீதி சேதம் தொடர்பான முறைப்பாடு (Public Complaint on Illegal Sand Mining & Road Damage)',
-    division: 'காணிப் பிரிவு (Land Division)',
-    forwardedDivisions: ['காணிப் பிரிவு (Land Division)', 'வெளிக்களம் (Field)'],
-    forwardedTo: ['luxury01'],
-    action: 'Under Investigation',
-    replyResponse: 'பொலிஸ் நிலையத்திற்கும் சூழல் அதிகாரசபைக்கும் அறிவிக்கப்பட்டு கள ஆய்வு நடைபெறுகிறது.',
-    fileNo: 'KN/LND/2026/CMP-05',
-    registeredBy: 'mail01',
-    registeredByName: 'Mail Officer (கடித பதிவாளர்)',
-    createdAt: '2026-10-01T14:10:00Z',
-  },
-  {
-    id: 'LTR-2026-007',
-    originalNo: 'KPN/DS/2026/007',
-    date: '2026-10-01',
-    dispatchedDate: '2026-09-28',
-    letterType: 'Registered Post',
-    registeredPostNo: 'RP-552104',
-    inwardNo: 'CIT/REQ/2026/33',
-    fromWhom: 'கொண்டலங்கேணி கிராம அபிவிருத்தி சங்கம்',
-    subject: 'கோரிக்கை அல்லது வேண்டுகோள் மனு: பொது மயானத்திற்கு சுற்றுமதில் அமைத்து பாதுகாப்பு வேலி அமைத்து தருமாறு கோரும் வேண்டுகோள் விண்ணப்பம் (Citizen Request & Appeal for Cemetery Boundary Wall)',
-    division: 'கிராம அபிவிருத்தி (Rural Development)',
-    forwardedDivisions: ['கிராம அபிவிருத்தி (Rural Development)', 'திட்டமிடல் பிரிவு (Planning)'],
-    forwardedTo: ['luxury03'],
-    action: 'Not Yet Viewed',
-    replyResponse: '',
-    fileNo: '',
-    registeredBy: 'mail01',
-    registeredByName: 'Mail Officer (கடித பதிவாளர்)',
-    createdAt: '2026-10-01T15:30:00Z',
-  },
-];
+// Combine system demo accounts and all 108 official users without duplicates
+const seenUserIds = new Set<string>();
+const mergedUsers: User[] = [];
+
+for (const u of SYSTEM_DEFAULT_USERS) {
+  const uid = u.User_ID.toLowerCase().trim();
+  seenUserIds.add(uid);
+  mergedUsers.push(u);
+}
+
+for (const u of ALL_OFFICIAL_USERS) {
+  const uid = u.User_ID.toLowerCase().trim();
+  if (!seenUserIds.has(uid)) {
+    seenUserIds.add(uid);
+    mergedUsers.push(u);
+  }
+}
+
+export const INITIAL_USERS: User[] = mergedUsers;
+
+export const INITIAL_LETTERS: Letter[] = ALL_OFFICIAL_LETTERS;
