@@ -56,12 +56,25 @@ export const CameraCaptureModal: React.FC<CameraCaptureModalProps> = ({
       }
       setCameraActive(true);
     } catch (err: unknown) {
-      console.error('Camera access error:', err);
       setCameraActive(false);
-      const msg = err instanceof Error ? err.message : 'Unable to access camera';
-      setCameraError(
-        `${msg}. Please ensure camera permission is granted or upload an image from your device.`
-      );
+      const isNotAllowed =
+        err instanceof Error &&
+        (err.name === 'NotAllowedError' ||
+          err.message.includes('dismissed') ||
+          err.message.includes('denied'));
+
+      if (isNotAllowed) {
+        console.warn('Camera permission dismissed or not allowed by user.');
+        setCameraError(
+          'கேமரா அனுமதி வழங்கப்படவில்லை (Camera permission dismissed/denied). உலாவியின் URL பட்டியில் உள்ள 🔒 அல்லது கேமரா ஐகானைக் கிளிக் செய்து Camera "Allow" செய்யவும், அல்லது கீழே உள்ள கோப்பைப் பதிவேற்றும் (Upload) வசதியைப் பயன்படுத்தவும்.'
+        );
+      } else {
+        console.warn('Camera access unavailable:', err);
+        const msg = err instanceof Error ? err.message : 'Unable to access camera';
+        setCameraError(
+          `${msg}. தயவுசெய்து கேமரா அனுமதியை சரிபார்க்கவும் அல்லது 'Upload image' மூலம் பதிவேற்றவும்.`
+        );
+      }
     }
   };
 

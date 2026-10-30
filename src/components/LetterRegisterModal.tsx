@@ -115,7 +115,10 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
       if (thisScanId !== scanIdRef.current) return; // Discard superseded scan
 
       if (!res.success || !res.data) {
-        setScanErrorMsg(null);
+        setScanErrorMsg(
+          res.error ||
+            'கடிதப் புகைப்படம் இணைக்கப்பட்டுள்ளது. படிவத்தில் விவரங்களை நேரடியாக உள்ளிட்டு சேமிக்கலாம்.'
+        );
         return;
       }
 
