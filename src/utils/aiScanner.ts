@@ -25,42 +25,48 @@ export async function scanLetterWithAI(
   imageBase64: string,
   mimeType = 'image/jpeg'
 ): Promise<ScanResult> {
-  try {
-    const response = await fetch('/api/scan-letter', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        imageBase64,
-        mimeType,
-      }),
-    });
+  const payload = JSON.stringify({ imageBase64, mimeType });
+  const headers = { 'Content-Type': 'application/json' };
 
-    if (!response.ok) {
+  // Try standard Express route /api/scan-letter, then Netlify functions route if 404
+  const endpoints = ['/api/scan-letter', '/.netlify/functions/scan-letter'];
+
+  for (const endpoint of endpoints) {
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers,
+        body: payload,
+      });
+
+      if (response.status === 404) {
+        // Try next candidate endpoint (e.g. Netlify serverless)
+        continue;
+      }
+
+      const resJson = await response.json().catch(() => ({}));
+      if (!response.ok || !resJson.success) {
+        return {
+          success: false,
+          apiKeyMissing: Boolean(resJson.apiKeyMissing),
+          error:
+            resJson.message ||
+            resJson.error ||
+            'கடிதப் புகைப்படம் இணைக்கப்பட்டுள்ளது. தகவல்களை நேரடியாக உள்ளிட்டு சேமிக்கலாம்.',
+        };
+      }
+
       return {
-        success: false,
-        error: 'கடிதப் புகைப்படம் இணைக்கப்பட்டுள்ளது. தகவல்களை நேரடியாக உள்ளிட்டு சேமிக்கலாம்.',
+        success: true,
+        data: resJson.data,
       };
+    } catch {
+      // Try next endpoint on network issue
     }
-
-    const resJson = await response.json().catch(() => ({}));
-    if (!resJson.success) {
-      return {
-        success: false,
-        apiKeyMissing: Boolean(resJson.apiKeyMissing),
-        error: resJson.message || 'கடிதப் புகைப்படம் இணைக்கப்பட்டுள்ளது. தகவல்களை நேரடியாக உள்ளிட்டு சேமிக்கலாம்.',
-      };
-    }
-
-    return {
-      success: true,
-      data: resJson.data,
-    };
-  } catch (error: any) {
-    return {
-      success: false,
-      error: 'கடிதப் புகைப்படம் இணைக்கப்பட்டுள்ளது. தகவல்களை நேரடியாக உள்ளிட்டு சேமிக்கலாம்.',
-    };
   }
+
+  return {
+    success: false,
+    error: 'கடிதப் புகைப்படம் இணைக்கப்பட்டுள்ளது. தகவல்களை நேரடியாக உள்ளிட்டு சேமிக்கலாம்.',
+  };
 }

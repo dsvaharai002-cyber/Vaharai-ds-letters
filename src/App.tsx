@@ -74,6 +74,37 @@ const safeJsonParse = <T,>(value: any, fallback: T): T => {
   }
 };
 
+/**
+ * Universal API fetch client that works seamlessly across Express backend,
+ * Netlify rewrites (/api/* -> /.netlify/functions/*), and direct Netlify functions fallback.
+ */
+export async function apiFetch(path: string, options?: RequestInit): Promise<Response> {
+  const primaryUrl = path;
+  let netlifyFallbackUrl = '';
+  if (path.startsWith('/api/cloud-sync')) {
+    netlifyFallbackUrl = path.replace('/api/cloud-sync', '/.netlify/functions/cloud-sync');
+  } else if (path.startsWith('/api/scan-letter')) {
+    netlifyFallbackUrl = path.replace('/api/scan-letter', '/.netlify/functions/scan-letter');
+  }
+
+  try {
+    const res = await fetch(primaryUrl, options);
+    if (res.status === 404 && netlifyFallbackUrl) {
+      return await fetch(netlifyFallbackUrl, options);
+    }
+    return res;
+  } catch (err) {
+    if (netlifyFallbackUrl) {
+      try {
+        return await fetch(netlifyFallbackUrl, options);
+      } catch {
+        // Fall through
+      }
+    }
+    throw err;
+  }
+}
+
 const sendDataToGoogleCloud = async (
   payload: CloudPayload,
   activeUrl?: string,
@@ -244,7 +275,7 @@ const sendDataToGoogleCloud = async (
 
     // Server-side proxy with permission detection and detailed feedback
     try {
-      const proxyRes = await fetch('/api/cloud-sync', {
+      const proxyRes = await apiFetch('/api/cloud-sync', {
         method: 'POST',
         headers,
         body: jsonStr,
@@ -333,7 +364,7 @@ const fetchCloudData = async (
         'X-Storage-Mode': 'drive_json',
         'X-Drive-File-Id': fileId,
       };
-      const response = await fetch(
+      const response = await apiFetch(
         `/api/cloud-sync?type=get_drive_json&driveFileId=${encodeURIComponent(fileId)}&t=${Date.now()}`,
         { headers }
       );
@@ -353,16 +384,17 @@ const fetchCloudData = async (
         }
       }
     } catch {
-      // Fall through to direct drive fetch
+      // Fall through to Apps Script fallback
     }
 
-    // Direct browser fetch from Google Drive usercontent CDN
+    // Google Apps Script Web App fallback with CORS support (never fetch drive.usercontent directly in browser due to CORS)
     try {
-      const directDriveRes = await fetch(
-        `https://drive.usercontent.google.com/download?id=${encodeURIComponent(fileId)}&export=download`
+      const targetUrl = (activeUrl || WEB_APP_URL).trim();
+      const directScriptRes = await fetch(
+        `${targetUrl}?type=get_drive_json&mode=drive_json&file_id=${encodeURIComponent(fileId)}&t=${Date.now()}`
       );
-      if (directDriveRes.ok) {
-        const raw = await directDriveRes.text();
+      if (directScriptRes.ok) {
+        const raw = await directScriptRes.text();
         const trimmed = raw.trim();
         if (!trimmed || trimmed === '{ [ ] }' || trimmed === '{[]}' || trimmed === '[]' || trimmed === '{}') {
           return {
@@ -412,7 +444,7 @@ const fetchCloudData = async (
       headers['X-Web-App-Url'] = activeUrl;
     }
 
-    const response = await fetch(`/api/cloud-sync?mode=sheets&t=${Date.now()}`, {
+    const response = await apiFetch(`/api/cloud-sync?mode=sheets&t=${Date.now()}`, {
       headers,
     });
 
@@ -1079,7 +1111,7 @@ export default function App() {
 
             // Auto-sync any locally created letters to the server in background if missing
             if (missingOnServer.length > 0) {
-              fetch('/api/cloud-sync', {
+              apiFetch('/api/cloud-sync', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -1161,7 +1193,7 @@ export default function App() {
           } catch {}
 
           if (missingOnServer.length > 0) {
-            fetch('/api/cloud-sync', {
+            apiFetch('/api/cloud-sync', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
@@ -1250,7 +1282,7 @@ export default function App() {
         return rest;
       });
 
-      const res = await fetch('/api/cloud-sync', {
+      const res = await apiFetch('/api/cloud-sync', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -1333,7 +1365,7 @@ export default function App() {
     setStorageMode(newMode);
     try {
       localStorage.setItem('kpn_vaharai_storage_mode', newMode);
-      fetch('/api/cloud-sync', {
+      apiFetch('/api/cloud-sync', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'SET_CONFIG', storageMode: newMode }),
@@ -1347,7 +1379,7 @@ export default function App() {
     try {
       setDriveFileId(cleanId);
       localStorage.setItem('kpn_vaharai_drive_file_id', cleanId);
-      await fetch('/api/cloud-sync', {
+      await apiFetch('/api/cloud-sync', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'SET_CONFIG', driveFileId: cleanId }),
@@ -1361,7 +1393,7 @@ export default function App() {
   const handleTestDriveConnection = async (idToTest?: string) => {
     const targetId = (idToTest || driveFileId).trim();
     try {
-      const res = await fetch(
+      const res = await apiFetch(
         `/api/cloud-sync?type=test_drive&driveFileId=${encodeURIComponent(targetId)}&t=${Date.now()}`
       );
       if (res.ok) {
@@ -1379,7 +1411,7 @@ export default function App() {
 
   const handleUploadAllToDrive = async (): Promise<{ ok: boolean; message?: string }> => {
     try {
-      const res = await fetch('/api/cloud-sync', {
+      const res = await apiFetch('/api/cloud-sync', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -1408,7 +1440,7 @@ export default function App() {
     try {
       localStorage.setItem('kpn_vaharai_cloud_url', newUrl);
       setCloudUrl(newUrl);
-      await fetch('/api/cloud-sync', {
+      await apiFetch('/api/cloud-sync', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'SET_CONFIG_URL', url: newUrl }),
@@ -1427,7 +1459,7 @@ export default function App() {
 
     // 1. Try server proxy endpoint
     try {
-      const res = await fetch(
+      const res = await apiFetch(
         `/api/cloud-sync?type=test&webAppUrl=${encodeURIComponent(target)}&t=${Date.now()}`
       );
       if (res.ok) {

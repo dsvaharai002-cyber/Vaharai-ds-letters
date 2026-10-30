@@ -1,0 +1,3 @@
+/api/cloud-sync /.netlify/functions/cloud-sync 200
+/api/scan-letter /.netlify/functions/scan-letter 200
+/* /index.html 200
