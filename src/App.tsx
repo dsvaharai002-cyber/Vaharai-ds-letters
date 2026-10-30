@@ -356,47 +356,44 @@ const fetchCloudData = async (
       // Fall through to direct drive fetch
     }
 
-    // Direct browser fetch from Google Drive usercontent CDN
-    try {
-      const directDriveRes = await fetch(
-        `https://drive.usercontent.google.com/download?id=${encodeURIComponent(fileId)}&export=download`
-      );
-      if (directDriveRes.ok) {
-        const raw = await directDriveRes.text();
-        const trimmed = raw.trim();
-        if (!trimmed || trimmed === '{ [ ] }' || trimmed === '{[]}' || trimmed === '[]' || trimmed === '{}') {
-          return {
-            letters: [],
-            users: [],
-            uninitialized: true,
-            offline: false,
-            statusCode: 200,
-            message: 'Google Drive JSON கோப்பு தயாராக உள்ளது.',
-          };
+    // Direct browser fetch via Google Apps Script (bypasses browser CORS restrictions)
+    const scriptUrl = (activeUrl || WEB_APP_URL).trim();
+    if (scriptUrl) {
+      try {
+        const directScriptRes = await fetch(
+          `${scriptUrl}?type=get_drive_json&mode=drive_json&file_id=${encodeURIComponent(fileId)}&t=${Date.now()}`,
+          { method: 'GET', redirect: 'follow' }
+        );
+        if (directScriptRes.ok) {
+          const raw = await directScriptRes.text();
+          const trimmed = raw.trim();
+          if (trimmed && trimmed !== '{ [ ] }' && trimmed !== '{[]}' && trimmed !== '[]' && trimmed !== '{}') {
+            try {
+              const parsed = JSON.parse(raw);
+              const letters = Array.isArray(parsed)
+                ? parsed
+                : Array.isArray(parsed?.letters)
+                ? parsed.letters
+                : [];
+              const users = Array.isArray(parsed?.users) ? parsed.users : [];
+              if (letters.length > 0 || users.length > 0) {
+                return {
+                  letters,
+                  users,
+                  uninitialized: letters.length === 0,
+                  offline: false,
+                  statusCode: 200,
+                  message: 'Google Drive JSON தரவுகள் வெற்றிகரமாகப் பெறப்பட்டன.',
+                };
+              }
+            } catch {
+              // Ignore parse error and fall through
+            }
+          }
         }
-        try {
-          const parsed = JSON.parse(raw);
-          const letters = Array.isArray(parsed) ? parsed : (Array.isArray(parsed?.letters) ? parsed.letters : []);
-          const users = Array.isArray(parsed?.users) ? parsed.users : [];
-          return {
-            letters,
-            users,
-            uninitialized: letters.length === 0,
-            offline: false,
-            statusCode: 200,
-          };
-        } catch {
-          return {
-            letters: [],
-            users: [],
-            uninitialized: true,
-            offline: false,
-            statusCode: 200,
-          };
-        }
+      } catch {
+        // Fall through to sheet
       }
-    } catch {
-      // Fall through to sheet
     }
   }
 

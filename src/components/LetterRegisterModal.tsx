@@ -115,7 +115,7 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
       if (thisScanId !== scanIdRef.current) return; // Discard superseded scan
 
       if (!res.success || !res.data) {
-        setScanErrorMsg(null);
+        setScanErrorMsg(res.error || 'கடிதத்தை ஸ்கேன் செய்ய முடியவில்லை. தகவல்களை நேரடியாக உள்ளிடலாம்.');
         return;
       }
 
@@ -226,7 +226,7 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
       }
     } catch (err: unknown) {
       console.log('AI scan notice (direct manual entry available):', err);
-      setScanErrorMsg(null);
+      setScanErrorMsg('கடிதத்தை ஸ்கேன் செய்வதில் தாமதம் ஏற்பட்டுள்ளது. தகவல்களை நேரடியாக உள்ளிடலாம்.');
     } finally {
       if (thisScanId === scanIdRef.current) {
         setIsScanning(false);

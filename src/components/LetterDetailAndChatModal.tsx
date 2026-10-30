@@ -140,7 +140,7 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
         }
         setScanFeedback('✓ AI Auto-Fill applied from document photo!');
       } else {
-        setScanFeedback('கடிதப் புகைப்படம் இணைக்கப்பட்டுள்ளது. தகவல்களை நேரடியாக உள்ளிடலாம்.');
+        setScanFeedback(res.error || 'கடிதப் புகைப்படம் இணைக்கப்பட்டுள்ளது. தகவல்களை நேரடியாக உள்ளிடலாம்.');
       }
     } catch (e: unknown) {
       setScanFeedback('கடிதப் புகைப்படம் இணைக்கப்பட்டுள்ளது. தகவல்களை நேரடியாக உள்ளிடலாம்.');
