@@ -1,1 +1,96 @@
 @import "tailwindcss";
+
+@layer base {
+  body {
+    @apply bg-slate-100 text-slate-800 antialiased font-sans;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+  }
+}
+
+/* Hide scrollbar for clean mobile tabs */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Print Styles for 58mm / 80mm Thermal Receipt Printers, ID Passes, and PDF Filtered Reports */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  /* When printing thermal slip (58mm / 80mm) */
+  #thermal-slip,
+  #thermal-slip * {
+    visibility: visible;
+  }
+
+  #thermal-slip {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 72mm;
+    margin: 0;
+    padding: 2mm;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  /* When printing ID Card */
+  #printable-id-card,
+  #printable-id-card * {
+    visibility: visible;
+  }
+
+  #printable-id-card {
+    position: absolute;
+    left: 10mm;
+    top: 10mm;
+    width: 85.6mm;
+    border: 2px solid #064e3b !important;
+    box-shadow: none !important;
+  }
+
+  /* When printing Filtered Data PDF Report */
+  #printable-report-area,
+  #printable-report-area * {
+    visibility: visible;
+  }
+
+  #printable-report-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 10mm;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  /* When printing AI Executive Report */
+  #ai-report-paper,
+  #ai-report-paper * {
+    visibility: visible;
+  }
+
+  #ai-report-paper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 10mm;
+    border: none !important;
+    box-shadow: none !important;
+  }
+}

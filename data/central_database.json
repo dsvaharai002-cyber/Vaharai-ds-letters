@@ -1,0 +1,243 @@
+{
+  "version": "4.0",
+  "exportedAt": "2026-10-23T08:25:00.000Z",
+  "organization": "Divisional Secretariat Koralaipattu North (Vaharai)",
+  "users": [
+    {
+      "id": "93008148555",
+      "password": "19930108",
+      "name": "பிரதேச செயலாளர் (Super Admin)",
+      "role": "SUPERADMIN",
+      "division": "ALL",
+      "status": "ACTIVE",
+      "createdAt": "2026-01-01T00:00:00.000Z"
+    }
+  ],
+  "beneficiaries": [],
+  "tokens": [],
+  "pregnantMothers": [],
+  "divisions": [
+    {
+      "code": "213",
+      "nameEn": "Kathiraveli",
+      "nameTa": "கதிரவெளி",
+      "gnOfficerName": "",
+      "population": 2750,
+      "households": 690
+    },
+    {
+      "code": "213B",
+      "nameEn": "Kaddumurivu",
+      "nameTa": "கட்டுமுறிவு",
+      "gnOfficerName": "",
+      "population": 1420,
+      "households": 360
+    },
+    {
+      "code": "211C",
+      "nameEn": "Panichchankerni",
+      "nameTa": "பனிச்சங்கேணி",
+      "gnOfficerName": "",
+      "population": 2310,
+      "households": 580
+    },
+    {
+      "code": "211D",
+      "nameEn": "Vaddavaan",
+      "nameTa": "வட்டவான்",
+      "gnOfficerName": "",
+      "population": 1530,
+      "households": 380
+    },
+    {
+      "code": "211A",
+      "nameEn": "Kayankerni",
+      "nameTa": "காயான்கேணி",
+      "gnOfficerName": "",
+      "population": 2600,
+      "households": 650
+    },
+    {
+      "code": "212B",
+      "nameEn": "Uooriyankaddu (213B / 212B)",
+      "nameTa": "உரியன்கட்டு (213B / 212B)",
+      "gnOfficerName": "",
+      "population": 1390,
+      "households": 350
+    },
+    {
+      "code": "211E",
+      "nameEn": "Mathurankernikulam",
+      "nameTa": "மதுரங்கேணிக்குளம்",
+      "gnOfficerName": "",
+      "population": 1180,
+      "households": 290
+    },
+    {
+      "code": "212",
+      "nameEn": "Vaharai Central",
+      "nameTa": "வாகரை மத்தி",
+      "gnOfficerName": "",
+      "population": 1920,
+      "households": 480
+    },
+    {
+      "code": "211F",
+      "nameEn": "Kirimichchi",
+      "nameTa": "கிரிமிச்சை",
+      "gnOfficerName": "",
+      "population": 1720,
+      "households": 430
+    },
+    {
+      "code": "212A",
+      "nameEn": "Vaharai North",
+      "nameTa": "வாகரை வடக்கு",
+      "gnOfficerName": "",
+      "population": 2450,
+      "households": 610
+    },
+    {
+      "code": "211",
+      "nameEn": "Mankerni Central",
+      "nameTa": "மாங்கேணி மத்தி",
+      "gnOfficerName": "",
+      "population": 2890,
+      "households": 720
+    },
+    {
+      "code": "213D",
+      "nameEn": "Ammanthanaaveli",
+      "nameTa": "அம்மந்தனாவெளி",
+      "gnOfficerName": "",
+      "population": 1840,
+      "households": 460
+    },
+    {
+      "code": "213C",
+      "nameEn": "Puchchakkerni",
+      "nameTa": "பூச்சக்கேணி",
+      "gnOfficerName": "",
+      "population": 1260,
+      "households": 320
+    },
+    {
+      "code": "211B",
+      "nameEn": "Punaanai East",
+      "nameTa": "புனானை கிழக்கு",
+      "gnOfficerName": "",
+      "population": 1650,
+      "households": 410
+    },
+    {
+      "code": "213A",
+      "nameEn": "Paalchenai",
+      "nameTa": "பால்சேனை",
+      "gnOfficerName": "",
+      "population": 2180,
+      "households": 540
+    },
+    {
+      "code": "211G",
+      "nameEn": "Mankerni South",
+      "nameTa": "மாங்கேணி தெற்கு",
+      "gnOfficerName": "",
+      "population": 1980,
+      "households": 510
+    }
+  ],
+  "auditLogs": [],
+  "assistance": [],
+  "services": [
+    {
+      "id": "SRV-WELFARE",
+      "code": "WELFARE_SCHEME",
+      "nameTa": "அஸ்வெசும & சமுர்த்தி நலன்புரி",
+      "nameEn": "Aswesuma & Samurdhi Welfare",
+      "counterNo": 4,
+      "prefix": "W",
+      "defaultOfficerTa": "நலன்புரி உத்தியோகத்தர்",
+      "defaultOfficerEn": "Welfare Officer",
+      "descriptionTa": "அஸ்வெசும, சமுர்த்தி மற்றும் நலன்புரிக் கொடுப்பனவுகள் தொடர்பான சேவைகள்",
+      "descriptionEn": "Aswesuma, Samurdhi and social welfare benefits",
+      "isActive": true,
+      "isCustom": false,
+      "createdAt": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": "SRV-LAND",
+      "code": "LAND_PERMIT",
+      "nameTa": "காணி அனுமதிப்பத்திரம் & எல்லைகள்",
+      "nameEn": "Land Permits & Boundary Inquiries",
+      "counterNo": 2,
+      "prefix": "L",
+      "defaultOfficerTa": "காணி பிரிவு உத்தியோகத்தர் (Land Officer)",
+      "defaultOfficerEn": "Land Branch Officer",
+      "descriptionTa": "அரச காணி அனுமதிப்பத்திரம், எல்லை அளவீடு மற்றும் காணி பிணக்குகள்",
+      "descriptionEn": "State land permits, boundary surveying and land dispute resolutions",
+      "isActive": true,
+      "isCustom": false,
+      "createdAt": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": "SRV-CIVIL",
+      "code": "CIVIL_REGISTRATION",
+      "nameTa": "பிறப்பு / இறப்பு / விவாக சான்றிதழ்",
+      "nameEn": "Birth / Death / Marriage Registration",
+      "counterNo": 1,
+      "prefix": "C",
+      "defaultOfficerTa": "பிறப்பு/இறப்பு பதிவாளர் (Civil Registrar)",
+      "defaultOfficerEn": "Civil Registrar Officer",
+      "descriptionTa": "பிறப்பு, இறப்பு, விவாக சான்றிதழ் பிரதிகள் மற்றும் பதிவுகள்",
+      "descriptionEn": "Birth, death, marriage certificates and official registrations",
+      "isActive": true,
+      "isCustom": false,
+      "createdAt": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": "SRV-GRAMA",
+      "code": "GRAMA_CERTIFICATE",
+      "nameTa": "கிராம அலுவலர் சான்றிதழ் & அறிக்கை",
+      "nameEn": "Grama Niladhari Certificates & Reports",
+      "counterNo": 3,
+      "prefix": "G",
+      "defaultOfficerTa": "கிராம அலுவலர் (Grama Niladhari)",
+      "defaultOfficerEn": "Grama Niladhari Officer",
+      "descriptionTa": "வசிக்கை சான்றிதழ், நன்னடத்தை சான்றிதழ் மற்றும் கிராம மட்ட பரிந்துரைகள்",
+      "descriptionEn": "Residence certificate, character certificate and GN recommendations",
+      "isActive": true,
+      "isCustom": false,
+      "createdAt": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": "SRV-PUBLIC_AID",
+      "code": "PUBLIC_ASSISTANCE",
+      "nameTa": "பொதுமக்கள் உதவி & இடர் நிவாரணம்",
+      "nameEn": "Public Assistance & Relief Support",
+      "counterNo": 5,
+      "prefix": "P",
+      "defaultOfficerTa": "சமூக சேவைகள் அலுவலர்",
+      "defaultOfficerEn": "Social Services Officer",
+      "descriptionTa": "அனர்த்த நிவாரண உதவி, உலர் உணவு மற்றும் விசேட தேவைகள்",
+      "descriptionEn": "Disaster relief, dry rations, and special emergency aid",
+      "isActive": true,
+      "isCustom": false,
+      "createdAt": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": "SRV-GENERAL",
+      "code": "GENERAL_INQUIRY",
+      "nameTa": "பொது வழிகாட்டல் & விசாரணை",
+      "nameEn": "General Inquiries & Guidance",
+      "counterNo": 6,
+      "prefix": "A",
+      "defaultOfficerTa": "முன்னரங்கு அலுவலர் (Front Desk)",
+      "defaultOfficerEn": "Information Desk Officer",
+      "descriptionTa": "பிரதேச செயலகத்தின் பொதுவான வழிகாட்டல் மற்றும் மக்கள் முறைப்பாடுகள்",
+      "descriptionEn": "General citizen guidance, counter information and complaints",
+      "isActive": true,
+      "isCustom": false,
+      "createdAt": "2026-01-01T00:00:00Z"
+    }
+  ]
+}
