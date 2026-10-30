@@ -1,14 +1,14 @@
 import type { Request, Response } from 'express';
-import { GoogleGenAI, Type } from '@google/genai';
+import { GoogleGenAI, Type, ThinkingLevel } from '@google/genai';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-// Candidate models ordered by OCR capability and modern SDK support
+// Candidate models ordered by speed and OCR vision capability
 export const CANDIDATE_MODELS = [
+  'gemini-3.1-flash-lite',
   'gemini-3.8-flash',
   'gemini-flash-latest',
-  'gemini-3.1-flash-lite',
 ];
 
 export interface ScannedLetterPayload {
@@ -130,6 +130,17 @@ Return strictly in JSON format matching the schema.`;
           ],
         },
         config: {
+          temperature: 0.1,
+          ...(modelName.startsWith('gemini-3')
+            ? {
+                thinkingConfig: {
+                  thinkingLevel:
+                    modelName === 'gemini-3.1-flash-lite'
+                      ? ThinkingLevel.MINIMAL
+                      : ThinkingLevel.LOW,
+                },
+              }
+            : {}),
           responseMimeType: 'application/json',
           responseSchema: {
             type: Type.OBJECT,
