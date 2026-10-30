@@ -751,7 +751,7 @@ export default async function handler(req: Request, res: Response): Promise<void
 
       // 2. GOOGLE SHEETS FALLBACK
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 25000);
+      const timeout = setTimeout(() => controller.abort(), 35000);
 
       try {
         const response = await fetch(`${effectiveWebAppUrl}?type=get_all&t=${Date.now()}`, {

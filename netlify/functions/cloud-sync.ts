@@ -115,28 +115,33 @@ export const handler = async (event: any) => {
   try {
     // 1. GET: Fetch letters & users
     if (event.httpMethod === 'GET') {
-      const isDriveJson = query.type === 'get_drive_json' || storageMode === 'drive_json' || !query.mode;
+      const isDriveJson = query.type === 'get_drive_json' || storageMode === 'drive_json';
 
+      // Return warm cache if fresh
+      if (cachedLetters.length > 0 && Date.now() - cacheTimestamp < CACHE_TTL_MS) {
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({
+            ok: true,
+            mode: storageMode,
+            cached: true,
+            letters: cachedLetters,
+            users: cachedUsers.length > 0 ? cachedUsers : ALL_OFFICIAL_USERS,
+          }),
+        };
+      }
+
+      // If in Drive JSON mode, attempt fast Google Drive fetch first
       if (isDriveJson) {
-        // Return cached if warm and fresh
-        if (cachedLetters.length > 0 && Date.now() - cacheTimestamp < CACHE_TTL_MS) {
-          return {
-            statusCode: 200,
-            headers,
-            body: JSON.stringify({
-              ok: true,
-              mode: 'drive_json',
-              cached: true,
-              letters: cachedLetters,
-              users: cachedUsers.length > 0 ? cachedUsers : ALL_OFFICIAL_USERS,
-            }),
-          };
-        }
-
-        // Fetch from Google Drive server-to-server (bypasses browser CORS!)
         const driveResult = await fetchGoogleDriveJson(driveFileId);
 
-        if (driveResult.ok && Array.isArray(driveResult.letters) && driveResult.letters.length > 0 && !driveResult.uninitialized) {
+        if (
+          driveResult.ok &&
+          Array.isArray(driveResult.letters) &&
+          driveResult.letters.length > 0 &&
+          !driveResult.uninitialized
+        ) {
           const repaired = driveResult.letters.map(repairLetterRecord).filter(Boolean);
           cachedLetters = repaired;
           cachedUsers = Array.isArray(driveResult.users) && driveResult.users.length > 0 ? driveResult.users : ALL_OFFICIAL_USERS;
@@ -155,29 +160,11 @@ export const handler = async (event: any) => {
             }),
           };
         }
-
-        // If Drive is empty or uninitialized, return full official baseline
-        const baseline = ALL_OFFICIAL_LETTERS.map(repairLetterRecord).filter(Boolean);
-        cachedLetters = baseline;
-        cachedUsers = ALL_OFFICIAL_USERS;
-        cacheTimestamp = Date.now();
-
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify({
-            ok: true,
-            mode: 'drive_json',
-            source: 'baseline',
-            letters: baseline,
-            users: ALL_OFFICIAL_USERS,
-          }),
-        };
       }
 
-      // Sheets fallback
+      // Fallback or Direct: Fetch from Google Sheets live spreadsheet
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 12000);
+      const timeout = setTimeout(() => controller.abort(), 35000);
       try {
         const fetchUrl = `${webAppUrl}?type=get_all&t=${Date.now()}`;
         const resp = await fetch(fetchUrl, {
@@ -185,54 +172,89 @@ export const handler = async (event: any) => {
           signal: controller.signal,
         });
         clearTimeout(timeout);
+
         const data = await resp.json().catch(() => null);
         if (data && (Array.isArray(data) || data.ok || Array.isArray(data.letters))) {
-          const letters = Array.isArray(data) ? data : (data.letters || []);
-          const users = data.users || ALL_OFFICIAL_USERS;
-          return {
-            statusCode: 200,
-            headers,
-            body: JSON.stringify({
-              ok: true,
-              mode: 'sheets',
-              letters: letters.map(repairLetterRecord).filter(Boolean),
-              users,
-            }),
-          };
+          const rawLetters = Array.isArray(data) ? data : (data.letters || []);
+          const rows = Array.isArray(rawLetters[0]) ? rawLetters.slice(1) : rawLetters;
+          const normalized = rows.map(repairLetterRecord).filter(Boolean);
+
+          if (normalized.length > 0) {
+            cachedLetters = normalized;
+            cachedUsers = Array.isArray(data.users) && data.users.length > 1 ? data.users.slice(1) : ALL_OFFICIAL_USERS;
+            cacheTimestamp = Date.now();
+
+            return {
+              statusCode: 200,
+              headers,
+              body: JSON.stringify({
+                ok: true,
+                mode: 'sheets',
+                source: 'sheets',
+                letters: rawLetters, // send raw so normalizeLetter parses all columns
+                users: data.users || ALL_OFFICIAL_USERS,
+              }),
+            };
+          }
         }
-      } catch {
+      } catch (sheetErr) {
         clearTimeout(timeout);
       }
 
-      // Safe fallback to baseline official letters
+      // Safe fallback if Google is unreachable
+      const baseline = ALL_OFFICIAL_LETTERS.map(repairLetterRecord).filter(Boolean);
       return {
         statusCode: 200,
         headers,
         body: JSON.stringify({
           ok: true,
-          mode: 'sheets',
-          letters: ALL_OFFICIAL_LETTERS.map(repairLetterRecord).filter(Boolean),
+          mode: 'baseline',
+          source: 'baseline',
+          letters: baseline,
           users: ALL_OFFICIAL_USERS,
         }),
       };
     }
 
-    // 2. POST: Write, sync, or update
+    // 2. POST: Write, sync, or update (Awaited for serverless execution)
     if (event.httpMethod === 'POST') {
       const body = typeof event.body === 'string' ? JSON.parse(event.body || '{}') : event.body || {};
+      const act = String(body.action || '').toUpperCase().trim();
+      const payloadLetter = body.extraData || body;
 
-      // Invalidate read cache on write
-      cacheTimestamp = 0;
+      // Optimistically update in-memory cache for subsequent GETs across browsers
+      if (act === 'ADD_LETTER' && payloadLetter) {
+        const repaired = repairLetterRecord(payloadLetter);
+        if (repaired) {
+          cachedLetters = [repaired, ...cachedLetters.filter((l) => l.id !== repaired.id && l.originalNo !== repaired.originalNo)];
+          cacheTimestamp = Date.now();
+        }
+      } else if ((act === 'UPDATE_LETTER' || act === 'UPDATE_STATUS' || act === 'UPDATE_ACTION') && payloadLetter) {
+        const id = String(body.id || payloadLetter.id || '');
+        const orig = String(body.originalNo || payloadLetter.originalNo || '');
+        cachedLetters = cachedLetters.map((l) => {
+          if ((id && String(l.id) === id) || (orig && String(l.originalNo) === orig)) {
+            const healed = repairLetterRecord({ ...l, ...payloadLetter });
+            return healed || { ...l, ...payloadLetter };
+          }
+          return l;
+        });
+        cacheTimestamp = Date.now();
+      }
 
-      // Forward to Google Apps Script asynchronously
-      fetch(webAppUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({
-          ...body,
-          driveFileId,
-        }),
-      }).catch(() => {});
+      // CRITICAL: Await Google Apps Script fetch so serverless lambda does not exit early!
+      try {
+        await fetch(webAppUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({
+            ...body,
+            driveFileId,
+          }),
+        });
+      } catch (postErr) {
+        console.error('Apps Script POST forward error:', postErr);
+      }
 
       return {
         statusCode: 200,
@@ -240,7 +262,7 @@ export const handler = async (event: any) => {
         body: JSON.stringify({
           ok: true,
           action: body.action || 'SAVE',
-          message: 'Saved successfully',
+          message: 'Record saved successfully to central database.',
         }),
       };
     }

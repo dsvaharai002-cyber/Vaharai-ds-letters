@@ -15,6 +15,9 @@ import {
   RefreshCw,
   Image as ImageIcon,
   Zap,
+  CreditCard,
+  Key,
+  ExternalLink,
 } from 'lucide-react';
 import { Letter, LetterAction, User } from '../types';
 import { DIVISIONS, POST_TYPES, migrateDivision } from '../data/initialData';
@@ -27,7 +30,7 @@ import {
   classifySubjectCategory,
   SUBJECT_CATEGORIES_CONFIG,
 } from '../utils/helpers';
-import { scanLetterWithAI } from '../utils/aiScanner';
+import { scanLetterWithAI, FormattedScanErrorDetail } from '../utils/aiScanner';
 import { ForwardSelect } from './ForwardUserSelect';
 import { CameraCaptureModal } from './CameraCaptureModal';
 
@@ -82,6 +85,7 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
   const [isScanning, setIsScanning] = useState(false);
   const [scanSuccessMsg, setScanSuccessMsg] = useState<string | null>(null);
   const [scanErrorMsg, setScanErrorMsg] = useState<string | null>(null);
+  const [scanErrorDetail, setScanErrorDetail] = useState<FormattedScanErrorDetail | null>(null);
   const [autoFilledFields, setAutoFilledFields] = useState<string[]>([]);
   const [preservedUserFields, setPreservedUserFields] = useState<string[]>([]);
   const [aiExtractedData, setAiExtractedData] = useState<any>(null);
@@ -108,6 +112,7 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
     setIsScanning(true);
     setScanSuccessMsg(null);
     setScanErrorMsg(null);
+    setScanErrorDetail(null);
     setPreservedUserFields([]);
 
     try {
@@ -115,8 +120,10 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
       if (thisScanId !== scanIdRef.current) return; // Discard superseded scan
 
       if (!res.success || !res.data) {
+        setScanErrorDetail(res.errorDetail || null);
         setScanErrorMsg(
           res.error ||
+            res.errorDetail?.message ||
             'கடிதப் புகைப்படம் இணைக்கப்பட்டுள்ளது. படிவத்தில் விவரங்களை நேரடியாக உள்ளிட்டு சேமிக்கலாம்.'
         );
         return;
@@ -534,29 +541,127 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
 
               {/* Scan Error Banner */}
               {scanErrorMsg && !isScanning && (
-                <div className="mt-3 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-amber-300 bg-amber-50 p-2.5 text-xs text-amber-900">
-                  <div className="flex items-center gap-2">
-                    <AlertCircle className="h-4 w-4 text-amber-600 shrink-0" />
-                    <span>{scanErrorMsg}</span>
+                <div className="mt-3 rounded-xl border border-amber-300 bg-amber-50/95 p-3 text-amber-950 shadow-xs">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex items-start gap-2.5">
+                      <div className="rounded-lg bg-amber-200/80 p-2 text-amber-800 shrink-0 mt-0.5">
+                        {scanErrorDetail?.type === 'billing_required' ? (
+                          <CreditCard className="h-5 w-5" />
+                        ) : scanErrorDetail?.type === 'api_key_invalid' ? (
+                          <Key className="h-5 w-5" />
+                        ) : (
+                          <AlertCircle className="h-5 w-5" />
+                        )}
+                      </div>
+
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="font-bold text-xs uppercase tracking-wider text-amber-800 bg-amber-200/70 px-2 py-0.5 rounded">
+                            {scanErrorDetail?.type === 'billing_required'
+                              ? 'Gemini API • Billing Upgrade Required'
+                              : scanErrorDetail?.type === 'api_key_invalid'
+                              ? 'Gemini API • Key Setup Required'
+                              : 'AI Scan Notice'}
+                          </span>
+                          {scanErrorDetail?.type === 'billing_required' && (
+                            <span className="text-[11px] text-amber-700 font-mono">403 PERMISSION_DENIED</span>
+                          )}
+                        </div>
+
+                        <p className="text-xs font-semibold text-amber-900 leading-snug">
+                          {scanErrorDetail?.message || scanErrorMsg}
+                        </p>
+
+                        {scanErrorDetail?.type === 'billing_required' && (
+                          <div className="mt-2 space-y-1.5 text-[11px] text-amber-900 bg-amber-100/70 p-2.5 rounded-lg border border-amber-200">
+                            <div className="flex items-start gap-1.5">
+                              <span className="font-bold text-amber-800">1.</span>
+                              <span>
+                                <strong>இலவசமாக பயன்படுத்த (Free Tier):</strong> தனிப்பட்ட Google கணக்கு மூலம்{' '}
+                                <a
+                                  href="https://aistudio.google.com/app/apikey"
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="underline font-bold text-blue-700 hover:text-blue-900 inline-flex items-center gap-0.5"
+                                >
+                                  Google AI Studio <ExternalLink className="h-2.5 w-2.5" />
+                                </a>{' '}
+                                தளத்தில் புதிய API Key உருவாக்கி, Netlify Dashboard (<em>Site configuration &gt; Environment variables &gt; GEMINI_API_KEY</em>) இல் உள்ளிடவும்.
+                              </span>
+                            </div>
+                            <div className="flex items-start gap-1.5">
+                              <span className="font-bold text-amber-800">2.</span>
+                              <span>
+                                <strong>அல்லது Billing ஐ இணைக்க:</strong>{' '}
+                                <a
+                                  href="https://aistudio.google.com/billing"
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="underline font-bold text-blue-700 hover:text-blue-900 inline-flex items-center gap-0.5"
+                                >
+                                  aistudio.google.com/billing <ExternalLink className="h-2.5 w-2.5" />
+                                </a>{' '}
+                                தளத்தில் சென்று இந்த திட்டத்திற்கான Billing ஐ இணைக்கவும்.
+                              </span>
+                            </div>
+                          </div>
+                        )}
+
+                        <p className="text-[11px] text-emerald-800 font-medium flex items-center gap-1.5 pt-0.5">
+                          <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                          <span>கடிதப் புகைப்படம் பாதுகாப்பாக இணைக்கப்பட்டுள்ளது. படிவத்தில் உள்ள விவரங்களை நீங்களே நேரடியாக உள்ளிட்டு சேமிக்கலாம்.</span>
+                        </p>
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setScanErrorMsg(null);
+                        setScanErrorDetail(null);
+                      }}
+                      className="text-amber-700 hover:text-amber-950 p-1 rounded-md hover:bg-amber-100 transition shrink-0"
+                      title="Dismiss notice"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
                   </div>
-                  <div className="flex items-center gap-2">
+
+                  <div className="mt-2.5 pt-2 border-t border-amber-200/80 flex items-center justify-between gap-2 flex-wrap">
+                    <div className="flex items-center gap-2">
+                      <a
+                        href="https://aistudio.google.com/app/apikey"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1 rounded-lg border border-amber-300 bg-white px-2 py-1 text-[11px] font-semibold text-amber-900 hover:bg-amber-100/50 shadow-2xs transition"
+                      >
+                        <Key className="h-3 w-3 text-amber-700" />
+                        <span>Get Free API Key</span>
+                        <ExternalLink className="h-2.5 w-2.5 text-amber-600" />
+                      </a>
+                      <a
+                        href="https://aistudio.google.com/billing"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1 rounded-lg border border-amber-300 bg-white px-2 py-1 text-[11px] font-semibold text-amber-900 hover:bg-amber-100/50 shadow-2xs transition"
+                      >
+                        <CreditCard className="h-3 w-3 text-amber-700" />
+                        <span>Upgrade Billing</span>
+                        <ExternalLink className="h-2.5 w-2.5 text-amber-600" />
+                      </a>
+                    </div>
+
                     {image && (
                       <button
                         type="button"
                         onClick={() => triggerScan(image)}
-                        className="inline-flex items-center gap-1 rounded bg-amber-200 px-2 py-1 text-xs font-bold text-amber-900 hover:bg-amber-300 transition"
+                        disabled={isScanning}
+                        className="inline-flex items-center gap-1 rounded-lg bg-amber-600 px-2.5 py-1 text-[11px] font-bold text-white hover:bg-amber-700 transition shadow-2xs"
                       >
-                        <RefreshCw className="h-3 w-3" />
+                        <RefreshCw className={`h-3 w-3 ${isScanning ? 'animate-spin' : ''}`} />
                         <span>மீண்டும் முயற்சி (Retry)</span>
                       </button>
                     )}
-                    <button
-                      type="button"
-                      onClick={() => setScanErrorMsg(null)}
-                      className="text-amber-700 hover:text-amber-950 p-1"
-                    >
-                      <X className="h-3.5 w-3.5" />
-                    </button>
                   </div>
                 </div>
               )}

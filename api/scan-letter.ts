@@ -217,6 +217,129 @@ Return strictly in JSON format matching the schema.`;
 /**
  * Express / HTTP route handler for /api/scan-letter
  */
+export interface FormattedScanError {
+  type: 'billing_required' | 'api_key_invalid' | 'quota_exhausted' | 'server_busy' | 'generic';
+  title: string;
+  message: string;
+  instructionTamil: string;
+  instructionEnglish: string;
+  actionUrl?: string;
+  actionLabel?: string;
+}
+
+/**
+ * Normalizes and categorizes Gemini API errors into clean, user-friendly diagnostic objects.
+ */
+export function parseGeminiError(error: any): FormattedScanError {
+  let rawMsg = '';
+  if (typeof error === 'string') {
+    rawMsg = error;
+  } else if (error?.message) {
+    rawMsg = String(error.message);
+  } else {
+    rawMsg = String(error || '');
+  }
+
+  // If the error message is a serialized JSON object from Google GenAI SDK:
+  let innerMsg = rawMsg;
+  try {
+    const trimmed = rawMsg.trim();
+    if (trimmed.startsWith('{') && trimmed.endsWith('}')) {
+      const parsed = JSON.parse(trimmed);
+      if (parsed?.error?.message) {
+        innerMsg = parsed.error.message;
+      }
+    }
+  } catch {}
+
+  const combined = `${rawMsg} ${innerMsg}`.toLowerCase();
+
+  // 1. Billing Required / Free Tier Not Available for project
+  if (
+    combined.includes('free tier is not available for this project') ||
+    combined.includes('upgrade to the paid tier') ||
+    combined.includes('aistudio.google.com/billing') ||
+    combined.includes('project-unavailable')
+  ) {
+    return {
+      type: 'billing_required',
+      title: 'Gemini API Billing Upgrade Required (403 Permission Denied)',
+      message: 'இந்த Google Cloud திட்டத்திற்கு Gemini API Free Tier அனுமதி இல்லை. கட்டண முறை (Billing) அல்லது புதிய Free Tier API Key தேவை.',
+      instructionTamil: '1. இலவசமாக பயன்படுத்த: aistudio.google.com/app/apikey இல் புதிய Google கணக்கின் மூலம் API Key ஒன்றை உருவாக்கி Netlify Environment Variables இல் சேர்க்கவும்.\n2. அல்லது aistudio.google.com/billing இல் இந்த திட்டத்திற்கான Billing ஐ இணைக்கவும்.\nகுறிப்பு: கடிதப் புகைப்படம் பாதுகாப்பாக இணைக்கப்பட்டுள்ளது! விவரங்களை நீங்களே நேரடியாகப் பூர்த்தி செய்து பதிவு செய்யலாம்.',
+      instructionEnglish: 'The Gemini API free tier is not available for this project. To use AI Auto-Fill, either generate an API key from a personal Google account with Free Tier active at aistudio.google.com/app/apikey and add to Netlify env vars, or upgrade this project to paid tier at aistudio.google.com/billing.',
+      actionUrl: 'https://aistudio.google.com/billing',
+      actionLabel: 'Upgrade Billing',
+    };
+  }
+
+  // 2. Invalid API Key / Permission Denied
+  if (
+    combined.includes('permission_denied') ||
+    combined.includes('api_key_invalid') ||
+    combined.includes('api key not valid') ||
+    combined.includes('unregistered callers') ||
+    combined.includes('gemini_key_not_configured') ||
+    error?.status === 'PERMISSION_DENIED' ||
+    error?.code === 403
+  ) {
+    return {
+      type: 'api_key_invalid',
+      title: 'Gemini API Key Authentication Failed',
+      message: 'AI சேவையக API Key அங்கீகாரம் கிடைக்கவில்லை (Invalid or Expired API Key).',
+      instructionTamil: 'Google AI Studio (aistudio.google.com/app/apikey) இல் புதிய API Key ஒன்றை உருவாக்கி உங்கள் தளத்தின் (Netlify / Server) Environment Variables இல் GEMINI_API_KEY ஆக உள்ளிடவும்.',
+      instructionEnglish: 'The Gemini API key is missing, invalid, or unauthorized. Please verify GEMINI_API_KEY in your hosting environment variables.',
+      actionUrl: 'https://aistudio.google.com/app/apikey',
+      actionLabel: 'Get API Key',
+    };
+  }
+
+  // 3. Quota Exhausted (429)
+  if (
+    combined.includes('resource_exhausted') ||
+    combined.includes('429') ||
+    combined.includes('quota')
+  ) {
+    return {
+      type: 'quota_exhausted',
+      title: 'Gemini API Rate Limit / Quota Exceeded',
+      message: 'AI சேவையக தினசரி அல்லது நிமிடப் பயன்பாட்டு வரம்பு நிறைவடைந்துள்ளது (Quota limit reached).',
+      instructionTamil: 'சிறிது நேரம் கழித்து மீண்டும் முயற்சி செய்யவும் அல்லது பயன்பாட்டு வரம்பை அதிகரிக்கவும்.',
+      instructionEnglish: 'Daily or per-minute API quota exceeded. Please wait a moment before retrying or upgrade quota at Google AI Studio.',
+      actionUrl: 'https://aistudio.google.com/billing',
+      actionLabel: 'Check Quota',
+    };
+  }
+
+  // 4. Server Busy (503)
+  if (
+    combined.includes('unavailable') ||
+    combined.includes('503') ||
+    combined.includes('overloaded') ||
+    error?.status === 'UNAVAILABLE' ||
+    error?.code === 503
+  ) {
+    return {
+      type: 'server_busy',
+      title: 'AI Service Temporarily Busy',
+      message: 'Google AI சேவையகம் தற்போது அதிக சுமையில் உள்ளது.',
+      instructionTamil: 'சிறிது வினாடிகள் கழித்து மீண்டும் ஸ்கேன் பொத்தானை அழுத்தவும் அல்லது தகவல்களை நேரடியாக உள்ளிடவும்.',
+      instructionEnglish: 'Google AI service is momentarily overloaded. Please retry in a few seconds.',
+    };
+  }
+
+  // Generic fallback
+  return {
+    type: 'generic',
+    title: 'AI Scan Notice',
+    message: 'கடிதப் புகைப்படம் இணைக்கப்பட்டுள்ளது. தகவல்களை நேரடியாக உள்ளிட்டு சேமிக்கலாம்.',
+    instructionTamil: 'படிவத்தில் தகவல்களை நேரடியாக பூர்த்தி செய்து Save & Register Mail மூலம் சேமிக்கவும்.',
+    instructionEnglish: 'Letter photo is securely attached. You can manually fill the fields and save.',
+  };
+}
+
+/**
+ * Express / HTTP route handler for /api/scan-letter
+ */
 export async function scanLetterHandler(req: Request, res: Response): Promise<void> {
   try {
     const effectiveKey = (process.env.GEMINI_API_KEY || '').trim();
@@ -226,7 +349,17 @@ export async function scanLetterHandler(req: Request, res: Response): Promise<vo
       res.json({
         success: false,
         apiKeyMissing: true,
+        errorType: 'api_key_invalid',
         message: 'AI சேவையக API Key இணைக்கப்படவில்லை. கடிதப் புகைப்படம் இணைக்கப்பட்டுள்ளது, தகவல்களை நேரடியாக உள்ளிட்டு சேமிக்கலாம்.',
+        errorDetail: {
+          type: 'api_key_invalid',
+          title: 'GEMINI_API_KEY Not Configured',
+          message: 'சேவையகத்தில் GEMINI_API_KEY இன்னும் அமைக்கப்படவில்லை.',
+          instructionTamil: 'Netlify Dashboard > Site configuration > Environment variables இல் GEMINI_API_KEY ஐ உள்ளிடவும்.',
+          instructionEnglish: 'Add GEMINI_API_KEY in your hosting environment variables.',
+          actionUrl: 'https://aistudio.google.com/app/apikey',
+          actionLabel: 'Create API Key',
+        },
       });
       return;
     }
@@ -247,39 +380,15 @@ export async function scanLetterHandler(req: Request, res: Response): Promise<vo
   } catch (error: any) {
     console.error('Error in /api/scan-letter handler:', error?.message || error);
 
-    const errMsg = String(error?.message || '');
-    const isKeyOrAuthError =
-      errMsg.includes('GEMINI_KEY_NOT_CONFIGURED') ||
-      errMsg.includes('Method doesn\'t allow unregistered callers') ||
-      errMsg.includes('PERMISSION_DENIED') ||
-      errMsg.includes('API key not valid') ||
-      errMsg.includes('API_KEY_INVALID') ||
-      error?.status === 'PERMISSION_DENIED' ||
-      error?.code === 403;
-
-    if (isKeyOrAuthError) {
-      res.json({
-        success: false,
-        apiKeyMissing: true,
-        message: 'AI சேவையக அங்கீகாரம் கிடைக்கவில்லை. கடிதப் புகைப்படம் இணைக்கப்பட்டுள்ளது, தகவல்களை நேரடியாக உள்ளிட்டு சேமிக்கலாம்.',
-      });
-      return;
-    }
-
-    const isBusy =
-      error?.status === 'UNAVAILABLE' ||
-      error?.code === 503 ||
-      errMsg.includes('503') ||
-      errMsg.includes('overloaded');
-
-    const errorMsg = isBusy
-      ? 'AI சேவையகம் தற்போது அதிக சுமையில் உள்ளது. கடிதப் புகைப்படம் இணைக்கப்பட்டுள்ளது, தகவல்களை நேரடியாக உள்ளிட்டு சேமிக்கலாம்.'
-      : 'கடிதப் புகைப்படம் இணைக்கப்பட்டுள்ளது. தகவல்களை நேரடியாக உள்ளிட்டு சேமிக்கலாம்.';
+    const parsed = parseGeminiError(error);
 
     res.json({
       success: false,
-      error: errorMsg,
-      message: errorMsg,
+      apiKeyMissing: parsed.type === 'api_key_invalid' || parsed.type === 'billing_required',
+      errorType: parsed.type,
+      error: parsed.message,
+      message: parsed.message,
+      errorDetail: parsed,
     });
   }
 }

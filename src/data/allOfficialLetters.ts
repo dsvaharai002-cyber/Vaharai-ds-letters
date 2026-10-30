@@ -1,77 +1,6 @@
-import { Letter, User } from "../types";
+import { Letter, User } from '../types';
 
 export const ALL_OFFICIAL_LETTERS: Letter[] = [
-  {
-    "id": "LTR-1793214500001",
-    "originalNo": "KPN/DS/2026/10/360",
-    "date": "2026-10-29",
-    "dispatchedDate": "2026-10-27",
-    "letterType": "Registered Post",
-    "registeredPostNo": "RP-88412",
-    "inwardNo": "WBB/ADM/ASW/2026/10",
-    "fromWhom": "நலன்புரி நன்மைகள் சபை, நிதி அமைச்சு (Welfare Benefits Board, Ministry of Finance)",
-    "subject": "அஸ்வெசும நலன்புரி கொடுப்பனவு தொடர்பான மேல்முறையீடுகள் மற்றும் ஆட்சேபனைகளை மீளாய்வு செய்தல் (Aswesuma Appeals & Objections Review)",
-    "division": "சமுர்த்தி (Samurdhi)",
-    "forwardedDivisions": [
-      "சமுர்த்தி (Samurdhi)"
-    ],
-    "forwardedTo": [
-      "946892580V"
-    ],
-    "action": "Not Yet Viewed",
-    "replyResponse": "",
-    "imageSizeKb": 184,
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-29 08:30",
-    "fileNo": ""
-  },
-  {
-    "id": "LTR-1793214500002",
-    "originalNo": "KPN/DS/2026/10/361",
-    "date": "2026-10-29",
-    "dispatchedDate": "2026-10-28",
-    "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/DS/ADM/2026/412",
-    "fromWhom": "District Secretariat, Batticaloa (மாவட்ட செயலகம், மட்டக்களப்பு)",
-    "subject": "2026 ஆம் ஆண்டிற்கான பருவமழை வெள்ள அனர்த்த தயார்நிலை செயல்திட்டம் சமர்ப்பித்தல் (Monsoon Flood Disaster Preparedness Plan 2026)",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
-    "forwardedDivisions": [
-      "திட்டமிடல் பிரிவு (Planning)"
-    ],
-    "forwardedTo": [],
-    "action": "Not Yet Viewed",
-    "replyResponse": "",
-    "imageSizeKb": 210,
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-29 09:15",
-    "fileNo": ""
-  },
-  {
-    "id": "LTR-1793214500003",
-    "originalNo": "KPN/DS/2026/10/362",
-    "date": "2026-10-29",
-    "dispatchedDate": "2026-10-28",
-    "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "LND/KPN/2026/104",
-    "fromWhom": "பொதுமக்கள் - வாகரை பிரதேசம் (Public - Vaharai Region)",
-    "subject": "வாகரை பிரதேச செயலகத்திற்குட்பட்ட அரச காணிகள் அத்துமீறல் தொடர்பான முறைப்பாடு (Complaint on State Land Encroachment in Vaharai)",
-    "division": "காணிப் பிரிவு (Land Division)",
-    "forwardedDivisions": [
-      "காணிப் பிரிவு (Land Division)"
-    ],
-    "forwardedTo": [],
-    "action": "Not Yet Viewed",
-    "replyResponse": "",
-    "imageSizeKb": 195,
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-29 10:00",
-    "fileNo": ""
-  },
   {
     "id": "LTR-1791430715956",
     "originalNo": "KPN/DS/2026/10/095",
@@ -89,7 +18,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 198,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:08",
@@ -103,8 +32,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "District Secretariat instructs to strengthen and conduct regular meetings of the sub-committee for the coordination of Social Development Councils as per government circular guidelines.",
         "timestamp": "2026-10-08 09:08"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791430819403",
@@ -123,7 +51,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 217,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:10",
@@ -137,8 +65,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "மாவட்டத்தில் இடம்பெறும் கால்நடை அபிவிருத்தி தொடர்பான கலந்துரையாடல்களில் அனுபவமுள்ள கால்நடைப் பண்ணையாளர்களையும் இணைத்துக்கொள்ளுமாறு கோரிக்கை விடுத்தல்.",
         "timestamp": "2026-10-08 09:10"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791430920597",
@@ -146,11 +73,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-06",
     "dispatchedDate": "2026-09-26",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "MF/SD/07/13/CM-20",
-    "fromWhom": "Ministry of Fisheries, Aquatic and Ocean Resources",
-    "subject": "Leasing of 36.0123 hectares of state land in Vattavan GN Division, Koralaipattu North to the National Aquaculture Development Authority of Sri Lanka for shrimp farming.",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "MF/SD/07/13/CM-20",
+    "inwardNo": "Ministry of Fisheries, Aquatic and Ocean Resources",
+    "fromWhom": "Leasing of 36.0123 hectares of state land in Vattavan GN Division, Koralaipattu North to the National Aquaculture Development Authority of Sri Lanka for shrimp farming.",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -160,7 +87,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 207,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:12",
@@ -174,8 +101,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The Ministry of Fisheries requests the Divisional Secretary to initiate a 30-year lease for 36.0123 hectares of state land in the Vattavan area to the National Aquaculture Development Authority for shrimp farming.",
         "timestamp": "2026-10-08 09:12"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791431180734",
@@ -197,7 +123,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 209,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:16",
@@ -211,8 +137,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "திக்கானை கண்டவிவசாய அமைப்பின் தலைவர் மற்றும் நிர்வாகத்தினரின் முறையற்ற நிதி மேலாண்மை மற்றும் மோசடி செயற்பாடுகள் குறித்து விசாரணை நடத்தி நடவடிக்கை எடுக்குமாறு விவசாயிகள் கோரிக்கை விடுத்துள்ளனர்.",
         "timestamp": "2026-10-08 09:16"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791431294173",
@@ -220,11 +145,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-06",
     "dispatchedDate": "2026-10-04",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "KPN/PS/RB/RS2/2026",
-    "fromWhom": "Pradeshiya Sabha Koralaipattu North, Vaharai",
-    "subject": "காணியினை உறுதிப்படுத்தல் - காணி அனுமதிப்பத்திரம் இலக்கம் 48141",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "KPN/PS/RB/RS2/2026",
+    "inwardNo": "Pradeshiya Sabha Koralaipattu North, Vaharai",
+    "fromWhom": "காணியினை உறுதிப்படுத்தல் - காணி அனுமதிப்பத்திரம் இலக்கம் 48141",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -233,7 +158,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 161,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:18",
@@ -247,8 +172,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "பொருத்தமான காணியில் கட்டிடம் அமைப்பதற்காக காணியை உறுதிப்படுத்தி அனுமதி வழங்குமாறு பிரதேச செயலாளருக்கு கோரிக்கை விடுக்கப்பட்டுள்ளது.",
         "timestamp": "2026-10-08 09:18"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791431332671",
@@ -256,11 +180,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-06",
     "dispatchedDate": "2026-10-04",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "KPN/PS/RB/RS2/2026",
-    "fromWhom": "தவிசாளர், பிரதேச சபை, கோறளைப்பற்று வடக்கு, வாகரை",
-    "subject": "காணியினை உறுதிப்படுத்தல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "KPN/PS/RB/RS2/2026",
+    "inwardNo": "தவிசாளர், பிரதேச சபை, கோறளைப்பற்று வடக்கு, வாகரை",
+    "fromWhom": "காணியினை உறுதிப்படுத்தல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -269,7 +193,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 156,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:18",
@@ -283,8 +207,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "கோறளைப்பற்று வடக்கு வாகரை பகுதியில் உள்ள காணி தொடர்பிலான அனுமதிப்பத்திரத்தை உறுதிப்படுத்துமாறு பிரதேச செயலாளருக்கு விடுக்கப்பட்ட கோரிக்கை.",
         "timestamp": "2026-10-08 09:18"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791431373391",
@@ -292,11 +215,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-06",
     "dispatchedDate": "2026-10-04",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "KPN/PS/RB/RS2/2026",
-    "fromWhom": "Pradeshiya Sabha Koralaipattu North Vaharai",
-    "subject": "கானியினை உறுதிப்படுத்தல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "KPN/PS/RB/RS2/2026",
+    "inwardNo": "Pradeshiya Sabha Koralaipattu North Vaharai",
+    "fromWhom": "கானியினை உறுதிப்படுத்தல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -305,7 +228,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 167,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:19",
@@ -319,8 +242,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The Chairman of Pradeshiya Sabha Koralaipattu North requests the Divisional Secretary to verify the land ownership status of Mr. Velmurugu Shanmugam located at Thirumalai Road, Kandaladi for building construction approval.",
         "timestamp": "2026-10-08 09:19"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791431419386",
@@ -328,11 +250,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-06",
     "dispatchedDate": "2026-10-04",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "KPN/PS/RB/RS2/2026",
-    "fromWhom": "Pradeshiya Sabha Koralaipattu North Vaharai",
-    "subject": "காணியினை உறுதிப்படுத்தல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "KPN/PS/RB/RS2/2026",
+    "inwardNo": "Pradeshiya Sabha Koralaipattu North Vaharai",
+    "fromWhom": "காணியினை உறுதிப்படுத்தல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -341,7 +263,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 166,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:20",
@@ -355,8 +277,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Requesting confirmation of the land status for Mr. Devarasa Kuvananthan to obtain building permit.",
         "timestamp": "2026-10-08 09:20"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791431495862",
@@ -364,22 +285,21 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-06",
     "dispatchedDate": "2026-09-15",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "EP/28/LB/MCC/KPN/2206",
-    "fromWhom": "மாகாண காணி ஆணையாளர், கிழக்கு மாகாணம் (Provincial Land Commissioner, Eastern Province)",
-    "subject": "காணி அபிவிருத்தி கட்டளைச் சட்டம் 1981 இன் 27 ஆம் இலக்கப் பிரிவின் கீழாக அளிப்பு தயாரித்தல் தொடர்பான கடித்தம்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "EP/28/LB/MCC/KPN/2206",
+    "inwardNo": "மாகாண காணி ஆணையாளர், கிழக்கு மாகாணம் (Provincial Land Commissioner, Eastern Province)",
+    "fromWhom": "காணி அபிவிருத்தி கட்டளைச் சட்டம் 1981 இன் 27 ஆம் இலக்கப் பிரிவின் கீழாக அளிப்பு தயாரித்தல் தொடர்பான கடித்தம்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
     "forwardedTo": [
       "955471580V",
-      "896590693V",
-      "880770071V"
+      "896590693V"
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 180,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:21",
@@ -393,8 +313,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "1981 ஆம் ஆண்டின் 27 ஆம் இலக்க காணி அபிவிருத்தி கட்டளைச் சட்டத்தின் கீழ், நிபந்தனைகளை மீறிய MCC 2196 மற்றும் MCC 2206 அனுமதிப் பத்திரங்களை இரத்து செய்து, வணிக மற்றும் விவசாய நோக்கங்களுக்காக நீண்ட கால குத்தகைக்கு வழங்குவதற்கான நடவடிக்கைகளை மேற்கொள்ளுமாறு பிரதேச செயலாளருக்கு பணிப்புரை வழங்கப்பட்டுள்ளது.",
         "timestamp": "2026-10-08 09:21"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791431598495",
@@ -402,11 +321,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-06",
     "dispatchedDate": "2026-10-05",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "233/Nathasa/09/2026",
-    "fromWhom": "233 Infantry Brigade Headquarters, Army Camp, Vakare",
-    "subject": "Obtaining a survey plan for the land occupied by the 233 Infantry Brigade Headquarters",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "233/Nathasa/09/2026",
+    "inwardNo": "233 Infantry Brigade Headquarters, Army Camp, Vakare",
+    "fromWhom": "Obtaining a survey plan for the land occupied by the 233 Infantry Brigade Headquarters",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -416,7 +335,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 169,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:23",
@@ -430,8 +349,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The 233 Infantry Brigade requests the Divisional Secretariat to provide a survey plan for the land currently occupied by their army camp.",
         "timestamp": "2026-10-08 09:23"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791431637724",
@@ -442,7 +360,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "registeredPostNo": "No",
     "inwardNo": "NEP/SS/19 EP/DSS/DIU-04",
     "fromWhom": "தரிசனம் விழிப்புலனற்றோர் பாடசாலை (Dharisanam School for the Visually Handicapped)",
-    "subject": "பார���வை குறைபாடுள்ள அல்லது விழிப்புலனற்ற பிள்ளைகளின் விபரம் பெறல்",
+    "subject": "பார்வை குறைபாடுள்ள அல்லது விழிப்புலனற்ற பிள்ளைகளின் விபரம் பெறல்",
     "division": "சமூக சேவை (Social)",
     "forwardedDivisions": [
       "சமூக சேவை (Social)"
@@ -450,7 +368,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 204,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:23",
@@ -464,8 +382,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "தரிசனம் விழிப்புலனற்றோர் பாடசாலை, 5 முதல் 15 வயதுக்குட்பட்ட விழிப்புலனற்ற பிள்ளைகளின் விபரங்களைச் சேகரிக்கவும், இது தொடர்பாக கூட்டங்களில் விளக்கம் அளிக்கவும் அனுமதி கோருகிறது.",
         "timestamp": "2026-10-08 09:23"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791431760301",
@@ -486,7 +403,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 201,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:26",
@@ -500,8 +417,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Notification regarding a stakeholder meeting for the Sustainable Economic Benefits project to be held on 8th October 2026 at District Secretariat, Thiraimadu.",
         "timestamp": "2026-10-08 09:26"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791431854447",
@@ -520,7 +436,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 183,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:27",
@@ -534,8 +450,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This document provides monthly statistical information regarding Gender Based Violence incidents reported at the Natpu Nilayam, Teaching Hospital, Batticaloa for September 2026.",
         "timestamp": "2026-10-08 09:27"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791432041475",
@@ -556,7 +471,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 168,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:30",
@@ -570,8 +485,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This document is a bank statement showing no account operations for the Samurdhi Development Officers Welfare Fund.",
         "timestamp": "2026-10-08 09:30"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791432263129",
@@ -592,7 +506,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 148,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:34",
@@ -606,8 +520,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The sender is informing that his daughter is unwell.",
         "timestamp": "2026-10-08 09:34"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791432304012",
@@ -628,7 +541,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 120,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:35",
@@ -642,8 +555,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The sender, P M CASSIM, has submitted a request for sick leave.",
         "timestamp": "2026-10-08 09:35"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791432402010",
@@ -664,7 +576,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 154,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:36",
@@ -678,8 +590,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This is a letter from M.C. Rafeena (D.O) requesting medical leave.",
         "timestamp": "2026-10-08 09:36"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791432468212",
@@ -700,7 +611,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 171,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:37",
@@ -714,8 +625,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter forwards the attendance record of technical officer T. Thiruvanan for the month of September 2026 to the Divisional Secretariat.",
         "timestamp": "2026-10-08 09:37"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791432532969",
@@ -736,7 +646,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 180,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:38",
@@ -750,8 +660,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Mrs. T. Sivananthiny has applied for one day of duty leave on 2026-10-08 to attend a review meeting at the District Secretariat Batticaloa.",
         "timestamp": "2026-10-08 09:38"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791432565611",
@@ -772,7 +681,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 181,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:39",
@@ -786,8 +695,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Mrs. S. Harshika has applied for one day of duty leave on 8th October 2024 to attend a review meeting.",
         "timestamp": "2026-10-08 09:39"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791432892094",
@@ -808,7 +716,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 179,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:44",
@@ -822,8 +730,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Requesting the details of two staff members involved in audit-related activities to participate in a training program by 2026.10.09.",
         "timestamp": "2026-10-08 09:44"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791432931924",
@@ -844,7 +751,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 216,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:45",
@@ -858,8 +765,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Submission of the September month attendance records for the drug prevention development officers working at the Kallady rehabilitation center.",
         "timestamp": "2026-10-08 09:45"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791432967180",
@@ -867,10 +773,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-05",
     "dispatchedDate": "2026-09-21",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "CS/DOS/83457",
-    "fromWhom": "Ministry of Public Administration, Provincial Councils and Local Government",
-    "subject": "Confirmation of Appointment in Grade III of Development Officers' Service",
+    "registeredPostNo": "CS/DOS/83457",
+    "inwardNo": "Ministry of Public Administration, Provincial Councils and Local Government",
+    "fromWhom": "Confirmation of Appointment in Grade III of Development Officers' Service",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -880,7 +786,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 158,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:46",
@@ -894,8 +800,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter serves as formal notification confirming the appointment of Ms. S. Niroshan as a Development Officer Grade III with effect from 03.01.2022.",
         "timestamp": "2026-10-08 09:46"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791433007547",
@@ -903,10 +808,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-06",
     "dispatchedDate": "2026-10-03",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADM/SLAS /D06/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "இலங்கை நிர்வாக சேவை, கணக்காளர் சேவை, திட்டமிடல் சேவை உத்தியோகத்தர்களின் வருடாந்த இடமாற்ற நடைமுறை - 2027",
+    "registeredPostNo": "ADM/SLAS /D06/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "இலங்கை நிர்வாக சேவை, கணக்காளர் சேவை, திட்டமிடல் சேவை உத்தியோகத்தர்களின் வருடாந்த இடமாற்ற நடைமுறை - 2027",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -916,7 +821,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 169,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:46",
@@ -930,8 +835,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Requesting to submit the details of SLAS, Accountant, and Planning service officers as per the attached Excel format for the annual transfer procedure 2027 by 2026.10.08.",
         "timestamp": "2026-10-08 09:46"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791433076902",
@@ -952,7 +856,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 174,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:47",
@@ -966,8 +870,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Notification regarding the District Environment Law Enforcement Committee Meeting scheduled for 13.10.2026 and a request to submit any unresolved environmental issues via email.",
         "timestamp": "2026-10-08 09:47"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791433165344",
@@ -988,7 +891,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 205,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:49",
@@ -1002,8 +905,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The District Agriculture Director has informed Divisional Secretariats regarding the allocation of groundnuts for the 2026/27 Phase I cultivation project and requested a schedule for upcoming training programmes.",
         "timestamp": "2026-10-08 09:49"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791433223053",
@@ -1022,7 +924,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 188,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:50",
@@ -1036,8 +938,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Requesting to establish a postal facility in the Salliththeevu area for the convenience of residents to receive letters.",
         "timestamp": "2026-10-08 09:50"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791433323313",
@@ -1045,11 +946,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-06",
     "dispatchedDate": "2026-09-23",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "None",
-    "fromWhom": "K. Punithavethani, palchchenai",
-    "subject": "Request for survey and report for 2 acres of land",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "None",
+    "inwardNo": "K. Punithavethani, palchchenai",
+    "fromWhom": "Request for survey and report for 2 acres of land",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -1058,7 +959,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 161,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:52",
@@ -1072,8 +973,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "ஒரு பெண் தனக்கு சொந்தமான இரண்டு ஏக்கர் விவசாய காணியை அளவீடு செய்து அறிக்கை கோரி விண்ணப்பித்துள்ளார்.",
         "timestamp": "2026-10-08 09:52"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791433365208",
@@ -1081,11 +981,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-06",
     "dispatchedDate": "2026-07-22",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "null",
-    "fromWhom": "Rural Development Society, Salliththeevu, Panichchankerny 211C",
-    "subject": "Requesting to convert temporary land permits to permanent ownership for families residing in the area.",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "null",
+    "inwardNo": "Rural Development Society, Salliththeevu, Panichchankerny 211C",
+    "fromWhom": "Requesting to convert temporary land permits to permanent ownership for families residing in the area.",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -1094,7 +994,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 160,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:52",
@@ -1108,8 +1008,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "சல்லித்தீவு பகுதியில் சுமார் 303 குடும்பங்கள் வசிக்கும் தற்காலிக காணி அனுமதிப்பத்திரங்களை நிரந்தர காணிகளாக மாற்றித் தருமாறு கிராம அபிவிருத்தி சங்கம் கோருகிறது.",
         "timestamp": "2026-10-08 09:52"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791433404983",
@@ -1130,7 +1029,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 199,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:53",
@@ -1144,8 +1043,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "கோறளைப்பற்று வடக்கு - வாகரை பிரதேச செயலக பிரிவிற்கு உட்பட்ட காணி ஒதுக்கீடு மற்றும் குத்தகை விண்ணப்பங்கள் தொடர்பான அறிக்கை.",
         "timestamp": "2026-10-08 09:53"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791433528321",
@@ -1164,7 +1062,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 165,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:55",
@@ -1178,8 +1076,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter instructs Divisional Secretariats to conduct interviews for the recruitment of trainees for vocational training institutions for the year 2027 before November 30, 2026.",
         "timestamp": "2026-10-08 09:55"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791347484289",
@@ -1187,11 +1084,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-05",
     "dispatchedDate": "2026-10-03",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "null",
-    "fromWhom": "Theivendran sahunthala",
-    "subject": "மண் ஏற்றுவதற்கு அனுமதி கோரல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "null",
+    "inwardNo": "Theivendran sahunthala",
+    "fromWhom": "மண் ஏற்றுவதற்கு அனுமதி கோரல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -1200,7 +1097,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 134,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 10:01",
@@ -1214,8 +1111,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "நிவா புயலால் பாதிக்கப்பட்ட வீட்டைப் புனரமைக்க இரண்டு லோட் மணல் ஏற்றுவதற்கு அனுமதி கோரி விண்ணப்பித்தல்.",
         "timestamp": "2026-10-07 10:01"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791349039366",
@@ -1223,11 +1119,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-05",
     "dispatchedDate": "2026-10-05",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "N/A",
-    "fromWhom": "புவனேஸ்வரன், வைத்தியசாலை வீதி, புச்சாக்கேணி, கதிர்வேளி",
-    "subject": "மணல் ஏற்றுவதற்கு அனுமதி கோரல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "N/A",
+    "inwardNo": "புவனேஸ்வரன், வைத்தியசாலை வீதி, புச்சாக்கேணி, கதிர்வேளி",
+    "fromWhom": "மணல் ஏற்றுவதற்கு அனுமதி கோரல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -1236,7 +1132,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 158,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 10:27",
@@ -1250,8 +1146,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "தனிப்பட்ட தேவைக்காக இரு லொட் மணல் ஏற்றுவதற்கு அனுமதி கோரி விண்ணப்பம் செய்யப்பட்டுள்ளது.",
         "timestamp": "2026-10-07 10:27"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791349381078",
@@ -1261,9 +1156,9 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "letterType": "Normal Post",
     "registeredPostNo": "No",
     "inwardNo": "V.S.P. Perera, 37, Colombo Road, Kurana, Katunayake",
-    "fromWhom": "V.S.P. Perera, 37, Colombo Road, Kurana, Katunayake",
-    "subject": "REQUEST FOR THE GRANT OF A LONG-TERM LEASE OF STATE LAND AT MANKERNI FOR THE DEVELOPMENT OF THE DICE HOTEL – A UNIQUE TOURISM AND HOSPITALITY INVESTMENT PROJECT",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "fromWhom": "REQUEST FOR THE GRANT OF A LONG-TERM LEASE OF STATE LAND AT MANKERNI FOR THE DEVELOPMENT OF THE DICE HOTEL – A UNIQUE TOURISM AND HOSPITALITY INVESTMENT PROJECT",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -1272,7 +1167,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 166,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 10:33",
@@ -1286,8 +1181,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "வாகரை, மாங்கேணி பகுதியில் The Dice Hotel எனும் சுற்றுலாத் திட்டத்தை மேற்கொள்வதற்காக அரச காணியை நீண்டகால குத்தகைக்கு வழங்குமாறு கோரும் கடிதம்.",
         "timestamp": "2026-10-07 10:33"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791349458417",
@@ -1295,11 +1189,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-05",
     "dispatchedDate": "2026-09-19",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DAD/12/685/15",
-    "fromWhom": "Uththodai Agrarian Organization, Mathuragkernikulam",
-    "subject": "Request for permission to remove a tree causing blockage to the waterway",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "DAD/12/685/15",
+    "inwardNo": "Uththodai Agrarian Organization, Mathuragkernikulam",
+    "fromWhom": "Request for permission to remove a tree causing blockage to the waterway",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -1308,7 +1202,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 149,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 10:34",
@@ -1322,8 +1216,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The Agrarian Organization requests permission to remove a tree that has fallen across the water channel and is blocking the water flow to paddy fields.",
         "timestamp": "2026-10-07 10:34"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791349730300",
@@ -1333,9 +1226,9 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "letterType": "Normal Post",
     "registeredPostNo": "No",
     "inwardNo": "கிராம உத்தியோகத்தர், வாகரை மத்திய-212",
-    "fromWhom": "கிராம உத்தியோகத்தர், வாகரை மத்திய-212",
-    "subject": "கிராம உத்தியோகத்தர் அலுவலகத்திற்கு மின்சார இணைப்பினைப் பெற்றுக்கொள்ளல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "fromWhom": "கிராம உத்தியோகத்தர் அலுவலகத்திற்கு மின்சார இணைப்பினைப் பெற்றுக்கொள்ளல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -1344,7 +1237,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 138,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 10:38",
@@ -1358,8 +1251,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "வாகரை மத்திய கிராம உத்தியோகத்தர் அலுவலகத்திற்கு புதிய மின்சார இணைப்பினைப் பெறுவதற்கான அனுமதியைக் கோரி விண்ணப்பம் செய்தல்.",
         "timestamp": "2026-10-07 10:38"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791349808410",
@@ -1369,9 +1261,9 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "letterType": "Normal Post",
     "registeredPostNo": "No",
     "inwardNo": "கிராம உத்தியோகத்தர், புணானை கிழக்கு கு 211B",
-    "fromWhom": "கிராம உத்தியோகத்தர், புணானை கிழக்கு கு 211B",
-    "subject": "மின்சார இணைப்பினை அகற்றுவது தொடர்பானது",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "fromWhom": "மின்சார இணைப்பினை அகற்றுவது தொடர்பானது",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -1380,7 +1272,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 153,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 10:40",
@@ -1394,8 +1286,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "அரச காணியில் அத்துமீறி இருந்தவர் நீதிமன்ற நடவடிக்கை மூலம் வெளியேற்றப்பட்டதைத் தொடர்ந்து, அக்காணியிலுள்ள மின்சார இணைப்பை அகற்றுவதற்கான நடவடிக்கை எடுக்கக் கோருதல்.",
         "timestamp": "2026-10-07 10:40"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791349886175",
@@ -1403,18 +1294,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-05",
     "dispatchedDate": "2026-10-04",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "EP/BT/ASC/V-685/06",
-    "fromWhom": "கமல சேவைகள் நிலையம், வாகரை (Agrarian Services Centre, Vaharai)",
-    "subject": "PLR தொடர்பான தகவல்களைப் பெற்றுக் கொள்ளல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "EP/BT/ASC/V-685/06",
+    "inwardNo": "கமல சேவைகள் நிலையம், வாகரை (Agrarian Services Centre, Vaharai)",
+    "fromWhom": "PLR தொடர்பான தகவல்களைப் பெற்றுக் கொள்ளல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 187,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 10:41",
@@ -1428,8 +1319,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "வாகரை பிரதேசத்தில் உள்ள 10 விவசாயிகளின் PLR பதிவுகள் மற்றும் அது தொடர்பான மேலதிக தகவல்களை உறுதிப்படுத்தும் கடிதம்.",
         "timestamp": "2026-10-07 10:41"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791349975161",
@@ -1448,7 +1338,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 212,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 10:42",
@@ -1462,8 +1352,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Implementation of the National Action Plan for Child Protection (2025-2029) by the Divisional Secretariat.",
         "timestamp": "2026-10-07 10:42"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791350112078",
@@ -1473,9 +1362,9 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "letterType": "Normal Post",
     "registeredPostNo": "No",
     "inwardNo": "Land Department (E.P.C.) - Trincomalee",
-    "fromWhom": "Land Department (E.P.C.) - Trincomalee",
-    "subject": "Payroll for the Month of September 2026 - Koralaipattu North",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "fromWhom": "Payroll for the Month of September 2026 - Koralaipattu North",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -1484,7 +1373,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 163,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 10:45",
@@ -1498,8 +1387,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "செப்டம்பர் 2026 மாதத்திற்கான காணித் திணைக்கள உத்தியோகத்தரின் சம்பளக் கொடுப்பனவு விபரப் பட்டியல் (Payroll abstract report).",
         "timestamp": "2026-10-07 10:45"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791350234561",
@@ -1509,9 +1397,9 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "letterType": "Normal Post",
     "registeredPostNo": "No",
     "inwardNo": "இராமன் இராமநாதன்",
-    "fromWhom": "இராமன் இராமநாதன்",
-    "subject": "எரிபொருள் நிலையம் அமைப்பதற்கு குத்தகைக்கு கோரிய காணியின் நோக்கத்தினை மாற்றம் செய்தல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "fromWhom": "எரிபொருள் நிலையம் அமைப்பதற்கு குத்தகைக்கு கோரிய காணியின் நோக்கத்தினை மாற்றம் செய்தல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -1520,7 +1408,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 143,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 10:47",
@@ -1534,8 +1422,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The sender requests to cancel the lease agreement for land originally intended for a fuel station project as it cannot be completed.",
         "timestamp": "2026-10-07 10:47"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791350282815",
@@ -1554,7 +1441,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 210,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 10:48",
@@ -1568,8 +1455,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter conveys the allocation of funds to procure sprinkler irrigation systems for identified beneficiaries under the 2026 school nutrition programme.",
         "timestamp": "2026-10-07 10:48"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791350415227",
@@ -1588,7 +1474,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 155,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 10:50",
@@ -1602,8 +1488,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Development officers are requested to complete and submit their Practical Assignments to the provided email address by 2026-10-14.",
         "timestamp": "2026-10-07 10:50"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791350479853",
@@ -1624,7 +1509,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 204,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 10:51",
@@ -1638,29 +1523,28 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter informs the Divisional Secretary about the allocation of solar panels, water pumps, and accessories for vegetable and field crop cultivation and requests a list of eligible farmers contributing 50% cost.",
         "timestamp": "2026-10-07 10:51"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791350626957",
     "originalNo": "KPN/DS/2026/10/070",
-    "date": "2026-10-05",
-    "dispatchedDate": "2026-09-22",
+    "date": "2026-10-04",
+    "dispatchedDate": "2026-09-21",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "MWCA/3/8/16/2026",
-    "fromWhom": "Ministry of Women and Child Affairs",
-    "subject": "Release of Allocation for the Diviyata Saviyak Housing programme",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "Ministry of Women and Child Affairs",
+    "inwardNo": "Release of Allocation for the Diviyata Saviyak Housing programme",
+    "fromWhom": "திட்டமிடல் பிரிவு (Planning)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
     "forwardedTo": [
       "ACC"
     ],
-    "action": "Not Yet Viewed",
+    "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 201,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 10:53",
@@ -1674,27 +1558,26 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter informs the release of Rs. 64,000,000 for the Diviyata Saviyak housing project to build houses for thirty-two beneficiaries.",
         "timestamp": "2026-10-07 10:53"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791350684477",
     "originalNo": "KPN/DS/2026/10/071",
-    "date": "2026-10-05",
-    "dispatchedDate": "2026-09-28",
+    "date": "2026-10-04",
+    "dispatchedDate": "2026-09-27",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "102-1-001-0-0000506",
-    "fromWhom": "People's Bank, Valaichchenai Branch / மக்கள் வங்கி, வாழைச்சேனைக் கிளை",
-    "subject": "Statement of accounts / கணக்கறிக்கை (Account No: 102-1-001-0-0000506)",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "People's Bank, Valaichchenai Branch / மக்கள் வங்கி, வாழைச்சேனைக் கிளை",
+    "inwardNo": "Statement of accounts / கணக்கறிக்கை (Account No: 102-1-001-0-0000506)",
+    "fromWhom": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "கணக்குப் பிரிவு (Accounts & Finance)"
     ],
     "forwardedTo": [],
-    "action": "Not Yet Viewed",
+    "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 150,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 10:54",
@@ -1708,27 +1591,26 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "வாழைச்சேனை மக்கள் வங்கிக் கிளையினால் பிரதேச செயலாளர் வாகரைக்கு அனுப்பி வைக்கப்பட்ட வங்கிக் கணக்கறிக்கை (Statement of Accounts).",
         "timestamp": "2026-10-07 10:54"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791350740369",
     "originalNo": "KPN/DS/2026/10/072",
-    "date": "2026-10-05",
-    "dispatchedDate": "2026-10-03",
+    "date": "2026-10-04",
+    "dispatchedDate": "2026-10-02",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ACC/CU-7/BOARD/1/1-2026",
-    "fromWhom": "District Secretariat, Batticaloa (மாவட்ட செயலகம், மட்டக்களப்பு)",
-    "subject": "வருடாந்த பொருட்கள் ஒப்பாய்வு சபை -2026",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "District Secretariat, Batticaloa (மாவட்ட செயலகம், மட்டக்களப்பு)",
+    "inwardNo": "வருடாந்த பொருட்கள் ஒப்பாய்வு சபை -2026",
+    "fromWhom": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "கணக்குப் பிரிவு (Accounts & Finance)"
     ],
     "forwardedTo": [],
-    "action": "Not Yet Viewed",
+    "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 189,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 10:55",
@@ -1742,8 +1624,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "2026 ஆம் ஆண்டிற்கான வருடாந்த பொருட்கள் ஒப்பாய்வு பணிகளை மேற்கொள்வதற்காக அலுவலர்களின் விபரங்களை அனுப்பி வைக்குமாறு கோரப்பட்டுள்ளது.",
         "timestamp": "2026-10-07 10:55"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791350784859",
@@ -1762,7 +1643,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 171,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 10:56",
@@ -1776,8 +1657,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "දිවියට සවියක් නිවාස වැඩසටහන 2026 යටතේ තෝරාගත් ප්‍රතිලාභීන් සඳහා සුරක්ෂිත නිවසක් ඉදිකිරීමට රු.මි. 2 බැගින් ප්‍රතිපාදන වෙන්කිරීම පිළිබඳ දැනුම්දීම.",
         "timestamp": "2026-10-07 10:56"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791350948655",
@@ -1799,7 +1679,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 188,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 10:59",
@@ -1813,8 +1693,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter requests the Divisional Secretariat to fill and return the beneficiary selection criteria form for the WFB drought relief program by 09.10.2026.",
         "timestamp": "2026-10-07 10:59"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791351045219",
@@ -1833,7 +1712,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 164,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 11:00",
@@ -1847,8 +1726,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Oddamavadi Post Office submits the details and vouchers for the elder's payments (DO/62) for August 2026 amounting to Rs. 15,000.00.",
         "timestamp": "2026-10-07 11:00"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791351093754",
@@ -1867,7 +1745,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 156,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 11:01",
@@ -1881,8 +1759,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The letter informs that medical assistance payments have been deposited into the beneficiaries' bank accounts via bank cheque.",
         "timestamp": "2026-10-07 11:01"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791351122533",
@@ -1901,7 +1778,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 198,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 11:02",
@@ -1915,8 +1792,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "காயங்கேணி கிராமத்தில் சட்டவிரோதமாக கடற்கரையில் வேலி அமைத்தமை மற்றும் CCTV Camera பொருத்தப்பட்டமை தொடர்பான முறைப்பாடு பற்றி விசாரித்து 12.10.2026 இற்கு முன் அறிக்கை சமர்ப்பிக்குமாறு பணித்தல்.",
         "timestamp": "2026-10-07 11:02"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791351177642",
@@ -1935,7 +1811,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 201,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 11:02",
@@ -1949,8 +1825,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Implementation of a 10-day Cake Icing & Bakery training programme under the PSDG-2026 scheme and request to nominate a Rural Development Society to provide catering services.",
         "timestamp": "2026-10-07 11:02"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791351272003",
@@ -1958,10 +1833,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-04",
     "dispatchedDate": "2026-09-27",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADM/Prajashakthi/DO/03/1",
-    "fromWhom": "மாவட்ட செயலகம், மட்டக்களப்பு",
-    "subject": "திருமதி.A.முஹம்மது காசிம் நபீனா - அபிவிருத்தி உத்தியோகத்தர் - இடமாற்றம் கோரல்",
+    "registeredPostNo": "ADM/Prajashakthi/DO/03/1",
+    "inwardNo": "மாவட்ட செயலகம், மட்டக்களப்பு",
+    "fromWhom": "திருமதி.A.முஹம்மது காசிம் நபீனா - அபிவிருத்தி உத்தியோகத்தர் - இடமாற்றம் கோரல்",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -1971,7 +1846,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 147,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 11:04",
@@ -1985,27 +1860,26 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "கோறளைப்பற்று வடக்கு பிரதேச செயலகத்தில் கடமையாற்றும் அபிவிருத்தி உத்தியோகத்தர் திருமதி. A. முஹம்மது காசிம் நபீனா என்பவரின் இடமாற்றக் கோரிக்கை தொடர்பிலான அறிவித்தல்.",
         "timestamp": "2026-10-07 11:04"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791351327036",
     "originalNo": "KPN/DS/2026/10/080",
-    "date": "2026-10-05",
-    "dispatchedDate": "2026-09-19",
+    "date": "2026-10-04",
+    "dispatchedDate": "2026-09-18",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "2/1/1/8/2/-Bat-21",
-    "fromWhom": "Senior Assistant Secretary (HRD), Ministry of Agriculture, Livestock, Land and Irrigation",
-    "subject": "Increment Certificate Form",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "Senior Assistant Secretary (HRD), Ministry of Agriculture, Livestock, Land and Irrigation",
+    "inwardNo": "Increment Certificate Form",
+    "fromWhom": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "கணக்குப் பிரிவு (Accounts & Finance)"
     ],
     "forwardedTo": [],
-    "action": "Not Yet Viewed",
+    "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 207,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 11:05",
@@ -2019,8 +1893,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This is an increment certificate issued for Mr. M.M. Asfar, Development Officer II, approving his salary increment effective from 2026-07-02.",
         "timestamp": "2026-10-07 11:05"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791351368332",
@@ -2028,10 +1901,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-05",
     "dispatchedDate": "2026-10-03",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ACC/SALRY/SPD/632",
-    "fromWhom": "District Secretariat, Batticaloa (Finance Unit)",
-    "subject": "தனிநபர் வேதன பரிவேடு தொடர்பானது - திரு.T.திரோஜன் - அபிவிருத்தி உத்தியோகத்தர்",
+    "registeredPostNo": "ACC/SALRY/SPD/632",
+    "inwardNo": "District Secretariat, Batticaloa (Finance Unit)",
+    "fromWhom": "தனிநபர் வேதன பரிவேடு தொடர்பானது - திரு.T.திரோஜன் - அபிவிருத்தி உத்தியோகத்தர்",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -2041,7 +1914,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 148,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 11:06",
@@ -2055,8 +1928,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Requesting the salary payment details of Development Officer Mr. T. Thirojan for the period from January 2025 to May 2026.",
         "timestamp": "2026-10-07 11:06"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791351506147",
@@ -2077,7 +1949,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 118,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 11:08",
@@ -2091,8 +1963,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter informs about the implementation of the GovHR human resources management information system for public services as per the circular issued by the Ministry of Public Administration.",
         "timestamp": "2026-10-07 11:08"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791351563868",
@@ -2100,10 +1971,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-05",
     "dispatchedDate": "2026-09-26",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADM/GC-AO/MSO-09/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "நிர்வாக உத்தியோகத்தரின் பதிற் கடமையை இரத்துச் செய்தல் தொடர்பாக",
+    "registeredPostNo": "ADM/GC-AO/MSO-09/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "நிர்வாக உத்தியோகத்தரின் பதிற் கடமையை இரத்துச் செய்தல் தொடர்பாக",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -2113,7 +1984,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 173,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 11:09",
@@ -2127,8 +1998,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Requesting a report regarding the cancellation of the acting duty of the administrative officer Mr. V. Sivarangan.",
         "timestamp": "2026-10-07 11:09"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791351653497",
@@ -2149,7 +2019,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 207,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 11:10",
@@ -2163,8 +2033,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This is a medical certificate issued by the Teaching Hospital Batticaloa for ICT Assistant M.T. Shihla.",
         "timestamp": "2026-10-07 11:10"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791357536803",
@@ -2185,7 +2054,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 158,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 12:48",
@@ -2199,8 +2068,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "An e-Telemail sent by C. Vijayaraayan to the Divisional Secretary of Vaharai.",
         "timestamp": "2026-10-07 12:48"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791357655956",
@@ -2208,7 +2076,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-06",
     "dispatchedDate": "2026-09-30",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
+    "registeredPostNo": "TM2924240",
     "inwardNo": "TM2924240",
     "fromWhom": "Po chenkalady",
     "subject": "மகனின் சுகயீனம் தொடர்பாக விடுமுறை வழங்கவும்",
@@ -2221,7 +2089,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 152,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 12:50",
@@ -2235,8 +2103,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "மகனின் சுகயீனம் காரணமாக விடுமுறை வழங்குமாறு கோரி R. லக்ஷ்மி என்பவரால் பிரதேச செயலாளருக்கு அனுப்பப்பட்ட தந்தி செய்தி (e-Telemail).",
         "timestamp": "2026-10-07 12:50"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791357712473",
@@ -2257,7 +2124,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 140,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-07 12:51",
@@ -2271,8 +2138,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Mrs P Diron Jude is requesting sick leave via this telegram message.",
         "timestamp": "2026-10-07 12:51"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1791357917164",
@@ -2285,7 +2151,9 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "Department of Cultural Affairs - Eastern Province",
     "subject": "Requesting the monthly leave details of the Cultural Officer",
     "division": "நிர்வாகப் பிரிவு (Administration)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
     "forwardedTo": [
       "196833101649",
       "907833410V"
@@ -2293,9 +2161,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-06T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-06",
+    "chats": []
   },
   {
     "id": "LTR-1791358195547",
@@ -2308,16 +2177,19 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "Regional Community Based Correction Office, Valaichenai",
     "subject": "வரவு பதிவு விபரங்கள் - T. சயராஜ் (சமுதாய சீர்திருத்த அபிவிருத்தி உத்தியோகத்தர்)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
     "forwardedTo": [
       "907833410V"
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-06T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-06",
+    "chats": []
   },
   {
     "id": "LTR-1791358367835",
@@ -2330,16 +2202,19 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "District Secretariat Batticaloa / மாவட்ட செயலகம் மட்டக்களப்பு",
     "subject": "தகவல்களைப் பெற்றுக் கொள்ளும் உரிமைச் சட்ட இலக்கம் 12/2016 தொடர்பானது",
     "division": "நிர்வாகப் பிரிவு (Administration)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
     "forwardedTo": [
       "946892580V"
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-06T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-06",
+    "chats": []
   },
   {
     "id": "LTR-1791361598581",
@@ -2352,7 +2227,9 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "District Secretariat, Batticaloa",
     "subject": "அரச அலுவலர்களுக்கான அரச விடுதியைப் பெற்றுக்கொடுத்தல்",
     "division": "நிர்வாகப் பிரிவு (Administration)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
     "forwardedTo": [
       "955471580V",
       "198611903241"
@@ -2360,9 +2237,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-06T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-06",
+    "chats": []
   },
   {
     "id": "LTR-1791362370036",
@@ -2375,14 +2253,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "District Secretariat, Batticaloa",
     "subject": "அரச அலுவலர்களுக்கான அரச விடுதியைப் பெற்றுக்கொடுத்தல்",
     "division": "நிர்வாகப் பிரிவு (Administration)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-06T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-06",
+    "chats": []
   },
   {
     "id": "LTR-1791362528149",
@@ -2392,9 +2273,9 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "letterType": "Registered Post",
     "registeredPostNo": "No",
     "inwardNo": "இ. புஷ்பவதி (E. Pushpavathi)",
-    "fromWhom": "இ. புஷ்பவதி (E. Pushpavathi)",
-    "subject": "மின்சாரம் பெற அனுமதி கோரல் (Request for approval to obtain electricity)",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "fromWhom": "மின்சாரம் பெற அனுமதி கோரல் (Request for approval to obtain electricity)",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -2406,13 +2287,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-10-05T18:30:00.000Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Under Investigation",
-    "ActionStatus": "Under Investigation",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T09:38:20.783Z"
+    "createdAt": "2026-10-05",
+    "chats": []
   },
   {
     "id": "LTR-1791362744850",
@@ -2420,11 +2296,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-05",
     "dispatchedDate": "2026-10-01",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "null",
-    "fromWhom": "நொலிங்கம் ஜெயரஞ்சனி, கதிரவெளி",
-    "subject": "மின்சார இணைப்பு பெறுவதற்கு ஆவண உறுதிப்படுத்தல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "null",
+    "inwardNo": "நொலிங்கம் ஜெயரஞ்சனி, கதிரவெளி",
+    "fromWhom": "மின்சார இணைப்பு பெறுவதற்கு ஆவண உறுதிப்படுத்தல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -2436,13 +2312,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-10-05T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Under Investigation",
-    "ActionStatus": "Under Investigation",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T09:38:26.127Z"
+    "createdAt": "2026-10-05",
+    "chats": []
   },
   {
     "id": "LTR-1791363053933",
@@ -2455,16 +2326,19 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "Sri Lanka Railways (ශ්‍රී ලංකා දුම්රිය දෙපාර්තමේන්තුව)",
     "subject": "Payment of Railway Season Ticket bills via electronic method (දුම්රිය බලපත්‍ර බිල්පත් හරස් සවණත් මගින් නිරවුල් කිරීම)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
     "forwardedTo": [
       "971412038V"
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-06T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-06",
+    "chats": []
   },
   {
     "id": "LTR-1791261785507",
@@ -2477,14 +2351,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "கிராம உத்தியோகத்தர், மாங்கேணி மத்தி - 211",
     "subject": "அத்துமீறி நுழைந்து காணி அபகரிப்பு தொடர்பாக",
     "division": "காணிப் பிரிவு (Land Division)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "காணிப் பிரிவு (Land Division)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-05T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-05",
+    "chats": []
   },
   {
     "id": "LTR-1791261892474",
@@ -2497,14 +2374,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "Rural Development Society - Kayankerny",
     "subject": "Illegal coastal fencing and CCTV camera installation in the coastal area",
     "division": "கிராம அபிவிருத்தி (Rural Development)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "கிராம அபிவிருத்தி (Rural Development)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-05T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-05",
+    "chats": []
   },
   {
     "id": "LTR-1791261952121",
@@ -2517,14 +2397,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "இ.தர்மலிங்கம், ஸ்ரீ சித்தி விநாயகர் விவசாய அமைப்பு, வட்டவான்",
     "subject": "PLR பதிவு செய்வது சம்பந்தமாக",
     "division": "காணிப் பிரிவு (Land Division)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "காணிப் பிரிவு (Land Division)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-05T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-05",
+    "chats": []
   },
   {
     "id": "LTR-1791262032740",
@@ -2537,14 +2420,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "தந்தையாம் செல்வம், வாவித்தீவு, வட்டவன், வாகரை",
     "subject": "PLR பதிவு செய்வது சம்பந்தமாக",
     "division": "காணிப் பிரிவு (Land Division)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "காணிப் பிரிவு (Land Division)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-05T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-05",
+    "chats": []
   },
   {
     "id": "LTR-2026-001",
@@ -2552,13 +2438,14 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-04",
     "dispatchedDate": "2026-10-02",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "WBB/OPS/POL/04",
-    "fromWhom": "நலன்புரி நன்மைகள் சபை (Welfare Benefits Board), நிதி அமைச்சு",
-    "subject": "அஸ்வெசும நலன்புரி கொடுப்பனவு தொடர்பான வழிகாட்டல் மற்றும் தகுதியற்ற கொடுப்பனவுகளை இடைநிறுத்துதல்",
-    "division": "சமூக சேவை (Social)",
+    "registeredPostNo": "WBB/OPS/POL/04",
+    "inwardNo": "நலன்புரி நன்மைகள் சபை (Welfare Benefits Board), நிதி அமைச்சு",
+    "fromWhom": "அஸ்வெசும நலன்புரி கொடுப்பனவு தொடர்பான வழிகாட்டல் மற்றும் தகுதியற்ற கொடுப்பனவுகளை இடைநிறுத்துதல்",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
-      "சமூக சேவை (Social)"
+      "சமூக சேவை (Social)",
+      "சமுர்த்தி (Samurdhi)"
     ],
     "forwardedTo": [
       "luxury03"
@@ -2569,12 +2456,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
     "createdAt": "2026-10-05T08:30:00Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "RP-482109",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "KN/SOC/2026/ASW-01",
-    "updatedAt": "2026-10-12T06:43:50.633Z"
+    "chats": []
   },
   {
     "id": "LTR-1791174721364",
@@ -2587,26 +2469,6 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "Department of Buildings (கட்டிடத் திணைக்களம்)",
     "subject": "Construction of Two Storied Building for Divisional Secretariat Office Building at Koralaipattu North, Vaharai",
     "division": "திட்டமிடல் பிரிவு (Planning)",
-    "forwardedDivisions": [],
-    "forwardedTo": [],
-    "action": "Not Yet Viewed",
-    "replyResponse": "",
-    "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-04T18:30:00.000Z"
-  },
-  {
-    "id": "LTR-1791175134533",
-    "originalNo": "KPN/DS/2026/10/001",
-    "date": "2026-10-03",
-    "dispatchedDate": "2026-09-28",
-    "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "03-01-01-13",
-    "fromWhom": "Department of Buildings (கட்டிடத் திணைக்களம்)",
-    "subject": "Construction of Two Storied Building for Divisional Secretariat Office Building at Koralaipattu North, Vaharai",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -2616,13 +2478,31 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-10-03T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-22T09:23:07.149Z"
+    "createdAt": "2026-10-04",
+    "chats": []
+  },
+  {
+    "id": "LTR-1791175134533",
+    "originalNo": "KPN/DS/2026/10/001",
+    "date": "2026-10-03",
+    "dispatchedDate": "2026-09-28",
+    "letterType": "Normal Post",
+    "registeredPostNo": "03-01-01-13",
+    "inwardNo": "Department of Buildings (கட்டிடத் திணைக்களம்)",
+    "fromWhom": "Construction of Two Storied Building for Divisional Secretariat Office Building at Koralaipattu North, Vaharai",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "திட்டமிடல் பிரிவு (Planning)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-03",
+    "chats": []
   },
   {
     "id": "LTR-1791176397718",
@@ -2635,16 +2515,19 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "Department of Buildings (கட்டிடத் திணைக்களம்)",
     "subject": "Construction of Two Storied Building for Divisional Secretariat Office Building at Koralaipattu North, Vaharai",
     "division": "திட்டமிடல் பிரிவு (Planning)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "திட்டமிடல் பிரிவு (Planning)"
+    ],
     "forwardedTo": [
       "198667602155"
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-04T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-04",
+    "chats": []
   },
   {
     "id": "LTR-1791178769659",
@@ -2652,11 +2535,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-03",
     "dispatchedDate": "2026-10-03",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "03-01-01-13",
-    "fromWhom": "Department of Buildings (கட்டிடத் திணைக்களம்)",
-    "subject": "Construction of Two Storied Building for Divisional Secretariat Office Building at Koralaipattu North, Vaharai",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "03-01-01-13",
+    "inwardNo": "Department of Buildings (கட்டிடத் திணைக்களம்)",
+    "fromWhom": "Construction of Two Storied Building for Divisional Secretariat Office Building at Koralaipattu North, Vaharai",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -2668,13 +2551,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-10-03T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-23T09:41:15.520Z"
+    "createdAt": "2026-10-03",
+    "chats": []
   },
   {
     "id": "LTR-1791180214859",
@@ -2682,11 +2560,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-03",
     "dispatchedDate": "2024-08-31",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "03-01-01-13",
-    "fromWhom": "Department of Buildings (கட்டிடத் திணைக்களம்)",
-    "subject": "Construction of Two Storied Building for Divisional Secretariat Office Building at Koralaipattu North, Vaharai",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "03-01-01-13",
+    "inwardNo": "Department of Buildings (கட்டிடத் திணைக்களம்)",
+    "fromWhom": "Construction of Two Storied Building for Divisional Secretariat Office Building at Koralaipattu North, Vaharai",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -2698,13 +2576,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-10-03T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-23T09:41:09.984Z"
+    "createdAt": "2026-10-03",
+    "chats": []
   },
   {
     "id": "LTR-1791175199420",
@@ -2717,14 +2590,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "மாகாணப் பணிப்பாளர், சமூக சேவைகள் திணைக்களம், கிழக்கு மாகாணம் (Department of Social Services, Eastern Province)",
     "subject": "கிழக்கு மாகாண பொதுச் சேவையின் அபிவிருத்தி உத்தியோகத்தர், III/II/I ஆம் தரங்களிலுள்ள அலுவலர்களுக்கான 1ஆம், 2ஆம், 3ஆம் வினைத்திறமைகாண் தடைப்பரீட்சைகள்-2026(I)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-04T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-04",
+    "chats": []
   },
   {
     "id": "LTR-1791174052561",
@@ -2737,14 +2613,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "Provincial Public Service Commission, Eastern Province, Trincomalee",
     "subject": "Efficiency Bar Examinations 2026",
     "division": "நிர்வாகப் பிரிவு (Administration)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-04T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-04",
+    "chats": []
   },
   {
     "id": "LTR-1791174113436",
@@ -2757,14 +2636,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "District Secretariat, Batticaloa",
     "subject": "Approval for the Project Implementation",
     "division": "திட்டமிடல் பிரிவு (Planning)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "திட்டமிடல் பிரிவு (Planning)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-04T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-04",
+    "chats": []
   },
   {
     "id": "LTR-1791174198994",
@@ -2777,14 +2659,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "மாவட்ட செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
     "subject": "உலக குடியிருப்பு தினம் - 2026 (World Habitat Day)",
     "division": "திட்டமிடல் பிரிவு (Planning)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "திட்டமிடல் பிரிவு (Planning)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-04T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-04",
+    "chats": []
   },
   {
     "id": "LTR-1791174491697",
@@ -2797,14 +2682,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "எம்.எம். சமீம்",
     "subject": "வாய்க்கால் சம்பந்தப்பட்ட பிரச்சனை",
     "division": "நிர்வாகப் பிரிவு (Administration)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-04T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-04",
+    "chats": []
   },
   {
     "id": "LTR-1791174540521",
@@ -2817,14 +2705,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "மாவட்ட செயலகம், மட்டக்களப்பு (திட்டமிடல் பிரிவு) / District Secretariat, Batticaloa",
     "subject": "சமூக ஆற்றல் தரவுத்தள அறிமுகத் திட்டங்களுக்கு கணணிகள் தேவையை அடையாளம் காணுதல்",
     "division": "திட்டமிடல் பிரிவு (Planning)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "திட்டமிடல் பிரிவு (Planning)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-04T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-04",
+    "chats": []
   },
   {
     "id": "LTR-1791174584039",
@@ -2837,14 +2728,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "District Secretariat, Batticaloa (Planning Unit)",
     "subject": "Identification of land -Related issues affecting the Selection of Beneficiaries-Conflict - Affected Housing Programme",
     "division": "திட்டமிடல் பிரிவு (Planning)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "திட்டமிடல் பிரிவு (Planning)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-04T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-04",
+    "chats": []
   },
   {
     "id": "LTR-1791174828985",
@@ -2857,25 +2751,28 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "மாவட்ட , சமுர்த்தி அபிவிருத்தி திணைக்களம், மட்டக்களப்பு (Accountant, Department of Samurdhi Development, Batticaloa)",
     "subject": "தலைப்பு 331 - சமுர்த்தி அபிவிருத்தி திணைக்களம் - ஒதுக்கீடு - 2026 ஒக்டோபர் - டிசம்பர் வரை (நான்காம் காலாண்டு)",
     "division": "சமுர்த்தி (Samurdhi)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "சமுர்த்தி (Samurdhi)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-04T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-04",
+    "chats": []
   },
   {
     "id": "LTR-1791174890759",
     "originalNo": "KPN/DS/2026/10/031",
-    "date": "2026-10-03",
-    "dispatchedDate": "2026-09-27",
+    "date": "2026-10-02",
+    "dispatchedDate": "2026-09-26",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADM/GC-Overtime/MSO 09/2026",
-    "fromWhom": "மாவட்ட செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
-    "subject": "மேலதிக நேரக் கொடுப்பனவு அனுமதி புரட்டாதி - 2026",
+    "registeredPostNo": "ADM/GC-Overtime/MSO 09/2026",
+    "inwardNo": "மாவட்ட செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
+    "fromWhom": "மேலதிக நேரக் கொடுப்பனவு அனுமதி புரட்டாதி - 2026",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -2885,16 +2782,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Action Taken",
     "replyResponse": "",
-    "fileNo": "",
+    "fileNo": "ADM/ESTB/OVERT/04/02",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
     "createdAt": "2026-10-03T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T09:16:40.661Z"
+    "chats": []
   },
   {
     "id": "LTR-1791175282057",
@@ -2907,16 +2799,19 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "மாவட்டச் செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
     "subject": "பிரதேச, மாவட்ட மற்றும் தேசிய மட்ட இலக்கிய விழா - 2024 (தமிழ் மொழி மூலம்)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
     "forwardedTo": [
       "198575602372"
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-04T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-04",
+    "chats": []
   },
   {
     "id": "LTR-1791175463132",
@@ -2929,16 +2824,19 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "கல்வி, உயர் கல்வி மற்றும் தொழிற்கல்வி அமைச்சு",
     "subject": "விசேட தொழில் வழிகாட்டல் நிகழ்ச்சித்திட்டம் தொடர்பானது",
     "division": "வெளிக்களம் (Field)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "வெளிக்களம் (Field)"
+    ],
     "forwardedTo": [
       "812991786V"
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-04T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-04",
+    "chats": []
   },
   {
     "id": "LTR-1791175507129",
@@ -2951,14 +2849,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "கிராம அபிவிருத்தி திணைக்களம், மாவட்ட அலுவலகம், மட்டக்களப்பு (Department of Rural Development, District Office, Batticaloa)",
     "subject": "Training Programme under PSDG - 2026 Teaching Skill & Development for NWDs",
     "division": "கிராம அபிவிருத்தி (Rural Development)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "கிராம அபிவிருத்தி (Rural Development)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-04T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-04",
+    "chats": []
   },
   {
     "id": "LTR-1791175589230",
@@ -2966,11 +2867,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-03",
     "dispatchedDate": "2026-09-29",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "PS/KPN/GEN/2026",
-    "fromWhom": "செயலாளர், பிரதேச சபை, கோறளைப்பற்று வடக்கு, வாகரை",
-    "subject": "உள்ளூராட்சி நிறுவனத்திற்கு அரச காணியினை பாராதீனப்படுத்தல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "PS/KPN/GEN/2026",
+    "inwardNo": "செயலாளர், பிரதேச சபை, கோறளைப்பற்று வடக்கு, வாகரை",
+    "fromWhom": "உள்ளூராட்சி நிறுவனத்திற்கு அரச காணியினை பாராதீனப்படுத்தல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -2982,13 +2883,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-10-03T18:30:00.000Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Under Investigation",
-    "ActionStatus": "Under Investigation",
-    "FileNo": "",
-    "updatedAt": "2026-10-23T09:40:54.064Z"
+    "createdAt": "2026-10-03",
+    "chats": []
   },
   {
     "id": "LTR-1791175942656",
@@ -2996,11 +2892,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-03",
     "dispatchedDate": "2024-09-30",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "null",
-    "fromWhom": "Vallamaichenai Farmer's Organization, Punanai East-211b, Vaharai",
-    "subject": "List of farmer members with their NIC and land details",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "null",
+    "inwardNo": "Vallamaichenai Farmer's Organization, Punanai East-211b, Vaharai",
+    "fromWhom": "List of farmer members with their NIC and land details",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -3012,13 +2908,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-10-03T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Under Investigation",
-    "ActionStatus": "Under Investigation",
-    "FileNo": "",
-    "updatedAt": "2026-10-23T09:40:48.608Z"
+    "createdAt": "2026-10-03",
+    "chats": []
   },
   {
     "id": "LTR-1791176006429",
@@ -3026,11 +2917,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-03",
     "dispatchedDate": "2026-09-29",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "PS/KPN/GEN/2026",
-    "fromWhom": "Pradeshiya Sabha Koralaipattu North Vaharai",
-    "subject": "ஆற்று மணல் சேகரிப்புக்காக பொருத்தமான அரச காணி கோரல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "PS/KPN/GEN/2026",
+    "inwardNo": "Pradeshiya Sabha Koralaipattu North Vaharai",
+    "fromWhom": "ஆற்று மணல் சேகரிப்புக்காக பொருத்தமான அரச காணி கோரல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -3042,13 +2933,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-10-03T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Under Investigation",
-    "ActionStatus": "Under Investigation",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T09:41:35.183Z"
+    "createdAt": "2026-10-03",
+    "chats": []
   },
   {
     "id": "LTR-1791176058293",
@@ -3056,11 +2942,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-03",
     "dispatchedDate": "2026-09-28",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/DAD/MI/AGROROAD/KAVER/2026",
-    "fromWhom": "Department of Agrarian Development, District Office - Batticaloa",
-    "subject": "கச்சிலா வெளிக்கண்ட பாதை அமைத்தல் வேலைத்திட்டம் - 2026",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "BT/DAD/MI/AGROROAD/KAVER/2026",
+    "inwardNo": "Department of Agrarian Development, District Office - Batticaloa",
+    "fromWhom": "கச்சிலா வெளிக்கண்ட பாதை அமைத்தல் வேலைத்திட்டம் - 2026",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -3072,13 +2958,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-10-03T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Under Investigation",
-    "ActionStatus": "Under Investigation",
-    "FileNo": "",
-    "updatedAt": "2026-10-23T09:40:41.424Z"
+    "createdAt": "2026-10-03",
+    "chats": []
   },
   {
     "id": "LTR-1791176120538",
@@ -3086,11 +2967,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-03",
     "dispatchedDate": "2026-09-16",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "null",
-    "fromWhom": "செல்வநாயகம் ரசிகரன், ஆலங்குளம் விவசாய அமைப்பு",
-    "subject": "எனது காணிகளுக்கு PLR இலக்கம் வழங்குதல் தொடர்பான விண்ணப்பம்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "null",
+    "inwardNo": "செல்வநாயகம் ரசிகரன், ஆலங்குளம் விவசாய அமைப்பு",
+    "fromWhom": "எனது காணிகளுக்கு PLR இலக்கம் வழங்குதல் தொடர்பான விண்ணப்பம்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -3102,13 +2983,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-10-03T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Under Investigation",
-    "ActionStatus": "Under Investigation",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T09:41:30.615Z"
+    "createdAt": "2026-10-03",
+    "chats": []
   },
   {
     "id": "LTR-1791176255796",
@@ -3118,9 +2994,9 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "letterType": "Normal Post",
     "registeredPostNo": "No",
     "inwardNo": "Ponnuthurai santhiravathi peththalai valaichenai",
-    "fromWhom": "Ponnuthurai santhiravathi peththalai valaichenai",
-    "subject": "காணியினை சுந்தம் செய்து பராமரிப்பதற்கான அனுமதி கோரல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "fromWhom": "காணியினை சுந்தம் செய்து பராமரிப்பதற்கான அனுமதி கோரல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -3132,13 +3008,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-10-03T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Under Investigation",
-    "ActionStatus": "Under Investigation",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T09:41:26.479Z"
+    "createdAt": "2026-10-03",
+    "chats": []
   },
   {
     "id": "LTR-1791176326133",
@@ -3146,11 +3017,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-03",
     "dispatchedDate": "2026-09-29",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "No no",
-    "fromWhom": "Government Veterinary Surgeon's Office, Vaharai",
-    "subject": "அசையா சொத்துக்களின் (Land, Building) மதிப்பீட்டுக்கான ஆவணங்கள் கோரல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "No no",
+    "inwardNo": "Government Veterinary Surgeon's Office, Vaharai",
+    "fromWhom": "அசையா சொத்துக்களின் (Land, Building) மதிப்பீட்டுக்கான ஆவணங்கள் கோரல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -3162,13 +3033,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-10-03T18:30:00.000Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Under Investigation",
-    "ActionStatus": "Under Investigation",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T09:40:57.439Z"
+    "createdAt": "2026-10-03",
+    "chats": []
   },
   {
     "id": "LTR-1791177421409",
@@ -3181,14 +3047,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "Valluvam Foundation",
     "subject": "Request for Official Approval to Implement the \"Promoting Gender Responsiveness in the North and East\" Project in Vaharai DS Division",
     "division": "திட்டமிடல் பிரிவு (Planning)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "திட்டமிடல் பிரிவு (Planning)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-04T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-04",
+    "chats": []
   },
   {
     "id": "LTR-1791177657566",
@@ -3196,11 +3065,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-03",
     "dispatchedDate": "2026-09-27",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/FD/H2/LAN.RELE/03/2026",
-    "fromWhom": "Divisional Forest Officer, Batticaloa",
-    "subject": "இவ்விட சட்டத்தை அமுல்படுத்தல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "BT/FD/H2/LAN.RELE/03/2026",
+    "inwardNo": "Divisional Forest Officer, Batticaloa",
+    "fromWhom": "இவ்விட சட்டத்தை அமுல்படுத்தல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -3212,13 +3081,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-10-03T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-23T09:40:33.888Z"
+    "createdAt": "2026-10-03",
+    "chats": []
   },
   {
     "id": "LTR-1791261525418",
@@ -3227,18 +3091,21 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "dispatchedDate": "2026-10-03",
     "letterType": "Registered Post",
     "registeredPostNo": "No",
-    "inwardNo": "KPN/DS/2026/10/050",
+    "inwardNo": "",
     "fromWhom": "null",
     "subject": "விபுலானந்தா அறநெறிப்பாடசாலை, வம்மிவட்டவான்",
     "division": "-",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "-"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-04T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-04",
+    "chats": []
   },
   {
     "id": "LTR-1791261625722",
@@ -3247,20 +3114,23 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "dispatchedDate": "2026-10-03",
     "letterType": "Registered Post",
     "registeredPostNo": "No",
-    "inwardNo": "KPN/DS/2026/10/051",
+    "inwardNo": "",
     "fromWhom": "212B",
     "subject": "கிராம உத்தியோகத்தர், 212B ஊரியன்கட்டு, கோறளைப்பற்று வடக்கு, வாகரை",
     "division": "-",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "-"
+    ],
     "forwardedTo": [
       "930081485V"
     ],
     "action": "Action Taken",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-04T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-04",
+    "chats": []
   },
   {
     "id": "LTR-1790914080273",
@@ -3273,7 +3143,9 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "A.M. Risvi, Assistant Youth Service Officer, Divisional Secretariat",
     "subject": "2026 அக்டோபர் மாத முன்னேற்ற அறிக்கை (October 2026 Monthly Progress Report)",
     "division": "வெளிக்களம் (Field)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "வெளிக்களம் (Field)"
+    ],
     "forwardedTo": [
       "PLY",
       "822740391V"
@@ -3281,9 +3153,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-01T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-01",
+    "chats": []
   },
   {
     "id": "LTR-1790914239271",
@@ -3296,14 +3169,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "Small Enterprises Development Division, Ministry of Industry and Entrepreneurship Development",
     "subject": "Monthly Progress Review Meeting",
     "division": "கிராம அபிவிருத்தி (Rural Development)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "கிராம அபிவிருத்தி (Rural Development)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-01T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-01",
+    "chats": []
   },
   {
     "id": "LTR-1790916733888",
@@ -3316,14 +3192,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "District Secretariat, Batticaloa (Planning Unit)",
     "subject": "Approval for the Project Implementation",
     "division": "திட்டமிடல் பிரிவு (Planning)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "திட்டமிடல் பிரிவு (Planning)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-01T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-01",
+    "chats": []
   },
   {
     "id": "LTR-1790916810051",
@@ -3336,14 +3215,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "திரு. அ.ம. முபாரீஸ், முகாமைத்துவ சேவை உத்தியோகத்தர், பிரதேச செயலகம், கோறளைப்பற்று வடக்கு, வாகரை",
     "subject": "கடமை விடுமுறை மற்றும் அலுவலக வாகனத்தினை மாவட்டத்திற்கு வெளியே கொண்டு செல்வதற்கான அனுமதி",
     "division": "நிர்வாகப் பிரிவு (Administration)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-01T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-01",
+    "chats": []
   },
   {
     "id": "LTR-1790917078652",
@@ -3351,11 +3233,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-30",
     "dispatchedDate": "2026-09-26",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "18955",
-    "fromWhom": "Mr. A.R.A. Mufly, Accountant",
-    "subject": "Application for approval for holiday pay under P.A. Circular No: 256, 305 & 347 for October 2026",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "18955",
+    "inwardNo": "Mr. A.R.A. Mufly, Accountant",
+    "fromWhom": "Application for approval for holiday pay under P.A. Circular No: 256, 305 & 347 for October 2026",
+    "subject": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "கணக்குப் பிரிவு (Accounts & Finance)"
     ],
@@ -3365,13 +3247,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-30T18:30:00.000Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-18T03:49:01.546Z"
+    "createdAt": "2026-09-30",
+    "chats": []
   },
   {
     "id": "LTR-1790917142260",
@@ -3384,14 +3261,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "District Secretariat, Batticaloa",
     "subject": "Application for Approval for Holiday Pay under P.A. Circular No: 256, 305 & 347 - October 2026",
     "division": "நிர்வாகப் பிரிவு (Administration)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-01T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-01",
+    "chats": []
   },
   {
     "id": "LTR-1790917261458",
@@ -3404,16 +3284,19 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "Divisional Secretary, Koralaipattu North, Vaharai (Mrs. Amaliney Kartheepan)",
     "subject": "APPLICATION FOR APPROVAL FOR HOLIDAY PAY UNDER P.A. CIRCULAR NO: 256, 305 & 347 ISSUED IN 1984, 1985 AND 1986 Month of October - 2026",
     "division": "நிர்வாகப் பிரிவு (Administration)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
     "forwardedTo": [
       "980282996V"
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-01T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-01",
+    "chats": []
   },
   {
     "id": "LTR-1790917296550",
@@ -3426,14 +3309,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "Department of Social Services, Eastern Province",
     "subject": "Payment of PAMA, Department of Social Services EP",
     "division": "சமூக சேவை (Social)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "சமூக சேவை (Social)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-01T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-01",
+    "chats": []
   },
   {
     "id": "LTR-1790917367231",
@@ -3441,10 +3327,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-30",
     "dispatchedDate": "2026-09-26",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "EP/24/E4/EB Exam/2026",
-    "fromWhom": "சமூக சேவைகள் திணைக்களம், கிழக்கு மாகாணம் (Department of Social Services, Eastern Province)",
-    "subject": "கிழக்கு மாகாண பொதுச் சேவையின் அபிவிருத்தி உத்தியோகத்தர் I/II/III ஆம் தரங்களிலுள்ள அலுவலர்களுக்கான 1ஆம், 2ஆம், 3ஆம் வினைத்திறமைகாண் தடைப்பரீட்சைகள்-2026(I)",
+    "registeredPostNo": "EP/24/E4/EB Exam/2026",
+    "inwardNo": "சமூக சேவைகள் திணைக்களம், கிழக்கு மாகாணம் (Department of Social Services, Eastern Province)",
+    "fromWhom": "கிழக்கு மாகாண பொதுச் சேவையின் அபிவிருத்தி உத்தியோகத்தர் I/II/III ஆம் தரங்களிலுள்ள அலுவலர்களுக்கான 1ஆம், 2ஆம், 3ஆம் வினைத்திறமைகாண் தடைப்பரீட்சைகள்-2026(I)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -3457,13 +3343,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-30T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-23T09:43:05.512Z"
+    "createdAt": "2026-09-30",
+    "chats": []
   },
   {
     "id": "LTR-1790917423683",
@@ -3471,10 +3352,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-30",
     "dispatchedDate": "2026-09-26",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADM/PFILE/08/06",
-    "fromWhom": "பிரதேச செயலகம், ஏறாவூர்பற்று, செங்கலடி (Divisional Secretariat, Eravur Pattu, Chenkalady)",
-    "subject": "தற்காலிக தனிநபர்கோவை மற்றும் செயலாற்றுகையறிக்கை கோரல் திரு.கே.விஜயபாலன் (FI)",
+    "registeredPostNo": "ADM/PFILE/08/06",
+    "inwardNo": "பிரதேச செயலகம், ஏறாவூர்பற்று, செங்கலடி (Divisional Secretariat, Eravur Pattu, Chenkalady)",
+    "fromWhom": "தற்காலிக தனிநபர்கோவை மற்றும் செயலாற்றுகையறிக்கை கோரல் திரு.கே.விஜயபாலன் (FI)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -3487,13 +3368,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-30T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-23T09:42:48.561Z"
+    "createdAt": "2026-09-30",
+    "chats": []
   },
   {
     "id": "LTR-1790917636428",
@@ -3501,11 +3377,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-30",
     "dispatchedDate": "2026-09-19",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "EP/20/02/07/07",
-    "fromWhom": "மாகாணக் கல்வித் திணைக்களம், கிழக்கு மாகாணம் (Provincial Department of Education, Eastern Province)",
-    "subject": "பாடசாலைக் காணிகளை விடுவித்தல் - PLC/EP/03 படிவத்தைச் சமர்ப்பித்தல் மற்றும் மேலதிக நடவடிக்கைக்காக",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "EP/20/02/07/07",
+    "inwardNo": "மாகாணக் கல்வித் திணைக்களம், கிழக்கு மாகாணம் (Provincial Department of Education, Eastern Province)",
+    "fromWhom": "பாடசாலைக் காணிகளை விடுவித்தல் - PLC/EP/03 படிவத்தைச் சமர்ப்பித்தல் மற்றும் மேலதிக நடவடிக்கைக்காக",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -3517,13 +3393,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-30T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-23T09:42:38.816Z"
+    "createdAt": "2026-09-30",
+    "chats": []
   },
   {
     "id": "LTR-1790917749055",
@@ -3531,11 +3402,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-30",
     "dispatchedDate": "2026-08-22",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "STA/AGCEN/DO-01/2025",
-    "fromWhom": "மாவட்ட செயலகம், மட்டக்களப்பு (புள்ளிவிபரவியல் பிரிவு) / District Secretariat, Batticaloa",
-    "subject": "பொருளாதார தொகமதிப்பு 2025/26 (விவசாய நடவடிக்கைகள்) தொடர்பான பிரச்சார நடவடிக்கைகளுக்காக தேவையான ஒத்துழைப்பைப் பெற்றுக்கொள்ளல்",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "STA/AGCEN/DO-01/2025",
+    "inwardNo": "மாவட்ட செயலகம், மட்டக்களப்பு (புள்ளிவிபரவியல் பிரிவு) / District Secretariat, Batticaloa",
+    "fromWhom": "பொருளாதார தொகமதிப்பு 2025/26 (விவசாய நடவடிக்கைகள்) தொடர்பான பிரச்சார நடவடிக்கைகளுக்காக தேவையான ஒத்துழைப்பைப் பெற்றுக்கொள்ளல்",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -3547,13 +3418,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-30T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Under Investigation",
-    "ActionStatus": "Under Investigation",
-    "FileNo": "",
-    "updatedAt": "2026-10-23T09:42:32.855Z"
+    "createdAt": "2026-09-30",
+    "chats": []
   },
   {
     "id": "LTR-1790917862233",
@@ -3561,11 +3427,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-30",
     "dispatchedDate": "2026-09-26",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "AGCEN/DO-01/2025",
-    "fromWhom": "மாவட்ட செயலகம், மட்டக்களப்பு (புள்ளிவிபரவியல் பிரிவு) / District Secretariat, Batticaloa",
-    "subject": "பொருளாதார தொகைமதிப்பு 2025/26 (விவசாய நடவடிக்கைகள்)",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "AGCEN/DO-01/2025",
+    "inwardNo": "மாவட்ட செயலகம், மட்டக்களப்பு (புள்ளிவிபரவியல் பிரிவு) / District Secretariat, Batticaloa",
+    "fromWhom": "பொருளாதார தொகைமதிப்பு 2025/26 (விவசாய நடவடிக்கைகள்)",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -3577,13 +3443,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-30T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Under Investigation",
-    "ActionStatus": "Under Investigation",
-    "FileNo": "",
-    "updatedAt": "2026-10-23T09:42:29.432Z"
+    "createdAt": "2026-09-30",
+    "chats": []
   },
   {
     "id": "LTR-1790917935686",
@@ -3591,11 +3452,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-30",
     "dispatchedDate": "2026-09-21",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "EP/28/LB/L4/Training",
-    "fromWhom": "Department of Land Administration, Eastern Province",
-    "subject": "Two-day residential workshop on GPS field data collection for land field officers",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "EP/28/LB/L4/Training",
+    "inwardNo": "Department of Land Administration, Eastern Province",
+    "fromWhom": "Two-day residential workshop on GPS field data collection for land field officers",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -3605,13 +3466,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-30T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-23T09:42:01.801Z"
+    "createdAt": "2026-09-30",
+    "chats": []
   },
   {
     "id": "LTR-1790918019789",
@@ -3619,11 +3475,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-30",
     "dispatchedDate": "2026-09-01",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "EP/28/LB&L9/LK/Gen",
-    "fromWhom": "Department of Land Administration, Eastern Province",
-    "subject": "Registration of permits issued under the Land Development Ordinance and implementation of eSlims system procedures (Circular Nos. 2026/03 and 2026/03 (II))",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "EP/28/LB&L9/LK/Gen",
+    "inwardNo": "Department of Land Administration, Eastern Province",
+    "fromWhom": "Registration of permits issued under the Land Development Ordinance and implementation of eSlims system procedures (Circular Nos. 2026/03 and 2026/03 (II))",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -3633,13 +3489,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-30T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-23T09:41:57.752Z"
+    "createdAt": "2026-09-30",
+    "chats": []
   },
   {
     "id": "LTR-1790918070952",
@@ -3652,14 +3503,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "BECS Education Campus",
     "subject": "முன்பிள்ளைப்பருவ அபிவிருத்தி மற்றும் முன்பள்ளி ஆசிரியர் பயிற்சி டிப்ளோமா பாடநெறி /NVQ-Level- 04 -Pre school Teacher விண்ணப்பம் கோரல் -(2026-2027)",
     "division": "சிறுவர் பிரிவு (Field)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "சிறுவர் பிரிவு (Field)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-01T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-01",
+    "chats": []
   },
   {
     "id": "LTR-1790918184606",
@@ -3667,11 +3521,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-30",
     "dispatchedDate": "2026-09-23",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "R 5105",
-    "fromWhom": "Uthayan Perfect Builder",
-    "subject": "REQUEST OF SECOND PAYMENT - Construction of Drainage in Puliyankandalady Road at Divisional Secretariat, Koralaipattu North, Vaharai",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "R 5105",
+    "inwardNo": "Uthayan Perfect Builder",
+    "fromWhom": "REQUEST OF SECOND PAYMENT - Construction of Drainage in Puliyankandalady Road at Divisional Secretariat, Koralaipattu North, Vaharai",
+    "subject": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "கணக்குப் பிரிவு (Accounts & Finance)"
     ],
@@ -3683,13 +3537,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-30T18:30:00.000Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "4686",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-18T03:57:47.554Z"
+    "createdAt": "2026-09-30",
+    "chats": []
   },
   {
     "id": "LTR-1790918301971",
@@ -3697,11 +3546,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-30",
     "dispatchedDate": "2026-09-25",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "1009521",
-    "fromWhom": "Eastern Provincial Council, Chief Accountant- Finance & Revenue",
-    "subject": "Exam fees",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "1009521",
+    "inwardNo": "Eastern Provincial Council, Chief Accountant- Finance & Revenue",
+    "fromWhom": "Exam fees",
+    "subject": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "கணக்குப் பிரிவு (Accounts & Finance)"
     ],
@@ -3713,13 +3562,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-30T18:30:00.000Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-18T03:59:46.509Z"
+    "createdAt": "2026-09-30",
+    "chats": []
   },
   {
     "id": "LTR-1790918497564",
@@ -3732,14 +3576,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "Po kalkudah",
     "subject": "Absence from work due to father's death ACF. INSARA",
     "division": "நிர்வாகப் பிரிவு (Administration)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-01T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-01",
+    "chats": []
   },
   {
     "id": "LTR-1790918552017",
@@ -3752,14 +3599,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "Po vakarau",
     "subject": "சுகயீனம் ந. சாரா நொயிலின்",
     "division": "நிர்வாகப் பிரிவு (Administration)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-01T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-01",
+    "chats": []
   },
   {
     "id": "LTR-1790918599156",
@@ -3767,21 +3617,22 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-01",
     "dispatchedDate": "2026-09-28",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
+    "registeredPostNo": "R6323",
     "inwardNo": "3040012999166",
     "fromWhom": "Post Office, Valalchenai",
     "subject": "Unpaid Elders Payment - August 2026",
     "division": "சமூக சேவை (Social)",
-    "forwardedDivisions": [],
-    "forwardedTo": [
-      "Action Taken"
+    "forwardedDivisions": [
+      "சமூக சேவை (Social)"
     ],
+    "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-01T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-01",
+    "chats": []
   },
   {
     "id": "LTR-1790837435956",
@@ -3789,11 +3640,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-29",
     "dispatchedDate": "2026-09-28",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "03-01-01-13",
-    "fromWhom": "Department of Buildings (கட்டிடத் திணைக்களம்)",
-    "subject": "Construction of Two Storied Building for Divisional Secretariat Office Building at Koralaipattu North, Vaharai",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "03-01-01-13",
+    "inwardNo": "Department of Buildings (கட்டிடத் திணைக்களம்)",
+    "fromWhom": "Construction of Two Storied Building for Divisional Secretariat Office Building at Koralaipattu North, Vaharai",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -3806,13 +3657,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-29T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-23T09:43:13.840Z"
+    "createdAt": "2026-09-29",
+    "chats": []
   },
   {
     "id": "LTR-1790837890205",
@@ -3825,16 +3671,19 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "மாகாணப் பணிப்பாளர், சமூக சேவைகள் திணைக்களம், கிழக்கு மாகாணம் (Department of Social Services, Eastern Province)",
     "subject": "கிழக்கு மாகாண பொதுச் சேவையின் அபிவிருத்தி உத்தியோகத்தர், III/II/I ஆம் தரங்களிலுள்ள அலுவலர்களுக்கான 1ஆம், 2ஆம், 3ஆம் வினைத்திறமைகாண் தடைப்பரீட்சைகள்-2026(I)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
     "forwardedTo": [
       "955471580V"
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-09-30T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-09-30",
+    "chats": []
   },
   {
     "id": "LTR-1790743633296",
@@ -3842,11 +3691,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-28",
     "dispatchedDate": "2026-09-26",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DIB/T/W/Sand R/072/2026",
-    "fromWhom": "Office of the Director of Irrigation - Batticaloa",
-    "subject": "Recommendation for issuing license to use Machinery at Nathanodai - Verugal River in Vaharai DS Division",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "DIB/T/W/Sand R/072/2026",
+    "inwardNo": "Office of the Director of Irrigation - Batticaloa",
+    "fromWhom": "Recommendation for issuing license to use Machinery at Nathanodai - Verugal River in Vaharai DS Division",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -3856,13 +3705,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-28T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-23T09:43:25.815Z"
+    "createdAt": "2026-09-28",
+    "chats": []
   },
   {
     "id": "LTR-1790743658500",
@@ -3875,14 +3719,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "Dimbulagala Zonal Education Office - Manampitiya",
     "subject": "Confirmation of Appointment and Submission of Details",
     "division": "நிர்வாகப் பிரிவு (Administration)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-09-29T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-09-29",
+    "chats": []
   },
   {
     "id": "LTR-1790743686443",
@@ -3890,11 +3737,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-28",
     "dispatchedDate": "2026-09-12",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "CA/02/F-20/04/2026",
-    "fromWhom": "Ministry of Buddhasasana, Religious and Cultural Affairs",
-    "subject": "Release of Allocation - For the year 2026",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "CA/02/F-20/04/2026",
+    "inwardNo": "Ministry of Buddhasasana, Religious and Cultural Affairs",
+    "fromWhom": "Release of Allocation - For the year 2026",
+    "subject": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "கணக்குப் பிரிவு (Accounts & Finance)"
     ],
@@ -3904,13 +3751,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-28T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-18T03:59:09.433Z"
+    "createdAt": "2026-09-28",
+    "chats": []
   },
   {
     "id": "LTR-1790743714446",
@@ -3923,14 +3765,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "Divisional Secretariat, Eravur Pattu, Chenkalady",
     "subject": "Attendance - August 2026",
     "division": "நிர்வாகப் பிரிவு (Administration)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-09-29T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-09-29",
+    "chats": []
   },
   {
     "id": "LTR-1790743736387",
@@ -3943,54 +3788,6 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "Department of Agrarian Development, District Office - Batticaloa",
     "subject": "National Drive for Poverty Eradication 'Prajashakthi' - Implementation of development projects 2026",
     "division": "திட்டமிடல் பிரிவு (Planning)",
-    "forwardedDivisions": [],
-    "forwardedTo": [],
-    "action": "Not Yet Viewed",
-    "replyResponse": "",
-    "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-09-29T18:30:00.000Z"
-  },
-  {
-    "id": "LTR-1790743761261",
-    "originalNo": "KPN/DS/2026/09/053",
-    "date": "2026-09-28",
-    "dispatchedDate": "2026-09-19",
-    "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "4704",
-    "fromWhom": "பிரதி ஆணையாளர், கமல அபிவிருத்தி திணைக்களம், மட்டக்களப்பு",
-    "subject": "பக்கச்சார்பாக செயற்படும் கமல அபிவிருத்தி பிரதேச உத்தியோகத்தர் தொடர்பாக",
-    "division": "காணிப் பிரிவு (Land Division)",
-    "forwardedDivisions": [
-      "காணிப் பிரிவு (Land Division)"
-    ],
-    "forwardedTo": [],
-    "action": "Action Taken",
-    "replyResponse": "",
-    "fileNo": "",
-    "registeredBy": "mail01",
-    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-28T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-23T09:43:19.575Z"
-  },
-  {
-    "id": "LTR-1790743783720",
-    "originalNo": "KPN/DS/2026/09/054",
-    "date": "2026-09-28",
-    "dispatchedDate": "2026-09-22",
-    "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/DAD/M/IRDCRP/VALTA/2026",
-    "fromWhom": "கமநல அபிவிருத்தி திணைக்களம், மாவட்ட காரியாலயம், மட்டக்களப்பு (Department of Agrarian Development, Batticaloa)",
-    "subject": "வாலீக் குள புனரமைப்பு - CERC Project",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -4000,13 +3797,54 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-28T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:35:39.057Z"
+    "createdAt": "2026-09-29",
+    "chats": []
+  },
+  {
+    "id": "LTR-1790743761261",
+    "originalNo": "KPN/DS/2026/09/053",
+    "date": "2026-09-28",
+    "dispatchedDate": "2026-09-19",
+    "letterType": "Normal Post",
+    "registeredPostNo": "4704",
+    "inwardNo": "பிரதி ஆணையாளர், கமல அபிவிருத்தி திணைக்களம், மட்டக்களப்பு",
+    "fromWhom": "பக்கச்சார்பாக செயற்படும் கமல அபிவிருத்தி பிரதேச உத்தியோகத்தர் தொடர்பாக",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "காணிப் பிரிவு (Land Division)"
+    ],
+    "forwardedTo": [],
+    "action": "Action Taken",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-09-28",
+    "chats": []
+  },
+  {
+    "id": "LTR-1790743783720",
+    "originalNo": "KPN/DS/2026/09/054",
+    "date": "2026-09-28",
+    "dispatchedDate": "2026-09-22",
+    "letterType": "Normal Post",
+    "registeredPostNo": "BT/DAD/M/IRDCRP/VALTA/2026",
+    "inwardNo": "கமநல அபிவிருத்தி திணைக்களம், மாவட்ட காரியாலயம், மட்டக்களப்பு (Department of Agrarian Development, Batticaloa)",
+    "fromWhom": "வாலீக் குள புனரமைப்பு - CERC Project",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "திட்டமிடல் பிரிவு (Planning)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-09-28",
+    "chats": []
   },
   {
     "id": "LTR-1790743807784",
@@ -4014,7 +3852,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-28",
     "dispatchedDate": "2026-09-23",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
+    "registeredPostNo": "LP/DRDO/BAT/PSDG/2026",
     "inwardNo": "Department of Rural Development, District Office, Batticaloa",
     "fromWhom": "Training Programme under PSDG - 2026",
     "subject": "கிராம அபிவிருத்தி (Rural Development)",
@@ -4028,13 +3866,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-28T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:35:35.220Z"
+    "createdAt": "2026-09-28",
+    "chats": []
   },
   {
     "id": "LTR-1790743834457",
@@ -4042,11 +3875,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-27",
     "dispatchedDate": "2026-09-20",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "LND/LMKPN/DO-07/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "காணிக்கான பிணக்கு தொடர்பான முறைப்பாடுகள்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "LND/LMKPN/DO-07/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "காணிக்கான பிணக்கு தொடர்பான முறைப்பாடுகள்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -4056,13 +3889,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-27T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "LND/LMKPN/DO-07/2026",
-    "actionStatus": "Under Investigation",
-    "ActionStatus": "Under Investigation",
-    "FileNo": "",
-    "updatedAt": "2026-10-23T09:43:34.751Z"
+    "createdAt": "2026-09-27",
+    "chats": []
   },
   {
     "id": "LTR-1790743855641",
@@ -4070,11 +3898,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-28",
     "dispatchedDate": "2026-09-22",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DPD/MRDSS&CE/PSPAP/19/GEN/2026",
-    "fromWhom": "மாவட்ட செயலகம், மட்டக்களப்பு (திட்டமிடல் பிரிவு) / District Secretariat, Batticaloa (Planning Unit)",
-    "subject": "வறுமையை ஒழிப்பதற்கான \"பிரஜா சக்தி\" தேசிய இயக்கம் - பல்பரிமாண வறுமையை ஒழிப்பதற்கான அபிவிருத்தி திட்டங்களைச் செயற்படுத்துதல் - 2026",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "DPD/MRDSS&CE/PSPAP/19/GEN/2026",
+    "inwardNo": "மாவட்ட செயலகம், மட்டக்களப்பு (திட்டமிடல் பிரிவு) / District Secretariat, Batticaloa (Planning Unit)",
+    "fromWhom": "வறுமையை ஒழிப்பதற்கான \"பிரஜா சக்தி\" தேசிய இயக்கம் - பல்பரிமாண வறுமையை ஒழிப்பதற்கான அபிவிருத்தி திட்டங்களைச் செயற்படுத்துதல் - 2026",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -4084,13 +3912,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-28T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:35:27.215Z"
+    "createdAt": "2026-09-28",
+    "chats": []
   },
   {
     "id": "LTR-1790743877767",
@@ -4098,10 +3921,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-28",
     "dispatchedDate": "2025-09-20",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "MFE/RAD/7/1/65",
-    "fromWhom": "Ministry of Foreign Affairs, Foreign Employment and Tourism",
-    "subject": "Confirmation of Appointment - Mrs. S. Vinoth (Development Officer III) (CS/DOS/36927)",
+    "registeredPostNo": "MFE/RAD/7/1/65",
+    "inwardNo": "Ministry of Foreign Affairs, Foreign Employment and Tourism",
+    "fromWhom": "Confirmation of Appointment - Mrs. S. Vinoth (Development Officer III) (CS/DOS/36927)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -4112,13 +3935,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-28T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:35:23.382Z"
+    "createdAt": "2026-09-28",
+    "chats": []
   },
   {
     "id": "LTR-1790743901879",
@@ -4126,11 +3944,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-28",
     "dispatchedDate": "2026-09-20",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/DAD/MI/DIVL/E/2026",
-    "fromWhom": "Department of Agrarian Development, District Office - Batticaloa",
-    "subject": "National Programme for Poverty Alleviation - 2026 (பிரஜா சக்தி வறுமை ஒழிப்புக்கான தேசிய வேலைத்திட்டம் - 2026)",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "BT/DAD/MI/DIVL/E/2026",
+    "inwardNo": "Department of Agrarian Development, District Office - Batticaloa",
+    "fromWhom": "National Programme for Poverty Alleviation - 2026 (பிரஜா சக்தி வறுமை ஒழிப்புக்கான தேசிய வேலைத்திட்டம் - 2026)",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -4140,13 +3958,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-28T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:35:20.216Z"
+    "createdAt": "2026-09-28",
+    "chats": []
   },
   {
     "id": "LTR-1790743924957",
@@ -4154,7 +3967,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-28",
     "dispatchedDate": "2026-04-20",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
+    "registeredPostNo": "BT/DAD/MI/DIVLE/2026",
     "inwardNo": "Department of Agrarian Development, District Office - Batticaloa",
     "fromWhom": "பிரஜா சக்தி வறுமை ஒழிப்புக்கான தேசிய வேலைத்திட்டம் - 2026",
     "subject": "கிராம அபிவிருத்தி (Rural Development)",
@@ -4168,13 +3981,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-28T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:35:16.978Z"
+    "createdAt": "2026-09-28",
+    "chats": []
   },
   {
     "id": "LTR-1790743945120",
@@ -4182,11 +3990,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-28",
     "dispatchedDate": "2026-09-26",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "PLR",
-    "fromWhom": "Divisional Secretariat, Koralaipattu North",
-    "subject": "List of welfare recipients (Welfare Benefits)",
-    "division": "சமுர்த்தி (Samurdhi)",
+    "registeredPostNo": "PLR",
+    "inwardNo": "Divisional Secretariat, Koralaipattu North",
+    "fromWhom": "List of welfare recipients (Welfare Benefits)",
+    "subject": "சமுர்த்தி (Samurdhi)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமுர்த்தி (Samurdhi)"
     ],
@@ -4196,13 +4004,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-28T18:30:00.000Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:35:13.460Z"
+    "createdAt": "2026-09-28",
+    "chats": []
   },
   {
     "id": "LTR-1790743971926",
@@ -4210,11 +4013,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-27",
     "dispatchedDate": "2026-09-22",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/KPN/PS/Chairman/Gen/2026",
-    "fromWhom": "Pradeshiya Sabha Koralaipattu North Vaharai",
-    "subject": "காணி உரிமையாளரின் விபரம் கோரல் (Request for details of the landowner)",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "BT/KPN/PS/Chairman/Gen/2026",
+    "inwardNo": "Pradeshiya Sabha Koralaipattu North Vaharai",
+    "fromWhom": "காணி உரிமையாளரின் விபரம் கோரல் (Request for details of the landowner)",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -4224,13 +4027,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-27T18:30:00.000Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "BT/KPN/PS/Chairman/Gen/2026",
-    "actionStatus": "Under Investigation",
-    "ActionStatus": "Under Investigation",
-    "FileNo": "",
-    "updatedAt": "2026-10-23T09:43:43.729Z"
+    "createdAt": "2026-09-27",
+    "chats": []
   },
   {
     "id": "LTR-1790743993082",
@@ -4238,11 +4036,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-27",
     "dispatchedDate": "2026-10-25",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/KPN/PS/Chairman/Gen/2026",
-    "fromWhom": "Pradeshiya Sabha Koralaipattu North Vaharai",
-    "subject": "கிரவல், மணல் அகழ்வு விண்ணப்பங்கள் தொடர்பான இணைந்த கள விஜயம்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "BT/KPN/PS/Chairman/Gen/2026",
+    "inwardNo": "Pradeshiya Sabha Koralaipattu North Vaharai",
+    "fromWhom": "கிரவல், மணல் அகழ்வு விண்ணப்பங்கள் தொடர்பான இணைந்த கள விஜயம்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -4252,13 +4050,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-27T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "BT/KPN/PS/Chairman/Gen/2026",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-23T09:43:46.840Z"
+    "createdAt": "2026-09-27",
+    "chats": []
   },
   {
     "id": "LTR-1790744012529",
@@ -4266,11 +4059,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-27",
     "dispatchedDate": "2026-09-22",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/KPN/PS/Chairman/Gen/2026",
-    "fromWhom": "Chairman, Pradeshiya Sabha Koralaipattu North Vaharai",
-    "subject": "ஆலய காணியினை அபகரித்து கையகப்படுத்தல் தொடர்பாக",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "BT/KPN/PS/Chairman/Gen/2026",
+    "inwardNo": "Chairman, Pradeshiya Sabha Koralaipattu North Vaharai",
+    "fromWhom": "ஆலய காணியினை அபகரித்து கையகப்படுத்தல் தொடர்பாக",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -4280,13 +4073,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-27T18:30:00.000Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "BT/KPN/PS/Chairman/Gen/2026",
-    "actionStatus": "Under Investigation",
-    "ActionStatus": "Under Investigation",
-    "FileNo": "",
-    "updatedAt": "2026-10-23T09:43:53.920Z"
+    "createdAt": "2026-09-27",
+    "chats": []
   },
   {
     "id": "LTR-1790744037958",
@@ -4294,11 +4082,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-28",
     "dispatchedDate": "2026-09-22",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADM/NSC/KPN, MN, MW, MP, FP/Co-2/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "அரச முதலீட்டு வேலைத்திட்டங்களுக்கான தெளிவுபடுத்தல் முன்மொழிவுகளை சமர்ப்பித்தல் - பிரதேச செயலகப் புதிய கட்ட நிர்மாணம்",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "ADM/NSC/KPN, MN, MW, MP, FP/Co-2/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "அரச முதலீட்டு வேலைத்திட்டங்களுக்கான தெளிவுபடுத்தல் முன்மொழிவுகளை சமர்ப்பித்தல் - பிரதேச செயலகப் புதிய கட்ட நிர்மாணம்",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -4308,13 +4096,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-28T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:35:00.137Z"
+    "createdAt": "2026-09-28",
+    "chats": []
   },
   {
     "id": "LTR-1790744060629",
@@ -4322,11 +4105,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-28",
     "dispatchedDate": "2026-09-23",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "IT/DIS/NDRSC/LAP/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "CMS Data Entry training for Disaster Relief services",
-    "division": "சமூக சேவை (Social)",
+    "registeredPostNo": "IT/DIS/NDRSC/LAP/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "CMS Data Entry training for Disaster Relief services",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமூக சேவை (Social)"
     ],
@@ -4338,13 +4121,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-28T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:34:56.844Z"
+    "createdAt": "2026-09-28",
+    "chats": []
   },
   {
     "id": "LTR-1790744080391",
@@ -4352,11 +4130,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-27",
     "dispatchedDate": "2026-09-21",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "LND/LMKPN/DO-07/2026",
-    "fromWhom": "மாவட்ட செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
-    "subject": "இறால் வளர்ப்பிற்காக 100 ஏக்கர் அரசகாணி கோரியமை தொடர்பாக",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "LND/LMKPN/DO-07/2026",
+    "inwardNo": "மாவட்ட செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
+    "fromWhom": "இறால் வளர்ப்பிற்காக 100 ஏக்கர் அரசகாணி கோரியமை தொடர்பாக",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -4366,13 +4144,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-27T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "LND/LMKPN/DO-07/2026",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-23T09:43:58.904Z"
+    "createdAt": "2026-09-27",
+    "chats": []
   },
   {
     "id": "LTR-1790744100495",
@@ -4380,11 +4153,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-27",
     "dispatchedDate": "2026-09-20",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "LND/LMKPN/DO-07/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "காணிக்கான ஆவணம் பெறுதல் தொடர்பாய - சின்னையா வண்ணமணி, சுற்றூற வீதி, வாகனேரி",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "LND/LMKPN/DO-07/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "காணிக்கான ஆவணம் பெறுதல் தொடர்பாய - சின்னையா வண்ணமணி, சுற்றூற வீதி, வாகனேரி",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -4394,13 +4167,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-27T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "LND/LMKPN/DO-07/2026",
-    "actionStatus": "Under Investigation",
-    "ActionStatus": "Under Investigation",
-    "FileNo": "",
-    "updatedAt": "2026-10-23T09:44:05.224Z"
+    "createdAt": "2026-09-27",
+    "chats": []
   },
   {
     "id": "LTR-1790744117408",
@@ -4408,11 +4176,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-27",
     "dispatchedDate": "2026-09-11",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "IML/C/HO/N/18875",
-    "fromWhom": "Geological Survey & Mines Bureau",
-    "subject": "Industrial Mining Licence for Gravel & Soil",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "IML/C/HO/N/18875",
+    "inwardNo": "Geological Survey & Mines Bureau",
+    "fromWhom": "Industrial Mining Licence for Gravel & Soil",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -4422,13 +4190,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-27T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "IML/C/HO/N/18875",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-23T09:44:09.257Z"
+    "createdAt": "2026-09-27",
+    "chats": []
   },
   {
     "id": "LTR-1790744141451",
@@ -4436,11 +4199,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-27",
     "dispatchedDate": "2026-09-22",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "null",
-    "fromWhom": "M.J.M. Nawas, J.P",
-    "subject": "Request for information regarding lands and land permits in 211G Mankerni South Grama Niladhari division from 2009 to 2026 under the Right to Information Act, No. 12 of 2016.",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "null",
+    "inwardNo": "M.J.M. Nawas, J.P",
+    "fromWhom": "Request for information regarding lands and land permits in 211G Mankerni South Grama Niladhari division from 2009 to 2026 under the Right to Information Act, No. 12 of 2016.",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -4450,13 +4213,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-27T18:30:00.000Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-23T09:44:28.992Z"
+    "createdAt": "2026-09-27",
+    "chats": []
   },
   {
     "id": "LTR-1790744158156",
@@ -4464,10 +4222,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-28",
     "dispatchedDate": "2026-09-26",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "654/26",
-    "fromWhom": "Officer in Charge, Police Station, Vaharai",
-    "subject": "Requesting a report on illegal activities occurring in the area",
+    "registeredPostNo": "654/26",
+    "inwardNo": "Officer in Charge, Police Station, Vaharai",
+    "fromWhom": "Requesting a report on illegal activities occurring in the area",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -4478,13 +4236,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-28T18:30:00.000Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:34:41.156Z"
+    "createdAt": "2026-09-28",
+    "chats": []
   },
   {
     "id": "LTR-1790744175126",
@@ -4492,10 +4245,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-28",
     "dispatchedDate": "2026-09-21",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADM/GEN/BILLS/DO-12/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "2024 ஆம் இலக்க மின்சக்தி சட்டத்தின் கீழ் மின்சாரக் கைத்தொழிலுக்கு மேற்கொள்ளப்படும் முறைமை பற்றிய அறிவித்தல்",
+    "registeredPostNo": "ADM/GEN/BILLS/DO-12/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "2024 ஆம் இலக்க மின்சக்தி சட்டத்தின் கீழ் மின்சாரக் கைத்தொழிலுக்கு மேற்கொள்ளப்படும் முறைமை பற்றிய அறிவித்தல்",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -4506,13 +4259,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-28T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:34:38.271Z"
+    "createdAt": "2026-09-28",
+    "chats": []
   },
   {
     "id": "LTR-1790744264421",
@@ -4520,11 +4268,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-28",
     "dispatchedDate": "2026-09-26",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "282026",
-    "fromWhom": "World Vision Sri Lanka",
-    "subject": "Request for Support to Convene the FY27 Budget Planning and Shared Plan Meeting",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "282026",
+    "inwardNo": "World Vision Sri Lanka",
+    "fromWhom": "Request for Support to Convene the FY27 Budget Planning and Shared Plan Meeting",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -4534,13 +4282,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-28T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:34:35.716Z"
+    "createdAt": "2026-09-28",
+    "chats": []
   },
   {
     "id": "LTR-1790744309969",
@@ -4548,11 +4291,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-27",
     "dispatchedDate": "2026-09-26",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "29092026",
-    "fromWhom": "தேவராசா அழகம்மா, பெரிய மாயாங்கேணி",
-    "subject": "மின்சாரம் பெறுவதற்கு அனுமதி அளித்தல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "29092026",
+    "inwardNo": "தேவராசா அழகம்மா, பெரிய மாயாங்கேணி",
+    "fromWhom": "மின்சாரம் பெறுவதற்கு அனுமதி அளித்தல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -4562,13 +4305,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-27T18:30:00.000Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "29092026",
-    "actionStatus": "Under Investigation",
-    "ActionStatus": "Under Investigation",
-    "FileNo": "",
-    "updatedAt": "2026-10-23T09:44:35.672Z"
+    "createdAt": "2026-09-27",
+    "chats": []
   },
   {
     "id": "LTR-1790749659971",
@@ -4576,11 +4314,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-28",
     "dispatchedDate": "2026-09-20",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "LUPPD/12/09/04",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Preparation of the District-Level Land Use Plan 2025/2026",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "LUPPD/12/09/04",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Preparation of the District-Level Land Use Plan 2025/2026",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -4590,13 +4328,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-28T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:34:29.132Z"
+    "createdAt": "2026-09-28",
+    "chats": []
   },
   {
     "id": "LTR-1790749703564",
@@ -4604,11 +4337,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-27",
     "dispatchedDate": "2026-09-19",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "LUPPD/12/05/01",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Invitation to the District Land Use Planning Committee meeting",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "LUPPD/12/05/01",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Invitation to the District Land Use Planning Committee meeting",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -4618,13 +4351,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-27T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "LUPPD/12/05/01",
-    "actionStatus": "Under Investigation",
-    "ActionStatus": "Under Investigation",
-    "FileNo": "",
-    "updatedAt": "2026-10-23T09:44:38.088Z"
+    "createdAt": "2026-09-27",
+    "chats": []
   },
   {
     "id": "LTR-1790749729520",
@@ -4632,10 +4360,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-28",
     "dispatchedDate": "2026-09-15",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "CUL/2/67/66(ii)",
-    "fromWhom": "புத்தசாசன, சமய மற்றும் கலாசார அலுவல்கள் அமைச்சு",
-    "subject": "கலாசார மத்திய நிலையங்களில் பிரதேச செயலாளர்களின் பங்கு",
+    "registeredPostNo": "CUL/2/67/66(ii)",
+    "inwardNo": "புத்தசாசன, சமய மற்றும் கலாசார அலுவல்கள் அமைச்சு",
+    "fromWhom": "கலாசார மத்திய நிலையங்களில் பிரதேச செயலாளர்களின் பங்கு",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -4646,13 +4374,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-28T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:34:20.686Z"
+    "createdAt": "2026-09-28",
+    "chats": []
   },
   {
     "id": "LTR-1790749776437",
@@ -4660,7 +4383,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-28",
     "dispatchedDate": "2026-09-22",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
+    "registeredPostNo": "CH/IE/W/TO-ASKT/2026",
     "inwardNo": "பிரதேச நீர்ப்பாசன பொறியியலாளர் அலுவலகம், செங்கலடி",
     "fromWhom": "புதிய நிர்வாக சபை தெரிவுக் கூட்டம், ஆனைக்கட்டுகட்டு காரமுனை கமநல அமைப்பு, வாகரை",
     "subject": "கிராம அபிவிருத்தி (Rural Development)",
@@ -4674,13 +4397,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-28T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:34:15.556Z"
+    "createdAt": "2026-09-28",
+    "chats": []
   },
   {
     "id": "LTR-1790749806674",
@@ -4688,10 +4406,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-28",
     "dispatchedDate": "2026-09-26",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADM/DOGEN/DCH/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Requirement of officers for Disaster Management unit duties",
+    "registeredPostNo": "ADM/DOGEN/DCH/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Requirement of officers for Disaster Management unit duties",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -4702,13 +4420,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-28T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:34:12.521Z"
+    "createdAt": "2026-09-28",
+    "chats": []
   },
   {
     "id": "LTR-1790749831003",
@@ -4716,10 +4429,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-28",
     "dispatchedDate": "2026-09-23",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DDMCU/MH/FR42(II/4)",
-    "fromWhom": "District Secretariat, Batticaloa (Disaster Management Unit)",
-    "subject": "Establishment of Emergency Response Center for flood and disaster situations",
+    "registeredPostNo": "DDMCU/MH/FR42(II/4)",
+    "inwardNo": "District Secretariat, Batticaloa (Disaster Management Unit)",
+    "fromWhom": "Establishment of Emergency Response Center for flood and disaster situations",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -4730,13 +4443,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-28T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:34:09.194Z"
+    "createdAt": "2026-09-28",
+    "chats": []
   },
   {
     "id": "LTR-1790749857826",
@@ -4744,10 +4452,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-28",
     "dispatchedDate": "2026-09-19",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADM/Gov/Secre/DO-12/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Complaint regarding naming of streets in Nagaram, Paalseanai, Vaharai",
+    "registeredPostNo": "ADM/Gov/Secre/DO-12/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Complaint regarding naming of streets in Nagaram, Paalseanai, Vaharai",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -4758,13 +4466,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-28T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:34:05.316Z"
+    "createdAt": "2026-09-28",
+    "chats": []
   },
   {
     "id": "LTR-1790749885059",
@@ -4772,10 +4475,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-28",
     "dispatchedDate": "2026-09-26",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADM/DCBC/PRO/01/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Community Corrections District Coordination Meeting",
+    "registeredPostNo": "ADM/DCBC/PRO/01/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Community Corrections District Coordination Meeting",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -4786,13 +4489,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-28T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:34:02.137Z"
+    "createdAt": "2026-09-28",
+    "chats": []
   },
   {
     "id": "LTR-1790749906228",
@@ -4800,11 +4498,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-28",
     "dispatchedDate": "2024-09-23",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ACC/BID/01/2026/05",
-    "fromWhom": "Uthayan Perfect Builder",
-    "subject": "Construction of Drainage in Puliyankandalady Road at Divisional Secretariat, KPN, Vaharai",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "ACC/BID/01/2026/05",
+    "inwardNo": "Uthayan Perfect Builder",
+    "fromWhom": "Construction of Drainage in Puliyankandalady Road at Divisional Secretariat, KPN, Vaharai",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -4814,13 +4512,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-28T18:30:00.000Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:33:59.273Z"
+    "createdAt": "2026-09-28",
+    "chats": []
   },
   {
     "id": "LTR-1790749973090",
@@ -4828,10 +4521,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-28",
     "dispatchedDate": "2026-09-26",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "292026",
-    "fromWhom": "கதிர் ஒளி கல்வி ஒன்றியம், காயான்கேணி (Kathir Oli Kalvi Onriyam, Kayankerny)",
-    "subject": "நிகழ்வுக்கான அழைப்புதல் (Invitation for the event)",
+    "registeredPostNo": "292026",
+    "inwardNo": "கதிர் ஒளி கல்வி ஒன்றியம், காயான்கேணி (Kathir Oli Kalvi Onriyam, Kayankerny)",
+    "fromWhom": "நிகழ்வுக்கான அழைப்புதல் (Invitation for the event)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -4842,13 +4535,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-28T18:30:00.000Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:33:55.721Z"
+    "createdAt": "2026-09-28",
+    "chats": []
   },
   {
     "id": "LTR-1790750077634",
@@ -4856,11 +4544,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-27",
     "dispatchedDate": "2026-09-21",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADS/NNDAQ/08/21",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Deduction of 7.5% from the officer's salary",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "ADS/NNDAQ/08/21",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Deduction of 7.5% from the officer's salary",
+    "subject": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "கணக்குப் பிரிவு (Accounts & Finance)"
     ],
@@ -4870,13 +4558,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-27T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "ADS/NNDAQ/08/21",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-18T03:58:57.842Z"
+    "createdAt": "2026-09-27",
+    "chats": []
   },
   {
     "id": "LTR-1790750244661",
@@ -4884,10 +4567,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-28",
     "dispatchedDate": "2026-09-19",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADS/HRALC/27/02",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "District Job Fair & Career Fair",
+    "registeredPostNo": "ADS/HRALC/27/02",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "District Job Fair & Career Fair",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -4898,13 +4581,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-28T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:33:49.830Z"
+    "createdAt": "2026-09-28",
+    "chats": []
   },
   {
     "id": "LTR-1790578551599",
@@ -4912,11 +4590,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2026-08-12",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "MRISS&CE/NSPD/08/15/PRESIDENTIAL",
-    "fromWhom": "National Secretariat for Persons with Disabilities",
-    "subject": "ஜனாதிபதி நிதியத்தின் ஊடாக மருத்துவ உதவி வழங்கப்பட்ட பயனாளிகளின் முன்னேற்ற அறிக்கையை சமர்ப்பித்தல்",
-    "division": "சமூக சேவை (Social)",
+    "registeredPostNo": "MRISS&CE/NSPD/08/15/PRESIDENTIAL",
+    "inwardNo": "National Secretariat for Persons with Disabilities",
+    "fromWhom": "ஜனாதிபதி நிதியத்தின் ஊடாக மருத்துவ உதவி வழங்கப்பட்ட பயனாளிகளின் முன்னேற்ற அறிக்கையை சமர்ப்பித்தல்",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமூக சேவை (Social)"
     ],
@@ -4926,13 +4604,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-26T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:33:46.763Z"
+    "createdAt": "2026-09-26",
+    "chats": []
   },
   {
     "id": "LTR-1790579478552",
@@ -4940,11 +4613,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-27",
     "dispatchedDate": "2026-09-23",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/DSSO/Self.Empl/2026",
-    "fromWhom": "சமூக சேவைகள் திணைக்களம் - கிழக்கு மாகாணம், மாவட்ட அலுவலகம் - மட்டக்களப்பு (Department of Social Services - Eastern Province)",
-    "subject": "சுயதொழில் மானிய உதவிக் கொடுப்பனவு வழங்கப்பட்ட பயனாளிகளின் விபரம் மற்றும் முன்னேற்ற அறிக்கை கோரல் - 2025, 2026. (PSDG/ Recurrent)",
-    "division": "சமூக சேவை (Social)",
+    "registeredPostNo": "BT/DSSO/Self.Empl/2026",
+    "inwardNo": "சமூக சேவைகள் திணைக்களம் - கிழக்கு மாகாணம், மாவட்ட அலுவலகம் - மட்டக்களப்பு (Department of Social Services - Eastern Province)",
+    "fromWhom": "சுயதொழில் மானிய உதவிக் கொடுப்பனவு வழங்கப்பட்ட பயனாளிகளின் விபரம் மற்றும் முன்னேற்ற அறிக்கை கோரல் - 2025, 2026. (PSDG/ Recurrent)",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமூக சேவை (Social)"
     ],
@@ -4954,13 +4627,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-27T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:33:43.325Z"
+    "createdAt": "2026-09-27",
+    "chats": []
   },
   {
     "id": "LTR-1790579523658",
@@ -4968,11 +4636,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-27",
     "dispatchedDate": "2026-08-13",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "MRDSS&CE/NSPD/08/15/PRESIDENTIAL",
-    "fromWhom": "தேசிய அங்கவீனமுற்றோர் செயலகம் (National Secretariat for Persons with Disabilities)",
-    "subject": "ஜனாதிபதி நிதியத்தின் ஊடாக மருத்துவ உதவி வழங்கப்பட்ட பயனாளிகளின் முன்னேற்ற அறிக்கையை சமர்ப்பித்தல்",
-    "division": "சமூக சேவை (Social)",
+    "registeredPostNo": "MRDSS&CE/NSPD/08/15/PRESIDENTIAL",
+    "inwardNo": "தேசிய அங்கவீனமுற்றோர் செயலகம் (National Secretariat for Persons with Disabilities)",
+    "fromWhom": "ஜனாதிபதி நிதியத்தின் ஊடாக மருத்துவ உதவி வழங்கப்பட்ட பயனாளிகளின் முன்னேற்ற அறிக்கையை சமர்ப்பித்தல்",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமூக சேவை (Social)"
     ],
@@ -4982,13 +4650,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-27T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:33:39.817Z"
+    "createdAt": "2026-09-27",
+    "chats": []
   },
   {
     "id": "LTR-1790579571648",
@@ -4996,11 +4659,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-27",
     "dispatchedDate": "2026-09-27",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "null",
-    "fromWhom": "மு. யோகேஸ்வரி, சித்திரவேல்வீதி, பால்கேணi",
-    "subject": "உதவி பெற்று தருமாறு கோரல்",
-    "division": "சமூக சேவை (Social)",
+    "registeredPostNo": "null",
+    "inwardNo": "மு. யோகேஸ்வரி, சித்திரவேல்வீதி, பால்கேணi",
+    "fromWhom": "உதவி பெற்று தருமாறு கோரல்",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமூக சேவை (Social)"
     ],
@@ -5010,13 +4673,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-27T18:30:00.000Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:33:35.985Z"
+    "createdAt": "2026-09-27",
+    "chats": []
   },
   {
     "id": "LTR-1790579614196",
@@ -5024,11 +4682,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2026-09-22",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "MOH/VH/Adm/Gen/Inq/01/2026",
-    "fromWhom": "சுகாதார வைத்திய அதிகாரி அலுவலகம், வாகரை (Office of the Medical Officer of Health - Vaharai)",
-    "subject": "குடும்ப நல உத்தியோகத்தர் அவர்களுக்கு எதிரான முறைப்பாடு தொடர்பாக அறியத்தரல்",
-    "division": "சிறுவர் பிரிவு (Field)",
+    "registeredPostNo": "MOH/VH/Adm/Gen/Inq/01/2026",
+    "inwardNo": "சுகாதார வைத்திய அதிகாரி அலுவலகம், வாகரை (Office of the Medical Officer of Health - Vaharai)",
+    "fromWhom": "குடும்ப நல உத்தியோகத்தர் அவர்களுக்கு எதிரான முறைப்பாடு தொடர்பாக அறியத்தரல்",
+    "subject": "சிறுவர் பிரிவு (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சிறுவர் பிரிவு (Field)"
     ],
@@ -5038,13 +4696,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-26T18:30:00.000Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:33:32.684Z"
+    "createdAt": "2026-09-26",
+    "chats": []
   },
   {
     "id": "LTR-1790579707108",
@@ -5052,11 +4705,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-25",
     "dispatchedDate": "2026-08-28",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "1519",
-    "fromWhom": "State Ministry of Women & Child Development (ST. MIN. WOMEN & CHILD DEV.)",
-    "subject": "Pay Report for August 2026 - Miss. Julinadi A. (Emp No: 1519)",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "1519",
+    "inwardNo": "State Ministry of Women & Child Development (ST. MIN. WOMEN & CHILD DEV.)",
+    "fromWhom": "Pay Report for August 2026 - Miss. Julinadi A. (Emp No: 1519)",
+    "subject": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "கணக்குப் பிரிவு (Accounts & Finance)"
     ],
@@ -5066,13 +4719,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-25T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "1519",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-18T03:58:38.659Z"
+    "createdAt": "2026-09-25",
+    "chats": []
   },
   {
     "id": "LTR-1790579745615",
@@ -5080,11 +4728,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2026-09-09",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "PCC/03/05/WCD/06/2026",
-    "fromWhom": "Department of Probation and Child Care Services",
-    "subject": "World Children's Day 2026 – “Strong Minds Enriched Children”",
-    "division": "சிறுவர் பிரிவு (Field)",
+    "registeredPostNo": "PCC/03/05/WCD/06/2026",
+    "inwardNo": "Department of Probation and Child Care Services",
+    "fromWhom": "World Children's Day 2026 – “Strong Minds Enriched Children”",
+    "subject": "சிறுவர் பிரிவு (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சிறுவர் பிரிவு (Field)"
     ],
@@ -5094,13 +4742,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-26T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:33:24.379Z"
+    "createdAt": "2026-09-26",
+    "chats": []
   },
   {
     "id": "LTR-1790579794930",
@@ -5108,11 +4751,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2026-09-23",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADS/DCPRM/09/2025/03",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "சிறுவர் உரிமை மேம்பாட்டு உத்தியோகத்தர்களுக்கான முன்னேற்ற மீளாய்வுக்கூட்டம் - 2026",
-    "division": "சிறுவர் பிரிவு (Field)",
+    "registeredPostNo": "ADS/DCPRM/09/2025/03",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "சிறுவர் உரிமை மேம்பாட்டு உத்தியோகத்தர்களுக்கான முன்னேற்ற மீளாய்வுக்கூட்டம் - 2026",
+    "subject": "சிறுவர் பிரிவு (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சிறுவர் பிரிவு (Field)"
     ],
@@ -5122,13 +4765,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-26T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:33:21.480Z"
+    "createdAt": "2026-09-26",
+    "chats": []
   },
   {
     "id": "LTR-1790579834322",
@@ -5136,11 +4774,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-25",
     "dispatchedDate": "2026-09-22",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ACC/BID/01/2026/04",
-    "fromWhom": "Aramjee Group",
-    "subject": "Regarding to Release the Performance & Advance Payment Bonds",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "ACC/BID/01/2026/04",
+    "inwardNo": "Aramjee Group",
+    "fromWhom": "Regarding to Release the Performance & Advance Payment Bonds",
+    "subject": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "கணக்குப் பிரிவு (Accounts & Finance)"
     ],
@@ -5150,13 +4788,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-25T18:30:00.000Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "ACC/BID/01/2026/04",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-18T03:58:47.442Z"
+    "createdAt": "2026-09-25",
+    "chats": []
   },
   {
     "id": "LTR-1790579876198",
@@ -5164,11 +4797,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2026-09-22",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "LK0327",
-    "fromWhom": "Living Care Academy",
-    "subject": "Request for Approval, Guidance and Resource Person for Entrepreneurship Planning and Potential Entrepreneur Identification Activity",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "LK0327",
+    "inwardNo": "Living Care Academy",
+    "fromWhom": "Request for Approval, Guidance and Resource Person for Entrepreneurship Planning and Potential Entrepreneur Identification Activity",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -5178,13 +4811,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-26T18:30:00.000Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:33:05.833Z"
+    "createdAt": "2026-09-26",
+    "chats": []
   },
   {
     "id": "LTR-1790579907563",
@@ -5192,10 +4820,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2026-09-20",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADM/DOGEN/DO-03/1",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "அபிவிருத்தி உத்தியோகத்தர்களின் இடமாற்றம் தொடர்பானது (Regarding the transfer of Development Officers)",
+    "registeredPostNo": "ADM/DOGEN/DO-03/1",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "அபிவிருத்தி உத்தியோகத்தர்களின் இடமாற்றம் தொடர்பானது (Regarding the transfer of Development Officers)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -5206,13 +4834,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-26T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:33:00.119Z"
+    "createdAt": "2026-09-26",
+    "chats": []
   },
   {
     "id": "LTR-1790579940374",
@@ -5220,11 +4843,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2026-09-22",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADM/DCBC/PRO/01/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Community Corrections District Coordination Meeting",
-    "division": "சமூக சேவை (Social)",
+    "registeredPostNo": "ADM/DCBC/PRO/01/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Community Corrections District Coordination Meeting",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமூக சேவை (Social)"
     ],
@@ -5234,13 +4857,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-26T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:32:57.146Z"
+    "createdAt": "2026-09-26",
+    "chats": []
   },
   {
     "id": "LTR-1790579985417",
@@ -5248,11 +4866,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2026-09-19",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DSD/EST/COM/2026/01",
-    "fromWhom": "மாவட்ட சமுர்த்தி பணிப்பாளர், ���ட���டக்களப்பு",
-    "subject": "சமுர்த்தி வங்கிகளின் பொருட்டு புதிய கணினி மென்பொருள் ஒன்றின் நடவடிக்கைகளை ஆரம்பிப்பதற்கு உரியதாக பணியாளர்களின் தகவல்கள் மற்றும் விசேடமான வங்கித் தகவல்களைப் பெற்றுக்கொள்ளல்.",
-    "division": "சமுர்த்தி (Samurdhi)",
+    "registeredPostNo": "DSD/EST/COM/2026/01",
+    "inwardNo": "மாவட்ட சமுர்த்தி பணிப்பாளர், மட்டக்களப்பு",
+    "fromWhom": "சமுர்த்தி வங்கிகளின் பொருட்டு புதிய கணினி மென்பொருள் ஒன்றின் நடவடிக்கைகளை ஆரம்பிப்பதற்கு உரியதாக பணியாளர்களின் தகவல்கள் மற்றும் விசேடமான வங்கித் தகவல்களைப் பெற்றுக்கொள்ளல்.",
+    "subject": "சமுர்த்தி (Samurdhi)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமுர்த்தி (Samurdhi)"
     ],
@@ -5262,13 +4880,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-26T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:32:54.827Z"
+    "createdAt": "2026-09-26",
+    "chats": []
   },
   {
     "id": "LTR-1790580040914",
@@ -5276,11 +4889,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2026-09-19",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DSD/SOCDV/NA/2026/02/812",
-    "fromWhom": "District Director, Department of Samurdhi, Batticaloa",
-    "subject": "சமூக அபிவிருத்தி வேலைத்திட்டம் 2026 நிதி ஒதுக்கீடு",
-    "division": "சமுர்த்தி (Samurdhi)",
+    "registeredPostNo": "DSD/SOCDV/NA/2026/02/812",
+    "inwardNo": "District Director, Department of Samurdhi, Batticaloa",
+    "fromWhom": "சமூக அபிவிருத்தி வேலைத்திட்டம் 2026 நிதி ஒதுக்கீடு",
+    "subject": "சமுர்த்தி (Samurdhi)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமுர்த்தி (Samurdhi)"
     ],
@@ -5290,13 +4903,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-26T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:32:51.281Z"
+    "createdAt": "2026-09-26",
+    "chats": []
   },
   {
     "id": "LTR-1790580068327",
@@ -5304,11 +4912,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2026-09-19",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "LAN/LEASE/01/139/SENT",
-    "fromWhom": "Sentinel Realty (Private) Limited",
-    "subject": "Application to obtain state-owned land of 2 acres in Vakarai on long-lease for a tourism facility center",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "LAN/LEASE/01/139/SENT",
+    "inwardNo": "Sentinel Realty (Private) Limited",
+    "fromWhom": "Application to obtain state-owned land of 2 acres in Vakarai on long-lease for a tourism facility center",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -5318,13 +4926,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-26T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:32:48.430Z"
+    "createdAt": "2026-09-26",
+    "chats": []
   },
   {
     "id": "LTR-1790580132994",
@@ -5332,11 +4935,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2026-09-26",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "null",
-    "fromWhom": "K. Yogasatharan, Pukankeni",
-    "subject": "Request for assistance regarding disputed land ownership and court verdict execution",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "null",
+    "inwardNo": "K. Yogasatharan, Pukankeni",
+    "fromWhom": "Request for assistance regarding disputed land ownership and court verdict execution",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -5346,13 +4949,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-26T18:30:00.000Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:32:38.607Z"
+    "createdAt": "2026-09-26",
+    "chats": []
   },
   {
     "id": "LTR-1790580188718",
@@ -5360,11 +4958,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2024-09-22",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "HA/05/BT/22",
-    "fromWhom": "ஸ்ரீ சித்தி விநாயகர் ஆலயம், நாகபுரம், பால்சேனை, கதிரவெளி",
-    "subject": "நினைவூட்டல் I - ஆலயத்திற்குரிய காணியில் அத்துமீறி பயிர்ச்செய்கை மேற்கொள்வதைத் தடுத்தல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "HA/05/BT/22",
+    "inwardNo": "ஸ்ரீ சித்தி விநாயகர் ஆலயம், நாகபுரம், பால்சேனை, கதிரவெளி",
+    "fromWhom": "நினைவூட்டல் I - ஆலயத்திற்குரிய காணியில் அத்துமீறி பயிர்ச்செய்கை மேற்கொள்வதைத் தடுத்தல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -5376,13 +4974,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-26T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:32:35.584Z"
+    "createdAt": "2026-09-26",
+    "chats": []
   },
   {
     "id": "LTR-1790580264480",
@@ -5390,11 +4983,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2026-09-16",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "SR/MP/BT/P.Issues/156/2026",
-    "fromWhom": "Shanakiyan Rajaputhiran Rasamanickam (Member of Parliament)",
-    "subject": "மேவாண்ட குளம் - மேட்டு நில விவசாயக் காணிகள் தொடர்பில் கள ஆய்வு மேற்கொண்டு உரிய நடவடிக்கை எடுக்குமாறு கோருதல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "SR/MP/BT/P.Issues/156/2026",
+    "inwardNo": "Shanakiyan Rajaputhiran Rasamanickam (Member of Parliament)",
+    "fromWhom": "மேவாண்ட குளம் - மேட்டு நில விவசாயக் காணிகள் தொடர்பில் கள ஆய்வு மேற்கொண்டு உரிய நடவடிக்கை எடுக்குமாறு கோருதல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -5406,13 +4999,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-26T18:30:00.000Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:32:33.174Z"
+    "createdAt": "2026-09-26",
+    "chats": []
   },
   {
     "id": "LTR-1790580433501",
@@ -5420,13 +5008,13 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2026-09-19",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DAD/12/685/15",
-    "fromWhom": "Uththodai Agrarian Organization, Mathuragkernik Kulam",
-    "subject": "Request for permission to remove a tree blocking an irrigation canal",
-    "division": "வெளிக்களம் (Field)",
+    "registeredPostNo": "Uththodai Agrarian Organization, Mathuragkernik Kulam",
+    "inwardNo": "Request for permission to remove a tree blocking an irrigation canal",
+    "fromWhom": "வெளிக்களம் (Field)",
+    "subject": "General",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
-      "வெளிக்களம் (Field)"
+      "நிர்வாகப் பிரிவு (Administration)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
@@ -5434,13 +5022,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-26T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "DAD/12/685/15",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:32:30.620Z"
+    "createdAt": "2026-09-26",
+    "chats": []
   },
   {
     "id": "LTR-1790580496981",
@@ -5448,13 +5031,13 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2026-09-12",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "IML/D/N/2026/11288",
-    "fromWhom": "Geological Survey & Mines Bureau (புவிச்சரிதவியல் அளவை சுரங்கங்கள் பணியகம்)",
-    "subject": "Extension of validity period for Gravel & Soil mining license IML/D/HO/N/18782",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "Geological Survey & Mines Bureau (புவிச்சரிதவியல் அளவை சுரங்கங்கள் பணியகம்)",
+    "inwardNo": "Extension of validity period for Gravel & Soil mining license IML/D/HO/N/18782",
+    "fromWhom": "காணிப் பிரிவு (Land Division)",
+    "subject": "General",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
-      "காணிப் பிரிவு (Land Division)"
+      "நிர்வாகப் பிரிவு (Administration)"
     ],
     "forwardedTo": [
       "880770071V"
@@ -5464,13 +5047,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-26T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "IML/D/N/2026/11288",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:32:27.103Z"
+    "createdAt": "2026-09-26",
+    "chats": []
   },
   {
     "id": "LTR-1790580560624",
@@ -5478,13 +5056,13 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2026-09-14",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DI/BT/W/Sand.R/072/2026",
-    "fromWhom": "Office of the Director of Irrigation - Batticaloa (நீர்ப்பாசனப் பணிப்பாளர் பணிமனை - மட்டக்களப்பு)",
-    "subject": "Recommendation for issuing license at Periyamanatkadu – Verugal River in Vaharai DS Division",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "Office of the Director of Irrigation - Batticaloa (நீர்ப்பாசனப் பணிப்பாளர் பணிமனை - மட்டக்களப்பு)",
+    "inwardNo": "Recommendation for issuing license at Periyamanatkadu – Verugal River in Vaharai DS Division",
+    "fromWhom": "காணிப் பிரிவு (Land Division)",
+    "subject": "General",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
-      "காணிப் பிரிவு (Land Division)"
+      "நிர்வாகப் பிரிவு (Administration)"
     ],
     "forwardedTo": [
       "880770071V"
@@ -5494,13 +5072,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-26T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "DI/BT/W/Sand.R/072/2026",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:32:22.936Z"
+    "createdAt": "2026-09-26",
+    "chats": []
   },
   {
     "id": "LTR-1790580608204",
@@ -5508,11 +5081,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2026-09-19",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "RME/GSMB/BT/Joi.Ins/2026/500",
-    "fromWhom": "Geological Survey and Mines Bureau (GSMB), Batticaloa",
-    "subject": "Gravel and Soil Mining Inspection - கோறளைப்பற்று வடக்கு, வாகரை பிரதேச செயலகப்பிரிவிற்குட்பட்ட இடங்களில் கிரவல், மண் அகழ்வு அனுமதிப்பத்திரங்களை வழங்குவது தொடர்பான கள விஜயம்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "RME/GSMB/BT/Joi.Ins/2026/500",
+    "inwardNo": "Geological Survey and Mines Bureau (GSMB), Batticaloa",
+    "fromWhom": "Gravel and Soil Mining Inspection - கோறளைப்பற்று வடக்கு, வாகரை பிரதேச செயலகப்பிரிவிற்குட்பட்ட இடங்களில் கிரவல், மண் அகழ்வு அனுமதிப்பத்திரங்களை வழங்குவது தொடர்பான கள விஜயம்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -5522,13 +5095,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-26T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:32:19.822Z"
+    "createdAt": "2026-09-26",
+    "chats": []
   },
   {
     "id": "LTR-1790580836305",
@@ -5536,11 +5104,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2026-04-24",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "null",
-    "fromWhom": "ந.சரோஜினிதேவி",
-    "subject": "எமது வீதிக்கு செல்வதற்கான ஒற்றை பாதை கோருதல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "null",
+    "inwardNo": "ந.சரோஜினிதேவி",
+    "fromWhom": "எமது வீதிக்கு செல்வதற்கான ஒற்றை பாதை கோருதல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -5552,13 +5120,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-26T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:32:16.217Z"
+    "createdAt": "2026-09-26",
+    "chats": []
   },
   {
     "id": "LTR-1790580878215",
@@ -5566,11 +5129,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2026-09-16",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "null",
-    "fromWhom": "Shanakiyan Rajaputhiran Rasamanickam, Member of Parliament Batticaloa District",
-    "subject": "வாகனேரி - மதுரங்கேணி பகுதியில் விவசாய நிலங்களை சூரிய சக்தித் திட்டத்திற்காக பயன்படுத்தும் நடவடிக்கையை மாற்று இடத்திற்கு மாற்றுவது தொடர்பில்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "null",
+    "inwardNo": "Shanakiyan Rajaputhiran Rasamanickam, Member of Parliament Batticaloa District",
+    "fromWhom": "வாகனேரி - மதுரங்கேணி பகுதியில் விவசாய நிலங்களை சூரிய சக்தித் திட்டத்திற்காக பயன்படுத்தும் நடவடிக்கையை மாற்று இடத்திற்கு மாற்றுவது தொடர்பில்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -5582,13 +5145,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-26T18:30:00.000Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:32:12.374Z"
+    "createdAt": "2026-09-26",
+    "chats": []
   },
   {
     "id": "LTR-1790581013734",
@@ -5596,11 +5154,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2026-09-22",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "KPN/PS/VHR/GEN/2026",
-    "fromWhom": "செயலாளர், பிரதேச சபை, கோறளைப்பற்று வடக்கு, வாகரை",
-    "subject": "காணி உறுதியின் உண்மைத்தன்மையினை வழங்கக்கோரல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "KPN/PS/VHR/GEN/2026",
+    "inwardNo": "செயலாளர், பிரதேச சபை, கோறளைப்பற்று வடக்கு, வாகரை",
+    "fromWhom": "காணி உறுதியின் உண்மைத்தன்மையினை வழங்கக்கோரல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -5612,13 +5170,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-26T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:32:09.063Z"
+    "createdAt": "2026-09-26",
+    "chats": []
   },
   {
     "id": "LTR-1790581148157",
@@ -5626,11 +5179,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2026-09-19",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "null",
-    "fromWhom": "லோகீதா தனுசன், புச்சாக்கேணி, கதிரவெளி",
-    "subject": "வியாபாரப் பதிவு செய்வதற்காக கடை அமைந்துள்ள நிலப்பரப்பை குத்தகைக்கு வழங்குமாறு கோருதல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "null",
+    "inwardNo": "லோகீதா தனுசன், புச்சாக்கேணி, கதிரவெளி",
+    "fromWhom": "வியாபாரப் பதிவு செய்வதற்காக கடை அமைந்துள்ள நிலப்பரப்பை குத்தகைக்கு வழங்குமாறு கோருதல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -5642,13 +5195,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-26T18:30:00.000Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:32:05.774Z"
+    "createdAt": "2026-09-26",
+    "chats": []
   },
   {
     "id": "LTR-1790581196249",
@@ -5656,11 +5204,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2026-09-21",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "23/09/2026",
-    "fromWhom": "நம்பில்லது கவிதா தேவி, கிராம சேவகர், வாகரை",
-    "subject": "காணி தொடர்பான உறுதிப்படுத்தல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "23/09/2026",
+    "inwardNo": "நம்பில்லது கவிதா தேவி, கிராம சேவகர், வாகரை",
+    "fromWhom": "காணி தொடர்பான உறுதிப்படுத்தல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -5670,13 +5218,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-26T18:30:00.000Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:32:03.061Z"
+    "createdAt": "2026-09-26",
+    "chats": []
   },
   {
     "id": "LTR-1790581368211",
@@ -5684,11 +5227,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2026-09-26",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "null",
-    "fromWhom": "A. Siruthmathi",
-    "subject": "Request for confirmation of residential land",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "null",
+    "inwardNo": "A. Siruthmathi",
+    "fromWhom": "Request for confirmation of residential land",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -5700,13 +5243,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-26T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:31:59.548Z"
+    "createdAt": "2026-09-26",
+    "chats": []
   },
   {
     "id": "LTR-1790581418246",
@@ -5714,11 +5252,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2026-09-21",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "211 B",
-    "fromWhom": "கிராம அபிவிருத்தி சங்கம், ஆலங்குளம்",
-    "subject": "ஆலங்குளம் பிரதான வீதி திருத்தத்திற்கான வேண்டுகோள்",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "211 B",
+    "inwardNo": "கிராம அபிவிருத்தி சங்கம், ஆலங்குளம்",
+    "fromWhom": "ஆலங்குளம் பிரதான வீதி திருத்தத்திற்கான வேண்டுகோள்",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -5728,13 +5266,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-26T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:31:56.375Z"
+    "createdAt": "2026-09-26",
+    "chats": []
   },
   {
     "id": "LTR-1790583020620",
@@ -5742,11 +5275,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2026-09-26",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "211 B",
-    "fromWhom": "கிராம அபிவிருத்தி சங்கம், ஆலங்குளம்",
-    "subject": "ஆலங்குளம் பிரதான வீதி திருத்தத்திற்கான வேண்டுகோள்",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "211 B",
+    "inwardNo": "கிராம அபிவிருத்தி சங்கம், ஆலங்குளம்",
+    "fromWhom": "ஆலங்குளம் பிரதான வீதி திருத்தத்திற்கான வேண்டுகோள்",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -5758,13 +5291,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-26T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:31:52.982Z"
+    "createdAt": "2026-09-26",
+    "chats": []
   },
   {
     "id": "LTR-1790589052161",
@@ -5772,11 +5300,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2026-09-21",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "HRC/Bco/074/2026",
-    "fromWhom": "Human Rights Commission of Sri Lanka (Regional Office - Batticaloa)",
-    "subject": "Inquiry regarding land dispute complaint of Mr. P.M.M. Kalitheen",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "HRC/Bco/074/2026",
+    "inwardNo": "Human Rights Commission of Sri Lanka (Regional Office - Batticaloa)",
+    "fromWhom": "Inquiry regarding land dispute complaint of Mr. P.M.M. Kalitheen",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -5789,13 +5317,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-26T18:30:00.000Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "R 5063",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:31:50.258Z"
+    "createdAt": "2026-09-26",
+    "chats": []
   },
   {
     "id": "LTR-1790589192194",
@@ -5803,11 +5326,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2026-09-19",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "G/EPC/01/1/12-1/26",
-    "fromWhom": "ஆளுநர் செயலகம் - கிழக்கு மாகாணம் (Secretariat of the Governor - Eastern Province)",
-    "subject": "காணியினை பெற்றுக் தரக் கோரல் சம்பந்தமாக",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "G/EPC/01/1/12-1/26",
+    "inwardNo": "ஆளுநர் செயலகம் - கிழக்கு மாகாணம் (Secretariat of the Governor - Eastern Province)",
+    "fromWhom": "காணியினை பெற்றுக் தரக் கோரல் சம்பந்தமாக",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -5816,7 +5339,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 142,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-09-28 15:23",
@@ -5830,8 +5353,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "திருமதி. சித்திரவேல் புவனேஸ்வரி என்பவரால் காணி கோரி ஆளுநருக்கு சமர்ப்பிக்கப்பட்ட கடிதம் தொடர்பாக உரிய நடவடிக்கை எடுக்குமாறு வாகரைப் பிரதேச செயலாளருக்கு ஆளுநர் செயலகத்தினால் அனுப்பி வைக்கப்பட்டுள்ளது.",
         "timestamp": "2026-09-28 15:23"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1790589259601",
@@ -5839,11 +5361,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2026-09-19",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "LND/LMKPN/DO-07/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "விவசாயம் மேற்கொண்டு வருகின்ற காணிகளுக்கான ஆவணங்கள் பெறுதல் தொடர்பானது",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "LND/LMKPN/DO-07/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "விவசாயம் மேற்கொண்டு வருகின்ற காணிகளுக்கான ஆவணங்கள் பெறுதல் தொடர்பானது",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -5852,7 +5374,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 176,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-09-28 15:24",
@@ -5866,8 +5388,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "இது விவசாயம் செய்யப்படும் காணிகளுக்கான ஆவணங்களைப் பெற்றுக்கொள்வது தொடர்பான மேலதிக நடவடிக்கைகளுக்கான அறிவித்தல் கடிதமாகும்.",
         "timestamp": "2026-09-28 15:24"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1790589315933",
@@ -5875,10 +5396,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2026-09-23",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADM/SLAS/DS/DO6/2026",
-    "fromWhom": "மாவட்ட செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
-    "subject": "பிரதேச செயலகம், கோறளைப் பற்று வடக்கு, வாகரை - புணாணை கிழக்கு கிராம சேவகர் பிரிவில் நடாத்தப்பட்ட காணிக் கச்சேரி தொடர்பானது",
+    "registeredPostNo": "ADM/SLAS/DS/DO6/2026",
+    "inwardNo": "மாவட்ட செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
+    "fromWhom": "பிரதேச செயலகம், கோறளைப் பற்று வடக்கு, வாகரை - புணாணை கிழக்கு கிராம சேவகர் பிரிவில் நடாத்தப்பட்ட காணிக் கச்சேரி தொடர்பானது",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -5886,7 +5407,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 170,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-09-28 15:25",
@@ -5900,8 +5421,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "புணாணை கிழக்கு கிராம அலுவலர் பிரிவில் இடம்பெற்ற காணிக் கச்சேரி விசாரணை நிமித்தம் முன்னாள் கிராம உத்தியோகத்தர் திரு. எஸ். கஜேந்திரன் அவர்களை மாவட்ட செயலக நிர்வாகக் கிளைக்கு முன்னிலையாகுமாறு அறிவுறுத்தல்.",
         "timestamp": "2026-09-28 15:25"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1790589400409",
@@ -5909,11 +5429,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-26",
     "dispatchedDate": "2026-09-22",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADS/Skills/31/01/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Engaging low income youth as construction assistants with training to address labor shortages in the construction industry.",
-    "division": "வெளிக்களம் (Field)",
+    "registeredPostNo": "ADS/Skills/31/01/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Engaging low income youth as construction assistants with training to address labor shortages in the construction industry.",
+    "subject": "வெளிக்களம் (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "வெளிக்களம் (Field)"
     ],
@@ -5922,7 +5442,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
-    "imageSizeKb": 210,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-09-28 15:26",
@@ -5936,8 +5456,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Instruction to identify and register youth for training as construction assistants to overcome labor shortages in the construction sector by 2026.10.10.",
         "timestamp": "2026-09-28 15:26"
       }
-    ],
-    "fileNo": ""
+    ]
   },
   {
     "id": "LTR-1790310959741",
@@ -5945,24 +5464,25 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-23",
     "dispatchedDate": "2026-09-23",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADS/SKILLS/31/01/2026",
-    "fromWhom": "District secretariat ,Batticaloa",
-    "subject": "Skills Expo 2026",
-    "division": "வெளிக்களம் (Field)",
+    "registeredPostNo": "ADS/SKILLS/31/01/2026",
+    "inwardNo": "District secretariat ,Batticaloa",
+    "fromWhom": "Skills Expo 2026",
+    "subject": "வெளிக்களம் (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
-      "வெளிக்களம் (Field)"
+      "வெளிக்களம் (Field)",
+      "நிர்வாகப் பிரிவு (Administration)"
     ],
     "forwardedTo": [
       "812991786V"
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-09-25 10:05",
-    "chats": [],
-    "fileNo": ""
+    "chats": []
   },
   {
     "id": "LTR-1790312719557",
@@ -5970,22 +5490,23 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-23",
     "dispatchedDate": "2026-09-19",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DPD/MRDS&CEPSPAP/19/GEN/2026",
-    "fromWhom": "District Secretariat Batticalo",
-    "subject": "samooka valuvoodal uththiyokatharkalin niruvanap panikal thodarpanathu",
+    "registeredPostNo": "DPD/MRDS&CEPSPAP/19/GEN/2026",
+    "inwardNo": "District Secretariat Batticalo",
+    "fromWhom": "samooka valuvoodal uththiyokatharkalin niruvanap panikal thodarpanathu",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
-      "நிர்வாகப் பிரிவு (Administration)"
+      "நிர்வாகப் பிரிவு (Administration)",
+      "திட்டமிடல் பிரிவு (Planning)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-09-25 10:35",
-    "chats": [],
-    "fileNo": ""
+    "chats": []
   },
   {
     "id": "LTR-1790313475302",
@@ -5993,22 +5514,23 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-23",
     "dispatchedDate": "2026-09-20",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/DSSO//PSDG/HOMES/2026",
-    "fromWhom": "Batticalo District Social Services Office",
-    "subject": "tonner pettrukkolvathatkana korikkaiyai anupi veithal",
-    "division": "சமூக சேவை (Social)",
+    "registeredPostNo": "BT/DSSO//PSDG/HOMES/2026",
+    "inwardNo": "Batticalo District Social Services Office",
+    "fromWhom": "tonner pettrukkolvathatkana korikkaiyai anupi veithal",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
-      "சமூக சேவை (Social)"
+      "சமூக சேவை (Social)",
+      "நிர்வாகப் பிரிவு (Administration)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-09-25 10:47",
-    "chats": [],
-    "fileNo": ""
+    "chats": []
   },
   {
     "id": "LTR-1790313965397",
@@ -6016,24 +5538,25 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-23",
     "dispatchedDate": "2026-09-19",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "AdS/ONUR/24/29/2026",
-    "fromWhom": "District Sectrtariat Batticaloa",
-    "subject": "Invitation for District Coordination Meeting on Peace , Reconciliation , and Communty  Development",
-    "division": "வெளிக்களம் (Field)",
+    "registeredPostNo": "AdS/ONUR/24/29/2026",
+    "inwardNo": "District Sectrtariat Batticaloa",
+    "fromWhom": "Invitation for District Coordination Meeting on Peace , Reconciliation , and Communty  Development",
+    "subject": "வெளிக்களம் (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
-      "வெளிக்களம் (Field)"
+      "வெளிக்களம் (Field)",
+      "நிர்வாகப் பிரிவு (Administration)"
     ],
     "forwardedTo": [
       "821351111V"
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-09-25 10:56",
-    "chats": [],
-    "fileNo": ""
+    "chats": []
   },
   {
     "id": "LTR-1790314181278",
@@ -6041,24 +5564,25 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-22",
     "dispatchedDate": "2026-09-19",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "-",
-    "fromWhom": "Sureshkumar Saarathadevi Ponnaiya Road Puchchakerni",
-    "subject": "kaani uruthi paduththal kaditham",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "-",
+    "inwardNo": "Sureshkumar Saarathadevi Ponnaiya Road Puchchakerni",
+    "fromWhom": "kaani uruthi paduththal kaditham",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
-      "காணிப் பிரிவு (Land Division)"
+      "காணிப் பிரிவு (Land Division)",
+      "நிர்வாகப் பிரிவு (Administration)"
     ],
     "forwardedTo": [
       "880770071V"
     ],
-    "action": "Not Yet Viewed",
+    "action": "Under Investigation",
     "replyResponse": "",
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-09-25 10:59",
-    "chats": [],
-    "fileNo": ""
+    "chats": []
   },
   {
     "id": "LTR-1790314423782",
@@ -6066,24 +5590,25 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-22",
     "dispatchedDate": "2026-09-16",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "CH/IE/W/PSDG/KIRI/AUG/2026",
-    "fromWhom": "Office of the divisional irrigation engineer Chenkalady",
-    "subject": "velaiththiddathitku thevaiyana man eatruvathartku anumathi",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "CH/IE/W/PSDG/KIRI/AUG/2026",
+    "inwardNo": "Office of the divisional irrigation engineer Chenkalady",
+    "fromWhom": "velaiththiddathitku thevaiyana man eatruvathartku anumathi",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
-      "காணிப் பிரிவு (Land Division)"
+      "காணிப் பிரிவு (Land Division)",
+      "நிர்வாகப் பிரிவு (Administration)"
     ],
     "forwardedTo": [
       "880770071V"
     ],
-    "action": "Not Yet Viewed",
+    "action": "Action Taken",
     "replyResponse": "",
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-09-25 11:03",
-    "chats": [],
-    "fileNo": ""
+    "chats": []
   },
   {
     "id": "LTR-1790314598261",
@@ -6091,24 +5616,25 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-22",
     "dispatchedDate": "2026-09-19",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "-",
-    "fromWhom": "Velmuruku Sivaranjini Paamkolani maankerni",
-    "subject": "minsaram peruvathatkana anumathi",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "-",
+    "inwardNo": "Velmuruku Sivaranjini Paamkolani maankerni",
+    "fromWhom": "minsaram peruvathatkana anumathi",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
-      "காணிப் பிரிவு (Land Division)"
+      "காணிப் பிரிவு (Land Division)",
+      "நிர்வாகப் பிரிவு (Administration)"
     ],
     "forwardedTo": [
       "880770071V"
     ],
-    "action": "Not Yet Viewed",
+    "action": "Action Taken",
     "replyResponse": "",
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-09-25 11:06",
-    "chats": [],
-    "fileNo": ""
+    "chats": []
   },
   {
     "id": "LTR-1790314804070",
@@ -6116,22 +5642,23 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-23",
     "dispatchedDate": "2026-09-15",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "-",
-    "fromWhom": "MAHESH Construction",
-    "subject": "Request  for handing Over of payment Cheque",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "-",
+    "inwardNo": "MAHESH Construction",
+    "fromWhom": "Request  for handing Over of payment Cheque",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
-      "திட்டமிடல் பிரிவு (Planning)"
+      "திட்டமிடல் பிரிவு (Planning)",
+      "நிர்வாகப் பிரிவு (Administration)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-09-25 11:10",
-    "chats": [],
-    "fileNo": ""
+    "chats": []
   },
   {
     "id": "LTR-1790314970085",
@@ -6139,47 +5666,50 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-22",
     "dispatchedDate": "2026-09-22",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "-",
-    "fromWhom": "LIONS INTERNATIONAL",
-    "subject": "Chenkalady lions kalakam nadaththum elnilo kaalanilai maanadu",
-    "division": "பதிவாளர் கிளை (Registrar Branch)",
+    "registeredPostNo": "-",
+    "inwardNo": "LIONS INTERNATIONAL",
+    "fromWhom": "Chenkalady lions kalakam nadaththum elnilo kaalanilai maanadu",
+    "subject": "பதிவாளர் கிளை (Registrar Branch)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
-      "பதிவாளர் கிளை (Registrar Branch)"
+      "பதிவாளர் கிளை (Registrar Branch)",
+      "நிர்வாகப் பிரிவு (Administration)",
+      "வெளிக்களம் (Field)"
     ],
     "forwardedTo": [
       "198611903241"
     ],
     "action": "Not Yet Viewed",
     "replyResponse": "",
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-09-25 11:12",
-    "chats": [],
-    "fileNo": ""
+    "chats": []
   },
   {
     "id": "LTR-1790315182621",
     "originalNo": "KPN/DS/2026/09/011",
-    "date": "2026-09-22",
-    "dispatchedDate": "2026-09-12",
+    "date": "2026-09-21",
+    "dispatchedDate": "2026-09-11",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DRP/ACC/13/AG-16/2025-26",
-    "fromWhom": "Ministry  Of Digital Egonomy",
-    "subject": "Release of Allocation fir the Year of 2026",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "Ministry  Of Digital Egonomy",
+    "inwardNo": "Release of Allocation fir the Year of 2026",
+    "fromWhom": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
-      "கணக்குப் பிரிவு (Accounts & Finance)"
+      "கணக்குப் பிரிவு (Accounts & Finance)",
+      "நிர்வாகப் பிரிவு (Administration)"
     ],
     "forwardedTo": [],
-    "action": "Not Yet Viewed",
+    "action": "Action Taken",
     "replyResponse": "",
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-09-25 11:16",
-    "chats": [],
-    "fileNo": ""
+    "chats": []
   },
   {
     "id": "LTR-1790315519341",
@@ -6187,10 +5717,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-23",
     "dispatchedDate": "2026-09-20",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADM/SLPS/TRANS/2026",
-    "fromWhom": "District Secretariat Batticaloa",
-    "subject": "Recommendation for transfer Mr. Wickramaarachchi, SLPS-III",
+    "registeredPostNo": "ADM/SLPS/TRANS/2026",
+    "inwardNo": "District Secretariat Batticaloa",
+    "fromWhom": "Recommendation for transfer Mr. Wickramaarachchi, SLPS-III",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -6198,11 +5728,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-09-25 11:21",
-    "chats": [],
-    "fileNo": ""
+    "chats": []
   },
   {
     "id": "LTR-1790315641710",
@@ -6210,10 +5740,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-23",
     "dispatchedDate": "2026-09-20",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "-",
-    "fromWhom": "Koralaipattu West Oddamady",
-    "subject": "Assumption  of duties",
+    "registeredPostNo": "-",
+    "inwardNo": "Koralaipattu West Oddamady",
+    "fromWhom": "Assumption  of duties",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -6221,11 +5751,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-09-25 11:24",
-    "chats": [],
-    "fileNo": ""
+    "chats": []
   },
   {
     "id": "LTR-1791433569748",
@@ -6233,18 +5763,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-06",
     "dispatchedDate": "2026-10-03",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/DIS/NDRSC/HOUSE//2026",
-    "fromWhom": "District Secretariat, Batticaloa (Disaster Relief Services Unit)",
-    "subject": "Providing payments for partially damaged houses due to natural disasters",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "BT/DIS/NDRSC/HOUSE//2026",
+    "inwardNo": "District Secretariat, Batticaloa (Disaster Relief Services Unit)",
+    "fromWhom": "Providing payments for partially damaged houses due to natural disasters",
+    "subject": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "கணக்குப் பிரிவு (Accounts & Finance)"
     ],
     "forwardedTo": [],
     "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 186,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:56",
@@ -6258,14 +5788,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "District Secretariat instructs the release of funds to respective DS divisions for houses damaged by heavy rain and wind.",
         "timestamp": "2026-10-08 09:56"
       }
-    ],
-    "fileNo": "",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-12T05:28:17.448Z"
+    ]
   },
   {
     "id": "LTR-1791432171980",
@@ -6273,18 +5796,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-06",
     "dispatchedDate": "2026-09-28",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "9752123",
-    "fromWhom": "Bank of Ceylon, Vakarai",
-    "subject": "Statement of Account - Office Staff Welfare Society",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "9752123",
+    "inwardNo": "Bank of Ceylon, Vakarai",
+    "fromWhom": "Statement of Account - Office Staff Welfare Society",
+    "subject": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "கணக்குப் பிரிவு (Accounts & Finance)"
     ],
     "forwardedTo": [],
     "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 129,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:32",
@@ -6298,14 +5821,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This document provides the bank statement of account summary for the Office Staff Welfare Society of the Divisional Secretariat, Koraipattu North.",
         "timestamp": "2026-10-08 09:32"
       }
-    ],
-    "fileNo": "",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-12T05:28:21.937Z"
+    ]
   },
   {
     "id": "LTR-1791432141250",
@@ -6313,18 +5829,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-06",
     "dispatchedDate": "2026-09-28",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "1821",
-    "fromWhom": "Bank of Ceylon, Vakarai",
-    "subject": "Statement of Account - Office Staff Welfare Society",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "1821",
+    "inwardNo": "Bank of Ceylon, Vakarai",
+    "fromWhom": "Statement of Account - Office Staff Welfare Society",
+    "subject": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "கணக்குப் பிரிவு (Accounts & Finance)"
     ],
     "forwardedTo": [],
     "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 191,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:32",
@@ -6338,14 +5854,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This document is a bank account statement for the Office Staff Welfare Society of the Divisional Secretariat, Koralaipattu North, for the period ending 30/09/2026.",
         "timestamp": "2026-10-08 09:32"
       }
-    ],
-    "fileNo": "",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-12T05:28:24.407Z"
+    ]
   },
   {
     "id": "LTR-1791432098624",
@@ -6353,18 +5862,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-06",
     "dispatchedDate": "2026-09-28",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "9752123",
-    "fromWhom": "Bank of Ceylon, Vakarai",
-    "subject": "Statement of Account for Office Staff Welfare Society",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "9752123",
+    "inwardNo": "Bank of Ceylon, Vakarai",
+    "fromWhom": "Statement of Account for Office Staff Welfare Society",
+    "subject": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "கணக்குப் பிரிவு (Accounts & Finance)"
     ],
     "forwardedTo": [],
     "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 218,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:31",
@@ -6378,14 +5887,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This is a bank statement for the Office Staff Welfare Society account held at the Bank of Ceylon Vakarai branch.",
         "timestamp": "2026-10-08 09:31"
       }
-    ],
-    "fileNo": "",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-12T05:28:30.418Z"
+    ]
   },
   {
     "id": "LTR-1791433488999",
@@ -6393,11 +5895,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-03",
     "dispatchedDate": "2026-09-30",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADM/SLaCS/Gen/DO-12/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "First Efficiency Bar Examination for Officers of Sri Lanka Accountants' Service",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "ADM/SLaCS/Gen/DO-12/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "First Efficiency Bar Examination for Officers of Sri Lanka Accountants' Service",
+    "subject": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "கணக்குப் பிரிவு (Accounts & Finance)"
     ],
@@ -6406,7 +5908,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "action": "Under Investigation",
     "replyResponse": "",
-    "imageSizeKb": 159,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-08 09:54",
@@ -6420,14 +5922,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Forwarding the First Efficiency Bar Examination results of Mr. Abdul Rahuman Ahamed Mufly, Accountant, to the Divisional Secretariat, Koralai Pattu North for necessary action.",
         "timestamp": "2026-10-08 09:54"
       }
-    ],
-    "fileNo": "",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Under Investigation",
-    "ActionStatus": "Under Investigation",
-    "FileNo": "",
-    "updatedAt": "2026-10-12T05:30:53.702Z"
+    ]
   },
   {
     "id": "LTR-1791433612259",
@@ -6440,34 +5935,36 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "ADM/VEHRS/DO-14/2026",
     "subject": "District Secretariat, Batticaloa",
     "division": "-",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "-"
+    ],
     "forwardedTo": [],
     "action": "Action Taken",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-07T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-07",
+    "chats": []
   },
   {
     "id": "LTR-1791780365995",
     "originalNo": "KPN/DS/2026/10/133",
-    "date": "2026-10-07",
-    "dispatchedDate": "2026-09-02",
+    "date": "2026-10-06",
+    "dispatchedDate": "2026-09-01",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "LAN/LAUSE/01/03",
-    "fromWhom": "பிரதேச செயலாளர், பிரதேச செயலகம், கோறளைப்பற்று வடக்கு, வாகரை",
-    "subject": "பிரதேச மட்ட காணிப் பயன்பாட்டுத் திட்டமிடற் குழுக் கூட்டம் மற்றும் கிராமமட்ட காணிப் பயன்பாட்டுத் திட்டம் தயாரித்தலுக்கான பங்குதாரர்களுடனான கலந்துரையாடல் - 09.09.2026",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "LAN/LAUSE/01/03",
+    "inwardNo": "பிரதேச செயலாளர், பிரதேச செயலகம், கோறளைப்பற்று வடக்கு, வாகரை",
+    "fromWhom": "பிரதேச மட்ட காணிப் பயன்பாட்டுத் திட்டமிடற் குழுக் கூட்டம் மற்றும் கிராமமட்ட காணிப் பயன்பாட்டுத் திட்டம் தயாரித்தலுக்கான பங்குதாரர்களுடனான கலந்துரையாடல் - 09.09.2026",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
     "forwardedTo": [],
-    "action": "Under Investigation",
-    "fileNo": "",
+    "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 163,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-12 10:16",
@@ -6481,13 +5978,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "2026.09.09 ஆம் திகதி நடைபெறவுள்ள பிரதேச மட்ட காணிப் பயன்பாட்டுத் திட்டமிடற் குழுக் கூட்டத்தில் பங்குபற்றுமாறு கோரும் கடிதம்.",
         "timestamp": "2026-10-12 10:16"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Under Investigation",
-    "ActionStatus": "Under Investigation",
-    "FileNo": "",
-    "updatedAt": "2026-10-12T06:19:59.667Z"
+    ]
   },
   {
     "id": "LTR-1791520302615",
@@ -6495,11 +5986,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-07",
     "dispatchedDate": "2026-10-06",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "1009521",
-    "fromWhom": "Eastern Provincial Council, Chief Accountant- Finance & Revenue",
-    "subject": "Exam fees",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "1009521",
+    "inwardNo": "Eastern Provincial Council, Chief Accountant- Finance & Revenue",
+    "fromWhom": "Exam fees",
+    "subject": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "கணக்குப் பிரிவு (Accounts & Finance)"
     ],
@@ -6509,13 +6000,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-10-07T18:30:00.000Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-18T03:51:35.899Z"
+    "createdAt": "2026-10-07",
+    "chats": []
   },
   {
     "id": "LTR-1791520199378",
@@ -6523,11 +6009,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-07",
     "dispatchedDate": "2026-10-04",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "R 5105",
-    "fromWhom": "Uthayan Perfect Builder",
-    "subject": "REQUEST OF SECOND PAYMENT - Construction of Drainage in Puliyankandalady Road at Divisional Secretariat, Koralaipattu North, Vaharai",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "R 5105",
+    "inwardNo": "Uthayan Perfect Builder",
+    "fromWhom": "REQUEST OF SECOND PAYMENT - Construction of Drainage in Puliyankandalady Road at Divisional Secretariat, Koralaipattu North, Vaharai",
+    "subject": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "கணக்குப் பிரிவு (Accounts & Finance)"
     ],
@@ -6537,13 +6023,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-10-07T18:30:00.000Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "4686",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-18T03:52:11.860Z"
+    "createdAt": "2026-10-07",
+    "chats": []
   },
   {
     "id": "LTR-1791519984451",
@@ -6556,14 +6037,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "BECS Education Campus",
     "subject": "முன்பிள்ளைப்பருவ அபிவிருத்தி மற்றும் முன்பள்ளி ஆசிரியர் பயிற்சி டிப்ளோமா பாடநெறி /NVQ-Level- 04 -Pre school Teacher விண்ணப்பம் கோரல் -(2026-2027)",
     "division": "சிறுவர் பிரிவு (Field)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "சிறுவர் பிரிவு (Field)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-08T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-08",
+    "chats": []
   },
   {
     "id": "LTR-1791519902420",
@@ -6571,11 +6055,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-07",
     "dispatchedDate": "2026-10-03",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "EP/28/LB&L9/LK/Gen",
-    "fromWhom": "Department of Land Administration, Eastern Province",
-    "subject": "Registration of permits issued under the Land Development Ordinance and implementation of eSlims system procedures (Circular Nos. 2026/03 and 2026/03 (II))",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "EP/28/LB&L9/LK/Gen",
+    "inwardNo": "Department of Land Administration, Eastern Province",
+    "fromWhom": "Registration of permits issued under the Land Development Ordinance and implementation of eSlims system procedures (Circular Nos. 2026/03 and 2026/03 (II))",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -6585,13 +6069,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-10-07T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-13T09:13:15.182Z"
+    "createdAt": "2026-10-07",
+    "chats": []
   },
   {
     "id": "LTR-1791519557762",
@@ -6599,11 +6078,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-07",
     "dispatchedDate": "2026-10-03",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "EP/28/LB/L4/Training",
-    "fromWhom": "Department of Land Administration, Eastern Province",
-    "subject": "Two-day residential workshop on GPS field data collection for land field officers",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "EP/28/LB/L4/Training",
+    "inwardNo": "Department of Land Administration, Eastern Province",
+    "fromWhom": "Two-day residential workshop on GPS field data collection for land field officers",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -6613,13 +6092,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-10-07T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-13T09:12:59.647Z"
+    "createdAt": "2026-10-07",
+    "chats": []
   },
   {
     "id": "LTR-1791519492021",
@@ -6632,14 +6106,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "மாவட்ட செயலகம், மட்டக்களப்பு (புள்ளிவிபரவியல் பிரிவு) / District Secretariat, Batticaloa",
     "subject": "பொருளாதார தொகைமதிப்பு 2025/26 (விவசாய நடவடிக்கைகள்)",
     "division": "திட்டமிடல் பிரிவு (Planning)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "திட்டமிடல் பிரிவு (Planning)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-08T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-08",
+    "chats": []
   },
   {
     "id": "LTR-1791519412847",
@@ -6652,14 +6129,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "மாவட்ட செயலகம், மட்டக்களப்பு (புள்ளிவிபரவியல் பிரிவு) / District Secretariat, Batticaloa",
     "subject": "பொருளாதார தொகமதிப்பு 2025/26 (விவசாய நடவடிக்கைகள்) தொடர்பான பிரச்சார நடவடிக்கைகளுக்காக தேவையான ஒத்துழைப்பைப் பெற்றுக்கொள்ளல்",
     "division": "திட்டமிடல் பிரிவு (Planning)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "திட்டமிடல் பிரிவு (Planning)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-08T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-08",
+    "chats": []
   },
   {
     "id": "LTR-1791519340460",
@@ -6667,11 +6147,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-07",
     "dispatchedDate": "2026-09-26",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "EP/20/02/07/07",
-    "fromWhom": "மாகாணக் கல்வித் திணைக்களம், கிழக்கு மாகாணம் (Provincial Department of Education, Eastern Province)",
-    "subject": "பாடசாலைக் காணிகளை விடுவித்தல் - PLC/EP/03 படிவத்தைச் சமர்ப்பித்தல் மற்றும் மேலதிக நடவடிக்கைக்காக",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "EP/20/02/07/07",
+    "inwardNo": "மாகாணக் கல்வித் திணைக்களம், கிழக்கு மாகாணம் (Provincial Department of Education, Eastern Province)",
+    "fromWhom": "பாடசாலைக் காணிகளை விடுவித்தல் - PLC/EP/03 படிவத்தைச் சமர்ப்பித்தல் மற்றும் மேலதிக நடவடிக்கைக்காக",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -6681,13 +6161,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-10-07T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-23T09:38:51.760Z"
+    "createdAt": "2026-10-07",
+    "chats": []
   },
   {
     "id": "LTR-1791519208227",
@@ -6700,14 +6175,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "பிரதேச செயலகம், ஏறாவூர்பற்று, செங்கலடி (Divisional Secretariat, Eravur Pattu, Chenkalady)",
     "subject": "தற்காலிக தனிநபர்கோவை மற்றும் செயலாற்றுகையறிக்கை கோரல் திரு.கே.விஜயபாலன் (FI)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-08T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-08",
+    "chats": []
   },
   {
     "id": "LTR-1791519139157",
@@ -6718,16 +6196,19 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "registeredPostNo": "No",
     "inwardNo": "EP/24/E4/EB Exam/2026",
     "fromWhom": "சமூக சேவைகள் திணைக்களம், கிழக்கு மாகாணம் (Department of Social Services, Eastern Province)",
-    "subject": "கிழக்கு மாக���ண பொதுச் சேவையின் அபிவிருத்தி உத்தியோகத்தர் I/II/III ஆம் தரங்களிலுள்ள அலுவலர்களுக்கான 1ஆம், 2ஆம், 3ஆம் வினைத்திறமைகாண் தடைப்பரீட்சைகள்-2026(I)",
+    "subject": "கிழக்கு மாகாண பொதுச் சேவையின் அபிவிருத்தி உத்தியோகத்தர் I/II/III ஆம் தரங்களிலுள்ள அலுவலர்களுக்கான 1ஆம், 2ஆம், 3ஆம் வினைத்திறமைகாண் தடைப்பரீட்சைகள்-2026(I)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-08T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-08",
+    "chats": []
   },
   {
     "id": "LTR-1791519059153",
@@ -6740,14 +6221,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "Department of Social Services, Eastern Province",
     "subject": "Payment of PAMA, Department of Social Services EP",
     "division": "சமூக சேவை (Social)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "சமூக சேவை (Social)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-08T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-08",
+    "chats": []
   },
   {
     "id": "LTR-1791518898927",
@@ -6760,14 +6244,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "Divisional Secretary, Koralaipattu North, Vaharai (Mrs. Amaliney Kartheepan)",
     "subject": "APPLICATION FOR APPROVAL FOR HOLIDAY PAY UNDER P.A. CIRCULAR NO: 256, 305 & 347 ISSUED IN 1984, 1985 AND 1986 Month of October - 2026",
     "division": "நிர்வாகப் பிரிவு (Administration)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-08T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-08",
+    "chats": []
   },
   {
     "id": "LTR-1791518812025",
@@ -6780,14 +6267,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "District Secretariat, Batticaloa",
     "subject": "Application for Approval for Holiday Pay under P.A. Circular No: 256, 305 & 347 - October 2026",
     "division": "நிர்வாகப் பிரிவு (Administration)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-08T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-08",
+    "chats": []
   },
   {
     "id": "LTR-1791518737734",
@@ -6795,11 +6285,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-07",
     "dispatchedDate": "2026-09-23",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "18955",
-    "fromWhom": "Mr. A.R.A. Mufly, Accountant",
-    "subject": "Application for approval for holiday pay under P.A. Circular No: 256, 305 & 347 for October 2026",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "18955",
+    "inwardNo": "Mr. A.R.A. Mufly, Accountant",
+    "fromWhom": "Application for approval for holiday pay under P.A. Circular No: 256, 305 & 347 for October 2026",
+    "subject": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "கணக்குப் பிரிவு (Accounts & Finance)"
     ],
@@ -6809,13 +6299,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-10-07T18:30:00.000Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-18T03:52:32.074Z"
+    "createdAt": "2026-10-07",
+    "chats": []
   },
   {
     "id": "LTR-1791518651519",
@@ -6828,14 +6313,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "திரு. அ.ம. முபாரீஸ், முகாமைத்துவ சேவை உத்தியோகத்தர், பிரதேச செயலகம், கோறளைப்பற்று வடக்கு, வாகரை",
     "subject": "கடமை விடுமுறை மற்றும் அலுவலக வாகனத்தினை மாவட்டத்திற்கு வெளியே கொண்டு செல்வதற்கான அனுமதி",
     "division": "நிர்வாகப் பிரிவு (Administration)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-08T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-08",
+    "chats": []
   },
   {
     "id": "LTR-1791518381061",
@@ -6848,14 +6336,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "District Secretariat, Batticaloa (Planning Unit)",
     "subject": "Approval for the Project Implementation",
     "division": "திட்டமிடல் பிரிவு (Planning)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "திட்டமிடல் பிரிவு (Planning)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-08T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-08",
+    "chats": []
   },
   {
     "id": "LTR-1791518324280",
@@ -6868,14 +6359,17 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fromWhom": "Small Enterprises Development Division, Ministry of Industry and Entrepreneurship Development",
     "subject": "Monthly Progress Review Meeting",
     "division": "கிராம அபிவிருத்தி (Rural Development)",
-    "forwardedDivisions": [],
+    "forwardedDivisions": [
+      "கிராம அபிவிருத்தி (Rural Development)"
+    ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
     "replyResponse": "",
     "fileNo": "",
-    "registeredBy": "946892580V",
-    "registeredByName": "N.Saraniya",
-    "createdAt": "2026-10-08T18:30:00.000Z"
+    "registeredBy": "mail01",
+    "registeredByName": "Mail Officer (கடித பதிவாளர்)",
+    "createdAt": "2026-10-08",
+    "chats": []
   },
   {
     "id": "LTR-1791518234553",
@@ -6883,11 +6377,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-07",
     "dispatchedDate": "2026-09-24",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "08.10.2026",
-    "fromWhom": "A.M. Risvi, Assistant Youth Service Officer, Divisional Secretariat",
-    "subject": "2026 அக்டோபர் மாத முன்னேற்ற அறிக்கை (October 2026 Monthly Progress Report)",
-    "division": "வெளிக்களம் (Field)",
+    "registeredPostNo": "08.10.2026",
+    "inwardNo": "A.M. Risvi, Assistant Youth Service Officer, Divisional Secretariat",
+    "fromWhom": "2026 அக்டோபர் மாத முன்னேற்ற அறிக்கை (October 2026 Monthly Progress Report)",
+    "subject": "வெளிக்களம் (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "வெளிக்களம் (Field)"
     ],
@@ -6897,13 +6391,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-10-07T18:30:00.000Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:30:30.827Z"
+    "createdAt": "2026-10-07",
+    "chats": []
   },
   {
     "id": "LTR-1791518116301",
@@ -6911,10 +6400,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-07",
     "dispatchedDate": "2026-09-29",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "EP/24/E4/EB Exam/2026",
-    "fromWhom": "மாகாணப் பணிப்பாளர், சமூக சேவைகள் திணைக்களம், கிழக்கு மாகாணம் (Department of Social Services, Eastern Province)",
-    "subject": "கிழக்கு மாகாண பொதுச் சேவையின் அபிவிருத்தி உத்தியோகத்தர், III/II/I ஆம் தரங்களிலுள்ள அலுவலர்களுக்கான 1ஆம், 2ஆம், 3ஆம் வினைத்திறமைகாண் தடைப்பரீட்சைகள்-2026(I)",
+    "registeredPostNo": "EP/24/E4/EB Exam/2026",
+    "inwardNo": "மாகாணப் பணிப்பாளர், சமூக சேவைகள் திணைக்களம், கிழக்கு மாகாணம் (Department of Social Services, Eastern Province)",
+    "fromWhom": "கிழக்கு மாகாண பொதுச் சேவையின் அபிவிருத்தி உத்தியோகத்தர், III/II/I ஆம் தரங்களிலுள்ள அலுவலர்களுக்கான 1ஆம், 2ஆம், 3ஆம் வினைத்திறமைகாண் தடைப்பரீட்சைகள்-2026(I)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -6925,13 +6414,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-10-07T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:30:28.065Z"
+    "createdAt": "2026-10-07",
+    "chats": []
   },
   {
     "id": "LTR-1791517998484",
@@ -6939,11 +6423,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-07",
     "dispatchedDate": "2026-09-30",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "03-01-01-13",
-    "fromWhom": "Department of Buildings (கட்டிடத் திணைக்களம்)",
-    "subject": "Construction of Two Storied Building for Divisional Secretariat Office Building at Koralaipattu North, Vaharai",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "03-01-01-13",
+    "inwardNo": "Department of Buildings (கட்டிடத் திணைக்களம்)",
+    "fromWhom": "Construction of Two Storied Building for Divisional Secretariat Office Building at Koralaipattu North, Vaharai",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -6953,13 +6437,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-10-07T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:30:24.680Z"
+    "createdAt": "2026-10-07",
+    "chats": []
   },
   {
     "id": "LTR-2026-002",
@@ -6967,11 +6446,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-03",
     "dispatchedDate": "2026-10-01",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/LND/REG/112",
-    "fromWhom": "மாவட்ட செயலகம் மட்டக்களப்பு (District Secretariat Batticaloa)",
-    "subject": "வாகரை பிரதேச காணி சுவீகரிப்பு மற்றும் அனுமதியற்ற குடியிருப்புகள் தொடர்பான கள அறிக்கை சமர்ப்பித்தல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "BT/LND/REG/112",
+    "inwardNo": "மாவட்ட செயலகம் மட்டக்களப்பு (District Secretariat Batticaloa)",
+    "fromWhom": "வாகரை பிரதேச காணி சுவீகரிப்பு மற்றும் அனுமதியற்ற குடியிருப்புகள் தொடர்பான கள அறிக்கை சமர்ப்பித்தல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -6984,12 +6463,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
     "createdAt": "2026-10-04T09:15:00Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "RP-712834",
-    "actionStatus": "Under Investigation",
-    "ActionStatus": "Under Investigation",
-    "FileNo": "KN/LND/2026/ACQ-14",
-    "updatedAt": "2026-09-22T21:25:42.186Z"
+    "chats": []
   },
   {
     "id": "LTR-2026-003",
@@ -6997,13 +6471,14 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-30",
     "dispatchedDate": "2026-09-29",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "MOF/EXP/2026/89",
-    "fromWhom": "பொது நிதியமைச்சு மற்றும் திறைசேரி (Ministry of Finance)",
-    "subject": "2026 ஆம் ஆண்டிற்கான மூலதன செலவின நிதி ஒதுக்கீடு மற்றும் காலாண்டு நிதி அறிக்கை",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "MOF/EXP/2026/89",
+    "inwardNo": "பொது நிதியமைச்சு மற்றும் திறைசேரி (Ministry of Finance)",
+    "fromWhom": "2026 ஆம் ஆண்டிற்கான மூலதன செலவின நிதி ஒதுக்கீடு மற்றும் காலாண்டு நிதி அறிக்கை",
+    "subject": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
-      "கணக்குப் பிரிவு (Accounts & Finance)"
+      "கணக்குப் பிரிவு (Accounts & Finance)",
+      "திட்டமிடல் பிரிவு (Planning)"
     ],
     "forwardedTo": [
       "luxury02"
@@ -7014,12 +6489,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
     "createdAt": "2026-10-02T10:00:00Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "MOF/EXP/2026/89",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-22T09:59:20.737Z"
+    "chats": []
   },
   {
     "id": "LTR-1790172398405",
@@ -7027,11 +6497,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-21",
     "dispatchedDate": "2026-08-30",
     "letterType": "Express Mail",
-    "registeredPostNo": "No",
-    "inwardNo": "Adm/",
-    "fromWhom": "Security",
-    "subject": "Population data collection",
-    "division": "தபால் & ஆவணப் பிரிவு (Mail & Records)",
+    "registeredPostNo": "Adm/",
+    "inwardNo": "Security",
+    "fromWhom": "Population data collection",
+    "subject": "தபால் & ஆவணப் பிரிவு (Mail & Records)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "தபால் & ஆவணப் பிரிவு (Mail & Records)"
     ],
@@ -7041,13 +6511,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-09-21T18:30:00.000Z",
-    "postType": "Express Mail",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:30:15.877Z"
+    "createdAt": "2026-09-21",
+    "chats": []
   },
   {
     "id": "LTR-1791794922431",
@@ -7055,11 +6520,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-09",
     "dispatchedDate": "2026-10-24",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "04/01/12/5082/2026",
-    "fromWhom": "Department of Wildlife Conservation, Regional Wildlife Office (Eastern), Ampara",
-    "subject": "Construction of electrified fence at Kanthanai",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "04/01/12/5082/2026",
+    "inwardNo": "Department of Wildlife Conservation, Regional Wildlife Office (Eastern), Ampara",
+    "fromWhom": "Construction of electrified fence at Kanthanai",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -7069,13 +6534,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-10-09T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "04/01/12/5082/2026",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:30:11.880Z"
+    "createdAt": "2026-10-09",
+    "chats": []
   },
   {
     "id": "LTR-1791795032386",
@@ -7085,9 +6545,9 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "letterType": "Normal Post",
     "registeredPostNo": "No",
     "inwardNo": "Mr. H.D.E. Wickramaarachchi, Assistant Director of Planning",
-    "fromWhom": "Mr. H.D.E. Wickramaarachchi, Assistant Director of Planning",
-    "subject": "APPLICATION FOR APPROVAL FOR HOLIDAY PAY UNDER P.A. CIRCULAR NO: 256, 305 & 347 ISSUED IN 1984, 1985 AND 1986 Month of October - 2026",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "fromWhom": "APPLICATION FOR APPROVAL FOR HOLIDAY PAY UNDER P.A. CIRCULAR NO: 256, 305 & 347 ISSUED IN 1984, 1985 AND 1986 Month of October - 2026",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -7097,13 +6557,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "001",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-10-09T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "001",
-    "updatedAt": "2026-10-13T08:27:28.008Z"
+    "createdAt": "2026-10-09",
+    "chats": []
   },
   {
     "id": "LTR-1791795112238",
@@ -7111,10 +6566,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-10",
     "dispatchedDate": "2026-10-04",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADM/GC-GEN/MSO-09/2026",
-    "fromWhom": "மாவட்ட செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
-    "subject": "பொது நிருவாக, மாகாண சபைகள் மற்றும் உள்ளூராட்சி அமைச்சின் முகாமைத்துவ உதவியாளர் தொழிநுட்பமல்லாத வகுதி 2 சேவை வகுப்பின் முகாமைத்துவ உதவியாளர் பதவியுயர்வுக்கான நடைமுறை",
+    "registeredPostNo": "ADM/GC-GEN/MSO-09/2026",
+    "inwardNo": "மாவட்ட செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
+    "fromWhom": "பொது நிருவாக, மாகாண சபைகள் மற்றும் உள்ளூராட்சி அமைச்சின் முகாமைத்துவ உதவியாளர் தொழிநுட்பமல்லாத வகுதி 2 சேவை வகுப்பின் முகாமைத்துவ உதவியாளர் பதவியுயர்வுக்கான நடைமுறை",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -7125,13 +6580,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-10-10T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:30:06.349Z"
+    "createdAt": "2026-10-10",
+    "chats": []
   },
   {
     "id": "LTR-1791795407838",
@@ -7139,10 +6589,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-10",
     "dispatchedDate": "2026-09-19",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "PMAS/49904",
-    "fromWhom": "Ministry of Public Administration, Provincial Councils and Local Government (Combined Services Division)",
-    "subject": "කළමනාකරණ සේවා නිලධාරී සේවය III පෞද්ගලික ලිපිගොනු යාවත්කාලීන කිරීම (තනතුර ස්ථිර කිරීම - නී. විනෝතන්)",
+    "registeredPostNo": "PMAS/49904",
+    "inwardNo": "Ministry of Public Administration, Provincial Councils and Local Government (Combined Services Division)",
+    "fromWhom": "කළමනාකරණ සේවා නිලධාරී සේවය III පෞද්ගලික ලිපිගොනු යාවත්කාලීන කිරීම (තනතුර ස්ථිර කිරීම - නී. විනෝතන්)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -7153,13 +6603,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-10-10T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:30:03.382Z"
+    "createdAt": "2026-10-10",
+    "chats": []
   },
   {
     "id": "LTR-1791795497244",
@@ -7169,25 +6614,20 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "letterType": "Normal Post",
     "registeredPostNo": "No",
     "inwardNo": "BT/DSSO/Dis/Death/06/2026",
-    "fromWhom": "BT/DSSO/Dis/Death/06/2026",
-    "subject": "சமூக சேவைகள் திணைக்களம் - கிழக்கு மாகாணம், மாவட்ட அலுவலகம் - மட்டக்களப்பு (Department of Social Services - Eastern Province, District Office - Batticaloa)",
+    "fromWhom": "சமூக சேவைகள் திணைக்களம் - கிழக்கு மாகாணம், மாவட்ட அலுவலகம் - மட்டக்களப்பு (Department of Social Services - Eastern Province, District Office - Batticaloa)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
-      "நிர்வாகப் பிரிவு (Administration)"
+      "சமூக சேவை (Social)"
     ],
     "forwardedTo": [],
     "action": "Action Taken",
-    "replyResponse": "",
+    "replyResponse": "{\"id\":\"LTR-1791795497244\",\"originalNo\":\"KPN/DS/2026/10/157\",\"date\":\"2026-10-11\",\"dispatchedDate\":\"2026-10-05\",\"letterType\":\"Normal Post\",\"registeredPostNo\":\"No\",\"inwardNo\":\"No\",\"fromWhom\":\"BT/DSSO/Dis/Death/06/2026\",\"subject\":\"சமூக சேவைகள் திணைக்களம் - கிழக்கு மாகாணம், மாவட்ட அலுவலகம் - மட்டக்களப்பு (Department of Social Services - Eastern Province, District Office - Batticaloa)\",\"division\":\"நிர்வாகப் பிரிவு (Administration)\",\"forwardedDivisions\":[\"சமூக சேவை (Social)\"],\"forwardedTo\":[],\"action\":\"Action Taken\",\"replyResponse\":\"\",\"fileNo\":\"\",\"registeredBy\":\"mail01\",\"registeredByName\":\"Mail Officer (கடித பதிவாளர்)\",\"createdAt\":\"\",\"postType\":\"Normal Post\",\"RegisteredPostNo\":\"No\",\"actionStatus\":\"Action Taken\",\"ActionStatus\":\"Action Taken\",\"FileNo\":\"\",\"updatedAt\":\"2026-10-12T10:11:44.173Z\"}",
     "fileNo": "",
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
-    "createdAt": "2026-10-09T18:30:00.000Z",
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "",
-    "updatedAt": "2026-10-12T10:11:44.173Z"
+    "createdAt": "2026-10-09",
+    "chats": []
   },
   {
     "id": "LTR-1791882150823",
@@ -7195,10 +6635,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-10",
     "dispatchedDate": "2026-10-06",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "WBB/Operations/Policies/04",
-    "fromWhom": "Welfare Benefits Board, Ministry of Finance, Planning and Economic Development",
-    "subject": "Payment of welfare benefits for the first round (அஸ்வெசும முதல் கட்ட நிலுவை கொடுப்பனவுகள்)",
+    "registeredPostNo": "WBB/Operations/Policies/04",
+    "inwardNo": "Welfare Benefits Board, Ministry of Finance, Planning and Economic Development",
+    "fromWhom": "Payment of welfare benefits for the first round (அஸ்வெசும முதல் கட்ட நிலுவை கொடுப்பனவுகள்)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -7207,9 +6647,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "930081485V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 222,
+    "fileNo": "",
     "registeredBy": "SUPERADMIN",
     "registeredByName": "System Super Administrator",
     "createdAt": "2026-10-13 14:32",
@@ -7223,13 +6662,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter provides instructions to resolve issues in beneficiary data to facilitate the payment of overdue welfare benefits for the first round.",
         "timestamp": "2026-10-13 14:32"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-13T09:02:30.824Z"
+    ]
   },
   {
     "id": "LTR-1791955889914",
@@ -7237,11 +6670,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-13",
     "dispatchedDate": "2026-10-04",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "TC/CGC/07/Pro.26",
-    "fromWhom": "Principal, Technical College - Batticaloa",
-    "subject": "Open Day & Exhibition 2026",
-    "division": "வெளிக்களம் (Field)",
+    "registeredPostNo": "TC/CGC/07/Pro.26",
+    "inwardNo": "Principal, Technical College - Batticaloa",
+    "fromWhom": "Open Day & Exhibition 2026",
+    "subject": "வெளிக்களம் (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "வெளிக்களம் (Field)"
     ],
@@ -7249,9 +6682,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "812991786V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 206,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:01",
@@ -7265,13 +6697,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The Principal of the Technical College in Batticaloa invites students, parents, and relevant Divisional Secretariat officials to attend the Open Day and Exhibition event scheduled for 2026-10-28.",
         "timestamp": "2026-10-14 11:01"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:31:29.914Z"
+    ]
   },
   {
     "id": "LTR-1791955975303",
@@ -7279,19 +6705,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-13",
     "dispatchedDate": "2026-10-06",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADM/NDDCB/PSNUP/16/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Awareness on '1818' hotline service for the 'Mulu Naadum Ondraga' national program",
-    "division": "வெளிக்களம் (Field)",
+    "registeredPostNo": "ADM/NDDCB/PSNUP/16/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Awareness on '1818' hotline service for the 'Mulu Naadum Ondraga' national program",
+    "subject": "வெளிக்களம் (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "வெளிக்களம் (Field)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 192,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:02",
@@ -7305,13 +6730,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter instructs divisional secretaries to create awareness among government officers and the public regarding the '1818' hotline for reporting drug-related activities.",
         "timestamp": "2026-10-14 11:02"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:32:55.304Z"
+    ]
   },
   {
     "id": "LTR-1791956022285",
@@ -7319,11 +6738,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-13",
     "dispatchedDate": "2026-10-08",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "WL/04/01/12/5082/2026",
-    "fromWhom": "Department of Wildlife Conservation, Regional Wildlife Office (Eastern), Ampara",
-    "subject": "Construction of the Thoniththamadu building (Thoniththamadu electricity facility) - Activity 2026",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "WL/04/01/12/5082/2026",
+    "inwardNo": "Department of Wildlife Conservation, Regional Wildlife Office (Eastern), Ampara",
+    "fromWhom": "Construction of the Thoniththamadu building (Thoniththamadu electricity facility) - Activity 2026",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -7331,9 +6750,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "996031071V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 191,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:03",
@@ -7347,13 +6765,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Requesting the Divisional Secretariat to nominate a Village Development Society to sign an agreement for the construction project at Thoniththamadu.",
         "timestamp": "2026-10-14 11:03"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:33:42.286Z"
+    ]
   },
   {
     "id": "LTR-1791956053880",
@@ -7361,19 +6773,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-13",
     "dispatchedDate": "2026-09-23",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "N/A",
-    "fromWhom": "Mr. H.D.E Wickramaarachchi, Assistant Director of Planning",
-    "subject": "Application for approval for holiday pay under P.A. circular No: 256, 305 & 347 issued in 1984, 1985 and 1986",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "N/A",
+    "inwardNo": "Mr. H.D.E Wickramaarachchi, Assistant Director of Planning",
+    "fromWhom": "Application for approval for holiday pay under P.A. circular No: 256, 305 & 347 issued in 1984, 1985 and 1986",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 182,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:04",
@@ -7387,13 +6798,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Application for approval of holiday pay for Assistant Director of Planning, Mr. H.D.E Wickramaarachchi, for work performed on weekends and public holidays in October 2026.",
         "timestamp": "2026-10-14 11:04"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:34:13.880Z"
+    ]
   },
   {
     "id": "LTR-1791956086039",
@@ -7401,19 +6806,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-13",
     "dispatchedDate": "2026-10-08",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/DPD/DCB-2026/26/01",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "பல்முகப்படுத்தப்பட்ட வரவு செலவுத்திட்ட நிகழ்ச்சித்திட்டம்-2026",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "BT/DPD/DCB-2026/26/01",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "பல்முகப்படுத்தப்பட்ட வரவு செலவுத்திட்ட நிகழ்ச்சித்திட்டம்-2026",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 186,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:04",
@@ -7427,13 +6831,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter provides instructions regarding the implementation of the Multi-sectoral Budget Program for 2026, requesting details on remaining funds for capital expenditure.",
         "timestamp": "2026-10-14 11:04"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:34:46.041Z"
+    ]
   },
   {
     "id": "LTR-1791956332698",
@@ -7441,19 +6839,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-13",
     "dispatchedDate": "2026-10-07",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DPD/MRDSS&CE/PSPAP/19/GEN/2026",
-    "fromWhom": "District Secretariat, Batticaloa (மாவட்ட செயலகம், மட்டக்களப்பு)",
-    "subject": "Awareness programme and practical technical training regarding Online MIS under Prajashakthi National Movement",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "DPD/MRDSS&CE/PSPAP/19/GEN/2026",
+    "inwardNo": "District Secretariat, Batticaloa (மாவட்ட செயலகம், மட்டக்களப்பு)",
+    "fromWhom": "Awareness programme and practical technical training regarding Online MIS under Prajashakthi National Movement",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 195,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:08",
@@ -7467,13 +6864,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter informs about an awareness programme and practical technical training regarding the Online MIS for the Prajashakthi National Movement for designated officers.",
         "timestamp": "2026-10-14 11:08"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:38:52.698Z"
+    ]
   },
   {
     "id": "LTR-1791956411371",
@@ -7481,11 +6872,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-12",
     "dispatchedDate": "2026-09-29",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "MOJ/DEV/02/LAND/28/08",
-    "fromWhom": "Ministry of Justice and National Integration",
-    "subject": "Handing over building of old Circuit Magistrate's Court, Vaharai",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "MOJ/DEV/02/LAND/28/08",
+    "inwardNo": "Ministry of Justice and National Integration",
+    "fromWhom": "Handing over building of old Circuit Magistrate's Court, Vaharai",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -7493,9 +6884,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "896590693V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 191,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:10",
@@ -7509,13 +6899,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The Ministry of Justice informs the Vaharai Divisional Secretary that the old Circuit Magistrate's Court building has no valid legal agreements and should be formally handed over by the District Judge to establish state ownership.",
         "timestamp": "2026-10-14 11:10"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:40:11.371Z"
+    ]
   },
   {
     "id": "LTR-1791956510179",
@@ -7523,11 +6907,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-12",
     "dispatchedDate": "2026-09-13",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "EP/28/LB/L2/Encroachment/General",
-    "fromWhom": "Department of Land Administration, Eastern Province",
-    "subject": "நிவாரணம் கோரும் விண்ணப்பம் - குஞ்சான்கள் குளம், வாகரை கிழக்கு",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "EP/28/LB/L2/Encroachment/General",
+    "inwardNo": "Department of Land Administration, Eastern Province",
+    "fromWhom": "நிவாரணம் கோரும் விண்ணப்பம் - குஞ்சான்கள் குளம், வாகரை கிழக்கு",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -7535,9 +6919,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "896590693V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 188,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:11",
@@ -7551,13 +6934,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "நில ஆக்கிரமிப்பு தொடர்பான முறைப்பாடு ஒன்றினை விசாரித்து, அதன் தற்போதைய நிலை மற்றும் அறிக்கை ஒன்றினை சமர்ப்பிக்குமாறு கோரப்பட்டுள்ளது.",
         "timestamp": "2026-10-14 11:11"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:41:50.180Z"
+    ]
   },
   {
     "id": "LTR-1791956649785",
@@ -7565,11 +6942,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-12",
     "dispatchedDate": "2026-10-10",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "HA/5/BT/32",
-    "fromWhom": "ஸ்ரீ பெரிய சுவாமி ஆலய பரிபாலன சபை, பால்ச்சேனை (Sri Periya Suwami Temple Trustee Board, Paalchenai)",
-    "subject": "மணல் ஏற்றுவதற்கான அனுமதி கோரல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "HA/5/BT/32",
+    "inwardNo": "ஸ்ரீ பெரிய சுவாமி ஆலய பரிபாலன சபை, பால்ச்சேனை (Sri Periya Suwami Temple Trustee Board, Paalchenai)",
+    "fromWhom": "மணல் ஏற்றுவதற்கான அனுமதி கோரல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -7577,9 +6954,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "880770071V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 175,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:14",
@@ -7593,13 +6969,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "ஸ்ரீ பெரிய சுவாமி ஆலயத்தின் திருப்பணி/கட்டுமானப் பணிகளுக்காக மேலதிகமாக 10 கியூப் மணல் ஏற்றுவதற்கான அனுமதி கோரப்பட்டுள்ளது.",
         "timestamp": "2026-10-14 11:14"
       }
-    ],
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:44:09.785Z"
+    ]
   },
   {
     "id": "LTR-1791956774039",
@@ -7607,11 +6977,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-12",
     "dispatchedDate": "2026-10-10",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "N/A",
-    "fromWhom": "Mohamed Sahideen Risli",
-    "subject": "மணல் ஏற்றுவதற்கு அனுமதி கோரல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "N/A",
+    "inwardNo": "Mohamed Sahideen Risli",
+    "fromWhom": "மணல் ஏற்றுவதற்கு அனுமதி கோரல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -7619,9 +6989,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "880770071V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 173,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:16",
@@ -7635,13 +7004,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Mohamed Sahideen Risli requests financial assistance from the Divisional Secretary for the construction of his house.",
         "timestamp": "2026-10-14 11:16"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:46:14.039Z"
+    ]
   },
   {
     "id": "LTR-1791956838211",
@@ -7649,11 +7012,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-12",
     "dispatchedDate": "2026-10-05",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "LUPPD/12/02/07",
-    "fromWhom": "District Land Use Planning Office - Batticaloa",
-    "subject": "விசேட கலந்துரையாடல் - அரச காணிகளை இற்றைப்படுத்தல் (Special meeting regarding updating state land data)",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "LUPPD/12/02/07",
+    "inwardNo": "District Land Use Planning Office - Batticaloa",
+    "fromWhom": "விசேட கலந்துரையாடல் - அரச காணிகளை இற்றைப்படுத்தல் (Special meeting regarding updating state land data)",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -7661,9 +7024,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "197024000147"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 175,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:17",
@@ -7677,13 +7039,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter requests the Land Use Planning Officer to attend a special meeting regarding the updating of state land data on 13.10.2026 at the District Secretariat.",
         "timestamp": "2026-10-14 11:17"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:47:18.211Z"
+    ]
   },
   {
     "id": "LTR-1791956889516",
@@ -7691,11 +7047,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-12",
     "dispatchedDate": "2026-10-06",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "LND/LMKPN/DO-07/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "அரசங்க காணிகளை குத்தகை அடிப்படையில் வழங்குவதில் இடம்பெறும் முறைகேடுகள் தொடர்பாக",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "LND/LMKPN/DO-07/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "அரசங்க காணிகளை குத்தகை அடிப்படையில் வழங்குவதில் இடம்பெறும் முறைகேடுகள் தொடர்பாக",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -7703,9 +7059,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "893461094V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 174,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:18",
@@ -7719,13 +7074,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "பண்ணை நிலம் NAQDA நிறுவனத்திற்கு குத்தகைக்கு வழங்கப்பட்டுள்ளமை மற்றும் வருடாந்த வாடகை அறவிடப்படுவது தொடர்பில் பிரதேச செயலாளரின் அறிக்கை சமர்ப்பிக்கப்பட்டுள்ளது.",
         "timestamp": "2026-10-14 11:18"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:48:09.516Z"
+    ]
   },
   {
     "id": "LTR-1791956988221",
@@ -7733,19 +7082,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-13",
     "dispatchedDate": "2026-10-07",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "HRC/Bco/2026",
-    "fromWhom": "Human Rights Commission of Sri Lanka (Regional Office - Batticaloa)",
-    "subject": "Final Reminder regarding Complaint No: HRC/Bco/2026",
+    "registeredPostNo": "HRC/Bco/2026",
+    "inwardNo": "Human Rights Commission of Sri Lanka (Regional Office - Batticaloa)",
+    "fromWhom": "Final Reminder regarding Complaint No: HRC/Bco/2026",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 175,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:19",
@@ -7759,13 +7107,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This is a final reminder to submit the investigation report regarding the complaint of Mr. P.M. Halideen by 2026-10-22.",
         "timestamp": "2026-10-14 11:19"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:49:48.222Z"
+    ]
   },
   {
     "id": "LTR-1791957387748",
@@ -7773,11 +7115,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-12",
     "dispatchedDate": "2026-10-05",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/DFAR/C/LANDS/33",
-    "fromWhom": "Department of Fisheries & Aquatic Resources",
-    "subject": "Surveying and Demarcation of Fisheries Landing Sites Based on GPS Coordinates - Batticaloa District",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "BT/DFAR/C/LANDS/33",
+    "inwardNo": "Department of Fisheries & Aquatic Resources",
+    "fromWhom": "Surveying and Demarcation of Fisheries Landing Sites Based on GPS Coordinates - Batticaloa District",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -7785,9 +7127,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "896590693V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 214,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:26",
@@ -7801,13 +7142,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The Department of Fisheries & Aquatic Resources requests the Divisional Secretary to facilitate the surveying and demarcation of fisheries landing sites in the Vaharai division.",
         "timestamp": "2026-10-14 11:26"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:56:27.748Z"
+    ]
   },
   {
     "id": "LTR-1791957522774",
@@ -7815,11 +7150,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-13",
     "dispatchedDate": "2026-10-07",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DRG/EZ/TRAINNING/CR2/2026",
-    "fromWhom": "பதிவாளர் நாயகம் திணைக்களம், கிழக்கு வலய அலுவலகம்",
-    "subject": "Conducting Training Programme for Batticaloa District ADR & DOS Entering CR2 From on e-population system",
-    "division": "பதிவாளர் கிளை (Registrar Branch)",
+    "registeredPostNo": "DRG/EZ/TRAINNING/CR2/2026",
+    "inwardNo": "பதிவாளர் நாயகம் திணைக்களம், கிழக்கு வலய அலுவலகம்",
+    "fromWhom": "Conducting Training Programme for Batticaloa District ADR & DOS Entering CR2 From on e-population system",
+    "subject": "பதிவாளர் கிளை (Registrar Branch)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "பதிவாளர் கிளை (Registrar Branch)"
     ],
@@ -7827,9 +7162,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "838192505V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 192,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:28",
@@ -7843,13 +7177,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Training programme for ADR and DOS regarding the e-population system to be held on 2026-10-13.",
         "timestamp": "2026-10-14 11:28"
       }
-    ],
-    "postType": "Registered Post",
-    "RegisteredPostNo": "5099",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:58:42.775Z"
+    ]
   },
   {
     "id": "LTR-1791957590822",
@@ -7857,19 +7185,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-13",
     "dispatchedDate": "2026-10-06",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DSD/EST/COM/2026/01",
-    "fromWhom": "District Samurdhi Office, District Secretariat, Batticaloa",
-    "subject": "Requesting information regarding non-performing loans provided through the Samurdhi community-based banking society.",
-    "division": "சமுர்த்தி (Samurdhi)",
+    "registeredPostNo": "DSD/EST/COM/2026/01",
+    "inwardNo": "District Samurdhi Office, District Secretariat, Batticaloa",
+    "fromWhom": "Requesting information regarding non-performing loans provided through the Samurdhi community-based banking society.",
+    "subject": "சமுர்த்தி (Samurdhi)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமுர்த்தி (Samurdhi)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 184,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:29",
@@ -7883,13 +7210,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The District Secretariat requests all Samurdhi bank managers to submit details of non-performing loans as of 2026.08.31 by 2026.10.10.",
         "timestamp": "2026-10-14 11:29"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T05:59:50.822Z"
+    ]
   },
   {
     "id": "LTR-1791957705145",
@@ -7897,11 +7218,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-13",
     "dispatchedDate": "2026-09-29",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "බෞ.කෘ.දේ/පා/04/දහ.ස.ඩි.පා/2026-2027",
-    "fromWhom": "Department of Buddhist Affairs",
-    "subject": "Recruitment of Daham School Teachers for the Daham Sarasavi Higher Diploma Course 2026/2027",
-    "division": "வெளிக்களம் (Field)",
+    "registeredPostNo": "බෞ.කෘ.දේ/පා/04/දහ.ස.ඩි.පා/2026-2027",
+    "inwardNo": "Department of Buddhist Affairs",
+    "fromWhom": "Recruitment of Daham School Teachers for the Daham Sarasavi Higher Diploma Course 2026/2027",
+    "subject": "வெளிக்களம் (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "வெளிக்களம் (Field)"
     ],
@@ -7909,9 +7230,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "196833101649"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 227,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:31",
@@ -7925,13 +7245,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter informs about the recruitment of Daham School teachers for the 2026/2027 Higher Diploma Course and instructs to facilitate the application process at the divisional level.",
         "timestamp": "2026-10-14 11:31"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T06:01:45.145Z"
+    ]
   },
   {
     "id": "LTR-1791957814946",
@@ -7939,10 +7253,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-13",
     "dispatchedDate": "2026-10-11",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "null",
-    "fromWhom": "தீ.ஜீவரணி",
-    "subject": "முதியோர் கொடுப்பனவு கோரல்",
+    "registeredPostNo": "null",
+    "inwardNo": "தீ.ஜீவரணி",
+    "fromWhom": "முதியோர் கொடுப்பனவு கோரல்",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -7951,9 +7265,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "930081485V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 155,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:33",
@@ -7967,13 +7280,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "மறைந்த தனது தந்தையின் நிவாரணக் கொடுப்பனவை தனக்கு வழங்குமாறு கோரி விண்ணப்பம் செய்தல்.",
         "timestamp": "2026-10-14 11:33"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T06:03:34.946Z"
+    ]
   },
   {
     "id": "LTR-1791957917246",
@@ -7983,8 +7290,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "letterType": "Normal Post",
     "registeredPostNo": "No",
     "inwardNo": "MT. Shila, ICT Officer, Divisional Secretariat, Koralaipattu North, Vaharai",
-    "fromWhom": "MT. Shila, ICT Officer, Divisional Secretariat, Koralaipattu North, Vaharai",
-    "subject": "Request for two-month temporary transfer due to a leg injury",
+    "fromWhom": "Request for two-month temporary transfer due to a leg injury",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -7993,9 +7300,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "907833410V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 174,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:35",
@@ -8009,13 +7315,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "An ICT officer, having suffered a right 5th metatarsal bone fracture, requests a temporary two-month transfer to a closer Divisional Secretariat for medical recovery and travel convenience.",
         "timestamp": "2026-10-14 11:35"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T06:05:17.246Z"
+    ]
   },
   {
     "id": "LTR-1791957956525",
@@ -8023,10 +7323,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-13",
     "dispatchedDate": "2026-10-05",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADM/GC-GEN/MSO-09/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Promotion of Management Assistants (Non-technical Class 2)",
+    "registeredPostNo": "ADM/GC-GEN/MSO-09/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Promotion of Management Assistants (Non-technical Class 2)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -8035,9 +7335,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "907833410V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 181,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:35",
@@ -8051,13 +7350,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Instruction to Divisional Secretaries regarding the promotion procedures for Management Assistants (Non-technical Class 2) following the directive from the Ministry of Public Administration.",
         "timestamp": "2026-10-14 11:35"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T06:05:56.525Z"
+    ]
   },
   {
     "id": "LTR-1791958008367",
@@ -8065,10 +7358,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-13",
     "dispatchedDate": "2026-10-06",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADM/LESUM/11/2026",
-    "fromWhom": "Divisional Secretariat, Kattankudy",
-    "subject": "Attendance Certificate for Mr. ARA. Mufli (Accountant-Acting) for September 2026",
+    "registeredPostNo": "ADM/LESUM/11/2026",
+    "inwardNo": "Divisional Secretariat, Kattankudy",
+    "fromWhom": "Attendance Certificate for Mr. ARA. Mufli (Accountant-Acting) for September 2026",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -8077,9 +7370,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "907833410V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 204,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:36",
@@ -8093,13 +7385,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Attendance certificate for Accountant-Acting Mr. ARA. Mufli for the month of September 2026.",
         "timestamp": "2026-10-14 11:36"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T06:06:48.367Z"
+    ]
   },
   {
     "id": "LTR-1791958056747",
@@ -8107,10 +7393,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-13",
     "dispatchedDate": "2026-10-11",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "(TM2941314)-TM/(30450)",
-    "fromWhom": "K. Rajeevan / Mrs. S. Santhirarani",
-    "subject": "Relations death",
+    "registeredPostNo": "(TM2941314)-TM/(30450)",
+    "inwardNo": "K. Rajeevan / Mrs. S. Santhirarani",
+    "fromWhom": "Relations death",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -8119,9 +7405,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "907833410V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 166,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:37",
@@ -8135,13 +7420,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This is an e-Telemail notification regarding the death of a relation.",
         "timestamp": "2026-10-14 11:37"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T06:07:36.747Z"
+    ]
   },
   {
     "id": "LTR-1791958093382",
@@ -8149,10 +7428,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-13",
     "dispatchedDate": "2026-10-11",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "(TM2940709)-TM/(30150)",
-    "fromWhom": "Mrs. S. Santhirarani",
-    "subject": "Sick leave application",
+    "registeredPostNo": "(TM2940709)-TM/(30150)",
+    "inwardNo": "Mrs. S. Santhirarani",
+    "fromWhom": "Sick leave application",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -8161,9 +7440,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "907833410V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 170,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:38",
@@ -8177,13 +7455,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The sender is requesting sick leave via an e-telemail.",
         "timestamp": "2026-10-14 11:38"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T06:08:13.382Z"
+    ]
   },
   {
     "id": "LTR-1791958133095",
@@ -8191,10 +7463,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-13",
     "dispatchedDate": "2026-10-12",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "null",
-    "fromWhom": "ச.ரமணன்",
-    "subject": "சுகயீனம் விடுமுறை வழங்குதல்",
+    "registeredPostNo": "null",
+    "inwardNo": "ச.ரமணன்",
+    "fromWhom": "சுகயீனம் விடுமுறை வழங்குதல்",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -8203,9 +7475,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "907833410V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 152,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:38",
@@ -8219,13 +7490,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "ச.ரமணன் என்பவரால் சுகயீனம் காரணமாக விடுமுறை கோரப்பட்டுள்ளது.",
         "timestamp": "2026-10-14 11:38"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T06:08:53.095Z"
+    ]
   },
   {
     "id": "LTR-1791958190930",
@@ -8235,8 +7500,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "letterType": "Normal Post",
     "registeredPostNo": "No",
     "inwardNo": "ச. குகதாசன்",
-    "fromWhom": "ச. குகதாசன்",
-    "subject": "கடினம் காரணமாகப் பணிக்கு வர இயலாமை",
+    "fromWhom": "கடினம் காரணமாகப் பணிக்கு வர இயலாமை",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -8245,9 +7510,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "907833410V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 166,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:39",
@@ -8261,13 +7525,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "பணியாளர் ஒருவர் கடினம் காரணமாகப் பணிக்கு வர இயலாததை அறிவித்தல்.",
         "timestamp": "2026-10-14 11:39"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T06:09:50.931Z"
+    ]
   },
   {
     "id": "LTR-1791958241814",
@@ -8275,10 +7533,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-13",
     "dispatchedDate": "2026-09-28",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "PMAS/ 59052",
-    "fromWhom": "Combined Services Division, Ministry of Public Administration, Provincial Councils and Local Government",
-    "subject": "Permanent confirmation of Management Assistant Grade III officers",
+    "registeredPostNo": "PMAS/ 59052",
+    "inwardNo": "Combined Services Division, Ministry of Public Administration, Provincial Councils and Local Government",
+    "fromWhom": "Permanent confirmation of Management Assistant Grade III officers",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -8287,9 +7545,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "980282996V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 193,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:40",
@@ -8303,13 +7560,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The Ministry requests details of unconfirmed Management Assistant Grade III officers to initiate their permanent status appointment process.",
         "timestamp": "2026-10-14 11:40"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T06:10:41.814Z"
+    ]
   },
   {
     "id": "LTR-1791958281853",
@@ -8317,10 +7568,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-13",
     "dispatchedDate": "2026-10-07",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADM/VEHRS/DO-14/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Getting information regarding vehicles registered under the name of the Ministry of Education in the Motor Traffic Department",
+    "registeredPostNo": "ADM/VEHRS/DO-14/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Getting information regarding vehicles registered under the name of the Ministry of Education in the Motor Traffic Department",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -8329,9 +7580,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "971412038V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 187,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:41",
@@ -8345,13 +7595,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The District Secretariat requests a report on vehicles registered under the Ministry of Education that are currently located in divisional offices, to be submitted by 2026.10.19.",
         "timestamp": "2026-10-14 11:41"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T06:11:21.854Z"
+    ]
   },
   {
     "id": "LTR-1791958341869",
@@ -8359,10 +7603,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-12",
     "dispatchedDate": "2026-09-19",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "PMAS/ 49904",
-    "fromWhom": "Ministry of Public Administration, Provincial Councils and Local Government (Combined Services Division)",
-    "subject": "Updating the personal file of Management Service Officer Class III",
+    "registeredPostNo": "PMAS/ 49904",
+    "inwardNo": "Ministry of Public Administration, Provincial Councils and Local Government (Combined Services Division)",
+    "fromWhom": "Updating the personal file of Management Service Officer Class III",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -8371,9 +7615,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "980282996V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 189,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:42",
@@ -8387,13 +7630,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The Ministry requests the Divisional Secretariat to update the personal file of Management Service Officer Class III, Mr. T. Vinothan, and report if the officer has transferred or left the service.",
         "timestamp": "2026-10-14 11:42"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T06:12:21.869Z"
+    ]
   },
   {
     "id": "LTR-1791958388519",
@@ -8401,19 +7638,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-13",
     "dispatchedDate": "2026-09-29",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "NSPD/20/EDU/Tamil/2026",
-    "fromWhom": "National Secretariat for Persons with Disabilities",
-    "subject": "Request to transfer Education assistance payment to Koralaipattu North Divisional Secretariat",
-    "division": "சமூக சேவை (Social)",
+    "registeredPostNo": "NSPD/20/EDU/Tamil/2026",
+    "inwardNo": "National Secretariat for Persons with Disabilities",
+    "fromWhom": "Request to transfer Education assistance payment to Koralaipattu North Divisional Secretariat",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமூக சேவை (Social)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 202,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:43",
@@ -8427,13 +7663,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The National Secretariat requests the transfer of Rs. 30,000 erroneously deposited into the Koralaipattu South DS account to the Koralaipattu North DS account for an education assistance beneficiary.",
         "timestamp": "2026-10-14 11:43"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T06:13:08.519Z"
+    ]
   },
   {
     "id": "LTR-1791958417602",
@@ -8441,19 +7671,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-13",
     "dispatchedDate": "2026-10-06",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "EP/BT/DSSO/Medical/sent/26",
-    "fromWhom": "District Social Services Officer, Department of Social Services - Batticaloa",
-    "subject": "Medical Travel Allowance payment disbursement",
-    "division": "சமூக சேவை (Social)",
+    "registeredPostNo": "EP/BT/DSSO/Medical/sent/26",
+    "inwardNo": "District Social Services Officer, Department of Social Services - Batticaloa",
+    "fromWhom": "Medical Travel Allowance payment disbursement",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமூக சேவை (Social)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 167,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:43",
@@ -8467,13 +7696,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter informs about the disbursement of medical travel allowance payments to beneficiaries via bank drafts as per the directive dated 2026.10.05.",
         "timestamp": "2026-10-14 11:43"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T06:13:37.602Z"
+    ]
   },
   {
     "id": "LTR-1791958442270",
@@ -8481,19 +7704,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-12",
     "dispatchedDate": "2026-10-04",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/DSSO/Dis/Death/06/2026",
-    "fromWhom": "District Social Services Officer (Acting), District Social Services Office, Batticaloa",
-    "subject": "கொடுப்பனவுகள் பெறும் பயனாளிகளின் இறப்பு அறிக்கை தொடர்பாக (Regarding the death reports of beneficiaries receiving payments)",
-    "division": "சமூக சேவை (Social)",
+    "registeredPostNo": "BT/DSSO/Dis/Death/06/2026",
+    "inwardNo": "District Social Services Officer (Acting), District Social Services Office, Batticaloa",
+    "fromWhom": "கொடுப்பனவுகள் பெறும் பயனாளிகளின் இறப்பு அறிக்கை தொடர்பாக (Regarding the death reports of beneficiaries receiving payments)",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமூக சேவை (Social)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 197,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:44",
@@ -8507,13 +7729,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter instructs all social service officers to report the death of any payment beneficiary via the designated WhatsApp group immediately, followed by an official letter, failing which the officer in charge will be held responsible.",
         "timestamp": "2026-10-14 11:44"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T06:14:02.270Z"
+    ]
   },
   {
     "id": "LTR-1791958489575",
@@ -8521,19 +7737,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-12",
     "dispatchedDate": "2026-10-11",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "R 6313",
-    "fromWhom": "Post Master, Vakarai",
-    "subject": "Summary of Elders Payment (DO 62) - August",
-    "division": "சமூக சேவை (Social)",
+    "registeredPostNo": "R 6313",
+    "inwardNo": "Post Master, Vakarai",
+    "fromWhom": "Summary of Elders Payment (DO 62) - August",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமூக சேவை (Social)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 140,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:44",
@@ -8547,13 +7762,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This is the summary report of the Elders' payments for the month of August distributed through various post offices in the region.",
         "timestamp": "2026-10-14 11:44"
       }
-    ],
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T06:14:49.575Z"
+    ]
   },
   {
     "id": "LTR-1791958521456",
@@ -8561,19 +7770,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-12",
     "dispatchedDate": "2026-10-07",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/DSSO/Meeting/2026",
-    "fromWhom": "District Social Services Officer (Acting), District Social Services Office, Batticaloa",
-    "subject": "Monthly meeting for Social Service Officers, Development Officers, and Guards",
-    "division": "சமூக சேவை (Social)",
+    "registeredPostNo": "BT/DSSO/Meeting/2026",
+    "inwardNo": "District Social Services Officer (Acting), District Social Services Office, Batticaloa",
+    "fromWhom": "Monthly meeting for Social Service Officers, Development Officers, and Guards",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமூக சேவை (Social)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 209,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:45",
@@ -8587,13 +7795,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Notification regarding the monthly progress meeting for Social Service Officers, Development Officers, and Guards scheduled for 2026-10-13.",
         "timestamp": "2026-10-14 11:45"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T06:15:21.456Z"
+    ]
   },
   {
     "id": "LTR-1791958661660",
@@ -8601,19 +7803,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-12",
     "dispatchedDate": "2026-10-05",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/DSSO/Self.Empl/2026",
-    "fromWhom": "சமூக சேவைகள் திணைக்களம் - கிழக்கு மாகாணம், மாவட்ட அலுவலகம் - மட்டக்களப்பு",
-    "subject": "சுயதொழில் நிவாரணக் கொடுப்பனவு 1ம் கட்டம்.",
-    "division": "சமூக சேவை (Social)",
+    "registeredPostNo": "BT/DSSO/Self.Empl/2026",
+    "inwardNo": "சமூக சேவைகள் திணைக்களம் - கிழக்கு மாகாணம், மாவட்ட அலுவலகம் - மட்டக்களப்பு",
+    "fromWhom": "சுயதொழில் நிவாரணக் கொடுப்பனவு 1ம் கட்டம்.",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமூக சேவை (Social)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 183,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:47",
@@ -8627,13 +7828,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "சுயதொழில் நிவாரணக் கொடுப்பனவு 1ம் கட்டத்திற்கான பயனார்களின் வங்கிக் கணக்கில் பணம் வைப்பிலிடப்பட்டுள்ளது என்பதை அறிவித்தல்.",
         "timestamp": "2026-10-14 11:47"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T06:17:41.660Z"
+    ]
   },
   {
     "id": "LTR-1791958719089",
@@ -8643,17 +7838,16 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "letterType": "Normal Post",
     "registeredPostNo": "No",
     "inwardNo": "Manager, Samurdhi Community-Based Bank, Parakrama Samudraya",
-    "fromWhom": "Manager, Samurdhi Community-Based Bank, Parakrama Samudraya",
-    "subject": "Default on Samurdhi Loan Repayment: Mr. K.D.G. Jayakumara",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "fromWhom": "Default on Samurdhi Loan Repayment: Mr. K.D.G. Jayakumara",
+    "subject": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "கணக்குப் பிரிவு (Accounts & Finance)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 180,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:48",
@@ -8667,13 +7861,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The Samurdhi Bank is requesting the Divisional Secretariat to remit any dues owed to the former employee Mr. K.D.G. Jayakumara towards the settlement of his outstanding loan balance of Rs. 316,175.",
         "timestamp": "2026-10-14 11:48"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T06:18:39.089Z"
+    ]
   },
   {
     "id": "LTR-1791958948197",
@@ -8681,19 +7869,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-12",
     "dispatchedDate": "2026-10-05",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "EP/DPCCS/PSDG/2026",
-    "fromWhom": "Department of Probation & Child Care Services, Eastern Province",
-    "subject": "Submission of Cheque for Payment: Establishment of child friendly Visitors Area facilities in Probation Office, Vakarai",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "EP/DPCCS/PSDG/2026",
+    "inwardNo": "Department of Probation & Child Care Services, Eastern Province",
+    "fromWhom": "Submission of Cheque for Payment: Establishment of child friendly Visitors Area facilities in Probation Office, Vakarai",
+    "subject": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "கணக்குப் பிரிவு (Accounts & Finance)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 184,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:52",
@@ -8707,13 +7894,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Forwarding of cheque number 314321 for Rs. 1,018,632.94 as payment for the establishment of child-friendly visitor facilities at the Vakarai Probation Office.",
         "timestamp": "2026-10-14 11:52"
       }
-    ],
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T06:22:28.197Z"
+    ]
   },
   {
     "id": "LTR-1791958973631",
@@ -8721,19 +7902,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-12",
     "dispatchedDate": "2026-10-05",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "EP/DPCCS/PSDG/2026",
-    "fromWhom": "Department of Probation & Child Care Services, Eastern Province",
-    "subject": "Submission of Cheque for Payment Establishment of Goat Shed at Kathiravely - Re-unification Support",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "EP/DPCCS/PSDG/2026",
+    "inwardNo": "Department of Probation & Child Care Services, Eastern Province",
+    "fromWhom": "Submission of Cheque for Payment Establishment of Goat Shed at Kathiravely - Re-unification Support",
+    "subject": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "கணக்குப் பிரிவு (Accounts & Finance)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 174,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:52",
@@ -8747,13 +7927,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Forwarding cheque number 314323 for Rs. 241,432.00 for the establishment of a goat shed at Kathiravely.",
         "timestamp": "2026-10-14 11:52"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T06:22:53.632Z"
+    ]
   },
   {
     "id": "LTR-1791959007495",
@@ -8761,10 +7935,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-13",
     "dispatchedDate": "2026-09-30",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "26SEP_SLTNA0052607286_0229",
-    "fromWhom": "Sri Lanka Telecom PLC",
-    "subject": "Invoice for PABX Solution Charges",
+    "registeredPostNo": "26SEP_SLTNA0052607286_0229",
+    "inwardNo": "Sri Lanka Telecom PLC",
+    "fromWhom": "Invoice for PABX Solution Charges",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -8773,9 +7947,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "851990399V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 173,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:53",
@@ -8789,13 +7962,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This is an invoice from Sri Lanka Telecom for PABX solution charges for the period of September 2026.",
         "timestamp": "2026-10-14 11:53"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T06:23:27.495Z"
+    ]
   },
   {
     "id": "LTR-1791959081197",
@@ -8803,19 +7970,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-12",
     "dispatchedDate": "2026-09-20",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "26SEP_B2BSW_1017956",
-    "fromWhom": "Metropolitan Technologies (Pvt) Ltd.",
-    "subject": "Tax Invoice for Canon Copier M/C IR 2006N service charge",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "26SEP_B2BSW_1017956",
+    "inwardNo": "Metropolitan Technologies (Pvt) Ltd.",
+    "fromWhom": "Tax Invoice for Canon Copier M/C IR 2006N service charge",
+    "subject": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "கணக்குப் பிரிவு (Accounts & Finance)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 160,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:54",
@@ -8829,13 +7995,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Tax invoice for the service charge of a Canon Copier machine at the Divisional Secretariat, Vakarai.",
         "timestamp": "2026-10-14 11:54"
       }
-    ],
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T06:24:41.197Z"
+    ]
   },
   {
     "id": "LTR-1791959131070",
@@ -8843,19 +8003,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-13",
     "dispatchedDate": "2026-10-06",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADM/GC(KPN)/DO-03/1",
-    "fromWhom": "Additional District Secretary, District Secretariat, Batticaloa",
-    "subject": "விசேட இழப்பீடு செலுத்துதல் (Special Compensation Payment)",
+    "registeredPostNo": "ADM/GC(KPN)/DO-03/1",
+    "inwardNo": "Additional District Secretary, District Secretariat, Batticaloa",
+    "fromWhom": "விசேட இழப்பீடு செலுத்துதல் (Special Compensation Payment)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 191,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:55",
@@ -8869,13 +8028,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Requesting missing documents including birth and marriage certificates to process the special compensation payment for the relatives of the late Mr. J. Kanman.",
         "timestamp": "2026-10-14 11:55"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T06:25:31.070Z"
+    ]
   },
   {
     "id": "LTR-1791959181862",
@@ -8883,11 +8036,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-12",
     "dispatchedDate": "2026-09-21",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "EP/28/LB/L4/GRS/3499",
-    "fromWhom": "காணி ஆணையாளர் நாயகம், கிழக்கு மாகாணம்",
-    "subject": "அளிப்பினை இரத்துச் செய்வதற்காக அரச வர்த்தமானியில் பிரகாரம் செய்தல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "EP/28/LB/L4/GRS/3499",
+    "inwardNo": "காணி ஆணையாளர் நாயகம், கிழக்கு மாகாணம்",
+    "fromWhom": "அளிப்பினை இரத்துச் செய்வதற்காக அரச வர்த்தமானியில் பிரகாரம் செய்தல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -8895,9 +8048,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "896590693V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 186,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:56",
@@ -8911,13 +8063,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "கோறளைப்பற்று வடக்கு பிரதேச செயலகத்தின் கோரிக்கைக்கு அமைய GR/51/3/35044 இலக்க அளிப்பினை இரத்துச் செய்து வர்த்தமானியில் வெளியிடுமாறு கோரப்பட்டுள்ளது.",
         "timestamp": "2026-10-14 11:56"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T06:26:21.862Z"
+    ]
   },
   {
     "id": "LTR-1791959251713",
@@ -8925,11 +8071,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-12",
     "dispatchedDate": "2026-10-03",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "EP/MH/PL/14/Land DOC/2026",
-    "fromWhom": "Ministry of Health, Indigenous Medicine, Probation & Childcare, Social Welfare and Women Affairs, Eastern Province",
-    "subject": "Application for release of land to Government Department under State Land Ordinance",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "EP/MH/PL/14/Land DOC/2026",
+    "inwardNo": "Ministry of Health, Indigenous Medicine, Probation & Childcare, Social Welfare and Women Affairs, Eastern Province",
+    "fromWhom": "Application for release of land to Government Department under State Land Ordinance",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -8937,9 +8083,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "896590693V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 177,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:57",
@@ -8953,13 +8098,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Forwarding the State Land Ordinance application (PLC-3) for the GHC & Rehabilitation Centre in Mankerny for necessary action.",
         "timestamp": "2026-10-14 11:57"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T06:27:31.713Z"
+    ]
   },
   {
     "id": "LTR-1791959287567",
@@ -8967,11 +8106,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-12",
     "dispatchedDate": "2026-10-05",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "LND/LMKPN/DO-07/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Land Deed related complaint regarding 211B Grama Niladhari Division, Alamkulam",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "LND/LMKPN/DO-07/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Land Deed related complaint regarding 211B Grama Niladhari Division, Alamkulam",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -8979,9 +8118,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "896590693V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 175,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:58",
@@ -8995,13 +8133,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter instructs an investigation and report regarding a complaint about an irregular land registration in the 211B Alamkulam Grama Niladhari Division.",
         "timestamp": "2026-10-14 11:58"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T06:28:07.567Z"
+    ]
   },
   {
     "id": "LTR-1791959323490",
@@ -9009,11 +8141,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-12",
     "dispatchedDate": "2026-10-06",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "LND/LMKPN/DO-07/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Investigation and reporting regarding a complaint about 5 acres of land belonging to the late Aliyar Muhammad Hanifa located in Mankeni Mantri 211 Grama Niladhari Division.",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "LND/LMKPN/DO-07/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Investigation and reporting regarding a complaint about 5 acres of land belonging to the late Aliyar Muhammad Hanifa located in Mankeni Mantri 211 Grama Niladhari Division.",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -9021,9 +8153,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "896590693V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 166,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 11:58",
@@ -9037,13 +8168,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The Assistant District Secretary requests an inquiry and report regarding a land dispute involving property in the Mankeni Mantri GN division.",
         "timestamp": "2026-10-14 11:58"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T06:28:43.490Z"
+    ]
   },
   {
     "id": "LTR-1791959477903",
@@ -9051,11 +8176,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-11",
     "dispatchedDate": "2026-10-05",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADS/SPPRO/2025/02",
-    "fromWhom": "மாவட்ட செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
-    "subject": "முதியோர்களுக்கான பகமை சகவாழ்வு துவிச்சக்கரவண்டி சவாரி - 2026",
-    "division": "வெளிக்களம் (Field)",
+    "registeredPostNo": "ADS/SPPRO/2025/02",
+    "inwardNo": "மாவட்ட செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
+    "fromWhom": "முதியோர்களுக்கான பகமை சகவாழ்வு துவிச்சக்கரவண்டி சவாரி - 2026",
+    "subject": "வெளிக்களம் (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "வெளிக்களம் (Field)"
     ],
@@ -9063,9 +8188,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "821351111V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 183,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-14 12:01",
@@ -9079,13 +8203,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "2026 உலக முதியோர் தினத்தை முன்னிட்டு நடத்தப்படும் பகமை சகவாழ்வு துவிச்சக்கரவண்டி சவாரிக்கு பிரதேச செயலக உத்தியோகத்தர்களின் ஒத்துழைப்பைப் பெற்றுக்கொடுப்பது பற்றிய கடிதம்.",
         "timestamp": "2026-10-14 12:01"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-14T06:31:17.903Z"
+    ]
   },
   {
     "id": "LTR-1792134008245",
@@ -9093,19 +8211,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-14",
     "dispatchedDate": "2026-10-10",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT//DSS0 /Child/Sent/2026",
-    "fromWhom": "District Social Services Officer (Acting), Department of Social Services - Batticaloa",
-    "subject": "Payment for children affected by mentally challenged and severe, permanent illnesses - 2026",
-    "division": "சமூக சேவை (Social)",
+    "registeredPostNo": "BT//DSS0 /Child/Sent/2026",
+    "inwardNo": "District Social Services Officer (Acting), Department of Social Services - Batticaloa",
+    "fromWhom": "Payment for children affected by mentally challenged and severe, permanent illnesses - 2026",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமூக சேவை (Social)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 157,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 12:30",
@@ -9119,13 +8236,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The letter informs that the allowance for children with mental and permanent illnesses for the months of July, August, and September 2026 has been deposited into the beneficiaries' bank accounts on 2026.09.30.",
         "timestamp": "2026-10-16 12:30"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T07:00:08.247Z"
+    ]
   },
   {
     "id": "LTR-1792134059460",
@@ -9133,19 +8244,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-14",
     "dispatchedDate": "2026-09-30",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "EP/24/S3//PAMA/2025",
-    "fromWhom": "Department of Social Services, Eastern Province",
-    "subject": "Payment of PAMA, Department of Social Services EP",
-    "division": "சமூக சேவை (Social)",
+    "registeredPostNo": "EP/24/S3//PAMA/2025",
+    "inwardNo": "Department of Social Services, Eastern Province",
+    "fromWhom": "Payment of PAMA, Department of Social Services EP",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமூக சேவை (Social)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 177,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 12:30",
@@ -9159,13 +8269,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Transfer of Rs. 1,471,500/= as an advance payment for PAMA for the months of August, September, and October 2026 to be disbursed via post offices, requesting expenditure reports by 25th October 2026.",
         "timestamp": "2026-10-16 12:30"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T07:00:59.461Z"
+    ]
   },
   {
     "id": "LTR-1792134138452",
@@ -9173,11 +8277,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-15",
     "dispatchedDate": "2026-10-08",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/DPD/RIT(sub.com.mt)/28/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "District Transport Committee Meeting- Batticaloa District",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "BT/DPD/RIT(sub.com.mt)/28/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "District Transport Committee Meeting- Batticaloa District",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -9185,9 +8289,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "822740391V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 172,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 12:32",
@@ -9201,13 +8304,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Notification regarding the upcoming District Transport Committee meeting scheduled for 14.10.2026.",
         "timestamp": "2026-10-16 12:32"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T07:02:18.452Z"
+    ]
   },
   {
     "id": "LTR-1792134174426",
@@ -9215,19 +8312,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-15",
     "dispatchedDate": "2026-10-11",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/DPD/RDB19/GS-GEN/2026",
-    "fromWhom": "மாவட்ட செயலகம், மட்டக்களப்பு (திட்டமிடல் பிரிவு) / District Secretariat, Batticaloa (Planning Unit)",
-    "subject": "கிராமசக்தி நிகழ்ச்சித்திட்டம் - 2024 வங்கிக்கணக்கு மீதி கோரல் 30.09.2026",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "BT/DPD/RDB19/GS-GEN/2026",
+    "inwardNo": "மாவட்ட செயலகம், மட்டக்களப்பு (திட்டமிடல் பிரிவு) / District Secretariat, Batticaloa (Planning Unit)",
+    "fromWhom": "கிராமசக்தி நிகழ்ச்சித்திட்டம் - 2024 வங்கிக்கணக்கு மீதி கோரல் 30.09.2026",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 148,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 12:32",
@@ -9241,13 +8337,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "கிராமசக்தி சங்கங்களின் 30.09.2026 ஆந் திகதிக்கான வங்கிக் கணக்கு மீதி விபரங்களை 16.10.2026 இற்கு முன்னர் அனுப்பி வைக்குமாறு கோரல்.",
         "timestamp": "2026-10-16 12:32"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T07:02:54.426Z"
+    ]
   },
   {
     "id": "LTR-1792134317353",
@@ -9255,11 +8345,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-15",
     "dispatchedDate": "2026-10-11",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DPD/HGSF/13/01/2026",
-    "fromWhom": "மாவட்ட செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
-    "subject": "உலக உணவு திட்டத்தின் வீட்டுத்தோட்ட முறைமையின் ஊடாக பாடசாலை போசாக்கு (HGSF) நிகழ்ச்சித் திட்டத்தை நடைமுறைப்படுத்தல் - 2026: விவசாயச் செயற்றிட்டப் பயிற்சி நெறியில் பயனாளிகளின் பங்கேற்பை உறுதிப்படுத்தல்",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "DPD/HGSF/13/01/2026",
+    "inwardNo": "மாவட்ட செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
+    "fromWhom": "உலக உணவு திட்டத்தின் வீட்டுத்தோட்ட முறைமையின் ஊடாக பாடசாலை போசாக்கு (HGSF) நிகழ்ச்சித் திட்டத்தை நடைமுறைப்படுத்தல் - 2026: விவசாயச் செயற்றிட்டப் பயிற்சி நெறியில் பயனாளிகளின் பங்கேற்பை உறுதிப்படுத்தல்",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -9267,9 +8357,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "198206062962"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 176,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 12:35",
@@ -9283,33 +8372,26 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "பாடசாலை போசாக்கு நிகழ்ச்சித் திட்டத்தின் கீழ் தெரிவு செய்யப்பட்ட பயனாளிகளை 2026.10.20 அன்று நடைபெறும் விவசாயச் செயற்றிட்டப் பயிற்சி நெறியில் பங்குபற்றச் செய்யுமாறு கோரப்பட்டுள்ளது.",
         "timestamp": "2026-10-16 12:35"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T07:05:17.353Z"
+    ]
   },
   {
     "id": "LTR-1792134368072",
     "originalNo": "KPN/DS/2026/10/209",
-    "date": "2026-10-14",
-    "dispatchedDate": "2026-10-06",
+    "date": "2026-10-13",
+    "dispatchedDate": "2026-10-05",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ACC/ADVPO/01/2025",
-    "fromWhom": "Divisional Secretariat, Eravur Pattu, Chenkalady",
-    "subject": "காசோலை பெறுவனவு தொடர்பானது (Regarding cheque receipt)",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "Divisional Secretariat, Eravur Pattu, Chenkalady",
+    "inwardNo": "காசோலை பெறுவனவு தொடர்பானது (Regarding cheque receipt)",
+    "fromWhom": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "கணக்குப் பிரிவு (Accounts & Finance)"
     ],
     "forwardedTo": [],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 148,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 12:36",
@@ -9323,33 +8405,26 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter forwards a deposited cheque payment of Rs. 1,636.05 belonging to Mrs. M. Thamayanthi for further action.",
         "timestamp": "2026-10-16 12:36"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T07:06:08.072Z"
+    ]
   },
   {
     "id": "LTR-1792134482732",
     "originalNo": "KPN/DS/2026/10/210",
-    "date": "2026-10-14",
-    "dispatchedDate": "2024-10-10",
+    "date": "2026-10-13",
+    "dispatchedDate": "2024-10-09",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "District Director, Department of Samurdhi Development, Kachcheri, Batticaloa",
-    "fromWhom": "District Director, Department of Samurdhi Development, Kachcheri, Batticaloa",
-    "subject": "Salary Increment Certificate - Mr. Elaiyathamby Kirupakaran (SDO - I)",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "District Director, Department of Samurdhi Development, Kachcheri, Batticaloa",
+    "inwardNo": "Salary Increment Certificate - Mr. Elaiyathamby Kirupakaran (SDO - I)",
+    "fromWhom": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "கணக்குப் பிரிவு (Accounts & Finance)"
     ],
     "forwardedTo": [],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 183,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 12:38",
@@ -9363,13 +8438,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "சமுர்த்தி அபிவிருத்தி திணைக்களத்தின் அபிவிருத்தி உத்தியோகத்தர் திரு. இளையதம்பி கிருபாகரன் அவர்களின் வருடாந்த சம்பள ஏற்றம் (Increment) தொடர்பான அத்தாட்சிப்படுத்தல் கடிதம்.",
         "timestamp": "2026-10-16 12:38"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T07:08:02.733Z"
+    ]
   },
   {
     "id": "LTR-1792134555530",
@@ -9377,11 +8446,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-15",
     "dispatchedDate": "2026-10-11",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "STA/AGCEN/DD-01/2025",
-    "fromWhom": "மாவட்ட செயலகம், மட்டக்களப்பு (புள்ளிவிபரவியல் பிரிவு) / District Secretariat, Batticaloa",
-    "subject": "பொருளாதார தொகமதிப்பு 2025/26 (விவசாய நடவடிக்கைகள்)",
-    "division": "வெளிக்களம் (Field)",
+    "registeredPostNo": "STA/AGCEN/DD-01/2025",
+    "inwardNo": "மாவட்ட செயலகம், மட்டக்களப்பு (புள்ளிவிபரவியல் பிரிவு) / District Secretariat, Batticaloa",
+    "fromWhom": "பொருளாதார தொகமதிப்பு 2025/26 (விவசாய நடவடிக்கைகள்)",
+    "subject": "வெளிக்களம் (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "வெளிக்களம் (Field)"
     ],
@@ -9389,9 +8458,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "866033048V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 198,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 12:39",
@@ -9405,13 +8473,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "2025/26 பொருளாதார மற்றும் விவசாயத் தொகமதிப்பு களப்பணிகளை தாமதமின்றி துரிதமாக முன்னெடுப்பது தொடர்பான அறிவுறுத்தல்.",
         "timestamp": "2026-10-16 12:39"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T07:09:15.530Z"
+    ]
   },
   {
     "id": "LTR-1792134620192",
@@ -9419,19 +8481,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-15",
     "dispatchedDate": "2024-10-05",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DS/KPN/SS/VSSO/30/2019",
-    "fromWhom": "மகுடம் சிறுவர் அபிவிருத்தி மையம் (Magudam Child Development Centre)",
-    "subject": "எழுத்தறிவு, எண்ணறிவு மற்றும் வாசிப்பு தொடர்பான செயலமர்வை நடத்துவதற்கான வளவாளர்களை வழங்குமாறு கோருதல்",
-    "division": "சிறுவர் பிரிவு (Field)",
+    "registeredPostNo": "DS/KPN/SS/VSSO/30/2019",
+    "inwardNo": "மகுடம் சிறுவர் அபிவிருத்தி மையம் (Magudam Child Development Centre)",
+    "fromWhom": "எழுத்தறிவு, எண்ணறிவு மற்றும் வாசிப்பு தொடர்பான செயலமர்வை நடத்துவதற்கான வளவாளர்களை வழங்குமாறு கோருதல்",
+    "subject": "சிறுவர் பிரிவு (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சிறுவர் பிரிவு (Field)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 190,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 12:40",
@@ -9445,13 +8506,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "மகுடம் சிறுவர் அபிவிருத்தி மையத்தினால் பிள்ளைகளின் கல்வி அடைவுகளை மேம்படுத்துவதற்காக நடத்தப்படவுள்ள எழுத்தறிவு, எண்ணறிவு மற்றும் வாசிப்பு செயலமர்வுக்கு வளவாளர்களை வழங்குமாறு கோரப்பட்டுள்ளது.",
         "timestamp": "2026-10-16 12:40"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T07:10:20.192Z"
+    ]
   },
   {
     "id": "LTR-1792134663528",
@@ -9459,19 +8514,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-15",
     "dispatchedDate": "2026-10-13",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DS/KPN/SS/VSSO/30/2019",
-    "fromWhom": "Magudam Child Development Centre, Assembly of God, Sethukudah, Vaharai",
-    "subject": "\"குழந்தை வளர்ப்பில் தந்தையின் பங்களிப்பு\" எனும் தலைப்பில் விழிப்புணர்வுக் கருத்தரங்கு நடத்துவதற்கு வளவாளர்களைக் கோருதல்",
-    "division": "சிறுவர் பிரிவு (Field)",
+    "registeredPostNo": "DS/KPN/SS/VSSO/30/2019",
+    "inwardNo": "Magudam Child Development Centre, Assembly of God, Sethukudah, Vaharai",
+    "fromWhom": "\"குழந்தை வளர்ப்பில் தந்தையின் பங்களிப்பு\" எனும் தலைப்பில் விழிப்புணர்வுக் கருத்தரங்கு நடத்துவதற்கு வளவாளர்களைக் கோருதல்",
+    "subject": "சிறுவர் பிரிவு (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சிறுவர் பிரிவு (Field)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 152,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 12:41",
@@ -9485,13 +8539,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "மகுடம் சிறுவர் அபிவிருத்தி மையத்தில் நடைபெறவுள்ள குழந்தை வளர்ப்பில் தந்தையின் பங்களிப்பு தொடர்பான விழிப்புணர்வுக் கருத்தரங்கிற்கு பொருத்தமான வளவாளர் ஒருவரை வழங்குமாறு கோரப்பட்டுள்ளது.",
         "timestamp": "2026-10-16 12:41"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T07:11:03.528Z"
+    ]
   },
   {
     "id": "LTR-1792134716763",
@@ -9499,19 +8547,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-15",
     "dispatchedDate": "2026-10-11",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADS/DSCCL/09/2026/08",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "மாவட்ட சிறுவர்சபை உறுப்பினர்களுக்கான வதிவிட செயலமர்விற்கு உறுப்பினர்களை பங்குபற்ற கோரல்",
-    "division": "சிறுவர் பிரிவு (Field)",
+    "registeredPostNo": "ADS/DSCCL/09/2026/08",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "மாவட்ட சிறுவர்சபை உறுப்பினர்களுக்கான வதிவிட செயலமர்விற்கு உறுப்பினர்களை பங்குபற்ற கோரல்",
+    "subject": "சிறுவர் பிரிவு (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சிறுவர் பிரிவு (Field)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 141,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 12:41",
@@ -9525,13 +8572,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "சர்வதேச சிறுவர் தினத்தை முன்னிட்டு 2026.10.23 மற்றும் 24 ஆகிய திகதிகளில் நடைபெறவுள்ள மாவட்ட சிறுவர்சபை வதிவிட செயலமர்விற்கு ஆர்வமுள்ள இரு சிறுவர்களைப் பங்குபற்றச் செய்யுமாறு கோரப்பட்டுள்ளது.",
         "timestamp": "2026-10-16 12:41"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T07:11:56.763Z"
+    ]
   },
   {
     "id": "LTR-1792134883650",
@@ -9539,11 +8580,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-15",
     "dispatchedDate": "2026-10-09",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADS/REGAS/17/10",
-    "fromWhom": "மாவட்ட செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
-    "subject": "உதவி தேவைப்படும் கலைஞர்களின் விண்ணப்பங்களை பெற்றுக்கொள்ளல்",
-    "division": "வெளிக்களம் (Field)",
+    "registeredPostNo": "ADS/REGAS/17/10",
+    "inwardNo": "மாவட்ட செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
+    "fromWhom": "உதவி தேவைப்படும் கலைஞர்களின் விண்ணப்பங்களை பெற்றுக்கொள்ளல்",
+    "subject": "வெளிக்களம் (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "வெளிக்களம் (Field)"
     ],
@@ -9551,9 +8592,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "198575602372"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 177,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 12:44",
@@ -9567,13 +8607,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "திருத்தப்பட்ட சுற்றறிக்கைக்கு அமைவாக உதவி தேவைப்படும் கலைஞர்களின் புதிய விண்ணப்பங்களை உரிய ஆவணங்களுடன் கலாசார அலுவல்கள் திணைக்களத்திற்கு சமர்ப்பிக்குமாறு பிரதேச செயலாளர்களைக் கோரல்.",
         "timestamp": "2026-10-16 12:44"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T07:14:43.650Z"
+    ]
   },
   {
     "id": "LTR-1792134980591",
@@ -9581,11 +8615,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-15",
     "dispatchedDate": "2026-10-12",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/DIS/NDRSC/DROUGHT/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Compensation for alternative land for a house fully damaged due to Divva cyclone",
-    "division": "வெளிக்களம் (Field)",
+    "registeredPostNo": "BT/DIS/NDRSC/DROUGHT/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Compensation for alternative land for a house fully damaged due to Divva cyclone",
+    "subject": "வெளிக்களம் (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "வெளிக்களம் (Field)"
     ],
@@ -9593,9 +8627,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "198667602155"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 201,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 12:46",
@@ -9609,13 +8642,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter requests compensation and allocation of alternative land for Mr. K.M.C. Senarath, whose house was fully destroyed by the Divva cyclone.",
         "timestamp": "2026-10-16 12:46"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T07:16:20.591Z"
+    ]
   },
   {
     "id": "LTR-1792135057595",
@@ -9623,11 +8650,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-15",
     "dispatchedDate": "2026-10-12",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/DIS/NDRSC/DROUGHT/2026",
-    "fromWhom": "மாவட்ட செயலகம், மட்டக்களப்பு (அனர்த்த நிவாரண சேவைகள் பிரிவு)",
-    "subject": "El.Nino வறட்சி காரணமாக பாதிக்கப்பட்ட மக்களுக்கு WFP ஊடாக வழங்கப்படவுள்ள நிவாரணம் தொடர்பாக -2026",
-    "division": "வெளிக்களம் (Field)",
+    "registeredPostNo": "BT/DIS/NDRSC/DROUGHT/2026",
+    "inwardNo": "மாவட்ட செயலகம், மட்டக்களப்பு (அனர்த்த நிவாரண சேவைகள் பிரிவு)",
+    "fromWhom": "El.Nino வறட்சி காரணமாக பாதிக்கப்பட்ட மக்களுக்கு WFP ஊடாக வழங்கப்படவுள்ள நிவாரணம் தொடர்பாக -2026",
+    "subject": "வெளிக்களம் (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "வெளிக்களம் (Field)"
     ],
@@ -9635,9 +8662,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "198667602155"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 197,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 12:47",
@@ -9651,13 +8677,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "El.Nino வறட்சி காரணமாக பாதிக்கப்பட்ட மக்களுக்கு WFP ஊடாக நிவாரணம் வழங்குவதற்கான பயனாளர் பட்டியலை எண்ணிக்கைக்கு அமைவாக விரைவாக அனுப்பி வைக்குமாறு கோரப்பட்டுள்ளது.",
         "timestamp": "2026-10-16 12:47"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T07:17:37.595Z"
+    ]
   },
   {
     "id": "LTR-1792135144283",
@@ -9665,19 +8685,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-15",
     "dispatchedDate": "2026-10-11",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/DSD/PROJ/PRM/2026/09",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "முன்னேற்ற மீளாய்வுக் கூட்டம் (Progress Review Meeting)",
-    "division": "சமுர்த்தி (Samurdhi)",
+    "registeredPostNo": "BT/DSD/PROJ/PRM/2026/09",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "முன்னேற்ற மீளாய்வுக் கூட்டம் (Progress Review Meeting)",
+    "subject": "சமுர்த்தி (Samurdhi)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமுர்த்தி (Samurdhi)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 171,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 12:49",
@@ -9691,13 +8710,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "சமுர்த்தி அபிவிருத்தி திணைக்களத்தின் முன்னேற்ற மீளாய்வுக் கூட்டம் மற்றும் வேலைத்திட்டங்களின் தற்போதைய நிலை குறித்த அறிவுறுத்தல்கள்.",
         "timestamp": "2026-10-16 12:49"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T07:19:04.283Z"
+    ]
   },
   {
     "id": "LTR-1792135298851",
@@ -9705,19 +8718,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-15",
     "dispatchedDate": "2026-10-14",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DSD/CBO/COM/2026/01",
-    "fromWhom": "District Secretariat, Batticaloa (Samurdhi Branch)",
-    "subject": "அருணலு கடன் தொடர்பான மாதாந்த அறிக்கைகளை பெற்றுக்கொள்ளுதல்",
-    "division": "சமுர்த்தி (Samurdhi)",
+    "registeredPostNo": "DSD/CBO/COM/2026/01",
+    "inwardNo": "District Secretariat, Batticaloa (Samurdhi Branch)",
+    "fromWhom": "அருணலு கடன் தொடர்பான மாதாந்த அறிக்கைகளை பெற்றுக்கொள்ளுதல்",
+    "subject": "சமுர்த்தி (Samurdhi)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமுர்த்தி (Samurdhi)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 166,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 12:51",
@@ -9731,13 +8743,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter instructs on the correct procedure for submitting Arunalue loan monthly reports and mandates timely submission to the District Secretariat.",
         "timestamp": "2026-10-16 12:51"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T07:21:38.851Z"
+    ]
   },
   {
     "id": "LTR-1792135374938",
@@ -9745,22 +8751,20 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-14",
     "dispatchedDate": "2026-10-12",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "LUPD/12/09/04",
-    "fromWhom": "District Land Use Planning Office - Batticaloa",
-    "subject": "District Level Land Use Plan Preparation - 2025/2026",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "LUPD/12/09/04",
+    "inwardNo": "District Land Use Planning Office - Batticaloa",
+    "fromWhom": "District Level Land Use Plan Preparation - 2025/2026",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
     "forwardedTo": [
-      "197024000147",
-      "872521003V"
+      "197024000147"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 144,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 12:52",
@@ -9774,13 +8778,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The District Land Use Planning Office requests data from the Divisional Secretariat to prepare the district-level land use plan for 2025/2026.",
         "timestamp": "2026-10-16 12:52"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T07:22:54.938Z"
+    ]
   },
   {
     "id": "LTR-1792135429807",
@@ -9788,11 +8786,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-14",
     "dispatchedDate": "2026-10-10",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "LND/LMKPN/DO-07/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Renewing of sand mining license",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "LND/LMKPN/DO-07/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Renewing of sand mining license",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -9800,9 +8798,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "893461094V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 178,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 12:53",
@@ -9816,13 +8813,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The application for renewal of a sand mining license by W.J.A.T. Niro is rejected as there is no proof of past license validity and no additional space available for mining in the requested area.",
         "timestamp": "2026-10-16 12:53"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T07:23:49.807Z"
+    ]
   },
   {
     "id": "LTR-1792135569526",
@@ -9830,11 +8821,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-14",
     "dispatchedDate": "2026-10-10",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "RME/GSMB/BT/Joi.Ins/2026/542",
-    "fromWhom": "Geological Survey and Mines Bureau, Regional Office, Batticaloa",
-    "subject": "Carrying out a joint field inspection regarding Gravel, Soil, and Sandy Soil Mining Applications",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "RME/GSMB/BT/Joi.Ins/2026/542",
+    "inwardNo": "Geological Survey and Mines Bureau, Regional Office, Batticaloa",
+    "fromWhom": "Carrying out a joint field inspection regarding Gravel, Soil, and Sandy Soil Mining Applications",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -9842,9 +8833,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "880770071V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 215,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 12:56",
@@ -9858,13 +8848,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The Geological Survey and Mines Bureau has scheduled a joint field inspection for mining license applications on 2026.10.20.",
         "timestamp": "2026-10-16 12:56"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "R 8406",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T07:26:09.526Z"
+    ]
   },
   {
     "id": "LTR-1792135726903",
@@ -9872,11 +8856,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-14",
     "dispatchedDate": "2026-10-08",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "null",
-    "fromWhom": "கந்தப்பு கதிரவேலி",
-    "subject": "மின்சாரம் பெறுவதற்கான அனுமதி கோரல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "null",
+    "inwardNo": "கந்தப்பு கதிரவேலி",
+    "fromWhom": "மின்சாரம் பெறுவதற்கான அனுமதி கோரல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -9884,9 +8868,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "198885402302"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 172,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 12:58",
@@ -9900,13 +8883,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "மின்சார இணைப்பைப் பெறுவதற்கு அனுமதி வேண்டி கந்தப்பு கதிரவேலி விண்ணப்பித்துள்ளார்.",
         "timestamp": "2026-10-16 12:58"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T07:28:46.903Z"
+    ]
   },
   {
     "id": "LTR-1792135802649",
@@ -9914,11 +8891,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-14",
     "dispatchedDate": "2026-09-12",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DS/KPN/211/095",
-    "fromWhom": "கிராம உத்தியோகத்தர், மாங்கேணி மத்தி - 211 (Grama Niladhari, Mankerni Central - 211)",
-    "subject": "புதிதாக மின்சார இணைப்பைப் பெற்றுக் கொள்ளல் - த. சரவணபவன்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "DS/KPN/211/095",
+    "inwardNo": "கிராம உத்தியோகத்தர், மாங்கேணி மத்தி - 211 (Grama Niladhari, Mankerni Central - 211)",
+    "fromWhom": "புதிதாக மின்சார இணைப்பைப் பெற்றுக் கொள்ளல் - த. சரவணபவன்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -9926,9 +8903,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "198885402302"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 200,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 13:00",
@@ -9942,13 +8918,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Mankerni Central Grama Niladhari confirms T. Saravanabhavan's residency and requests approval for a new electricity connection to his land (DS/KPN/211/095).",
         "timestamp": "2026-10-16 13:00"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T07:30:02.649Z"
+    ]
   },
   {
     "id": "LTR-1792136213804",
@@ -9956,11 +8926,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-14",
     "dispatchedDate": "2026-10-11",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "EP/BT/ASC/685-V/90",
-    "fromWhom": "கமல சேவைகள் நிலையம், வாகரை (Agrarian Services Centre, Vaharai)",
-    "subject": "இயந்திரம் பாவித்து வயல்காணியினை திருத்தம் செய்தல் தொடர்பாக (Regarding the land preparation of paddy fields using machinery)",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "EP/BT/ASC/685-V/90",
+    "inwardNo": "கமல சேவைகள் நிலையம், வாகரை (Agrarian Services Centre, Vaharai)",
+    "fromWhom": "இயந்திரம் பாவித்து வயல்காணியினை திருத்தம் செய்தல் தொடர்பாக (Regarding the land preparation of paddy fields using machinery)",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -9968,9 +8938,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "896590693V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 215,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 13:06",
@@ -9984,13 +8953,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "வாகரை பிரதேச செயலகத்திற்கு உட்பட்ட 19 விவசாயிகளுக்கு இயந்திரம் மூலம் வயல்களைச் சீரமைக்க அனுமதி வழங்கப்பட்டுள்ளது.",
         "timestamp": "2026-10-16 13:06"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T07:36:53.805Z"
+    ]
   },
   {
     "id": "LTR-1792136277586",
@@ -9998,11 +8961,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-14",
     "dispatchedDate": "2026-10-06",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/FD/H2/L.Req.Gov&NGO/02/2026",
-    "fromWhom": "Divisional Forest Office, Batticaloa",
-    "subject": "Provision of state land on long-term lease (அரச காணியினை நீண்டகால குத்தகைக்கு வழங்குதல்)",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "BT/FD/H2/L.Req.Gov&NGO/02/2026",
+    "inwardNo": "Divisional Forest Office, Batticaloa",
+    "fromWhom": "Provision of state land on long-term lease (அரச காணியினை நீண்டகால குத்தகைக்கு வழங்குதல்)",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -10010,9 +8973,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "893461094V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 140,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 13:07",
@@ -10026,13 +8988,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The Divisional Forest Office has provided the GPS coordinates for a piece of land under its management for a long-term lease request.",
         "timestamp": "2026-10-16 13:07"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T07:37:57.586Z"
+    ]
   },
   {
     "id": "LTR-1792136313399",
@@ -10040,11 +8996,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-14",
     "dispatchedDate": "2026-09-25",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "LAN/LEASE/01/53/HOTEL/P.B.A.D",
-    "fromWhom": "Divisional Secretariat, Koralaipattu North, Vaharai",
-    "subject": "Issue of Long Term Lease under state Land ordinance Kash Capital (Pvt) Ltd",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "LAN/LEASE/01/53/HOTEL/P.B.A.D",
+    "inwardNo": "Divisional Secretariat, Koralaipattu North, Vaharai",
+    "fromWhom": "Issue of Long Term Lease under state Land ordinance Kash Capital (Pvt) Ltd",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -10052,9 +9008,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "893461094V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 180,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 13:08",
@@ -10068,13 +9023,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter informs Kash Capital (Pvt) Ltd of the outstanding lease amount of Rs. 11,760,000.00 for the period 2017 to 2025 and requests payment by 2026-10-30.",
         "timestamp": "2026-10-16 13:08"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T07:38:33.399Z"
+    ]
   },
   {
     "id": "LTR-1792136410833",
@@ -10082,11 +9031,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-14",
     "dispatchedDate": "2026-10-10",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "LND/LMKPN/DO-07/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Land dispute inquiry regarding the complaint submitted by Mr. S. Edward of Maavadi Odai, Maangeni.",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "LND/LMKPN/DO-07/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Land dispute inquiry regarding the complaint submitted by Mr. S. Edward of Maavadi Odai, Maangeni.",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -10094,9 +9043,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "928523802V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 142,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 13:10",
@@ -10110,13 +9058,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The District Secretariat has requested the Divisional Secretary to investigate the land dispute complaint submitted by Mr. S. Edward and report back.",
         "timestamp": "2026-10-16 13:10"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T07:40:10.833Z"
+    ]
   },
   {
     "id": "LTR-1792136477875",
@@ -10124,11 +9066,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-14",
     "dispatchedDate": "2026-10-10",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "LND/LMKPN/DO-07/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Request for transfer of land permit title regarding 3 acres of land in Mangkenei South, 211G Grama Niladhari Division.",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "LND/LMKPN/DO-07/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Request for transfer of land permit title regarding 3 acres of land in Mangkenei South, 211G Grama Niladhari Division.",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -10136,9 +9078,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "928523802V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 153,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 13:11",
@@ -10152,13 +9093,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Requesting a report on the application for transferring a 3-acre land permit to the son of the late M. M. Nurmuhammed in Mangkenei South.",
         "timestamp": "2026-10-16 13:11"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T07:41:17.875Z"
+    ]
   },
   {
     "id": "LTR-1792136552604",
@@ -10166,11 +9101,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-14",
     "dispatchedDate": "2026-10-10",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DC/MC/VCH/MISC/26",
-    "fromWhom": "District / Magistrate's Court, Valaichenai",
-    "subject": "வாகரை பழைய சுற்றுலா நீதவான் நீதிமன்ற கட்டிடத்தின் காணியை உரிமையாளருக்கு கையளிப்பது சம்மந்தமானது.",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "DC/MC/VCH/MISC/26",
+    "inwardNo": "District / Magistrate's Court, Valaichenai",
+    "fromWhom": "வாகரை பழைய சுற்றுலா நீதவான் நீதிமன்ற கட்டிடத்தின் காணியை உரிமையாளருக்கு கையளிப்பது சம்மந்தமானது.",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -10178,9 +9113,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "893461094V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 165,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 13:12",
@@ -10194,13 +9128,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "வாகரை பழைய சுற்றுலா நீதவான் நீதிமன்ற கட்டிடத்தின் காணியை உரிமையாளரிடம் ஒப்படைப்பதற்காக, உரிமையாளர் மற்றும் கிராம சேவகருடன் 28/10/2026 அன்று பி.ப 2.30 மணிக்கு நீதிமன்றத்தில் ஆஜராகுமாறு அறிவிக்கப்பட்டுள்ளது.",
         "timestamp": "2026-10-16 13:12"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T07:42:32.604Z"
+    ]
   },
   {
     "id": "LTR-1792136597965",
@@ -10208,11 +9136,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-14",
     "dispatchedDate": "2026-09-23",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "EP/28/LB/GRS/Kpn/20",
-    "fromWhom": "மாகாண காணி ஆணையாளர், காணி நிர்வாகத் திணைக்களம், கிழக்கு மாகாணம்",
-    "subject": "அதி உத்தம ஜனாதிபதி கையொப்பமிட்டிருந்த அளிப்பு உரிமையாளர் மரணமடைந்ததால் GR/51/3/33990 அளிப்பினை இரத்துச் செய்தல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "EP/28/LB/GRS/Kpn/20",
+    "inwardNo": "மாகாண காணி ஆணையாளர், காணி நிர்வாகத் திணைக்களம், கிழக்கு மாகாணம்",
+    "fromWhom": "அதி உத்தம ஜனாதிபதி கையொப்பமிட்டிருந்த அளிப்பு உரிமையாளர் மரணமடைந்ததால் GR/51/3/33990 அளிப்பினை இரத்துச் செய்தல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -10220,9 +9148,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "896590693V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 166,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 13:13",
@@ -10236,13 +9163,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "பயனாளர் மரணமடைந்ததால், குறிப்பிட்ட காணி அளிப்பினை (GR/51/3/33990) இரத்துச் செய்து, அதன் உரிமையாளர்களைக் கண்டறிந்து தொடர் நடவடிக்கை எடுக்குமாறு அறிவுறுத்தப்பட்டுள்ளது.",
         "timestamp": "2026-10-16 13:13"
       }
-    ],
-    "postType": "Registered Post",
-    "RegisteredPostNo": "5423",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T07:43:17.965Z"
+    ]
   },
   {
     "id": "LTR-1792137791596",
@@ -10252,8 +9173,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "letterType": "Normal Post",
     "registeredPostNo": "No",
     "inwardNo": "கிருஷ்ணவேணி ஜெயராஜ்",
-    "fromWhom": "கிருஷ்ணவேணி ஜெயராஜ்",
-    "subject": "சுகயீனம் காரணமாக சமூக அளிக்கவில்லை (Inability to attend due to illness)",
+    "fromWhom": "சுகயீனம் காரணமாக சமூக அளிக்கவில்லை (Inability to attend due to illness)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -10262,9 +9183,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "907833410V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 110,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 13:33",
@@ -10278,13 +9198,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The sender informs that they could not attend the meeting/event due to illness.",
         "timestamp": "2026-10-16 13:33"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T08:03:11.599Z"
+    ]
   },
   {
     "id": "LTR-1792137873550",
@@ -10292,10 +9206,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-14",
     "dispatchedDate": "2026-10-13",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "MWCA/2/5/19/1",
-    "fromWhom": "S.I.F. Thasbiha",
-    "subject": "Sick Leave",
+    "registeredPostNo": "MWCA/2/5/19/1",
+    "inwardNo": "S.I.F. Thasbiha",
+    "fromWhom": "Sick Leave",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -10304,9 +9218,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "907833410V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 144,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 13:34",
@@ -10320,13 +9233,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Letter submitted by S.I.F. Thasbiha regarding sick leave.",
         "timestamp": "2026-10-16 13:34"
       }
-    ],
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T08:04:33.550Z"
+    ]
   },
   {
     "id": "LTR-1792138006487",
@@ -10334,10 +9241,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-14",
     "dispatchedDate": "2026-10-13",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "null",
-    "fromWhom": "M.C. Najeena DO",
-    "subject": "அரச விடுமுறை கோரல் (Request for official leave)",
+    "registeredPostNo": "null",
+    "inwardNo": "M.C. Najeena DO",
+    "fromWhom": "அரச விடுமுறை கோரல் (Request for official leave)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -10346,9 +9253,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "907833410V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 139,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 13:36",
@@ -10362,13 +9268,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "M.C. Najeena DO has submitted a request for official leave.",
         "timestamp": "2026-10-16 13:36"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T08:06:46.488Z"
+    ]
   },
   {
     "id": "LTR-1792138073222",
@@ -10376,10 +9276,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-14",
     "dispatchedDate": "2026-09-28",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "MWCA/2/5/19/10/2/2",
-    "fromWhom": "Ministry of Women and Child Affairs",
-    "subject": "Transfer Request",
+    "registeredPostNo": "MWCA/2/5/19/10/2/2",
+    "inwardNo": "Ministry of Women and Child Affairs",
+    "fromWhom": "Transfer Request",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -10388,9 +9288,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "817300790V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 121,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 13:37",
@@ -10404,13 +9303,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The Ministry of Women and Child Affairs informs the applicant that her transfer request cannot be granted currently due to staff availability but may be considered for the 2027 annual transfer.",
         "timestamp": "2026-10-16 13:37"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T08:07:53.222Z"
+    ]
   },
   {
     "id": "LTR-1792138176891",
@@ -10420,8 +9313,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "letterType": "Normal Post",
     "registeredPostNo": "No",
     "inwardNo": "S. Nojitha, Development Officer, Divisional Secretariat, Koralaipattu North, Vaharai",
-    "fromWhom": "S. Nojitha, Development Officer, Divisional Secretariat, Koralaipattu North, Vaharai",
-    "subject": "Request for Medical Leave (மருத்துவ விடுமுறைக்கு அனுமதி கோரல்)",
+    "fromWhom": "Request for Medical Leave (மருத்துவ விடுமுறைக்கு அனுமதி கோரல்)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -10430,9 +9323,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "907833410V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 112,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 13:39",
@@ -10446,13 +9338,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Development Officer S. Logitha has requested medical leave due to an 8-month pregnancy as per medical advice regarding long-distance travel.",
         "timestamp": "2026-10-16 13:39"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T08:09:36.891Z"
+    ]
   },
   {
     "id": "LTR-1792138244415",
@@ -10462,8 +9348,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "letterType": "Normal Post",
     "registeredPostNo": "No",
     "inwardNo": "S. Thothitha, Development Officer, Divisional Secretariat, Koralai Pattu North, Vaharai",
-    "fromWhom": "S. Thothitha, Development Officer, Divisional Secretariat, Koralai Pattu North, Vaharai",
-    "subject": "Application for leave (விடுமுறை அனுமதி கோரல்)",
+    "fromWhom": "Application for leave (விடுமுறை அனுமதி கோரல்)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -10472,9 +9358,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "907833410V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 110,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 13:40",
@@ -10488,13 +9373,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Development Officer S. Thothitha requests leave for September 2, 2026.",
         "timestamp": "2026-10-16 13:40"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T08:10:44.416Z"
+    ]
   },
   {
     "id": "LTR-1792138296950",
@@ -10502,10 +9381,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-14",
     "dispatchedDate": "2024-10-24",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "K 296003",
-    "fromWhom": "Dr. S. Niroja, Ayurvedic Medical Officer, Central Ayurvedic Dispensary, Vantharumoolai, Batticaloa",
-    "subject": "Private Medical Certificate for Mrs. R. Banupriya",
+    "registeredPostNo": "K 296003",
+    "inwardNo": "Dr. S. Niroja, Ayurvedic Medical Officer, Central Ayurvedic Dispensary, Vantharumoolai, Batticaloa",
+    "fromWhom": "Private Medical Certificate for Mrs. R. Banupriya",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -10514,9 +9393,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "907833410V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 149,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 13:41",
@@ -10530,13 +9408,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Medical recommendation for 2 days of rest due to pain and swelling in the left foot for Mrs. R. Banupriya.",
         "timestamp": "2026-10-16 13:41"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T08:11:36.951Z"
+    ]
   },
   {
     "id": "LTR-1792138361499",
@@ -10544,22 +9416,20 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-14",
     "dispatchedDate": "2026-10-11",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "LND/eSlimsPro/DO-06/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "அபிவிருத்தி உத்தியோகத்தர்களின் விபரங்கள் கோரல்",
+    "registeredPostNo": "LND/eSlimsPro/DO-06/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "அபிவிருத்தி உத்தியோகத்தர்களின் விபரங்கள் கோரல்",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
     ],
     "forwardedTo": [
-      "907833410V",
-      "817300790V"
+      "907833410V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 145,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 13:42",
@@ -10573,13 +9443,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Requesting details of development officers working under the Land Commissioner General's Department in the respective Divisional Secretariat divisions.",
         "timestamp": "2026-10-16 13:42"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T08:12:41.500Z"
+    ]
   },
   {
     "id": "LTR-1792138430350",
@@ -10587,10 +9451,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-15",
     "dispatchedDate": "2026-10-14",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "2026 4920",
-    "fromWhom": "Sri Lanka Railways",
-    "subject": "Correction of Railway Pass Bill details",
+    "registeredPostNo": "2026 4920",
+    "inwardNo": "Sri Lanka Railways",
+    "fromWhom": "Correction of Railway Pass Bill details",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -10599,9 +9463,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "971412038V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 131,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 13:43",
@@ -10615,35 +9478,28 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This document outlines the correction of Railway pass bill payment details for the month of August 2026 for a total of 85,800 rupees.",
         "timestamp": "2026-10-16 13:43"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T08:13:50.351Z"
+    ]
   },
   {
     "id": "LTR-1792138608330",
     "originalNo": "KPN/DS/2026/10/241",
-    "date": "2026-10-14",
-    "dispatchedDate": "2026-10-05",
+    "date": "2026-10-13",
+    "dispatchedDate": "2026-10-04",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "STA/AGCEN/DO-01/2025",
-    "fromWhom": "District Secretary, Batticaloa",
-    "subject": "Economic Census 2025/26 (Agricultural Holdings) - Field Activities",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "District Secretary, Batticaloa",
+    "inwardNo": "Economic Census 2025/26 (Agricultural Holdings) - Field Activities",
+    "fromWhom": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "கணக்குப் பிரிவு (Accounts & Finance)"
     ],
     "forwardedTo": [
       "866033048V"
     ],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 161,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 13:46",
@@ -10657,13 +9513,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter instructs Divisional Secretaries to facilitate the field activities and data collection for the Economic Census 2025/26 (Agricultural Holdings) between October 1st and December 15th, 2026.",
         "timestamp": "2026-10-16 13:46"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T08:16:48.330Z"
+    ]
   },
   {
     "id": "LTR-1792138712839",
@@ -10671,19 +9521,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-15",
     "dispatchedDate": "2026-10-11",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "2026/2027",
-    "fromWhom": "கோறளைப்பற்று வடக்கு பிரதேச சபை, வாகரை",
-    "subject": "ஆலங்குளம் கடைத்தொகுதி 02, 03 கடையறை வாடகைக்கான மீள் கேள்வி அறிவித்தல் 2026/2027",
+    "registeredPostNo": "2026/2027",
+    "inwardNo": "கோறளைப்பற்று வடக்கு பிரதேச சபை, வாகரை",
+    "fromWhom": "ஆலங்குளம் கடைத்தொகுதி 02, 03 கடையறை வாடகைக்கான மீள் கேள்வி அறிவித்தல் 2026/2027",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 235,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-16 13:48",
@@ -10697,13 +9546,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "கோறளைப்பற்று வடக்கு பிரதேச சபைக்குச் சொந்தமான ஆலங்குளம் பகுதியில் உள்ள கடைத்தொகுதிகளை வாடகைக்கு வழங்குவதற்கான மீள் கேள்வி அறிவித்தல்.",
         "timestamp": "2026-10-16 13:48"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-16T08:18:32.839Z"
+    ]
   },
   {
     "id": "LTR-1792388473507",
@@ -10713,9 +9556,9 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "letterType": "Normal Post",
     "registeredPostNo": "No",
     "inwardNo": "M.I. றமீஸ், மேவாண்ட குளம்",
-    "fromWhom": "M.I. றமீஸ், மேவாண்ட குளம்",
-    "subject": "மேவாண்ட குளம், மீள்குடியேற்ற கிராமத்தில் எனக்கு வழங்கப்பட்டுள்ள 1 ஏக்கர் காணியை JCB இயந்திரம் பயன்படுத்தி துப்பரவு செய்ய அனுமதி கோரல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "fromWhom": "மேவாண்ட குளம், மீள்குடியேற்ற கிராமத்தில் எனக்கு வழங்கப்பட்டுள்ள 1 ஏக்கர் காணியை JCB இயந்திரம் பயன்படுத்தி துப்பரவு செய்ய அனுமதி கோரல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -10723,9 +9566,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "942560400V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 169,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-19 11:11",
@@ -10739,13 +9581,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "மேவாண்ட குளம் மீள்குடியேற்ற கிராமத்தில் தமக்கு வழங்கப்பட்டுள்ள 1 ஏக்கர் காணியை JCB இயந்திரம் மூலம் துப்பரவு செய்ய அனுமதி கோரும் விண்ணப்பம்.",
         "timestamp": "2026-10-19 11:11"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-19T05:41:13.509Z"
+    ]
   },
   {
     "id": "LTR-1792388576815",
@@ -10755,9 +9591,9 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "letterType": "Registered Post",
     "registeredPostNo": "No",
     "inwardNo": "கந்தசாமி பரிமலர் கண்டலடி, வாகரை",
-    "fromWhom": "கந்தசாமி பரிமலர் கண்டலடி, வாகரை",
-    "subject": "மணலுக்கான அனுமதி கோரல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "fromWhom": "மணலுக்கான அனுமதி கோரல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -10765,9 +9601,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "880770071V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 144,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-19 11:12",
@@ -10781,13 +9616,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "அரசாங்கத்தால் வழங்கப்பட்ட வீட்டு நிர்மாணப் பணிக்காக மதுரங்குளம் ஊத்தோடையிலிருந்து கண்டலடிக்கு உழவு இயந்திரம் மூலம் ஆற்று மணல் ஏற்றிச் செல்ல அனுமதி கோரப்பட்டுள்ளது.",
         "timestamp": "2026-10-19 11:12"
       }
-    ],
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-19T05:42:56.815Z"
+    ]
   },
   {
     "id": "LTR-1792388772691",
@@ -10797,17 +9626,16 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "letterType": "Normal Post",
     "registeredPostNo": "No",
     "inwardNo": "விவேகானந்தம் கவிதன்",
-    "fromWhom": "விவேகானந்தம் கவிதன்",
-    "subject": "அனுமதி மறுக்குமாறு கோரல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "fromWhom": "அனுமதி மறுக்குமாறு கோரல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 128,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-19 11:16",
@@ -10821,13 +9649,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "தனது சொந்தப் பணத்தில் வீடு கட்டப்பட்டுள்ளதால் மேலதிக அனுமதி அல்லது பதிவுகள் வழங்குவதை மறுக்குமாறு கோரி சமர்ப்பிக்கப்பட்ட கடிதம்.",
         "timestamp": "2026-10-19 11:16"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-19T05:46:12.691Z"
+    ]
   },
   {
     "id": "LTR-1792400569372",
@@ -10835,19 +9657,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-17",
     "dispatchedDate": "2026-10-10",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "KN/DS/05/EMA/19/பணி/Report 5",
-    "fromWhom": "மை. லில்லிவைலட்",
-    "subject": "அஸ்வெசும / முதியோர் கொடுப்பனவு மீள வழங்குமாறு கோருதல்",
-    "division": "சமூக சேவை (Social)",
+    "registeredPostNo": "KN/DS/05/EMA/19/பணி/Report 5",
+    "inwardNo": "மை. லில்லிவைலட்",
+    "fromWhom": "அஸ்வெசும / முதியோர் கொடுப்பனவு மீள வழங்குமாறு கோருதல்",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமூக சேவை (Social)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 197,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-19 14:32",
@@ -10861,13 +9682,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "73 வயதான மூதாட்டி தனக்கு நிறுத்தப்பட்டுள்ள அஸ்வெசும/முதியோர் கொடுப்பனவை வழங்குமாறு கோரிக்கை விடுத்துள்ளார்.",
         "timestamp": "2026-10-19 14:32"
       }
-    ],
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-19T09:02:49.374Z"
+    ]
   },
   {
     "id": "LTR-1792468558829",
@@ -10875,19 +9690,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-19",
     "dispatchedDate": "2026-10-13",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "MOH/VH/Adm/Gen/PHM/TP/01/2026.",
-    "fromWhom": "சுகாதார வைத்திய அதிகாரி, சுகாதார வைத்திய அதிகாரி அலுவலகம், வாகரை (Office of the Medical Officer of Health - Vaharai)",
-    "subject": "கர்ப்பகால மன அழுத்த முகாமைத்துவம் தொடர்பான விழிப்புணர்வு நிகழ்விற்கான அனுமதி",
-    "division": "சிறுவர் பிரிவு (Field)",
+    "registeredPostNo": "MOH/VH/Adm/Gen/PHM/TP/01/2026.",
+    "inwardNo": "சுகாதார வைத்திய அதிகாரி, சுகாதார வைத்திய அதிகாரி அலுவலகம், வாகரை (Office of the Medical Officer of Health - Vaharai)",
+    "fromWhom": "கர்ப்பகால மன அழுத்த முகாமைத்துவம் தொடர்பான விழிப்புணர்வு நிகழ்விற்கான அனுமதி",
+    "subject": "சிறுவர் பிரிவு (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சிறுவர் பிரிவு (Field)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 115,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-20 09:25",
@@ -10901,13 +9715,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "உளவள தினத்தை முன்னிட்டு கர்ப்பிணித் தாய்மார்களுக்கான மன அழுத்த முகாமைத்துவ விழிப்புணர்வு நிகழ்வை நடத்துவதற்கான ஒத்துழைப்பையும் அனுமதியையும் வாகரை சுகாதார வைத்திய அதிகாரி வழங்கியுள்ளார்.",
         "timestamp": "2026-10-20 09:25"
       }
-    ],
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-20T03:55:58.839Z"
+    ]
   },
   {
     "id": "LTR-1792555885352",
@@ -10915,10 +9723,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-19",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DDMCU/DRP/48(II)",
-    "fromWhom": "மாவட்ட செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
-    "subject": "அனர்த்த ஆபத்து விபரங்களைப் பூர்த்தி செய்து சமர்ப்பித்தல் தொடர்பாக",
+    "registeredPostNo": "DDMCU/DRP/48(II)",
+    "inwardNo": "மாவட்ட செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
+    "fromWhom": "அனர்த்த ஆபத்து விபரங்களைப் பூர்த்தி செய்து சமர்ப்பித்தல் தொடர்பாக",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -10928,9 +9736,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "198667602155"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 203,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 09:41",
@@ -10944,13 +9751,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "பிரதேச செயலர் பிரிவில் கடந்த காலங்களில் ஏற்பட்ட அனர்த்தங்கள் மற்றும் பாதிப்புகள் தொடர்பான விபரங்களை இணைக்கப்பட்டுள்ள படிவத்தில் பூர்த்தி செய்து அனுப்பி வைக்குமாறு கோரப்பட்டுள்ளது.",
         "timestamp": "2026-10-21 09:41"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:11:25.353Z"
+    ]
   },
   {
     "id": "LTR-1792556049962",
@@ -10960,17 +9761,16 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "letterType": "Normal Post",
     "registeredPostNo": "No",
     "inwardNo": "இ. தெய்வேந்திரன், நாகபுரம், பால்சேனை, கதிரவெளி",
-    "fromWhom": "இ. தெய்வேந்திரன், நாகபுரம், பால்சேனை, கதிரவெளி",
-    "subject": "வீட்டுத் திட்டம் வழங்கப்படாமை தொடர்பில் விளக்கம் கோருதல்",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "fromWhom": "வீட்டுத் திட்டம் வழங்கப்படாமை தொடர்பில் விளக்கம் கோருதல்",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 184,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 09:44",
@@ -10984,13 +9784,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "தனக்கு வழங்கப்படுவதாக கூறப்பட்ட வீட்டுத் திட்டம் வேறொருவருக்கு வழங்கப்பட்டுள்ளதாக தெரிவிக்கப்பட்டமை தொடர்பில் உரிய விளக்கம் மற்றும் தீர்வு கோரி இ. தெய்வேந்திரன் சமர்ப்பித்த கடிதம்.",
         "timestamp": "2026-10-21 09:44"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:14:09.962Z"
+    ]
   },
   {
     "id": "LTR-1792556112422",
@@ -10998,19 +9792,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-07",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DPD/MRDSS&CE/PSPAP/19/GEN/2026",
-    "fromWhom": "அரசாங்க அதிபர் / மாவட்ட செயலாளர், மாவட்ட செயலகம், மட்டக்களப்பு (திட்டமிடல் பிரிவு)",
-    "subject": "பிரஜாசக்தி தேசிய வறுமை ஒழிப்பிற்கான வேலைத்திட்டம் - பல்பரிமாண வறுமையை ஒழிப்பதற்கான அபிவிருத்தி நிகழ்ச்சித்திட்டங்களை அமுல்படுத்துவதற்கான நிர்வாகச் செலவினம் - 2026",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "DPD/MRDSS&CE/PSPAP/19/GEN/2026",
+    "inwardNo": "அரசாங்க அதிபர் / மாவட்ட செயலாளர், மாவட்ட செயலகம், மட்டக்களப்பு (திட்டமிடல் பிரிவு)",
+    "fromWhom": "பிரஜாசக்தி தேசிய வறுமை ஒழிப்பிற்கான வேலைத்திட்டம் - பல்பரிமாண வறுமையை ஒழிப்பதற்கான அபிவிருத்தி நிகழ்ச்சித்திட்டங்களை அமுல்படுத்துவதற்கான நிர்வாகச் செலவினம் - 2026",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 166,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 09:45",
@@ -11024,13 +9817,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "பிரஜாசக்தி தேசிய வறுமை ஒழிப்பு வேலைத்திட்டத்தை அமுல்படுத்துவதற்கான நிர்வாகச் செலவினங்கள் மற்றும் உத்தியோகத்தர்களின் கடமைகள் தொடர்பான சுற்றுநிருப அறிவுறுத்தல் கடிதம்.",
         "timestamp": "2026-10-21 09:45"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:15:12.422Z"
+    ]
   },
   {
     "id": "LTR-1792556167789",
@@ -11038,19 +9825,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-07",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DPD/DCC/13/01/2026-04",
-    "fromWhom": "District Secretariat, Batticaloa (Planning Unit)",
-    "subject": "DISTRICT COORDINATING COMMITTEE MEETING - BATTICALOA 29.09.2026",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "DPD/DCC/13/01/2026-04",
+    "inwardNo": "District Secretariat, Batticaloa (Planning Unit)",
+    "fromWhom": "DISTRICT COORDINATING COMMITTEE MEETING - BATTICALOA 29.09.2026",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 152,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 09:46",
@@ -11064,13 +9850,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Forwarding the meeting minutes of the District Coordinating Committee held on 29.09.2026 for taking necessary action and reporting back to the Chairman.",
         "timestamp": "2026-10-21 09:46"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:16:07.789Z"
+    ]
   },
   {
     "id": "LTR-1792556278404",
@@ -11078,11 +9858,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-14",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DDMCU/Miti.C/03(III)",
-    "fromWhom": "District Secretariat, Batticaloa (Disaster Management Unit) / மாவட்ட செயலகம், மட்டக்களப்பு",
-    "subject": "அனர்த்த தணித்தல் செயற்திட்டங்கள் - 2027 (Mitigation Projects)",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "DDMCU/Miti.C/03(III)",
+    "inwardNo": "District Secretariat, Batticaloa (Disaster Management Unit) / மாவட்ட செயலகம், மட்டக்களப்பு",
+    "fromWhom": "அனர்த்த தணித்தல் செயற்திட்டங்கள் - 2027 (Mitigation Projects)",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -11090,9 +9870,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "198667602155"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 184,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 09:47",
@@ -11106,13 +9885,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "2027 ஆம் ஆண்டு நடைமுறைப்படுத்துவதற்கான அனர்த்த தணித்தல் செயற்திட்ட முன்மொழிவுகளை தயாரித்து 2026.10.30 ஆம் திகதிக்கு முன்னர் அனுப்பிவைக்குமாறு கோரப்பட்டுள்ளது.",
         "timestamp": "2026-10-21 09:47"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:17:58.405Z"
+    ]
   },
   {
     "id": "LTR-1792556396679",
@@ -11120,11 +9893,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-14",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/DIS/NDRSC/STY/2026",
-    "fromWhom": "மாவட்ட செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
-    "subject": "திவா புயல் காரணமாக பாதிக்கப்பட்ட பிரதேச மற்றும் மாவட்ட செயலகங்களுக்கு மேலதிகமான காகிதாதிகளுக்கான ஒதுக்கீடு வழங்குதல்",
-    "division": "வெளிக்களம் (Field)",
+    "registeredPostNo": "BT/DIS/NDRSC/STY/2026",
+    "inwardNo": "மாவட்ட செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
+    "fromWhom": "திவா புயல் காரணமாக பாதிக்கப்பட்ட பிரதேச மற்றும் மாவட்ட செயலகங்களுக்கு மேலதிகமான காகிதாதிகளுக்கான ஒதுக்கீடு வழங்குதல்",
+    "subject": "வெளிக்களம் (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "வெளிக்களம் (Field)"
     ],
@@ -11132,9 +9905,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "198667602155"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 198,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 09:49",
@@ -11148,13 +9920,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "திவா புயலால் பாதிக்கப்பட்டவர்களுக்கான நிவாரண நடவடிக்கைகளுக்காக பிரதேச மற்றும் மாவட்ட செயலகங்களுக்கு தேவையான மேலதிக காகிதாதிகளுக்கான நிதி ஒதுக்கீடு தொடர்பானது.",
         "timestamp": "2026-10-21 09:49"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:19:56.680Z"
+    ]
   },
   {
     "id": "LTR-1792556443220",
@@ -11162,19 +9928,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-08",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "CEA/BC/E-Waste/TRT/01/2026",
-    "fromWhom": "Central Environmental Authority, Batticaloa",
-    "subject": "இலத்திரனியல் கழிவு (E-Waste) முகாமையத்துவம் தொடர்பான விழிப்புணர்வுக் கருத்தரங்கு",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "CEA/BC/E-Waste/TRT/01/2026",
+    "inwardNo": "Central Environmental Authority, Batticaloa",
+    "fromWhom": "இலத்திரனியல் கழிவு (E-Waste) முகாமையத்துவம் தொடர்பான விழிப்புணர்வுக் கருத்தரங்கு",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 188,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 09:50",
@@ -11188,13 +9953,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "மத்திய சுற்றாடல் அதிகாரசபையினால் ஏற்பாடு செய்யப்பட்டுள்ள மின்னணுக் கழிவு முகாமைத்துவம் தொடர்பான விழிப்புணர்வு கருத்தரங்கிற்கு ஒரு உத்தியோகத்தரை கலந்து கொள்ளச் செய்தல்.",
         "timestamp": "2026-10-21 09:50"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:20:43.221Z"
+    ]
   },
   {
     "id": "LTR-1792556528019",
@@ -11202,19 +9961,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-13",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/DDA/PDB/Palmy/DO/06",
-    "fromWhom": "மாவட்ட செயலகம், மட்டக்களப்பு (விவசாயப்பிரிவு) / District Secretariat, Batticaloa",
-    "subject": "தேசிய பனை நடுகை மாதம் ஐப்பசி - \"1 மில்லியன் பனை நடுகை நிகழ்ச்சித்திட்டம் - 2026\"",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "BT/DDA/PDB/Palmy/DO/06",
+    "inwardNo": "மாவட்ட செயலகம், மட்டக்களப்பு (விவசாயப்பிரிவு) / District Secretariat, Batticaloa",
+    "fromWhom": "தேசிய பனை நடுகை மாதம் ஐப்பசி - \"1 மில்லியன் பனை நடுகை நிகழ்ச்சித்திட்டம் - 2026\"",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 177,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 09:52",
@@ -11228,13 +9986,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Clean Sri Lanka திட்டத்தின் கீழ் பிரதேச செயலகப் பிரிவில் பனை நடுகை செய்யப்படவுள்ள இடங்களை தெரிவு செய்து பனை நடுகையை ஊக்குவிக்குமாறு கேட்டுக்கொள்ளல்.",
         "timestamp": "2026-10-21 09:52"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:22:08.019Z"
+    ]
   },
   {
     "id": "LTR-1792556607549",
@@ -11242,11 +9994,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-12",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DPD/HGSF/13/01/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "உலக உணவு திட்டத்தின் வீட்டுத்தோட்ட முறையினூடாக பாடசாலை போசாக்கு (HGSF) நிகழ்ச்சித் திட்டத்தை நடைமுறைப்படுத்தல் - 2026",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "DPD/HGSF/13/01/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "உலக உணவு திட்டத்தின் வீட்டுத்தோட்ட முறையினூடாக பாடசாலை போசாக்கு (HGSF) நிகழ்ச்சித் திட்டத்தை நடைமுறைப்படுத்தல் - 2026",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -11254,9 +10006,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "943142955V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 181,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 09:53",
@@ -11270,13 +10021,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Training program for HGSF (Home Grown School Feeding) program teachers regarding nutritional status monitoring and development.",
         "timestamp": "2026-10-21 09:53"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:23:27.549Z"
+    ]
   },
   {
     "id": "LTR-1792556738710",
@@ -11284,19 +10029,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-14",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADM/NBC-PP/Do-2/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Preparation of Cabinet memos for 2027 development proposals",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "ADM/NBC-PP/Do-2/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Preparation of Cabinet memos for 2027 development proposals",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 193,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 09:55",
@@ -11310,13 +10054,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter instructs the Divisional Secretary to prepare Cabinet memos for development proposals exceeding 100 million rupees for the year 2027 based on guidelines from the National Planning Department.",
         "timestamp": "2026-10-21 09:55"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:25:38.712Z"
+    ]
   },
   {
     "id": "LTR-1792556821212",
@@ -11324,11 +10062,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-13",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "SPT/GENRN/01/2026",
-    "fromWhom": "மாவட்ட செயலகம், மட்டக்களப்பு (விளையாட்டுப் பிரிவு) / District Secretariat, Batticaloa",
-    "subject": "விளையாட்டு மேம்பாட்டிற்காக செயற்படுத்தப்பட்டு முடிக்கப்படாத அபிவிருத்தி திட்டங்கள் தொடர்பான விபரம் கோருதல் (2022 - 2026)",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "SPT/GENRN/01/2026",
+    "inwardNo": "மாவட்ட செயலகம், மட்டக்களப்பு (விளையாட்டுப் பிரிவு) / District Secretariat, Batticaloa",
+    "fromWhom": "விளையாட்டு மேம்பாட்டிற்காக செயற்படுத்தப்பட்டு முடிக்கப்படாத அபிவிருத்தி திட்டங்கள் தொடர்பான விபரம் கோருதல் (2022 - 2026)",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -11336,9 +10074,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "822740391V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 186,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 09:57",
@@ -11352,13 +10089,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "2022 முதல் 2026 வரை விளையாட்டு மேம்பாட்டிற்காக ஆரம்பிக்கப்பட்டு முடிக்கப்படாத அபிவிருத்தித் திட்டங்கள் தொடர்பான விரிவான அறிக்கையினை கோரல்.",
         "timestamp": "2026-10-21 09:57"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:27:01.213Z"
+    ]
   },
   {
     "id": "LTR-1792556887504",
@@ -11366,19 +10097,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-14",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DPD/DCCGEN/13/01/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Implementing the Decisions taken at the District Coordinating Committee Meeting Batticaloa District.",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "DPD/DCCGEN/13/01/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Implementing the Decisions taken at the District Coordinating Committee Meeting Batticaloa District.",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 179,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 09:58",
@@ -11392,13 +10122,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The District Secretariat communicates decisions from the District Coordinating Committee regarding new sub-post offices, boundary land administration, and the Kaddumurivu Tank water project.",
         "timestamp": "2026-10-21 09:58"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:28:07.504Z"
+    ]
   },
   {
     "id": "LTR-1792556969973",
@@ -11406,19 +10130,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-18",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/DA/TB/04/Gen/2026",
-    "fromWhom": "பிரதி விவசாயப் பணிப்பாளர் அலுவலகம் - விரிவாக்கம், மட்டக்களப்பு (Office of the Deputy Director of Agriculture - Extension, Batticaloa)",
-    "subject": "வளவாளர் கோரல்",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "BT/DA/TB/04/Gen/2026",
+    "inwardNo": "பிரதி விவசாயப் பணிப்பாளர் அலுவலகம் - விரிவாக்கம், மட்டக்களப்பு (Office of the Deputy Director of Agriculture - Extension, Batticaloa)",
+    "fromWhom": "வளவாளர் கோரல்",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 206,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 09:59",
@@ -11432,13 +10155,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "பயிற்சி நெறிகளுக்காக கோரப்பட்டதற்கு இணங்க விவசாய விரிவாக்க உத்தியோகத்தர்களை வளவாளர்களாக நியமித்து அறிவித்தல்.",
         "timestamp": "2026-10-21 09:59"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:29:29.973Z"
+    ]
   },
   {
     "id": "LTR-1792557007840",
@@ -11446,19 +10163,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-11",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "NH/P&D/06/SAP/1(i)",
-    "fromWhom": "Ministry of Buddhasasana Religious and Cultural Affairs",
-    "subject": "Conducting a Social Improvement Programmes in Indigenous Villages - 2026: Request for Clarifications and Supporting Documents Regarding the Revised Estimate",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "NH/P&D/06/SAP/1(i)",
+    "inwardNo": "Ministry of Buddhasasana Religious and Cultural Affairs",
+    "fromWhom": "Conducting a Social Improvement Programmes in Indigenous Villages - 2026: Request for Clarifications and Supporting Documents Regarding the Revised Estimate",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 220,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:00",
@@ -11472,13 +10188,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The Ministry requests clarification and a revised cost breakdown for the Social Improvement Programme in Indigenous Villages due to a significant increase in the estimated expenditure.",
         "timestamp": "2026-10-21 10:00"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:30:07.840Z"
+    ]
   },
   {
     "id": "LTR-1792557042569",
@@ -11486,19 +10196,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-14",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "EP/03/PL/04/PSDG/PS/Pro-16/2026",
-    "fromWhom": "Ministry of Education, Sports, Cultural Affairs, Pre School Education, Information Technology Education, Youth Affairs, Rehabilitation & Resettlement, Skill & Manpower Development, Eastern Province",
-    "subject": "Settlement of Final Payment by Cheque - Annual Implementation Programme - PSDG 2026 Pre-School Development Projects",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "EP/03/PL/04/PSDG/PS/Pro-16/2026",
+    "inwardNo": "Ministry of Education, Sports, Cultural Affairs, Pre School Education, Information Technology Education, Youth Affairs, Rehabilitation & Resettlement, Skill & Manpower Development, Eastern Province",
+    "fromWhom": "Settlement of Final Payment by Cheque - Annual Implementation Programme - PSDG 2026 Pre-School Development Projects",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 190,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:00",
@@ -11512,13 +10221,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Forwarding Bank of Ceylon cheques totaling Rs. 1,200,000.00 as final payment settlement for BBN and Vishnu Pre-School development projects under the PSDG 2026 programme.",
         "timestamp": "2026-10-21 10:00"
       }
-    ],
-    "postType": "Registered Post",
-    "RegisteredPostNo": "R 2057",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:30:42.569Z"
+    ]
   },
   {
     "id": "LTR-1792557154453",
@@ -11526,11 +10229,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-18",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DPD/SA/Gen/2026",
-    "fromWhom": "District Secretary & Govt. Agent, District Secretariat, Batticaloa (Planning Unit)",
-    "subject": "Meetings Scheduled For 21st October 2026",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "DPD/SA/Gen/2026",
+    "inwardNo": "District Secretary & Govt. Agent, District Secretariat, Batticaloa (Planning Unit)",
+    "fromWhom": "Meetings Scheduled For 21st October 2026",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -11538,9 +10241,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "822740391V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 159,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:02",
@@ -11554,13 +10256,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Notice requesting attendance at meetings scheduled for 21st October 2026 at the Old District Secretariat regarding Prajashakthi Programme, Palmyrah Industry Development, and Road & Bridges.",
         "timestamp": "2026-10-21 10:02"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:32:34.453Z"
+    ]
   },
   {
     "id": "LTR-1792557225322",
@@ -11568,19 +10264,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-14",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADS/OUTWA/30/03/2025",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Sending funds for conducting an awareness program for small and medium entrepreneurs",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "ADS/OUTWA/30/03/2025",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Sending funds for conducting an awareness program for small and medium entrepreneurs",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 157,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:03",
@@ -11594,13 +10289,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "District Secretariat provides funds to the Divisional Secretariat to conduct an awareness program for small and medium-scale exporters as per the request of the Export Development Board.",
         "timestamp": "2026-10-21 10:03"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:33:45.322Z"
+    ]
   },
   {
     "id": "LTR-1792557319607",
@@ -11610,9 +10299,9 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "letterType": "Normal Post",
     "registeredPostNo": "No",
     "inwardNo": "பொது மக்கள், புன்னைக்குடா, கஜேஷபுரம்",
-    "fromWhom": "பொது மக்கள், புன்னைக்குடா, கஜேஷபுரம்",
-    "subject": "கிராமத்தில் சட்டவிரோதமான முறையில் வட்டிக்கு பணம் வழங்கும் செயற்பாடுகளைத் தடுத்து நிறுத்துதல்",
-    "division": "வெளிக்களம் (Field)",
+    "fromWhom": "கிராமத்தில் சட்டவிரோதமான முறையில் வட்டிக்கு பணம் வழங்கும் செயற்பாடுகளைத் தடுத்து நிறுத்துதல்",
+    "subject": "வெளிக்களம் (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "வெளிக்களம் (Field)"
     ],
@@ -11620,9 +10309,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "821351111V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 176,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:05",
@@ -11636,33 +10324,26 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "புன்னைக்குடா, கஜேஷபுரம் பகுதியில் சட்டவிரோதமாக வட்டிக்கு பணம் வழங்கும் நபர்களால் பொதுமக்களுக்கு ஏற்படும் பாதிப்புகளைக் கட்டுப்படுத்தக் கோரும் முறைப்பாடு.",
         "timestamp": "2026-10-21 10:05"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:35:19.607Z"
+    ]
   },
   {
     "id": "LTR-1792557390781",
     "originalNo": "KPN/DS/2026/10/266",
-    "date": "2026-10-19",
-    "dispatchedDate": "2026-10-07",
+    "date": "2026-10-18",
+    "dispatchedDate": "2026-10-06",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/DAB/ADVA.AC/DO-05",
-    "fromWhom": "மாவட்டச் செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
-    "subject": "அரசு அலுவலர்களது முற்பணம் பி கணக்கு இலக்கம் 118011 இற்கு மாதாந்தம் கணக்குப் பொறுப்பு ஊடாக மேற்கொள்ளப்படும் பற்று மற்றும் வரவிடல்களை சரியாகக் கணக்கு வைத்தலும் தகவல்களை சரியாகப் பெற்றுக்கொள்ளலும்",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "மாவட்டச் செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
+    "inwardNo": "அரசு அலுவலர்களது முற்பணம் பி கணக்கு இலக்கம் 118011 இற்கு மாதாந்தம் கணக்குப் பொறுப்பு ஊடாக மேற்கொள்ளப்படும் பற்று மற்றும் வரவிடல்களை சரியாகக் கணக்கு வைத்தலும் தகவல்களை சரியாகப் பெற்றுக்கொள்ளலும்",
+    "fromWhom": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "கணக்குப் பிரிவு (Accounts & Finance)"
     ],
     "forwardedTo": [],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 206,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:06",
@@ -11676,35 +10357,28 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "அரசு உத்தியோகத்தர்களின் முற்பணம் 'பி' கணக்கு தொடர்பான மாதாந்த வரவு பற்று விபரங்களை CIGAS ஊடாக தயாரித்து மாவட்டச் செயலகத்திற்கு அனுப்பிவைக்கக் கோரும் கடிதம்.",
         "timestamp": "2026-10-21 10:06"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:36:30.781Z"
+    ]
   },
   {
     "id": "LTR-1792557449718",
     "originalNo": "KPN/DS/2026/10/267",
-    "date": "2026-10-19",
-    "dispatchedDate": "2026-10-07",
+    "date": "2026-10-18",
+    "dispatchedDate": "2026-10-06",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "N/A",
-    "fromWhom": "Pradeshiya Sanwardhana Bank (Regional Development Bank), Eravur Branch",
-    "subject": "Branch Merger and New Account Number Details",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "Pradeshiya Sanwardhana Bank (Regional Development Bank), Eravur Branch",
+    "inwardNo": "Branch Merger and New Account Number Details",
+    "fromWhom": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "கணக்குப் பிரிவு (Accounts & Finance)"
     ],
     "forwardedTo": [
       "ACC"
     ],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 168,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:07",
@@ -11718,13 +10392,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The Eravur branch of the Regional Development Bank has merged with the Chenkalady branch, and this letter provides the new account number for the beneficiary.",
         "timestamp": "2026-10-21 10:07"
       }
-    ],
-    "postType": "Registered Post",
-    "RegisteredPostNo": "R4320",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:37:29.718Z"
+    ]
   },
   {
     "id": "LTR-1792557544890",
@@ -11732,11 +10400,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-07",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADM/DCBC/LT/03/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Submission of Monthly Progress Report – Community Based Corrections",
-    "division": "வெளிக்களம் (Field)",
+    "registeredPostNo": "ADM/DCBC/LT/03/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Submission of Monthly Progress Report – Community Based Corrections",
+    "subject": "வெளிக்களம் (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "வெளிக்களம் (Field)"
     ],
@@ -11744,9 +10412,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "198703902508"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 169,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:09",
@@ -11760,13 +10427,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Request to submit the monthly progress report on Community Based Corrections activities on or before the 5th of every month using prescribed Form No. DCBC/DDO/FO/01.",
         "timestamp": "2026-10-21 10:09"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:39:04.890Z"
+    ]
   },
   {
     "id": "LTR-1792557623607",
@@ -11774,10 +10435,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-11",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "PS/PRD/PR/12/07,07/08/24/227485",
-    "fromWhom": "Mr. Ahamed Lebbe Uduma Lebbe",
-    "subject": "Request for the compensation Kunchankal kulam, Vaharai East D.S. Division : Vaharai , Batticaloa",
+    "registeredPostNo": "PS/PRD/PR/12/07,07/08/24/227485",
+    "inwardNo": "Mr. Ahamed Lebbe Uduma Lebbe",
+    "fromWhom": "Request for the compensation Kunchankal kulam, Vaharai East D.S. Division : Vaharai , Batticaloa",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -11786,9 +10447,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "955471580V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 176,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:10",
@@ -11802,13 +10462,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "An 88-year-old citizen requests compensation regarding property, land, and livelihood lost during the 1985 riots in Kunchankalkulam, Vaharai East.",
         "timestamp": "2026-10-21 10:10"
       }
-    ],
-    "postType": "Registered Post",
-    "RegisteredPostNo": "R 3834",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:40:23.607Z"
+    ]
   },
   {
     "id": "LTR-1792557744001",
@@ -11816,10 +10470,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-13",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADS/ACOSL/07/23",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Literary workshop for Eastern Province artists - 2026",
+    "registeredPostNo": "ADS/ACOSL/07/23",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Literary workshop for Eastern Province artists - 2026",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -11829,9 +10483,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "198575602372"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 192,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:12",
@@ -11845,13 +10498,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Notification regarding the selection of two local artists to attend a literature workshop organized by the Department of Cultural Affairs.",
         "timestamp": "2026-10-21 10:12"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:42:24.001Z"
+    ]
   },
   {
     "id": "LTR-1792557780742",
@@ -11859,11 +10506,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-19",
     "dispatchedDate": "2026-10-13",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/KPN/PS/Chairman/Gen/2026",
-    "fromWhom": "Chairman, Pradeshiya Sabha, Koralaipattu North, Vaharai",
-    "subject": "Submission of Project Proposal for the Establishment of Garment Manufacturing Facility in Vaharai",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "BT/KPN/PS/Chairman/Gen/2026",
+    "inwardNo": "Chairman, Pradeshiya Sabha, Koralaipattu North, Vaharai",
+    "fromWhom": "Submission of Project Proposal for the Establishment of Garment Manufacturing Facility in Vaharai",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -11871,9 +10518,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "197024000147"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 195,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:13",
@@ -11887,33 +10533,26 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The Pradeshiya Sabha Chairman requests land allocation to establish a garment manufacturing facility in Vaharai to generate local employment.",
         "timestamp": "2026-10-21 10:13"
       }
-    ],
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:43:00.742Z"
+    ]
   },
   {
     "id": "LTR-1792557834363",
     "originalNo": "KPN/DS/2026/10/272",
-    "date": "2026-10-20",
-    "dispatchedDate": "2026-09-22",
+    "date": "2026-10-19",
+    "dispatchedDate": "2026-09-21",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "null",
-    "fromWhom": "Rural Development Society (RDS), Vaharai",
-    "subject": "Land encroachment in Ganesapuram village",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "null",
+    "inwardNo": "Rural Development Society (RDS), Vaharai",
+    "fromWhom": "Land encroachment in Ganesapuram village",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
     "forwardedTo": [],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 184,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:13",
@@ -11927,35 +10566,28 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The Rural Development Society reports that an individual named Sivakumar has illegally encroached upon land in Ganesapuram village, which was originally allocated for village development activities.",
         "timestamp": "2026-10-21 10:13"
       }
-    ],
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:43:54.363Z"
+    ]
   },
   {
     "id": "LTR-1792557870713",
     "originalNo": "KPN/DS/2026/10/273",
-    "date": "2026-10-20",
-    "dispatchedDate": "2026-10-11",
+    "date": "2026-10-19",
+    "dispatchedDate": "2026-10-10",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "EP/DRD/BA09/212A/0651",
-    "fromWhom": "Rural Development Society - Vaharai North Kandalady",
-    "subject": "Requesting permission to use common land for building purposes",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "EP/DRD/BA09/212A/0651",
+    "inwardNo": "Rural Development Society - Vaharai North Kandalady",
+    "fromWhom": "Requesting permission to use common land for building purposes",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
     "forwardedTo": [
       "197024000147"
     ],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Under Investigation",
     "replyResponse": "",
-    "imageSizeKb": 190,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:14",
@@ -11969,35 +10601,28 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The Kandalady Rural Development Society requests permission to construct a common building on a designated public land allocated to the society.",
         "timestamp": "2026-10-21 10:14"
       }
-    ],
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:44:30.713Z"
+    ]
   },
   {
     "id": "LTR-1792557952846",
     "originalNo": "KPN/DS/2026/10/274",
-    "date": "2026-10-20",
-    "dispatchedDate": "2026-10-09",
+    "date": "2026-10-19",
+    "dispatchedDate": "2026-10-08",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "Nill",
-    "fromWhom": "முகம்மது யூசுப் சித்தி ஹமீதா",
-    "subject": "வன சீவராசிகள் வன வளங்கள் அமைச்சினால் பாம்ப் செய்கைக்காக விடுவிக்கப்பட்டுள்ள உறுதி காணிகளை அளவீடு செய்து எல்லை கற்களை இட்டுத் தரக் கோரும் விண்ணப்பம்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "Nill",
+    "inwardNo": "முகம்மது யூசுப் சித்தி ஹமீதா",
+    "fromWhom": "வன சீவராசிகள் வன வளங்கள் அமைச்சினால் பாம்ப் செய்கைக்காக விடுவிக்கப்பட்டுள்ள உறுதி காணிகளை அளவீடு செய்து எல்லை கற்களை இட்டுத் தரக் கோரும் விண்ணப்பம்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
     "forwardedTo": [
       "896590693V"
     ],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Under Investigation",
     "replyResponse": "",
-    "imageSizeKb": 139,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:15",
@@ -12011,35 +10636,28 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "பாம்ப் செய்கைக்காக விடுவிக்கப்பட்ட உறுதி காணிகளை அளவீடு செய்து எல்லை கற்களை இட்டுத் தருமாறு கோரி சமர்ப்பிக்கப்பட்ட விண்ணப்பம்.",
         "timestamp": "2026-10-21 10:15"
       }
-    ],
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:45:52.846Z"
+    ]
   },
   {
     "id": "LTR-1792558079970",
     "originalNo": "KPN/DS/2026/10/275",
-    "date": "2026-10-19",
-    "dispatchedDate": "2026-10-10",
+    "date": "2026-10-18",
+    "dispatchedDate": "2026-10-09",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "LUPPD/12/05/01",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "மாவட்ட காணிக் பயன்பாட்டுத் திட்டமிடல் குழுவின் சிபாரிசு",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "LUPPD/12/05/01",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "மாவட்ட காணிக் பயன்பாட்டுத் திட்டமிடல் குழுவின் சிபாரிசு",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
     "forwardedTo": [
       "Land"
     ],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 155,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:17",
@@ -12053,33 +10671,26 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter forwards the minutes and decisions of the District Land Use Planning Committee meeting held on 06.10.2026 for further action.",
         "timestamp": "2026-10-21 10:17"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:47:59.970Z"
+    ]
   },
   {
     "id": "LTR-1792558141615",
     "originalNo": "KPN/DS/2026/10/276",
-    "date": "2026-10-19",
-    "dispatchedDate": "2026-10-13",
+    "date": "2026-10-18",
+    "dispatchedDate": "2026-10-12",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "KPN/PS/RB/RS2/2026",
-    "fromWhom": "Pradeshiya Sabha Koralaipattu North Vaharai",
-    "subject": "காணி அனுமதிப்பத்திரம் தொடர்பாக உறுதிப்படுத்துதல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "KPN/PS/RB/RS2/2026",
+    "inwardNo": "Pradeshiya Sabha Koralaipattu North Vaharai",
+    "fromWhom": "காணி அனுமதிப்பத்திரம் தொடர்பாக உறுதிப்படுத்துதல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
     "forwardedTo": [],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Under Investigation",
     "replyResponse": "",
-    "imageSizeKb": 162,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:19",
@@ -12093,35 +10704,28 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "கோறளைப்பற்று வடக்கு பிரதேசத்தில் காணி அனுமதிப்பத்திரம் பெறுவதற்காக விண்ணப்பித்துள்ள ஜெயநாதன் விஜயகுமாரி என்பவரது காணி உரிமத்தை உறுதிப்படுத்துமாறு பிரதேச செயலாளருக்கு கோரப்பட்டுள்ளது.",
         "timestamp": "2026-10-21 10:19"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:49:01.615Z"
+    ]
   },
   {
     "id": "LTR-1792558244185",
     "originalNo": "KPN/DS/2026/10/277",
-    "date": "2026-10-19",
-    "dispatchedDate": "2026-10-06",
+    "date": "2026-10-18",
+    "dispatchedDate": "2026-10-05",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ARCH/AM/EXP/13/2026/மடல/0-27",
-    "fromWhom": "தொல்பொருள் திணைக்களம், பிராந்திய அலுவலகம், அம்பாறை-மட்டக்களப்பு (Department of Archaeology, Regional Office, Ampara-Batticaloa)",
-    "subject": "நீண்டகால குத்தகை அடிப்படையில் அரசு காணியைப் பெற்றுக்கொள்ளல் தொடர்பான தொல்பொருள் அனுமதி",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "ARCH/AM/EXP/13/2026/மடல/0-27",
+    "inwardNo": "தொல்பொருள் திணைக்களம், பிராந்திய அலுவலகம், அம்பாறை-மட்டக்களப்பு (Department of Archaeology, Regional Office, Ampara-Batticaloa)",
+    "fromWhom": "நீண்டகால குத்தகை அடிப்படையில் அரசு காணியைப் பெற்றுக்கொள்ளல் தொடர்பான தொல்பொருள் அனுமதி",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
     "forwardedTo": [
       "893461094V"
     ],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Under Investigation",
     "replyResponse": "",
-    "imageSizeKb": 199,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:20",
@@ -12135,13 +10739,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "கோறளைப்பற்று வடக்கு வாகரையில் அமைந்துள்ள காணியில் கட்டிட களஞ்சியம் ஒன்றை அமைப்பதற்கு தொல்பொருள் திணைக்களம் தனது அனுமதியை வழங்கியுள்ளது.",
         "timestamp": "2026-10-21 10:20"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:50:44.185Z"
+    ]
   },
   {
     "id": "LTR-1792558294887",
@@ -12149,11 +10747,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-18",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "LND/LMACQ/Do-06/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Requesting information regarding State-owned land",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "LND/LMACQ/Do-06/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Requesting information regarding State-owned land",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -12161,9 +10759,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "896590693V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 167,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:21",
@@ -12177,35 +10774,28 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter is a follow-up request to the Divisional Secretary of Koralai Pattu North to provide pending details regarding state-owned land as requested in previous correspondence.",
         "timestamp": "2026-10-21 10:21"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:51:34.887Z"
+    ]
   },
   {
     "id": "LTR-1792558348052",
     "originalNo": "KPN/DS/2026/10/279",
-    "date": "2026-10-19",
-    "dispatchedDate": "2026-10-11",
+    "date": "2026-10-18",
+    "dispatchedDate": "2026-10-10",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "4/10/பொது/பட்ஜ",
-    "fromWhom": "Land Commissioner General's Department",
-    "subject": "Reporting details regarding lease payments for state lands",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "4/10/பொது/பட்ஜ",
+    "inwardNo": "Land Commissioner General's Department",
+    "fromWhom": "Reporting details regarding lease payments for state lands",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
     "forwardedTo": [
       "893461094V"
     ],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 192,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:22",
@@ -12219,13 +10809,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter requests Divisional Secretaries to submit detailed reports regarding the collection of outstanding lease payments for state lands.",
         "timestamp": "2026-10-21 10:22"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:52:28.052Z"
+    ]
   },
   {
     "id": "LTR-1792558374584",
@@ -12243,9 +10827,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 170,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:22",
@@ -12259,13 +10842,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "2027ஆம் ஆண்டிற்கான புதிய மாணவர்களை இணைப்பதற்கான அனுமதி வழங்கப்பட்ட பட்டியலை 06.12.2026 இற்கு முன் மாவட்ட அலுவலகத்திற்கு அனுப்புமாறு கோரப்பட்டுள்ளது.",
         "timestamp": "2026-10-21 10:22"
       }
-    ],
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:52:54.584Z"
+    ]
   },
   {
     "id": "LTR-1792558394234",
@@ -12273,7 +10850,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-13",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
+    "registeredPostNo": "BT/DORD/A2/PSDG-Packaging Solutions/2026",
     "inwardNo": "Department of Rural Development, District Office, Batticaloa",
     "fromWhom": "Training Programme under PSDG - 2026: Training on Packaging Solutions in Batticaloa District",
     "subject": "கிராம அபிவிருத்தி (Rural Development)",
@@ -12283,9 +10860,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 182,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:23",
@@ -12299,13 +10875,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter informs the Divisional Secretary to nominate two entrepreneurs to participate in the 'Training on Packaging Solutions' held on 21.10.2026.",
         "timestamp": "2026-10-21 10:23"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:53:14.234Z"
+    ]
   },
   {
     "id": "LTR-1792558429163",
@@ -12313,19 +10883,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-13",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "MOH/VH/Adm/Gen/PHM/TP/01/2026",
-    "fromWhom": "Office of the Medical Officer of Health, Vaharai",
-    "subject": "Approval for conducting awareness programs regarding antenatal mental health management",
-    "division": "சிறுவர் பிரிவு (Field)",
+    "registeredPostNo": "MOH/VH/Adm/Gen/PHM/TP/01/2026",
+    "inwardNo": "Office of the Medical Officer of Health, Vaharai",
+    "fromWhom": "Approval for conducting awareness programs regarding antenatal mental health management",
+    "subject": "சிறுவர் பிரிவு (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சிறுவர் பிரிவு (Field)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 127,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:23",
@@ -12339,13 +10908,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The Medical Officer of Health, Vaharai provides approval and cooperation for conducting awareness programs for expectant mothers regarding antenatal mental health management.",
         "timestamp": "2026-10-21 10:23"
       }
-    ],
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:53:49.163Z"
+    ]
   },
   {
     "id": "LTR-1792558464161",
@@ -12353,19 +10916,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-13",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "EP/PSEB/BT/admin/T.traning -2026",
-    "fromWhom": "Pre-School Education Bureau, Eastern Provincial Council",
-    "subject": "முன்பள்ளிக் கல்வி மறுசீரமைப்பு 2026 இன்கீழ் முன்பள்ளி ஆசிரியர்களைப் பயிற்றுவிக்கும் வேலைத்திட்டத்தில் வளவாளராகப் பணியாற்ற அனுமதி கோரல்",
-    "division": "சிறுவர் பிரிவு (Field)",
+    "registeredPostNo": "EP/PSEB/BT/admin/T.traning -2026",
+    "inwardNo": "Pre-School Education Bureau, Eastern Provincial Council",
+    "fromWhom": "முன்பள்ளிக் கல்வி மறுசீரமைப்பு 2026 இன்கீழ் முன்பள்ளி ஆசிரியர்களைப் பயிற்றுவிக்கும் வேலைத்திட்டத்தில் வளவாளராகப் பணியாற்ற அனுமதி கோரல்",
+    "subject": "சிறுவர் பிரிவு (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சிறுவர் பிரிவு (Field)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 177,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:24",
@@ -12379,13 +10941,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "முன்பள்ளி ஆசிரியர்களுக்கான 10 நாள் பயிற்சி வேலைத்திட்டத்தில் வளவாளராக திரு.சசிகரன் என்பவரைப் பணியமர்த்த அனுமதி கோருதல்.",
         "timestamp": "2026-10-21 10:24"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:54:24.162Z"
+    ]
   },
   {
     "id": "LTR-1792558509383",
@@ -12393,19 +10949,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-08-31",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "5013",
-    "fromWhom": "State Ministry of Women and Child Development",
-    "subject": "Pay Report for the month of September 2026",
-    "division": "சிறுவர் பிரிவு (Field)",
+    "registeredPostNo": "5013",
+    "inwardNo": "State Ministry of Women and Child Development",
+    "fromWhom": "Pay Report for the month of September 2026",
+    "subject": "சிறுவர் பிரிவு (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சிறுவர் பிரிவு (Field)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 143,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:25",
@@ -12419,13 +10974,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This document is a formal salary pay report for Mr. Sasitharan K for the month of September 2026.",
         "timestamp": "2026-10-21 10:25"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:55:09.383Z"
+    ]
   },
   {
     "id": "LTR-1792558528408",
@@ -12433,19 +10982,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-13",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DSD/BT/SSF/Shiptora2026-2028/2026",
-    "fromWhom": "District Samurdhi Office, District Secretariat, Batticaloa",
-    "subject": "Implementing the 'Shiptora' Scholarship program under the Samurdhi Social Security Trust Fund for 2026-2028",
-    "division": "சமுர்த்தி (Samurdhi)",
+    "registeredPostNo": "DSD/BT/SSF/Shiptora2026-2028/2026",
+    "inwardNo": "District Samurdhi Office, District Secretariat, Batticaloa",
+    "fromWhom": "Implementing the 'Shiptora' Scholarship program under the Samurdhi Social Security Trust Fund for 2026-2028",
+    "subject": "சமுர்த்தி (Samurdhi)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமுர்த்தி (Samurdhi)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 185,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:25",
@@ -12459,13 +11007,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter provides instructions to Divisional Secretaries regarding the implementation of the 2026-2028 Shiptora scholarship program and requests the submission of selected student details by 2026.10.23.",
         "timestamp": "2026-10-21 10:25"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:55:28.408Z"
+    ]
   },
   {
     "id": "LTR-1792558545206",
@@ -12473,19 +11015,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-15",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DSD/CBO/DCM/2026/01",
-    "fromWhom": "District Secretariat, Batticaloa (Samurdhi Branch)",
-    "subject": "District Samurdhi Community Group Meeting",
-    "division": "சமுர்த்தி (Samurdhi)",
+    "registeredPostNo": "DSD/CBO/DCM/2026/01",
+    "inwardNo": "District Secretariat, Batticaloa (Samurdhi Branch)",
+    "fromWhom": "District Samurdhi Community Group Meeting",
+    "subject": "சமுர்த்தி (Samurdhi)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமுர்த்தி (Samurdhi)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 176,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:25",
@@ -12499,13 +11040,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Invitation to the District Samurdhi Community Group meeting to be held on 22.10.2026 to review credit and financial statements.",
         "timestamp": "2026-10-21 10:25"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:55:45.206Z"
+    ]
   },
   {
     "id": "LTR-1792558575949",
@@ -12513,19 +11048,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-19",
     "dispatchedDate": "2026-10-12",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/DSSO/PSDG/homes/2026",
-    "fromWhom": "District Social Services Office, Batticaloa",
-    "subject": "சுயதொழில் கொடுப்பனவு - 2ம் கட்டம்",
-    "division": "சமூக சேவை (Social)",
+    "registeredPostNo": "BT/DSSO/PSDG/homes/2026",
+    "inwardNo": "District Social Services Office, Batticaloa",
+    "fromWhom": "சுயதொழில் கொடுப்பனவு - 2ம் கட்டம்",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமூக சேவை (Social)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 186,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:26",
@@ -12539,13 +11073,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "PSDG திட்டத்தின் கீழ் சுயதொழில் பயனாளிகளுக்கான 2ம் கட்ட கொடுப்பனவு வங்கி கணக்குகளில் வைப்பிடப்பட்டுள்ளதாக அறிவித்தல்.",
         "timestamp": "2026-10-21 10:26"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:56:15.949Z"
+    ]
   },
   {
     "id": "LTR-1792558615524",
@@ -12553,19 +11081,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-19",
     "dispatchedDate": "2026-10-10",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "க/பொ/100 / DS/KN",
-    "fromWhom": "மை. லில்லிவைலட், மெயின் றோட், மாங்கேணி",
-    "subject": "முதியோர் கொடுப்பனவு / வாழ்வாதார நிதி உதவி கோருதல்",
-    "division": "சமூக சேவை (Social)",
+    "registeredPostNo": "க/பொ/100 / DS/KN",
+    "inwardNo": "மை. லில்லிவைலட், மெயின் றோட், மாங்கேணி",
+    "fromWhom": "முதியோர் கொடுப்பனவு / வாழ்வாதார நிதி உதவி கோருதல்",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமூக சேவை (Social)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 219,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:26",
@@ -12579,13 +11106,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "73 வயதுடைய முதிய பெண் ஒருவர் வறுமை மற்றும் நோய் காரணமாக முதியோர் கொடுப்பனவு/அஸ்வெசும நிதி உதவி வழங்குமாறு கோரிக்கை விடுத்துள்ளார்.",
         "timestamp": "2026-10-21 10:26"
       }
-    ],
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:56:55.524Z"
+    ]
   },
   {
     "id": "LTR-1792558650484",
@@ -12593,19 +11114,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-19",
     "dispatchedDate": "2026-10-13",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "SSB/DSE/05",
-    "fromWhom": "Divisional Secretariat Koralaipattu South",
-    "subject": "அங்கவீனமுற்ற நபர்களுக்கான கல்விக்கான உதவியைப் பெற்றுக்கொடுத்தல்",
-    "division": "சமூக சேவை (Social)",
+    "registeredPostNo": "SSB/DSE/05",
+    "inwardNo": "Divisional Secretariat Koralaipattu South",
+    "fromWhom": "அங்கவீனமுற்ற நபர்களுக்கான கல்விக்கான உதவியைப் பெற்றுக்கொடுத்தல்",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமூக சேவை (Social)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 169,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:27",
@@ -12619,13 +11139,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "பயனாளி Y.Rithika என்பவருக்கான தவறுதலாக அனுப்பப்பட்ட கல்வி உதவித்தொகை காசோலையை மேலதிக நடவடிக்கைக்காக திருப்பி அனுப்புதல்.",
         "timestamp": "2026-10-21 10:27"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:57:30.485Z"
+    ]
   },
   {
     "id": "LTR-1792558682639",
@@ -12633,11 +11147,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-19",
     "dispatchedDate": "2026-10-17",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "NSPD/20/EDU/Tamil/2026",
-    "fromWhom": "Divisional Secretariat, Koralaipattu South",
-    "subject": "அங்கவீனமுற்ற நபர்களுக்கான கல்விக்கான உதவியைப் பெற்றுக் கொடுத்தல்",
-    "division": "சமூக சேவை (Social)",
+    "registeredPostNo": "NSPD/20/EDU/Tamil/2026",
+    "inwardNo": "Divisional Secretariat, Koralaipattu South",
+    "fromWhom": "அங்கவீனமுற்ற நபர்களுக்கான கல்விக்கான உதவியைப் பெற்றுக் கொடுத்தல்",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமூக சேவை (Social)"
     ],
@@ -12645,9 +11159,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "857520521V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 123,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:28",
@@ -12661,13 +11174,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "அங்கவீனமுற்ற நபர்களுக்கான கல்வி உதவியாக Y.Rithika என்பவருக்கு வழங்கப்பட்ட 30,000 ரூபாவுக்கான காசோலை இணைக்கப்பட்டுள்ளமை பற்றிய அறிவித்தல்.",
         "timestamp": "2026-10-21 10:28"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:58:02.640Z"
+    ]
   },
   {
     "id": "LTR-1792558717549",
@@ -12675,19 +11182,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-19",
     "dispatchedDate": "2026-09-29",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "SWU/SOSU/DICBR/DO/2026",
-    "fromWhom": "Divisional Secretariat, Koralaipattu, Valaichenai",
-    "subject": "மாற்றுத்திறனாளி சுயதொழில் செய்பவர்களுக்கான தொழில் முனைவோர் பயிற்சித்திட்டம்-2026",
-    "division": "சமூக சேவை (Social)",
+    "registeredPostNo": "SWU/SOSU/DICBR/DO/2026",
+    "inwardNo": "Divisional Secretariat, Koralaipattu, Valaichenai",
+    "fromWhom": "மாற்றுத்திறனாளி சுயதொழில் செய்பவர்களுக்கான தொழில் முனைவோர் பயிற்சித்திட்டம்-2026",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமூக சேவை (Social)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 172,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:28",
@@ -12701,13 +11207,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Invitation for disabled self-employed individuals to attend the entrepreneurship training program scheduled for 2026-10-16.",
         "timestamp": "2026-10-21 10:28"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:58:37.549Z"
+    ]
   },
   {
     "id": "LTR-1792558748159",
@@ -12715,19 +11215,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-19",
     "dispatchedDate": "2026-10-11",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADM/ASWSM/DO16",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "அங்கவீனமுற்ற நபர்களுக்கான தேசிய அடையாள அட்டைகளை தயாரித்து 2026.12.31 ஆம் திகதிக்கு முன்னர் விண்ணப்பித்தல் தொடர்பில்",
-    "division": "சமூக சேவை (Social)",
+    "registeredPostNo": "ADM/ASWSM/DO16",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "அங்கவீனமுற்ற நபர்களுக்கான தேசிய அடையாள அட்டைகளை தயாரித்து 2026.12.31 ஆம் திகதிக்கு முன்னர் விண்ணப்பித்தல் தொடர்பில்",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமூக சேவை (Social)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 221,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:29",
@@ -12741,13 +11240,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "அங்கவீனமுற்ற நபர்களுக்கான தேசிய அடையாள அட்டைகளை 2026.12.31 ஆம் திகதிக்கு முன்னர் தயாரித்து வழங்குவதற்கான நடவடிக்கைகள் தொடர்பிலான அறிவுறுத்தல்.",
         "timestamp": "2026-10-21 10:29"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:59:08.159Z"
+    ]
   },
   {
     "id": "LTR-1792558770462",
@@ -12755,19 +11248,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-19",
     "dispatchedDate": "2026-10-11",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/DSSO/Eld.day/2026",
-    "fromWhom": "District Social Services Officer, Batticaloa",
-    "subject": "கிழக்கு மாகாண சர்வதேச முதியோர் தின விழா - 2026",
-    "division": "சமூக சேவை (Social)",
+    "registeredPostNo": "BT/DSSO/Eld.day/2026",
+    "inwardNo": "District Social Services Officer, Batticaloa",
+    "fromWhom": "கிழக்கு மாகாண சர்வதேச முதியோர் தின விழா - 2026",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமூக சேவை (Social)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 171,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:29",
@@ -12781,13 +11273,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Invitation to the Eastern Province International Elders' Day celebration held on 21.10.2026 and instructions for preliminary work.",
         "timestamp": "2026-10-21 10:29"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:59:30.462Z"
+    ]
   },
   {
     "id": "LTR-1792558791117",
@@ -12795,19 +11281,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-19",
     "dispatchedDate": "2026-10-06",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADS/SPPRO/2025/02",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "முதியோர்களுக்கான பகமை சகவாழ்வு துவிச்சக்கரவண்டி சவாரி - 2026",
-    "division": "சமூக சேவை (Social)",
+    "registeredPostNo": "ADS/SPPRO/2025/02",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "முதியோர்களுக்கான பகமை சகவாழ்வு துவிச்சக்கரவண்டி சவாரி - 2026",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமூக சேவை (Social)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 181,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:29",
@@ -12821,13 +11306,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Requesting cooperation and assistance from relevant divisional officers for the Senior Citizens' cycling event scheduled to pass through the region from October 19th to 21st, 2026.",
         "timestamp": "2026-10-21 10:29"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T04:59:51.117Z"
+    ]
   },
   {
     "id": "LTR-1792558818405",
@@ -12835,10 +11314,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-12",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "EP/14/LEGAL/L3/KP.PS/2025",
-    "fromWhom": "உள்ளூராட்சி திணைக்களம், கிழக்கு மாகாணம் (Department of Local Government, Eastern Province)",
-    "subject": "வீதிகளுக்கு பெயர் சூட்டியமை தொடர்பான முறைப்பாடு",
+    "registeredPostNo": "EP/14/LEGAL/L3/KP.PS/2025",
+    "inwardNo": "உள்ளூராட்சி திணைக்களம், கிழக்கு மாகாணம் (Department of Local Government, Eastern Province)",
+    "fromWhom": "வீதிகளுக்கு பெயர் சூட்டியமை தொடர்பான முறைப்பாடு",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -12847,9 +11326,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "732181369V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 169,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:30",
@@ -12863,24 +11341,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "வாகரை பிரதேச செயலாளர் பிரிவுக்கு உட்பட்ட நகர கிராமத்தில் வீதிகளுக்கு பெயர் சூட்டியமை தொடர்பான முறைப்பாட்டை சட்ட விதிகளுக்கு அமைய விசாரணை செய்து 2026.10.27-க்குள் அறிக்கை சமர்ப்பிக்குமாறு பணித்தல்.",
         "timestamp": "2026-10-21 10:30"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T05:00:18.405Z"
+    ]
   },
   {
     "id": "LTR-1792558862263",
     "originalNo": "KPN/DS/2026/10/296",
-    "date": "2026-10-19",
-    "dispatchedDate": "2026-10-13",
+    "date": "2026-10-18",
+    "dispatchedDate": "2026-10-12",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADM/CLEAN/DO-13/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Increase in wages for cleaning service staff",
+    "registeredPostNo": "District Secretariat, Batticaloa",
+    "inwardNo": "Increase in wages for cleaning service staff",
+    "fromWhom": "நிர்வாகப் பிரிவு (Administration)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -12889,10 +11361,9 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "732181369V",
       "ACC"
     ],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 202,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:31",
@@ -12906,13 +11377,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter informs all Divisional Secretaries regarding the increase in daily wages for cleaning service employees to Rs. 1500.00 effective from 28.04.2026.",
         "timestamp": "2026-10-21 10:31"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T05:01:02.264Z"
+    ]
   },
   {
     "id": "LTR-1792558951059",
@@ -12920,10 +11385,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-11",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DCBC/DEV/01/DO/2025",
-    "fromWhom": "Department of Community Based Corrections",
-    "subject": "Obtaining daily duty and monthly summary progress reports from Development Officers (Community Based Corrections)",
+    "registeredPostNo": "DCBC/DEV/01/DO/2025",
+    "inwardNo": "Department of Community Based Corrections",
+    "fromWhom": "Obtaining daily duty and monthly summary progress reports from Development Officers (Community Based Corrections)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -12932,9 +11397,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "732181369V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 187,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:32",
@@ -12948,13 +11412,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter instructs Development Officers (Community Based Corrections) to submit their daily duty records and monthly progress reports to the department.",
         "timestamp": "2026-10-21 10:32"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T05:02:31.059Z"
+    ]
   },
   {
     "id": "LTR-1792558984008",
@@ -12962,10 +11420,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-19",
     "dispatchedDate": "2026-08-05",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "PMAS/62384",
-    "fromWhom": "Ministry of Public Administration, Provincial Councils and Local Government, Combined Services Division",
-    "subject": "Updating the files of officers in the Management Service Officers' Service - Miss/Mrs/Mr. P. Thanurssiya, M.S.O. III",
+    "registeredPostNo": "PMAS/62384",
+    "inwardNo": "Ministry of Public Administration, Provincial Councils and Local Government, Combined Services Division",
+    "fromWhom": "Updating the files of officers in the Management Service Officers' Service - Miss/Mrs/Mr. P. Thanurssiya, M.S.O. III",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -12974,9 +11432,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "980282996V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 179,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:33",
@@ -12990,13 +11447,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Requesting the submission of documents for the confirmation in service of M.S.O. III officer Miss/Mrs/Mr. P. Thanurssiya.",
         "timestamp": "2026-10-21 10:33"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T05:03:04.008Z"
+    ]
   },
   {
     "id": "LTR-1792559047645",
@@ -13004,10 +11455,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-19",
     "dispatchedDate": "2026-09-20",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "HA/2/GEN/07-DO",
-    "fromWhom": "Department of Hindu Religious and Cultural Affairs",
-    "subject": "மாவட்ட செயலகம் மற்றும் பிரதேச செயலகங்களில் இணைக்கப்பட்டுள்ள உத்தியோகத்தர்களின் விடுமுறை தொடர்பானது",
+    "registeredPostNo": "HA/2/GEN/07-DO",
+    "inwardNo": "Department of Hindu Religious and Cultural Affairs",
+    "fromWhom": "மாவட்ட செயலகம் மற்றும் பிரதேச செயலகங்களில் இணைக்கப்பட்டுள்ள உத்தியோகத்தர்களின் விடுமுறை தொடர்பானது",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -13016,9 +11467,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "907833410V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 162,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:34",
@@ -13032,13 +11482,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "பிரிவு செயலகங்களில் உள்ள அபிவிருத்தி உத்தியோகத்தர்களின் முந்தைய மாத விடுமுறை விபரங்களை மாதந்தோறும் சமர்ப்பிக்குமாறு பணிப்புரை வழங்கப்பட்டுள்ளது.",
         "timestamp": "2026-10-21 10:34"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T05:04:07.645Z"
+    ]
   },
   {
     "id": "LTR-1792559079702",
@@ -13046,10 +11490,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-19",
     "dispatchedDate": "2026-10-17",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "TM2952987-TM",
-    "fromWhom": "K. Rajeevan",
-    "subject": "Sick leave notification",
+    "registeredPostNo": "TM2952987-TM",
+    "inwardNo": "K. Rajeevan",
+    "fromWhom": "Sick leave notification",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -13058,9 +11502,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "907833410V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 131,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:34",
@@ -13074,13 +11517,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "K. Rajeevan has sent a telegram notification informing about his sick leave.",
         "timestamp": "2026-10-21 10:34"
       }
-    ],
-    "postType": "Registered Post",
-    "RegisteredPostNo": "TM2952987-TM",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T05:04:39.702Z"
+    ]
   },
   {
     "id": "LTR-1792559102636",
@@ -13088,19 +11525,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-19",
     "dispatchedDate": "2026-10-17",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "Nill",
-    "fromWhom": "R. Sudha",
-    "subject": "Request for sick leave for one day",
+    "registeredPostNo": "Nill",
+    "inwardNo": "R. Sudha",
+    "fromWhom": "Request for sick leave for one day",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 109,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-21 10:35",
@@ -13114,13 +11550,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "R. Sudha has sent a telegram requesting one day of leave due to illness.",
         "timestamp": "2026-10-21 10:35"
       }
-    ],
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T05:05:02.636Z"
+    ]
   },
   {
     "id": "LTR-2026-004",
@@ -13128,13 +11558,14 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-02",
     "dispatchedDate": "2026-09-30",
     "letterType": "Hand Delivery",
-    "registeredPostNo": "No",
-    "inwardNo": "CUL/EVT/2026/15",
-    "fromWhom": "பிரதேச கலாச்சார பேரவை மற்றும் பண்பாட்டலுவல்கள் திணைக்களம்",
-    "subject": "நிகழ்வு அழைப்பிதழ்: வாகரை பிரதேச செயலக வருடாந்த கலாச்சார விழா மற்றும் சாதனையாளர் கௌரவிப்பு நிகழ்வுக்கான அழைப்பிதழ் (Event Invitation: Annual Cultural Festival & Ceremony)",
+    "registeredPostNo": "CUL/EVT/2026/15",
+    "inwardNo": "பிரதேச கலாச்சார பேரவை மற்றும் பண்பாட்டலுவல்கள் திணைக்களம்",
+    "fromWhom": "நிகழ்வு அழைப்பிதழ்: வாகரை பிரதேச செயலக வருடாந்த கலாச்சார விழா மற்றும் சாதனையாளர் கௌரவிப்பு நிகழ்வுக்கான அழைப்பிதழ் (Event Invitation: Annual Cultural Festival & Ceremony)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
-      "நிர்வாகப் பிரிவு (Administration)"
+      "நிர்வாகப் பிரிவு (Administration)",
+      "சமூக சேவை (Social)"
     ],
     "forwardedTo": [
       "luxury04",
@@ -13146,12 +11577,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
     "createdAt": "2026-10-03T11:20:00Z",
-    "postType": "Hand Delivery",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "KN/ADM/2026/CUL-09",
-    "updatedAt": "2026-10-21T09:15:49.548Z"
+    "chats": []
   },
   {
     "id": "LTR-2026-005",
@@ -13159,13 +11585,14 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-01",
     "dispatchedDate": "2026-09-29",
     "letterType": "Express Mail",
-    "registeredPostNo": "No",
-    "inwardNo": "DP/RUR/REM/2026/41",
-    "fromWhom": "திட்டமிடல் பணிப்பாளர், மாவட்ட செயலகம் மட்டக்களப்பு",
-    "subject": "மீள் ஞாபகமூட்டல் கடிதம்: 2026 ஆம் ஆண்டிற்கான கிராமிய அபிவிருத்தி திட்ட முன்மொழிவுகளை உடனடியாக சமர்ப்பிக்குமாறு கோரும் 2ம் நினைவூட்டல் (2nd Urgent Reminder Letter: Rural Development Project Proposals)",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "DP/RUR/REM/2026/41",
+    "inwardNo": "திட்டமிடல் பணிப்பாளர், மாவட்ட செயலகம் மட்டக்களப்பு",
+    "fromWhom": "மீள் ஞாபகமூட்டல் கடிதம்: 2026 ஆம் ஆண்டிற்கான கிராமிய அபிவிருத்தி திட்ட முன்மொழிவுகளை உடனடியாக சமர்ப்பிக்குமாறு கோரும் 2ம் நினைவூட்டல் (2nd Urgent Reminder Letter: Rural Development Project Proposals)",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
-      "திட்டமிடல் பிரிவு (Planning)"
+      "திட்டமிடல் பிரிவு (Planning)",
+      "கிராம அபிவிருத்தி (Rural Development)"
     ],
     "forwardedTo": [
       "luxury01",
@@ -13177,12 +11604,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
     "createdAt": "2026-10-02T09:40:00Z",
-    "postType": "Express Mail",
-    "RegisteredPostNo": "EP-991204",
-    "actionStatus": "Action Taken",
-    "ActionStatus": "Action Taken",
-    "FileNo": "KN/PLN/2026/REM-02",
-    "updatedAt": "2026-10-21T09:15:54.272Z"
+    "chats": []
   },
   {
     "id": "LTR-2026-006",
@@ -13190,13 +11612,14 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-09-30",
     "dispatchedDate": "2026-09-28",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "PUB/CMP/2026/07",
-    "fromWhom": "பால்சேனை கிராம அபிவிருத்தி சங்கம் & பொதுமக்கள்",
-    "subject": "முறைப்பாடு: பால்சேனை பகுதியில் அனுமதியற்ற சட்டவிரோத மணல் அகழ்வு மற்றும் பொது வீதி சேதம் தொடர்பான முறைப்பாடு (Public Complaint on Illegal Sand Mining & Road Damage)",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "PUB/CMP/2026/07",
+    "inwardNo": "பால்சேனை கிராம அபிவிருத்தி சங்கம் & பொதுமக்கள்",
+    "fromWhom": "முறைப்பாடு: பால்சேனை பகுதியில் அனுமதியற்ற சட்டவிரோத மணல் அகழ்வு மற்றும் பொது வீதி சேதம் தொடர்பான முறைப்பாடு (Public Complaint on Illegal Sand Mining & Road Damage)",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
-      "காணிப் பிரிவு (Land Division)"
+      "காணிப் பிரிவு (Land Division)",
+      "வெளிக்களம் (Field)"
     ],
     "forwardedTo": [
       "luxury01"
@@ -13207,12 +11630,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
     "createdAt": "2026-10-01T14:10:00Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "RP-883011",
-    "actionStatus": "Under Investigation",
-    "ActionStatus": "Under Investigation",
-    "FileNo": "KN/LND/2026/CMP-05",
-    "updatedAt": "2026-10-21T09:15:58.004Z"
+    "chats": []
   },
   {
     "id": "LTR-2026-007",
@@ -13238,12 +11656,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "registeredBy": "mail01",
     "registeredByName": "Mail Officer (கடித பதிவாளர்)",
     "createdAt": "2026-10-01T15:30:00Z",
-    "postType": "Registered Post",
-    "RegisteredPostNo": "RP-552104",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-21T09:16:01.748Z"
+    "chats": []
   },
   {
     "id": "LTR-1792647488003",
@@ -13253,17 +11666,16 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "letterType": "Normal Post",
     "registeredPostNo": "No",
     "inwardNo": "Community Development Council, Kayankerni 211A (சமூக அபிவிருத்தி சபை, காயான்கேணி 211A)",
-    "fromWhom": "Community Development Council, Kayankerni 211A (சமூக அபிவிருத்தி சபை, காயான்கேணி 211A)",
-    "subject": "Implementation of development projects under the 'Prajashakthi' program-2026",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "fromWhom": "Implementation of development projects under the 'Prajashakthi' program-2026",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 177,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-22 11:08",
@@ -13277,13 +11689,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Proposal for the establishment of a freshwater fish production unit and sales center under the Prajashakthi Programme 2026 at Kayankerni 211A.",
         "timestamp": "2026-10-22 11:08"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-22T05:38:08.004Z"
+    ]
   },
   {
     "id": "LTR-1792647556716",
@@ -13293,9 +11699,9 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "letterType": "Normal Post",
     "registeredPostNo": "No",
     "inwardNo": "க. சுபாஜினி, கண்டலடி, வாகரை",
-    "fromWhom": "க. சுபாஜினி, கண்டலடி, வாகரை",
-    "subject": "நிரந்தர வீட்டிற்கான உதவி கோரல்",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "fromWhom": "நிரந்தர வீட்டிற்கான உதவி கோரல்",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -13303,9 +11709,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "996031071V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 214,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-22 11:09",
@@ -13319,13 +11724,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "மழைக்கால வெள்ளம் மற்றும் இடப்பற்றாக்குறை காரணமாக தனது குடும்பம் வாழ்வதற்கு நிரந்தர வீடு அமைத்து தருமாறு பிரதேச செயலாளரிடம் கோரிக்கை விடுக்கப்பட்டுள்ளது.",
         "timestamp": "2026-10-22 11:09"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "01",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-22T05:39:16.716Z"
+    ]
   },
   {
     "id": "LTR-1792647674649",
@@ -13333,11 +11732,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-21",
     "dispatchedDate": "2026-10-14",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DPD/EN-Div/36/1/2026",
-    "fromWhom": "மாவட்ட செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
-    "subject": "சுற்றாடல் அமைச்சின் வருடாந்த செயற்திட்டங்களில் இளைஞர்களை பங்குபற்ற செய்தல்",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "DPD/EN-Div/36/1/2026",
+    "inwardNo": "மாவட்ட செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
+    "fromWhom": "சுற்றாடல் அமைச்சின் வருடாந்த செயற்திட்டங்களில் இளைஞர்களை பங்குபற்ற செய்தல்",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -13345,9 +11744,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "751671660V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 177,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-22 11:11",
@@ -13361,13 +11759,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "சுற்றாடல் அமைச்சு செயற்திட்டங்களில் இளைஞர்களைப் பங்குபற்றச் செய்வதற்கான நிதி ஒதுக்கீடு மற்றும் முன்னேற்ற அறிக்கை சமர்ப்பித்தல் தொடர்பான கடிதம்.",
         "timestamp": "2026-10-22 11:11"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-22T05:41:14.649Z"
+    ]
   },
   {
     "id": "LTR-1792647779264",
@@ -13375,11 +11767,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-06",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "PS/KPN/FA/BOS/2026/01",
-    "fromWhom": "செயலாளர், பிரதேச சபை கோறளைப்பற்று வடக்கு, வாகரை",
-    "subject": "வருடாந்த பொருட்கணக்கெடுப்பு சபை நியமனம் - 2025",
-    "division": "சமூக சேவை (Social)",
+    "registeredPostNo": "PS/KPN/FA/BOS/2026/01",
+    "inwardNo": "செயலாளர், பிரதேச சபை கோறளைப்பற்று வடக்கு, வாகரை",
+    "fromWhom": "வருடாந்த பொருட்கணக்கெடுப்பு சபை நியமனம் - 2025",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமூக சேவை (Social)"
     ],
@@ -13387,9 +11779,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "790202228V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 191,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-22 11:12",
@@ -13403,13 +11794,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "2025 ஆம் ஆண்டுக்கான வருடாந்த பொருட்கள் கணக்கெடுப்பு சபைக்கு உத்தியோகத்தர்களை நியமித்து கணக்கெடுப்பு அறிக்கையினை சமர்ப்பிக்குமாறு கோரல்.",
         "timestamp": "2026-10-22 11:12"
       }
-    ],
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-22T05:42:59.264Z"
+    ]
   },
   {
     "id": "LTR-1792647910697",
@@ -13417,10 +11802,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-13",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADM/TRIN/01/2025",
-    "fromWhom": "திரு. S. அற்புதன், சமுர்த்தி முகாமையாளர், பிரதேச செயலகம், ஏறாவூர்ப்பற்று",
-    "subject": "கடமையைப் பொறுப்பேற்றல்",
+    "registeredPostNo": "ADM/TRIN/01/2025",
+    "inwardNo": "திரு. S. அற்புதன், சமுர்த்தி முகாமையாளர், பிரதேச செயலகம், ஏறாவூர்ப்பற்று",
+    "fromWhom": "கடமையைப் பொறுப்பேற்றல்",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -13429,9 +11814,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "980282996V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 137,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-22 11:15",
@@ -13445,13 +11829,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "சமுர்த்தி முகாமையாளர் திரு. S. அற்புதன் அவர்கள் ஏறாவூர்ப்பற்று பிரதேச செயலகத்தில் 2026.10.15 அன்று கடமையைப் பொறுப்பேற்றுக்கொண்டதை அறிவிக்கும் கடிதம்.",
         "timestamp": "2026-10-22 11:15"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-22T05:45:10.697Z"
+    ]
   },
   {
     "id": "LTR-1792648091812",
@@ -13459,10 +11837,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-20",
     "dispatchedDate": "2026-10-18",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADM/NDDCB/PSNUP/16/2026",
-    "fromWhom": "மாவட்ட செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
-    "subject": "இடைத்தங்கல் முகாமிற்கான கடமை அட்டவணை தொடர்பானது",
+    "registeredPostNo": "ADM/NDDCB/PSNUP/16/2026",
+    "inwardNo": "மாவட்ட செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
+    "fromWhom": "இடைத்தங்கல் முகாமிற்கான கடமை அட்டவணை தொடர்பானது",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -13471,9 +11849,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "907833410V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 199,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-22 11:18",
@@ -13487,13 +11864,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "இடைத்தங்கல் முகாமிற்காக தேசிய அபாயகர ஔடதங்கள் கட்டுப்பாட்டுச் சபையின் போதைப்பொருள் தடுப்பு உத்தியோகத்தர்களை கடமைக்காக விடுவிப்பது தொடர்பானது.",
         "timestamp": "2026-10-22 11:18"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-22T05:48:11.812Z"
+    ]
   },
   {
     "id": "LTR-1792648664622",
@@ -13501,19 +11872,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-21",
     "dispatchedDate": "2026-10-13",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DSD/BT/SSF/GEn/2026",
-    "fromWhom": "District Samurdhi Office, District Secretariat, Batticaloa",
-    "subject": "Brother HLL 6200 DW அச்சுப்பொறி திருத்தம் செய்தல்",
-    "division": "சமுர்த்தி (Samurdhi)",
+    "registeredPostNo": "DSD/BT/SSF/GEn/2026",
+    "inwardNo": "District Samurdhi Office, District Secretariat, Batticaloa",
+    "fromWhom": "Brother HLL 6200 DW அச்சுப்பொறி திருத்தம் செய்தல்",
+    "subject": "சமுர்த்தி (Samurdhi)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமுர்த்தி (Samurdhi)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 180,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-22 11:27",
@@ -13527,13 +11897,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "District Samurdhi office instructs to hand over faulty Brother HLL 6200 DW printers to the District Secretariat before 2026.10.23 for repair by Office Network Private Limited.",
         "timestamp": "2026-10-22 11:27"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-22T05:57:44.622Z"
+    ]
   },
   {
     "id": "LTR-1792648759363",
@@ -13541,11 +11905,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-21",
     "dispatchedDate": "2026-10-19",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADS/SKILL/31/01/2026",
-    "fromWhom": "District Secretariat, Batticaloa (District Secretary/Government Agent)",
-    "subject": "குறைந்த வருமானம் கொண்ட குடும்பங்களைச் சேர்ந்த பிள்ளைகளுக்கு தொழிற்கல்வி வழங்கி அவர்களை தொழிற்பேட்டைக்கு வழிகாட்டிச் செல்லுதல்",
-    "division": "வெளிக்களம் (Field)",
+    "registeredPostNo": "ADS/SKILL/31/01/2026",
+    "inwardNo": "District Secretariat, Batticaloa (District Secretary/Government Agent)",
+    "fromWhom": "குறைந்த வருமானம் கொண்ட குடும்பங்களைச் சேர்ந்த பிள்ளைகளுக்கு தொழிற்கல்வி வழங்கி அவர்களை தொழிற்பேட்டைக்கு வழிகாட்டிச் செல்லுதல்",
+    "subject": "வெளிக்களம் (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "வெளிக்களம் (Field)"
     ],
@@ -13553,9 +11917,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "812991786V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 156,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-22 11:29",
@@ -13569,13 +11932,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter instructs on facilitating vocational training for children from low-income families to guide them towards employment opportunities.",
         "timestamp": "2026-10-22 11:29"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-22T05:59:19.363Z"
+    ]
   },
   {
     "id": "LTR-1792994900115",
@@ -13585,17 +11942,16 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "letterType": "Normal Post",
     "registeredPostNo": "No",
     "inwardNo": "கபீர் சித்தி சமீமா",
-    "fromWhom": "கபீர் சித்தி சமீமா",
-    "subject": "எனது காணியை அத்துமீறி பிடித்துள்ளது சம்மந்தமாக",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "fromWhom": "எனது காணியை அத்துமீறி பிடித்துள்ளது சம்மந்தமாக",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 187,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-26 11:38",
@@ -13609,13 +11965,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "வாகரை பிரதேச செயலகத்திற்கு உட்பட்ட எனது காணியை ஒருவர் அத்துமீறி பிடித்துள்ளதால் அதனை மீட்டுத் தருமாறு கோரல்.",
         "timestamp": "2026-10-26 11:38"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-26T06:08:20.117Z"
+    ]
   },
   {
     "id": "LTR-1792994999414",
@@ -13623,11 +11973,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-25",
     "dispatchedDate": "2026-10-18",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "RDA/DPD/EP/IRD-2/T-05/W-24/01",
-    "fromWhom": "Road Development Authority, Second Integrated Road Investment Program, Office of the Deputy Project Director-East",
-    "subject": "Submission of Tree Removal in Thombuthar Road, Kathiravely (EBT-089)",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "RDA/DPD/EP/IRD-2/T-05/W-24/01",
+    "inwardNo": "Road Development Authority, Second Integrated Road Investment Program, Office of the Deputy Project Director-East",
+    "fromWhom": "Submission of Tree Removal in Thombuthar Road, Kathiravely (EBT-089)",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -13636,9 +11986,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "896590693V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 186,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-26 11:39",
@@ -13652,25 +12001,19 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Requesting consent for the removal of trees required for the improvement of Thombuthar Road in Kathiravely.",
         "timestamp": "2026-10-26 11:39"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-26T06:09:59.414Z"
+    ]
   },
   {
     "id": "LTR-1792995623879",
     "originalNo": "KPN/DS/2026/10/312",
-    "date": "2026-10-24",
-    "dispatchedDate": "2026-06-21",
+    "date": "2026-10-23",
+    "dispatchedDate": "2026-06-20",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "Nill",
-    "fromWhom": "அதிபர், மட்/க்கு/வட்டவான் கலைமகள் வித்தியாலயம், வாழைச்சேனை (BT/KK/Vaddawan Kalaimahal Vidyalayam)",
-    "subject": "பாடசாலை காணிக்குரிய காணி உறுதி பெறுவது தொடர்பானது",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "Nill",
+    "inwardNo": "அதிபர், மட்/க்கு/வட்டவான் கலைமகள் வித்தியாலயம், வாழைச்சேனை (BT/KK/Vaddawan Kalaimahal Vidyalayam)",
+    "fromWhom": "பாடசாலை காணிக்குரிய காணி உறுதி பெறுவது தொடர்பானது",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -13678,10 +12021,9 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "ACC",
       "Land"
     ],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 156,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-26 11:50",
@@ -13695,13 +12037,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "பாடசாலைக்குரிய நிரந்தர காணி உறுதியினைப் பெற்றுத் தருமாறு கோரி அதிபரால் அனுப்பி வலயக் கல்விப் பணிப்பாளரினால் முன்னனுப்பப்பட்ட கடிதம்.",
         "timestamp": "2026-10-26 11:50"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-26T06:20:23.884Z"
+    ]
   },
   {
     "id": "LTR-1792995790251",
@@ -13709,11 +12045,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-25",
     "dispatchedDate": "2026-10-14",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/KK/ZEO/PLAN/Land/2026",
-    "fromWhom": "கல்குடா வலயக்கல்வி அலுவலகம் (Kalkudah Zonal Education Office)",
-    "subject": "பாடசாலைக் காணிகளைக் கையளித்தல் PLC/EP/03 படிவத்தை சமர்ப்பித்தல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "BT/KK/ZEO/PLAN/Land/2026",
+    "inwardNo": "கல்குடா வலயக்கல்வி அலுவலகம் (Kalkudah Zonal Education Office)",
+    "fromWhom": "பாடசாலைக் காணிகளைக் கையளித்தல் PLC/EP/03 படிவத்தை சமர்ப்பித்தல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -13721,9 +12057,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "905674226V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 183,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-26 11:53",
@@ -13737,13 +12072,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "வலயத்திற்குட்பட்ட 8 பாடசாலைகளின் தேவைகளுக்காக அரச காணிச்சட்டத்தின் கீழ் காணி கோரும் விண்ணப்பங்கள் (PLC/EP/03 படிவம்) மற்றும் வரைபடங்களை சமர்ப்பித்து நடவடிக்கை கோரல்.",
         "timestamp": "2026-10-26 11:53"
       }
-    ],
-    "postType": "Registered Post",
-    "RegisteredPostNo": "R-7865",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-26T06:23:10.252Z"
+    ]
   },
   {
     "id": "LTR-1792996438883",
@@ -13751,11 +12080,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-25",
     "dispatchedDate": "2026-10-18",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "LND/LMKPN/DO-07/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Requesting report on the regularization of houses for K.M. Leelavathi and Thirumathi Mayilvaganam Makeswari",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "LND/LMKPN/DO-07/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Requesting report on the regularization of houses for K.M. Leelavathi and Thirumathi Mayilvaganam Makeswari",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -13763,9 +12092,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "928523802V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 166,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-26 12:03",
@@ -13779,13 +12107,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The District Secretariat is requesting an urgent report regarding the house regularization process for two specific individuals.",
         "timestamp": "2026-10-26 12:03"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-26T06:33:58.884Z"
+    ]
   },
   {
     "id": "LTR-1792996710642",
@@ -13793,19 +12115,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-25",
     "dispatchedDate": "2026-10-13",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DSD/SOCDV/COM/02/01",
-    "fromWhom": "District Director, Department of Samurdhi Development, Batticaloa",
-    "subject": "சமூக அபிவிருத்தி வேலைத்திட்டம்-2026 நிதி ஒதுக்கீடு",
-    "division": "சமுர்த்தி (Samurdhi)",
+    "registeredPostNo": "DSD/SOCDV/COM/02/01",
+    "inwardNo": "District Director, Department of Samurdhi Development, Batticaloa",
+    "fromWhom": "சமூக அபிவிருத்தி வேலைத்திட்டம்-2026 நிதி ஒதுக்கீடு",
+    "subject": "சமுர்த்தி (Samurdhi)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமுர்த்தி (Samurdhi)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 187,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-26 12:08",
@@ -13819,13 +12140,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter conveys the allocation of funds for the year 2026 for Samurdhi development programs including drug prevention training, children's clubs, and international day activities, with instructions to complete the work and submit progress reports by November 30, 2026.",
         "timestamp": "2026-10-26 12:08"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-26T06:38:30.643Z"
+    ]
   },
   {
     "id": "LTR-1792997034775",
@@ -13833,11 +12148,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-25",
     "dispatchedDate": "2026-10-18",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "LND/LMKPN/DO-07/2026",
-    "fromWhom": "மாவட்ட செயலகம், மட்டக்களப்பு (காணிப்பிரிவு)",
-    "subject": "காணி உரிமையை மீளப் பெற்றுக்கொள்ள கோரல் தொடர்பானது - திரு. K.L.முகம்மது புகாரி",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "LND/LMKPN/DO-07/2026",
+    "inwardNo": "மாவட்ட செயலகம், மட்டக்களப்பு (காணிப்பிரிவு)",
+    "fromWhom": "காணி உரிமையை மீளப் பெற்றுக்கொள்ள கோரல் தொடர்பானது - திரு. K.L.முகம்மது புகாரி",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -13845,9 +12160,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "928523802V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 154,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-26 12:13",
@@ -13861,35 +12175,28 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "திரு. K.L.முகம்மது புகாரி என்பவரின் காணி உரிமை தொடர்பான முறைப்பாட்டிற்கு எடுக்கப்பட்ட தொடர் நடவடிக்கைகளை விரைவில் சமர்ப்பிக்குமாறு மாவட்ட செயலகத்தினால் விடுக்கப்பட்ட நினைவூட்டல் கடிதம்.",
         "timestamp": "2026-10-26 12:13"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-26T06:43:54.775Z"
+    ]
   },
   {
     "id": "LTR-1792997088705",
     "originalNo": "KPN/DS/2026/10/317",
-    "date": "2026-10-25",
-    "dispatchedDate": "2026-10-19",
+    "date": "2026-10-24",
+    "dispatchedDate": "2026-10-18",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "LND/LMMKPN/DO-07/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "சம்பல்கேணி கண்ட வயல்காணி முறையீடு தொடர்பான விடயம்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "LND/LMMKPN/DO-07/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "சம்பல்கேணி கண்ட வயல்காணி முறையீடு தொடர்பான விடயம்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
     "forwardedTo": [
       "896590693V"
     ],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Under Investigation",
     "replyResponse": "",
-    "imageSizeKb": 167,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-26 12:14",
@@ -13903,13 +12210,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The request regarding the Sambalkeni paddy land cannot be fulfilled as PLR records are not available and the land falls under the Koralaipattu North DS division.",
         "timestamp": "2026-10-26 12:14"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-26T06:44:48.705Z"
+    ]
   },
   {
     "id": "LTR-1792997839749",
@@ -13917,11 +12218,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-25",
     "dispatchedDate": "2026-10-21",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "TDL/B/BT/139",
-    "fromWhom": "R. கோபாலசுரன், கதிரவெளி",
-    "subject": "மணல் களஞ்சிய சாலைக்காக குத்தகை அடிப்படையில் பெறப்பட்ட காணி தொடர்பாக.",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "TDL/B/BT/139",
+    "inwardNo": "R. கோபாலசுரன், கதிரவெளி",
+    "fromWhom": "மணல் களஞ்சிய சாலைக்காக குத்தகை அடிப்படையில் பெறப்பட்ட காணி தொடர்பாக.",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -13929,9 +12230,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "880770071V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 157,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-26 12:27",
@@ -13945,13 +12245,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "மணல் களஞ்சிய சாலைக்கு வழங்கப்பட்ட காணி தற்போது பயன்பாடு இன்றி இருப்பதால் அதற்குப் பதிலாக மாற்றுக்காணி வழங்குமாறு கோரப்பட்டுள்ளது.",
         "timestamp": "2026-10-26 12:27"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-26T06:57:19.749Z"
+    ]
   },
   {
     "id": "LTR-1792997900873",
@@ -13959,7 +12253,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-25",
     "dispatchedDate": "2026-10-18",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
+    "registeredPostNo": "DORD/BT/Stor/2026",
     "inwardNo": "கிராம அபிவிருத்தி திணைக்களம், மாவட்ட அலுவலகம், மட்டக்களப்பு",
     "fromWhom": "சங்கங்களுக்கு கதிரைகளை ஒப்படைத்தல்",
     "subject": "கிராம அபிவிருத்தி (Rural Development)",
@@ -13969,9 +12263,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 179,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-26 12:28",
@@ -13985,13 +12278,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "PSDG திட்டத்தின் கீழ் கொள்வனவு செய்யப்பட்ட 120 கதிரைகளை கிராம அபிவிருத்தி சங்கங்களுக்கு வழங்கி அதன் ஆவணங்களை உறுதிப்படுத்துமாறு கோரப்பட்டுள்ளது.",
         "timestamp": "2026-10-26 12:28"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-26T06:58:20.873Z"
+    ]
   },
   {
     "id": "LTR-1792998197154",
@@ -13999,7 +12286,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-25",
     "dispatchedDate": "2026-10-20",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
+    "registeredPostNo": "DORD/BT/Livelv.H/2026",
     "inwardNo": "Department of Rural Development, District Office, Batticaloa",
     "fromWhom": "Empowering Vulnerable group (Women head Families) by supporting them through 3 WRDS by revolving Loan Assistance to start up small business and Expand their Existing Business (26/B/14)",
     "subject": "கிராம அபிவிருத்தி (Rural Development)",
@@ -14009,9 +12296,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 200,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-26 12:33",
@@ -14025,13 +12311,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The District Rural Development Office requests submission of documents for beneficiaries of the PSDG-2026 revolving loan assistance scheme for women-headed families.",
         "timestamp": "2026-10-26 12:33"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-26T07:03:17.154Z"
+    ]
   },
   {
     "id": "LTR-1792998380692",
@@ -14039,11 +12319,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-25",
     "dispatchedDate": "2026-10-14",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/DPD/pub.Re/28/2025&2026",
-    "fromWhom": "மாவட்ட செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
-    "subject": "கிருமிச்சைக்குளம் புனரமைப்புப்பணிகள் ஆரம்பிக்கப்படாமை தொடர்பானது",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "BT/DPD/pub.Re/28/2025&2026",
+    "inwardNo": "மாவட்ட செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
+    "fromWhom": "கிருமிச்சைக்குளம் புனரமைப்புப்பணிகள் ஆரம்பிக்கப்படாமை தொடர்பானது",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -14051,9 +12331,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "PLY"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 186,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-26 12:36",
@@ -14067,13 +12346,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "கிருமிச்சைக்குளம் புனரமைப்புப் பணிகள் ஆரம்பிக்கப்படாமை தொடர்பில் ஜனாதிபதி செயலகத்திற்கு கிடைக்கப்பெற்ற முறைப்பாடு தொடர்பாக உரிய நடவடிக்கை எடுக்குமாறு நீர்ப்பாசனத் திணைக்களத்திற்கு அறிவித்தல்.",
         "timestamp": "2026-10-26 12:36"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-26T07:06:20.692Z"
+    ]
   },
   {
     "id": "LTR-1792998424012",
@@ -14081,10 +12354,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-25",
     "dispatchedDate": "2026-10-20",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "TM2955707-TM",
-    "fromWhom": "V. Sasireka",
-    "subject": "Sick leave application of Mrs. V. Sasireka",
+    "registeredPostNo": "TM2955707-TM",
+    "inwardNo": "V. Sasireka",
+    "fromWhom": "Sick leave application of Mrs. V. Sasireka",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -14093,9 +12366,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "907833410V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 176,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-26 12:37",
@@ -14109,13 +12381,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Mrs. V. Sasireka is applying for sick leave via e-Telemail.",
         "timestamp": "2026-10-26 12:37"
       }
-    ],
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-26T07:07:04.013Z"
+    ]
   },
   {
     "id": "LTR-1792998464349",
@@ -14123,10 +12389,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-25",
     "dispatchedDate": "2026-10-20",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "null",
-    "fromWhom": "M. Purasothma",
-    "subject": "Leave application due to sickness",
+    "registeredPostNo": "null",
+    "inwardNo": "M. Purasothma",
+    "fromWhom": "Leave application due to sickness",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -14135,9 +12401,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "907833410V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 130,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-26 12:37",
@@ -14151,13 +12416,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "M. Purasothma has informed the Divisional Secretary of their absence from work today due to illness.",
         "timestamp": "2026-10-26 12:37"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-26T07:07:44.349Z"
+    ]
   },
   {
     "id": "LTR-1792998538108",
@@ -14165,21 +12424,20 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-24",
     "dispatchedDate": "2026-10-11",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADM/GC-MSO/MSO-09/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Confirmation of M. Sarisana Begam (MSO III) service details",
+    "registeredPostNo": "ADM/GC-MSO/MSO-09/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Confirmation of M. Sarisana Begam (MSO III) service details",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
-      "நிர்வாகப் பிரிவு (Administration)"
+      "வெளிக்களம் (Field)"
     ],
     "forwardedTo": [
-      "980282996V"
+      "812991786V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 166,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-26 12:38",
@@ -14193,33 +12451,26 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The District Secretariat requests information regarding the service details of M. Sarisana Begam (MSO III) to confirm her management service officer appointment.",
         "timestamp": "2026-10-26 12:38"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-26T07:08:58.109Z"
+    ]
   },
   {
     "id": "LTR-1792998607430",
     "originalNo": "KPN/DS/2026/10/325",
-    "date": "2026-10-25",
-    "dispatchedDate": "2026-10-15",
+    "date": "2026-10-24",
+    "dispatchedDate": "2026-10-14",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "EP/07/03/02/06-(20-22)/2026",
-    "fromWhom": "Provincial Public Service Commission, Eastern Province, Trincomalee",
-    "subject": "Efficiency Bar Examinations - 2026",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "Provincial Public Service Commission, Eastern Province, Trincomalee",
+    "inwardNo": "Efficiency Bar Examinations - 2026",
+    "fromWhom": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "கணக்குப் பிரிவு (Accounts & Finance)"
     ],
     "forwardedTo": [],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 183,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-26 12:40",
@@ -14233,35 +12484,28 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Notification regarding the extension of the closing date for Development Officer Efficiency Bar examination applications to 06.11.2026 and instructions for collecting and depositing examination payments.",
         "timestamp": "2026-10-26 12:40"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-26T07:10:07.431Z"
+    ]
   },
   {
     "id": "LTR-1792998661633",
     "originalNo": "KPN/DS/2026/10/326",
-    "date": "2026-10-25",
-    "dispatchedDate": "2026-10-05",
+    "date": "2026-10-24",
+    "dispatchedDate": "2026-10-04",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DMT/H/VET/10-8",
-    "fromWhom": "மோட்டார் போக்குவரத்துத் திணைக்களம் (Department of Motor Traffic)",
-    "subject": "வாகன வாயு உமிழ்வுச் சான்றிதழ் படிவத்தைப் புதுப்பித்தல் (Changing the format of the Vehicle Emission Test Certificate)",
-    "division": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "registeredPostNo": "மோட்டார் போக்குவரத்துத் திணைக்களம் (Department of Motor Traffic)",
+    "inwardNo": "வாகன வாயு உமிழ்வுச் சான்றிதழ் படிவத்தைப் புதுப்பித்தல் (Changing the format of the Vehicle Emission Test Certificate)",
+    "fromWhom": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "கணக்குப் பிரிவு (Accounts & Finance)"
     ],
     "forwardedTo": [
       "877031578V"
     ],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 159,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-26 12:41",
@@ -14275,13 +12519,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "மோட்டார் போக்குவரத்துத் திணைக்களத்தினால் வாகன வாயு உமிழ்வுச் சான்றிதழ் படிவத்தின் வடிவம் மாற்றப்பட்டுள்ளதாக அறிவிக்கப்படுகின்றது.",
         "timestamp": "2026-10-26 12:41"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-26T07:11:01.633Z"
+    ]
   },
   {
     "id": "LTR-1792998989138",
@@ -14289,10 +12527,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-24",
     "dispatchedDate": "2026-10-11",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "2026/03/P",
-    "fromWhom": "Ministry of Agriculture, Livestock, Land and Irrigation",
-    "subject": "Increment Certificate Form",
+    "registeredPostNo": "2026/03/P",
+    "inwardNo": "Ministry of Agriculture, Livestock, Land and Irrigation",
+    "fromWhom": "Increment Certificate Form",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -14301,9 +12539,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "817300790V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 174,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-26 12:46",
@@ -14317,13 +12554,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This document is an increment certificate confirming the satisfactory service of Mr. A.M. Mufaris, a Development Officer II, for his salary increment effective from 2026-07-02.",
         "timestamp": "2026-10-26 12:46"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-26T07:16:29.138Z"
+    ]
   },
   {
     "id": "LTR-1792999237933",
@@ -14331,19 +12562,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-25",
     "dispatchedDate": "2026-10-14",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "FA/CONS/EDAS/1475677",
-    "fromWhom": "Ministry of Foreign Affairs, Foreign Employment and Tourism - Consular Division",
-    "subject": "Verification of Certificate of Marriage",
-    "division": "பதிவாளர் கிளை (Registrar Branch)",
+    "registeredPostNo": "FA/CONS/EDAS/1475677",
+    "inwardNo": "Ministry of Foreign Affairs, Foreign Employment and Tourism - Consular Division",
+    "fromWhom": "Verification of Certificate of Marriage",
+    "subject": "பதிவாளர் கிளை (Registrar Branch)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "பதிவாளர் கிளை (Registrar Branch)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 143,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-26 12:50",
@@ -14357,13 +12587,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Request from the Consular Division of the Ministry of Foreign Affairs to verify the authenticity of the marriage certificate of Mr/Mrs S ANUSHIYA.",
         "timestamp": "2026-10-26 12:50"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "R 9562",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-26T07:20:37.933Z"
+    ]
   },
   {
     "id": "LTR-1792999601392",
@@ -14371,19 +12595,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-25",
     "dispatchedDate": "2026-10-20",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DSD/CBO/DCM/2026/01",
-    "fromWhom": "District Secretary, Samurdhi Branch, Batticaloa",
-    "subject": "Postponement of District Community Committee Meeting",
-    "division": "சமுர்த்தி (Samurdhi)",
+    "registeredPostNo": "DSD/CBO/DCM/2026/01",
+    "inwardNo": "District Secretary, Samurdhi Branch, Batticaloa",
+    "fromWhom": "Postponement of District Community Committee Meeting",
+    "subject": "சமுர்த்தி (Samurdhi)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமுர்த்தி (Samurdhi)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 130,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-26 12:56",
@@ -14397,13 +12620,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The district community committee meeting scheduled for 2026.10.22 is postponed and will be held via Zoom, with details to be informed later.",
         "timestamp": "2026-10-26 12:56"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-26T07:26:41.392Z"
+    ]
   },
   {
     "id": "LTR-1793000419954",
@@ -14411,11 +12628,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-25",
     "dispatchedDate": "2026-10-18",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "LND/LMKPN/DO-07/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "தற்காலிக வசிப்பிடத்துக்கான நிலம் கோருதல் தொடர்பான கடிதம்",
-    "division": "வெளிக்களம் (Field)",
+    "registeredPostNo": "LND/LMKPN/DO-07/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "தற்காலிக வசிப்பிடத்துக்கான நிலம் கோருதல் தொடர்பான கடிதம்",
+    "subject": "வெளிக்களம் (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "வெளிக்களம் (Field)"
     ],
@@ -14423,9 +12640,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "198667602155"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 168,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-26 13:10",
@@ -14439,13 +12655,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "நிவேதன புயலால் பாதிக்கப்பட்ட திருமதி ரஞ்சினி நலந்தாவின் வீடு திருத்துவதற்கு நிதி ஒதுக்கீடு செய்யப்பட்டு பணிகள் இடம்பெறுவது தொடர்பானது.",
         "timestamp": "2026-10-26 13:10"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-26T07:40:19.955Z"
+    ]
   },
   {
     "id": "LTR-1793000547266",
@@ -14453,11 +12663,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-25",
     "dispatchedDate": "2026-10-20",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DDMCU/PP/4(VI)",
-    "fromWhom": "District Secretariat, Batticaloa (Disaster Management Unit)",
-    "subject": "Forming youth rescue teams and providing training for flood disaster response in Divisional Secretariat areas.",
-    "division": "வெளிக்களம் (Field)",
+    "registeredPostNo": "DDMCU/PP/4(VI)",
+    "inwardNo": "District Secretariat, Batticaloa (Disaster Management Unit)",
+    "fromWhom": "Forming youth rescue teams and providing training for flood disaster response in Divisional Secretariat areas.",
+    "subject": "வெளிக்களம் (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "வெளிக்களம் (Field)"
     ],
@@ -14465,9 +12675,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "198667602155"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 159,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-26 13:12",
@@ -14481,13 +12690,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Requesting each Divisional Secretariat to select 40 volunteer youth with swimming skills to undergo disaster management and flood rescue training.",
         "timestamp": "2026-10-26 13:12"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-26T07:42:27.267Z"
+    ]
   },
   {
     "id": "LTR-1793000607213",
@@ -14495,11 +12698,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-25",
     "dispatchedDate": "2026-10-20",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "null",
-    "fromWhom": "தம்பிப்பிள்ளை தேவராசா, வாகரை",
-    "subject": "காணி தொடர்பாக",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "null",
+    "inwardNo": "தம்பிப்பிள்ளை தேவராசா, வாகரை",
+    "fromWhom": "காணி தொடர்பாக",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -14507,9 +12710,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "896590693V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 167,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-26 13:13",
@@ -14520,38 +12722,31 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "senderId": "946892580V",
         "senderName": "N.Saraniya",
         "senderRole": "Mail Officer",
-        "message": "ஒருவர் தனது க���ண���யை மற்றவர் அத்துமீறி ஆக்கிரமித்துள்ளதாகக் கூறி, சட்டப்பூர்வமாக விசாரணை செய்து காணியை மீட்டுத் தருமாறு கோரிக்கை விடுத்துள்ளார்.",
+        "message": "ஒருவர் தனது காணியை மற்றவர் அத்துமீறி ஆக்கிரமித்துள்ளதாகக் கூறி, சட்டப்பூர்வமாக விசாரணை செய்து காணியை மீட்டுத் தருமாறு கோரிக்கை விடுத்துள்ளார்.",
         "timestamp": "2026-10-26 13:13"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-26T07:43:27.214Z"
+    ]
   },
   {
     "id": "LTR-1793000775630",
     "originalNo": "KPN/DS/2026/10/333",
-    "date": "2026-10-24",
-    "dispatchedDate": "2026-10-19",
+    "date": "2026-10-23",
+    "dispatchedDate": "2026-10-18",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "null",
-    "fromWhom": "T. Amalavathy",
-    "subject": "Complaint regarding illegal occupation of 3 acres of land at Palaiyadimadu",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "null",
+    "inwardNo": "T. Amalavathy",
+    "fromWhom": "Complaint regarding illegal occupation of 3 acres of land at Palaiyadimadu",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
     "forwardedTo": [
       "896590693V"
     ],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Under Investigation",
     "replyResponse": "",
-    "imageSizeKb": 151,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-26 13:16",
@@ -14565,35 +12760,28 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The complainant requests the Divisional Secretary to investigate the illegal occupation of her 3-acre land at Palaiyadimadu by an individual named Theventhiran and to restore the land to her.",
         "timestamp": "2026-10-26 13:16"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-26T07:46:15.631Z"
+    ]
   },
   {
     "id": "LTR-1793002892454",
     "originalNo": "KPN/DS/2026/10/334",
-    "date": "2026-10-25",
-    "dispatchedDate": "2023-10-14",
+    "date": "2026-10-24",
+    "dispatchedDate": "2023-10-13",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
+    "registeredPostNo": "ஜூலியன் ஜெயப்பிரகாஸ், திருமலை வீதி, வாகரை",
     "inwardNo": "ஜூலியன் ஜெயப்பிரகாஸ், திருமலை வீதி, வாகரை",
-    "fromWhom": "ஜூலியன் ஜெயப்பிரகாஸ், திருமலை வீதி, வாகரை",
-    "subject": "விவசாய பண்ணை ஒன்றினை அமைப்பதற்கு நீண்டகால குத்தகைக்கு நிலம் கோரல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "fromWhom": "விவசாய பண்ணை ஒன்றினை அமைப்பதற்கு நீண்டகால குத்தகைக்கு நிலம் கோரல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
     "forwardedTo": [
       "893461094V"
     ],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Under Investigation",
     "replyResponse": "",
-    "imageSizeKb": 115,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-26 13:51",
@@ -14607,13 +12795,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "தென்னத் தோட்டம் மற்றும் பயிர் செய்கை அமைப்பதற்காக 10 ஏக்கர் நிலத்தை நீண்டகால குத்தகைக்கு வழங்குமாறு கோரி விண்ணப்பம் செய்யப்பட்டுள்ளது.",
         "timestamp": "2026-10-26 13:51"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-26T08:21:32.455Z"
+    ]
   },
   {
     "id": "LTR-1793002933062",
@@ -14621,11 +12803,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-25",
     "dispatchedDate": "2026-10-12",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADS/Skills/31/06/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "2026ம் ஆண்டிற்கான ஒதுக்கீடு ஏற்பாடுகளில் எதிர்பார்க்கப்படும் சேமிப்புகள் குறித்த தகவல்களைப் பெறுதல்",
-    "division": "வெளிக்களம் (Field)",
+    "registeredPostNo": "ADS/Skills/31/06/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "2026ம் ஆண்டிற்கான ஒதுக்கீடு ஏற்பாடுகளில் எதிர்பார்க்கப்படும் சேமிப்புகள் குறித்த தகவல்களைப் பெறுதல்",
+    "subject": "வெளிக்களம் (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "வெளிக்களம் (Field)"
     ],
@@ -14633,9 +12815,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "812991786V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 163,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-26 13:52",
@@ -14649,25 +12830,19 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "இது 2026ம் ஆண்டிற்கான ஒதுக்கீடு ஏற்பாடுகளில் எதிர்பார்க்கப்படும் சேமிப்புகள் குறித்த தகவல்களை சமர்ப்பிக்குமாறு கோரும் நினைவூட்டல் கடிதமாகும்.",
         "timestamp": "2026-10-26 13:52"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-26T08:22:13.062Z"
+    ]
   },
   {
     "id": "LTR-1793079786426",
     "originalNo": "KPN/DS/2026/10/001",
-    "date": "2026-10-26",
-    "dispatchedDate": "2026-10-15",
+    "date": "2026-10-25",
+    "dispatchedDate": "2026-10-14",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "MI/MO/COM/2026",
-    "fromWhom": "Office of the Minister of Industry and Entrepreneurship Development",
-    "subject": "Request to provide a portion of land on lease basis by M.H. Ashar",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "Office of the Minister of Industry and Entrepreneurship Development",
+    "inwardNo": "Request to provide a portion of land on lease basis by M.H. Ashar",
+    "fromWhom": "காணிப் பிரிவு (Land Division)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
@@ -14675,10 +12850,9 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "896590693V",
       "893461094V"
     ],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 174,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-27 11:13",
@@ -14692,35 +12866,28 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The Minister's office requests an inquiry into the possibility of providing a land portion to M.H. Ashar on a lease basis as per his request.",
         "timestamp": "2026-10-27 11:13"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-27T05:43:06.427Z"
+    ]
   },
   {
     "id": "LTR-1793079981388",
     "originalNo": "KPN/DS/2026/10/002",
-    "date": "2026-10-26",
-    "dispatchedDate": "2026-10-20",
+    "date": "2026-10-25",
+    "dispatchedDate": "2026-10-19",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "தே.அமலாவதி, உரியன்கட்டு",
-    "fromWhom": "தே.அமலாவதி, உரியன்கட்டு",
-    "subject": "காணி தொடர்பான முறைப்பாடு",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "தே.அமலாவதி, உரியன்கட்டு",
+    "inwardNo": "காணி தொடர்பான முறைப்பாடு",
+    "fromWhom": "காணிப் பிரிவு (Land Division)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
     "forwardedTo": [
       "896590693V"
     ],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 179,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-27 11:16",
@@ -14734,35 +12901,28 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "கோறளைப்பற்று வடக்கு வாகரை பிரதேச செயலக பிரிவுக்குட்பட்ட உரியன்கட்டு பகுதியில் உள்ள 3 ஏக்கர் காணி சட்டவிரோதமாக அபகரிக்கப்பட்டுள்ளமை குறித்து விசாரணை கோருதல்.",
         "timestamp": "2026-10-27 11:16"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-27T05:46:21.389Z"
+    ]
   },
   {
     "id": "LTR-1793080057035",
     "originalNo": "KPN/DS/2026/10/003",
-    "date": "2026-10-26",
-    "dispatchedDate": "2026-10-22",
+    "date": "2026-10-25",
+    "dispatchedDate": "2026-10-21",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "LND/LMKPN/DO-07/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "காணிக்கான அனுமதிப்பத்திரம் வழங்க கோருதல் தொடர்பானது.",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "District Secretariat, Batticaloa",
+    "inwardNo": "காணிக்கான அனுமதிப்பத்திரம் வழங்க கோருதல் தொடர்பானது.",
+    "fromWhom": "காணிப் பிரிவு (Land Division)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
     "forwardedTo": [
       "896590693V"
     ],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 177,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-27 11:17",
@@ -14776,24 +12936,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Requesting immediate action regarding a land permit application submitted by M.T.M. Iliyas following an inquiry from the Governor's office.",
         "timestamp": "2026-10-27 11:17"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-27T05:47:37.036Z"
+    ]
   },
   {
     "id": "LTR-1793080147118",
     "originalNo": "KPN/DS/2026/10/004",
-    "date": "2026-10-26",
-    "dispatchedDate": "2026-10-18",
+    "date": "2026-10-25",
+    "dispatchedDate": "2026-10-17",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADM/GNGEN/DO6/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Increasing public participation in the 'SL-PULSE' Welfare Benefits (Tier 1-Open Public Participation) survey.",
+    "registeredPostNo": "District Secretariat, Batticaloa",
+    "inwardNo": "Increasing public participation in the 'SL-PULSE' Welfare Benefits (Tier 1-Open Public Participation) survey.",
+    "fromWhom": "நிர்வாகப் பிரிவு (Administration)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -14802,10 +12956,9 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "198372502490",
       "955471580V"
     ],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 168,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-27 11:19",
@@ -14819,24 +12972,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "District Secretariat informs divisional heads to take necessary action as per the instructions from the Ministry of Public Administration regarding the SL-PULSE survey.",
         "timestamp": "2026-10-27 11:19"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-27T05:49:07.119Z"
+    ]
   },
   {
     "id": "LTR-1793080243050",
     "originalNo": "KPN/DS/2026/10/005",
-    "date": "2026-10-26",
-    "dispatchedDate": "2026-10-22",
+    "date": "2026-10-25",
+    "dispatchedDate": "2026-10-21",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "12/288/2026",
-    "fromWhom": "தபால் அதிபர், வாகரை (Post Master, Vaharai)",
-    "subject": "தொகை அஞ்சல் வசதி (Bulk Mail) 2026",
+    "registeredPostNo": "தபால் அதிபர், வாகரை (Post Master, Vaharai)",
+    "inwardNo": "தொகை அஞ்சல் வசதி (Bulk Mail) 2026",
+    "fromWhom": "நிர்வாகப் பிரிவு (Administration)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -14844,10 +12991,9 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "forwardedTo": [
       "946892580V"
     ],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 108,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-27 11:20",
@@ -14861,33 +13007,26 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "வாகரை தபால் நிலையத்திற்கான கடந்த ஆகஸ்ட் மற்றும் செப்டம்பர் மாதங்களுக்குரிய மொத்த அஞ்சல் கட்டணம் 65,605 ரூபாயினை செலுத்துமாறு கோரப்பட்டுள்ளது.",
         "timestamp": "2026-10-27 11:20"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-27T05:50:43.050Z"
+    ]
   },
   {
     "id": "LTR-1793080343583",
     "originalNo": "KPN/DS/2026/10/006",
-    "date": "2026-10-26",
-    "dispatchedDate": "2026-10-20",
+    "date": "2026-10-25",
+    "dispatchedDate": "2026-10-19",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "POL/WKD/SSW/01/1002",
-    "fromWhom": "Divisional Secretariat - Welikanda",
-    "subject": "Obtaining family background report of T. Denika",
-    "division": "வெளிக்களம் (Field)",
+    "registeredPostNo": "Divisional Secretariat - Welikanda",
+    "inwardNo": "Obtaining family background report of T. Denika",
+    "fromWhom": "வெளிக்களம் (Field)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "வெளிக்களம் (Field)"
     ],
     "forwardedTo": [],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 178,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-27 11:22",
@@ -14901,13 +13040,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter forwards the family background report of T. Denika regarding her foreign employment application.",
         "timestamp": "2026-10-27 11:22"
       }
-    ],
-    "postType": "Registered Post",
-    "RegisteredPostNo": "9894",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-27T05:52:23.583Z"
+    ]
   },
   {
     "id": "LTR-1793080483010",
@@ -14915,21 +13048,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-25",
     "dispatchedDate": "2026-10-21",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADS/FAFET/11/02",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Participation in the Establishment and Facilitation of the District Anti-Human Trafficking Forum (DATF)",
-    "division": "வெளிக்களம் (Field)",
+    "registeredPostNo": "ADS/FAFET/11/02",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Participation in the Establishment and Facilitation of the District Anti-Human Trafficking Forum (DATF)",
+    "subject": "வெளிக்களம் (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "வெளிக்களம் (Field)"
     ],
-    "forwardedTo": [
-      "867980504V"
-    ],
+    "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 221,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-27 11:24",
@@ -14943,33 +13073,26 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The District Secretariat invites relevant officers and community representatives to participate in the upcoming District Anti-Human Trafficking Forum scheduled for 28th October 2026.",
         "timestamp": "2026-10-27 11:24"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-27T05:54:43.010Z"
+    ]
   },
   {
     "id": "LTR-1793080509364",
     "originalNo": "KPN/DS/2026/10/008",
-    "date": "2026-10-26",
-    "dispatchedDate": "2026-10-19",
+    "date": "2026-10-25",
+    "dispatchedDate": "2026-10-18",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/DSD/PROJ/MAR/2025/04",
-    "fromWhom": "District Director, Department of Samurdhi Development, Batticaloa",
-    "subject": "Approval for beneficiaries under Vocational Training program",
-    "division": "சமுர்த்தி (Samurdhi)",
+    "registeredPostNo": "District Director, Department of Samurdhi Development, Batticaloa",
+    "inwardNo": "Approval for beneficiaries under Vocational Training program",
+    "fromWhom": "சமுர்த்தி (Samurdhi)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமுர்த்தி (Samurdhi)"
     ],
     "forwardedTo": [],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 179,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-27 11:25",
@@ -14983,33 +13106,26 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter grants approval for selected beneficiaries to undertake Beauty Culture vocational training with approved financial contributions.",
         "timestamp": "2026-10-27 11:25"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-27T05:55:09.364Z"
+    ]
   },
   {
     "id": "LTR-1793080543471",
     "originalNo": "KPN/DS/2026/10/009",
-    "date": "2026-10-26",
-    "dispatchedDate": "2026-10-20",
+    "date": "2026-10-25",
+    "dispatchedDate": "2026-10-19",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DSD/MF/COM/2026",
-    "fromWhom": "District Secretary, District Secretariat, Batticaloa",
-    "subject": "மாமாவட்ட சமுர்த்தி வங்கி நிதி நடவடிக்கைப் பிரிவின் மின்னஞ்சல் முகவரி தொடர்பாக (Regarding the email address of the District Samurdhi Bank finance operation branch)",
-    "division": "சமுர்த்தி (Samurdhi)",
+    "registeredPostNo": "District Secretary, District Secretariat, Batticaloa",
+    "inwardNo": "மாமாவட்ட சமுர்த்தி வங்கி நிதி நடவடிக்கைப் பிரிவின் மின்னஞ்சல் முகவரி தொடர்பாக (Regarding the email address of the District Samurdhi Bank finance operation branch)",
+    "fromWhom": "சமுர்த்தி (Samurdhi)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "சமுர்த்தி (Samurdhi)"
     ],
     "forwardedTo": [],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 170,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-27 11:25",
@@ -15023,24 +13139,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter informs all bank and bank union managers to use the new email address districtsamurdhibank@gmail.com for sending information to the District Samurdhi Bank branch instead of the previous one.",
         "timestamp": "2026-10-27 11:25"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-27T05:55:43.471Z"
+    ]
   },
   {
     "id": "LTR-1793080596530",
     "originalNo": "KPN/DS/2026/10/010",
-    "date": "2026-10-26",
-    "dispatchedDate": "2026-08-19",
+    "date": "2026-10-25",
+    "dispatchedDate": "2026-08-18",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "null",
-    "fromWhom": "Mr. T. Tharaniraj, Development Officer, Divisional Secretariat, Koralaipattu North, Vaharai",
-    "subject": "Medical Certificate D (Application for Sick Leave)",
+    "registeredPostNo": "Mr. T. Tharaniraj, Development Officer, Divisional Secretariat, Koralaipattu North, Vaharai",
+    "inwardNo": "Medical Certificate D (Application for Sick Leave)",
+    "fromWhom": "நிர்வாகப் பிரிவு (Administration)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -15048,10 +13158,9 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "forwardedTo": [
       "907833410V"
     ],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 178,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-27 11:26",
@@ -15065,13 +13174,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Mr. T. Tharaniraj, a Development Officer at the Divisional Secretariat, Koralaipattu North, has submitted a Medical Certificate D for leave.",
         "timestamp": "2026-10-27 11:26"
       }
-    ],
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-27T05:56:36.530Z"
+    ]
   },
   {
     "id": "LTR-1793080637691",
@@ -15079,19 +13182,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-26",
     "dispatchedDate": "2026-10-05",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "EA 707",
-    "fromWhom": "Asst. Registrar General, Central Record Room, Colombo-10",
-    "subject": "Reply regarding Birth Registration",
-    "division": "பதிவாளர் கிளை (Registrar Branch)",
+    "registeredPostNo": "EA 707",
+    "inwardNo": "Asst. Registrar General, Central Record Room, Colombo-10",
+    "fromWhom": "Reply regarding Birth Registration",
+    "subject": "பதிவாளர் கிளை (Registrar Branch)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "பதிவாளர் கிளை (Registrar Branch)"
     ],
     "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 206,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-27 11:27",
@@ -15105,35 +13207,28 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The Assistant Registrar General informs about the status of a birth certificate record.",
         "timestamp": "2026-10-27 11:27"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-27T05:57:17.691Z"
+    ]
   },
   {
     "id": "LTR-1793080673479",
     "originalNo": "KPN/DS/2026/10/012",
-    "date": "2026-10-26",
-    "dispatchedDate": "2026-10-20",
+    "date": "2026-10-25",
+    "dispatchedDate": "2026-10-19",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "DPD/RRDPR/09/01/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "கிராம வீதிகள் அபிவிருத்தி நிகழ்ச்சித்திட்டம் - 2026 (கட்டம் I மற்றும் கட்டம் II) நிதி ஒதுக்கீட்டுக் கால எல்லை நிறைவடைதல் தொடர்பாக",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "District Secretariat, Batticaloa",
+    "inwardNo": "கிராம வீதிகள் அபிவிருத்தி நிகழ்ச்சித்திட்டம் - 2026 (கட்டம் I மற்றும் கட்டம் II) நிதி ஒதுக்கீட்டுக் கால எல்லை நிறைவடைதல் தொடர்பாக",
+    "fromWhom": "திட்டமிடல் பிரிவு (Planning)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
     "forwardedTo": [
       "ACC"
     ],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Action Taken",
     "replyResponse": "",
-    "imageSizeKb": 169,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-27 11:27",
@@ -15147,13 +13242,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter informs all Divisional Secretaries that the funding deadlines for rural road development projects (Phase I and Phase II) under the 2026 program are 30.11.2026 and 15.12.2026 respectively and instructs to complete the works within these timelines.",
         "timestamp": "2026-10-27 11:27"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-27T05:57:53.479Z"
+    ]
   },
   {
     "id": "LTR-1793080706365",
@@ -15161,11 +13250,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-26",
     "dispatchedDate": "2026-10-21",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/DPD RESET/ATOPR KPN.DDP NN 2023 06",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Letter from Mr.K.Karunakaran, Main Street Kadiraweli, Vakarai",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "BT/DPD RESET/ATOPR KPN.DDP NN 2023 06",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Letter from Mr.K.Karunakaran, Main Street Kadiraweli, Vakarai",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
@@ -15173,9 +13262,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "996031071V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 160,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-27 11:28",
@@ -15189,13 +13277,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "The District Secretariat forwards a report from the relevant Divisional Secretary concerning Mr. K. Karunakaran's request for action.",
         "timestamp": "2026-10-27 11:28"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-27T05:58:26.366Z"
+    ]
   },
   {
     "id": "LTR-1793080757298",
@@ -15203,11 +13285,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-26",
     "dispatchedDate": "2026-10-22",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BT/DIS/NDRSC/MEET/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "எதிர்வரும் பருவபெயர்ச்சி காலநிலைக்கான தயார்படுத்தல் - 2026",
-    "division": "வெளிக்களம் (Field)",
+    "registeredPostNo": "BT/DIS/NDRSC/MEET/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "எதிர்வரும் பருவபெயர்ச்சி காலநிலைக்கான தயார்படுத்தல் - 2026",
+    "subject": "வெளிக்களம் (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "வெளிக்களம் (Field)"
     ],
@@ -15215,9 +13297,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "198667602155"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 155,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-27 11:29",
@@ -15231,13 +13312,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter requests all Divisional Secretariats to send a Disaster Relief Services officer to attend a planning meeting on 28.10.2026 regarding upcoming monsoon weather preparedness.",
         "timestamp": "2026-10-27 11:29"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-27T05:59:17.298Z"
+    ]
   },
   {
     "id": "LTR-1793080874713",
@@ -15245,21 +13320,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-25",
     "dispatchedDate": "2026-10-17",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADS/REPAC/29/19/2026",
-    "fromWhom": "District Secretariat, Batticaloa (Assistant District Secretary Branch)",
-    "subject": "கிழக்கு மாகாண தொழில் முனைவோர் விருது விழா - 2026",
-    "division": "திட்டமிடல் பிரிவு (Planning)",
+    "registeredPostNo": "ADS/REPAC/29/19/2026",
+    "inwardNo": "District Secretariat, Batticaloa (Assistant District Secretary Branch)",
+    "fromWhom": "கிழக்கு மாகாண தொழில் முனைவோர் விருது விழா - 2026",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "திட்டமிடல் பிரிவு (Planning)"
     ],
-    "forwardedTo": [
-      "892191140V"
-    ],
+    "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 201,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-27 11:31",
@@ -15273,13 +13345,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "கிழக்கு மாகாண தொழில் முனைவோர் விருது விழா 2026 இற்கான விண்ணப்பங்களை தொழில்துறை அதிகாரிகள் ஊடாகப் பெற்று சமர்ப்பிக்குமாறு கோரப்பட்டுள்ளது.",
         "timestamp": "2026-10-27 11:31"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-27T06:01:14.714Z"
+    ]
   },
   {
     "id": "LTR-1793080912707",
@@ -15287,21 +13353,18 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-25",
     "dispatchedDate": "2026-10-21",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BAT/SEDD/ADMMI/01/01",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Allocation of funds for small and micro entrepreneurs affected by the storm - 2026",
-    "division": "வெளிக்களம் (Field)",
+    "registeredPostNo": "BAT/SEDD/ADMMI/01/01",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Allocation of funds for small and micro entrepreneurs affected by the storm - 2026",
+    "subject": "வெளிக்களம் (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "வெளிக்களம் (Field)"
     ],
-    "forwardedTo": [
-      "892191140V"
-    ],
+    "forwardedTo": [],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 172,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-27 11:31",
@@ -15315,13 +13378,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter instructs all Divisional Secretaries to identify eligible storm-affected small and micro entrepreneurs to receive a LKR 200,000 grant and to submit reports by 08.11.2026.",
         "timestamp": "2026-10-27 11:31"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-27T06:01:52.708Z"
+    ]
   },
   {
     "id": "LTR-1793080970306",
@@ -15329,11 +13386,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-26",
     "dispatchedDate": "2026-10-12",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADS/Skills/31/06/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Reminder regarding anticipated savings in 2026 budget allocations",
-    "division": "வெளிக்களம் (Field)",
+    "registeredPostNo": "ADS/Skills/31/06/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Reminder regarding anticipated savings in 2026 budget allocations",
+    "subject": "வெளிக்களம் (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "வெளிக்களம் (Field)"
     ],
@@ -15341,9 +13398,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "812991786V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 136,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-27 11:32",
@@ -15357,13 +13413,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This is a reminder to provide the details regarding anticipated savings in the 2026 budget allocations as previously requested in the letter dated 2026-09-11.",
         "timestamp": "2026-10-27 11:32"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-27T06:02:50.306Z"
+    ]
   },
   {
     "id": "LTR-1793082154768",
@@ -15371,21 +13421,20 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-25",
     "dispatchedDate": "2026-10-06",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "OCU/BT/FU-E/2026",
-    "fromWhom": "Ocean University of Sri Lanka, Regional Centre - Batticaloa",
-    "subject": "Request for Payment of Aquaculture Technician Course Fees for Vaharai Youth under the PSDG 2026 Project",
-    "division": "வெளிக்களம் (Field)",
+    "registeredPostNo": "OCU/BT/FU-E/2026",
+    "inwardNo": "Ocean University of Sri Lanka, Regional Centre - Batticaloa",
+    "fromWhom": "Request for Payment of Aquaculture Technician Course Fees for Vaharai Youth under the PSDG 2026 Project",
+    "subject": "வெளிக்களம் (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "வெளிக்களம் (Field)"
     ],
     "forwardedTo": [
-      "812991786V"
+      "892914265V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 183,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-27 11:52",
@@ -15399,13 +13448,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Ocean University requests payment of Rs. 140,000.00 for the Aquaculture Technician Course fees for 14 selected students from Vaharai under the PSDG 2026 project.",
         "timestamp": "2026-10-27 11:52"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-27T06:22:34.769Z"
+    ]
   },
   {
     "id": "LTR-1793082203332",
@@ -15413,11 +13456,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-26",
     "dispatchedDate": "2026-10-22",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADS/Skills/31/01/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "இளைஞர் யுவதிகளை பொருத்தமான தொழிற்கல்வி நிலையத்திற்கு இணைத்தல்",
-    "division": "வெளிக்களம் (Field)",
+    "registeredPostNo": "ADS/Skills/31/01/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "இளைஞர் யுவதிகளை பொருத்தமான தொழிற்கல்வி நிலையத்திற்கு இணைத்தல்",
+    "subject": "வெளிக்களம் (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "வெளிக்களம் (Field)"
     ],
@@ -15425,9 +13468,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "812991786V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 176,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-27 11:53",
@@ -15441,13 +13483,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "சமுர்த்தி பயனாளிகளை உரிய தொழிற்கல்வி நிலையங்களில் பதிவு செய்வதற்கான நடைமுறைகள் மற்றும் அதற்கான தகுதிகள் குறித்த வழிகாட்டல் கடிதம்.",
         "timestamp": "2026-10-27 11:53"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-27T06:23:23.332Z"
+    ]
   },
   {
     "id": "LTR-1793082298150",
@@ -15455,10 +13491,10 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-26",
     "dispatchedDate": "2023-10-22",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "null",
-    "fromWhom": "பொதுமக்கள் (Public)",
-    "subject": "மாங்கேணி சமுர்த்தி வங்கி அதிகாரியின் முறையற்ற செயற்பாடுகளுக்கு எதிரான முறைப்பாடு",
+    "registeredPostNo": "null",
+    "inwardNo": "பொதுமக்கள் (Public)",
+    "fromWhom": "மாங்கேணி சமுர்த்தி வங்கி அதிகாரியின் முறையற்ற செயற்பாடுகளுக்கு எதிரான முறைப்பாடு",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
     "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)"
@@ -15467,9 +13503,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "955471580V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 191,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-27 11:54",
@@ -15483,35 +13518,28 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "மாங்கேணி சமுர்த்தி வங்கியின் அதிகாரி ஒருவரின் முறையற்ற செயற்பாடுகள் தொடர்பாகவும், பொதுமக்களுக்கு அவர் இழைக்கும் அநீதிகள் தொடர்பாகவும் விசாரணை கோரி மக்கள் விடுத்துள்ள முறைப்பாடு.",
         "timestamp": "2026-10-27 11:54"
       }
-    ],
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-27T06:24:58.150Z"
+    ]
   },
   {
     "id": "LTR-1793083487663",
     "originalNo": "KPN/DS/2026/10/356",
-    "date": "2026-10-26",
-    "dispatchedDate": "2023-10-14",
+    "date": "2026-10-25",
+    "dispatchedDate": "2023-10-13",
     "letterType": "Registered Post",
-    "registeredPostNo": "No",
-    "inwardNo": "no",
-    "fromWhom": "ஜூலியன் ஜெயப்பிரகாஸ், திருமலை வீதி, வாகரை",
-    "subject": "விவசாய பண்ணை ஒன்றினை அமைப்பதற்கு நீண்டகால குத்தகைக்கு நிலம் கோரல்",
-    "division": "காணிப் பிரிவு (Land Division)",
+    "registeredPostNo": "no",
+    "inwardNo": "ஜூலியன் ஜெயப்பிரகாஸ், திருமலை வீதி, வாகரை",
+    "fromWhom": "விவசாய பண்ணை ஒன்றினை அமைப்பதற்கு நீண்டகால குத்தகைக்கு நிலம் கோரல்",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "காணிப் பிரிவு (Land Division)"
     ],
     "forwardedTo": [
       "893461094V"
     ],
-    "action": "Not Yet Viewed",
-    "fileNo": "",
+    "action": "Under Investigation",
     "replyResponse": "",
-    "imageSizeKb": 115,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-27 23:44",
@@ -15525,13 +13553,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "ஜூலியன் ஜெயப்பிரகாஸ் என்பவர் தென்னந்தோட்டம் மற்றும் சார்பு பயிர்ச்செய்கை அமைப்பதற்கு 10 ஏக்கர் காணியை நீண்டகால குத்தகைக்கு வழங்குமாறு கோரியுள்ளார்.",
         "timestamp": "2026-10-27 23:44"
       }
-    ],
-    "postType": "Registered Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-27T06:44:47.664Z"
+    ]
   },
   {
     "id": "LTR-1793087063940",
@@ -15539,11 +13561,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-26",
     "dispatchedDate": "2026-10-22",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "BAT/SEDD/ADMMI/01/01",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "Allocation of funds for small and micro entrepreneurs affected by the Nilaweli floods - 2026",
-    "division": "வெளிக்களம் (Field)",
+    "registeredPostNo": "BAT/SEDD/ADMMI/01/01",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Allocation of funds for small and micro entrepreneurs affected by the Nilaweli floods - 2026",
+    "subject": "வெளிக்களம் (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "வெளிக்களம் (Field)"
     ],
@@ -15551,9 +13573,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "892191140V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 178,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-27 13:14",
@@ -15567,13 +13588,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "This letter instructs the distribution of 200,000 LKR in financial assistance to qualified small and micro entrepreneurs affected by the floods, with reports due by November 8, 2026.",
         "timestamp": "2026-10-27 13:14"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-27T07:44:23.942Z"
+    ]
   },
   {
     "id": "LTR-1793087277141",
@@ -15581,11 +13596,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-26",
     "dispatchedDate": "2026-10-18",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADS/REPAC/29/19/2026",
-    "fromWhom": "District Secretariat, Batticaloa",
-    "subject": "கிழக்கு மாகாண தொழில் முனைவோர் விருது விழா - 2026",
-    "division": "வெளிக்களம் (Field)",
+    "registeredPostNo": "ADS/REPAC/29/19/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "கிழக்கு மாகாண தொழில் முனைவோர் விருது விழா - 2026",
+    "subject": "வெளிக்களம் (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "வெளிக்களம் (Field)"
     ],
@@ -15593,9 +13608,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "892191140V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 204,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-27 13:17",
@@ -15609,13 +13623,7 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "Calls for applications from entrepreneurs for the Eastern Province Entrepreneur Awards 2026 to be submitted before 2026.10.31 through the respective DS divisions.",
         "timestamp": "2026-10-27 13:17"
       }
-    ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-27T07:47:57.143Z"
+    ]
   },
   {
     "id": "LTR-1793087423165",
@@ -15623,11 +13631,11 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
     "date": "2026-10-26",
     "dispatchedDate": "2026-10-12",
     "letterType": "Normal Post",
-    "registeredPostNo": "No",
-    "inwardNo": "ADS/Skills/31/06/2026",
-    "fromWhom": "மாவட்ட செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
-    "subject": "2026ம் ஆண்டிற்கான ஒதுக்கீடு ஏற்பாடுகளில் எதிர்பார்க்கப்படும் சேமிப்புகள் குறித்த தகவல்களினை பெறுதல்",
-    "division": "வெளிக்களம் (Field)",
+    "registeredPostNo": "ADS/Skills/31/06/2026",
+    "inwardNo": "மாவட்ட செயலகம், மட்டக்களப்பு (District Secretariat, Batticaloa)",
+    "fromWhom": "2026ம் ஆண்டிற்கான ஒதுக்கீடு ஏற்பாடுகளில் எதிர்பார்க்கப்படும் சேமிப்புகள் குறித்த தகவல்களினை பெறுதல்",
+    "subject": "வெளிக்களம் (Field)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
     "forwardedDivisions": [
       "வெளிக்களம் (Field)"
     ],
@@ -15635,9 +13643,8 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
       "812991786V"
     ],
     "action": "Not Yet Viewed",
-    "fileNo": "",
     "replyResponse": "",
-    "imageSizeKb": 157,
+    "fileNo": "",
     "registeredBy": "946892580V",
     "registeredByName": "N.Saraniya",
     "createdAt": "2026-10-27 13:20",
@@ -15651,13 +13658,2701 @@ export const ALL_OFFICIAL_LETTERS: Letter[] = [
         "message": "2026 ஆம் ஆண்டிற்கான ஒதுக்கீடு ஏற்பாடுகளில் எதிர்பார்க்கப்படும் சேமிப்புகள் தொடர்பான தகவல்களைத் தாமதிக்காது அனுப்பிவைக்குமாறு கோரும் நினைவூட்டல் கடிதம்.",
         "timestamp": "2026-10-27 13:20"
       }
+    ]
+  },
+  {
+    "id": "LTR-1793245903498",
+    "originalNo": "KPN/DS/2026/10/360",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-22",
+    "letterType": "Normal Post",
+    "registeredPostNo": "BT/DPD-J/ENV/BD-project/2024",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Implementation of the Project \"Promoting Sustainable Economic Benefits through the Conservation of Critical Biodiversity and Ecosystem Services in the Eastern and Southern Coastal Regions of Sri Lanka\" in Batticaloa District",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "திட்டமிடல் பிரிவு (Planning)"
     ],
-    "postType": "Normal Post",
-    "RegisteredPostNo": "No",
-    "actionStatus": "Not Yet Viewed",
-    "ActionStatus": "Not Yet Viewed",
-    "FileNo": "",
-    "updatedAt": "2026-10-27T07:50:23.165Z"
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 09:21",
+    "chats": [
+      {
+        "id": "msg-1793245903498",
+        "letterId": "LTR-1793245903498",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "The District Secretariat requests the Divisional Secretary to submit a project proposal for the implementation of the biodiversity and ecosystem conservation project in their region.",
+        "timestamp": "2026-10-29 09:21"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793245946255",
+    "originalNo": "KPN/DS/2026/10/361",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-24",
+    "letterType": "Normal Post",
+    "registeredPostNo": "CH/IE/W/PSDG/ASKT/FT/2026",
+    "inwardNo": "Office of the Divisional Irrigation Engineer, Chenkalady",
+    "fromWhom": "வேலைத் திட்டத்தினை விரைவாக ஆரம்பிக்கக் கோரல் (Request to expedite the work project)",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "திட்டமிடல் பிரிவு (Planning)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 09:22",
+    "chats": [
+      {
+        "id": "msg-1793245946255",
+        "letterId": "LTR-1793245946255",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "The Divisional Irrigation Engineer requests M/S LT Royal Engineering Group to expedite the construction work for the Anaisunkattu irrigation scheme as per the contract.",
+        "timestamp": "2026-10-29 09:22"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793246013067",
+    "originalNo": "KPN/DS/2026/10/362",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-25",
+    "letterType": "Normal Post",
+    "registeredPostNo": "BT/DD/DAPH/ Gen/2026",
+    "inwardNo": "Dept. of Animal Production & Health, Batticaloa District",
+    "fromWhom": "Request for Technical Support to Expedite civil works under the National Dairy Hub Development Programme",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "திட்டமிடல் பிரிவு (Planning)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 09:23",
+    "chats": [
+      {
+        "id": "msg-1793246013067",
+        "letterId": "LTR-1793246013067",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "Requesting technical support from the Divisional Secretariat to expedite civil works for the National Dairy Hub Development Programme by 15 November 2026.",
+        "timestamp": "2026-10-29 09:23"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793246087339",
+    "originalNo": "KPN/DS/2026/10/363",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-22",
+    "letterType": "Normal Post",
+    "registeredPostNo": "DPD/MRDSS&CE/PSPAP/17/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Providing vocational training to children from low-income families and sending them to the job market",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "திட்டமிடல் பிரிவு (Planning)"
+    ],
+    "forwardedTo": [
+      "955471580V",
+      "SMU"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 09:24",
+    "chats": [
+      {
+        "id": "msg-1793246087340",
+        "letterId": "LTR-1793246087339",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "The District Secretariat instructs to take necessary steps to implement vocational training programs for children from low-income families as per the guidelines provided by the Ministry.",
+        "timestamp": "2026-10-29 09:24"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793246186437",
+    "originalNo": "KPN/DS/2026/10/364",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-27",
+    "letterType": "Normal Post",
+    "registeredPostNo": "2026/2027",
+    "inwardNo": "கோறளைப்பற்று வடக்கு பிரதேச சபை, வாகரை",
+    "fromWhom": "ஆலங்குளம் கடைத்தொகுதி 02, 03 கடை அறை வாடகைக்கான 03ம் தடவை மீள் கேள்வி அறிவித்தல்",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 09:26",
+    "chats": [
+      {
+        "id": "msg-1793246186437",
+        "letterId": "LTR-1793246186437",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "கோறளைப்பற்று வடக்கு பிரதேச சபைக்குச் சொந்தமான ஆலங்குளம் கடைத்தொகுதி 02, 03 ஆகிய கடை அறைகளை வாடகைக்கு வழங்குவதற்கான மீள் கேள்வி கோரல் அறிவித்தல்.",
+        "timestamp": "2026-10-29 09:26"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793249909801",
+    "originalNo": "KPN/DS/2026/10/361",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-26",
+    "letterType": "Normal Post",
+    "registeredPostNo": "PMOD/ /2026",
+    "inwardNo": "Postmaster, Oddamavadi",
+    "fromWhom": "Details of Elder's Payment (DO/62) - September 2026",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "சமூக சேவை (Social)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 10:28",
+    "chats": [
+      {
+        "id": "msg-1793249909801",
+        "letterId": "LTR-1793249909801",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "Submission of payment details and vouchers for the September 2026 Elder's payment.",
+        "timestamp": "2026-10-29 10:28"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793250006769",
+    "originalNo": "KPN/DS/2026/10/362",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-27",
+    "letterType": "Registered Post",
+    "registeredPostNo": "TDG/BCL/2026/0201",
+    "inwardNo": "Uthayan Perfect Builder",
+    "fromWhom": "Release of Bid Bond (பிணை முறியினை விடுவித்தல்)",
+    "subject": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "கணக்குப் பிரிவு (Accounts & Finance)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 10:30",
+    "chats": [
+      {
+        "id": "msg-1793250006769",
+        "letterId": "LTR-1793250006769",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "Uthayan Perfect Builder requests the release of the bid bond for the Concrete Surfacing to Navalar Road project.",
+        "timestamp": "2026-10-29 10:30"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793250091813",
+    "originalNo": "KPN/DS/2026/10/363",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-21",
+    "letterType": "Registered Post",
+    "registeredPostNo": "EP/EA/37/01/CO/PF/33",
+    "inwardNo": "Department of Cultural Affairs - Eastern Province",
+    "fromWhom": "ஓய்வுதியத்திற்கு முன்னரான விடுமுறை",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [
+      "980282996V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 10:31",
+    "chats": [
+      {
+        "id": "msg-1793250091814",
+        "letterId": "LTR-1793250091813",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "Approval granted for pre-retirement leave for the cultural officer from 2026.11.01 to 2027.02.01.",
+        "timestamp": "2026-10-29 10:31"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793250199632",
+    "originalNo": "KPN/DS/2026/10/360",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-22",
+    "letterType": "Registered Post",
+    "registeredPostNo": "null",
+    "inwardNo": "Koralai North Multi-Purpose Co-op. Society, Ltd",
+    "fromWhom": "எரிபொருள் பெற்றமைக்கான மீதியை உறுதிப்படுத்தி வழங்கல்",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [
+      "971412038V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 10:33",
+    "chats": [
+      {
+        "id": "msg-1793250199632",
+        "letterId": "LTR-1793250199632",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "The Co-operative Society requests confirmation of the outstanding fuel payment balance for the periods 2025.01.01-2025.12.31 and 2026.01.01-2026.09.30.",
+        "timestamp": "2026-10-29 10:33"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793250240657",
+    "originalNo": "KPN/DS/2026/10/361",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-25",
+    "letterType": "Normal Post",
+    "registeredPostNo": "BT/DORD/A2/PSDG-RDS President's Training/2026",
+    "inwardNo": "Department of Rural Development, District Office, Batticaloa",
+    "fromWhom": "Annual Implementation Programme - 2026: Capacity building for Rural Development Society Presidents",
+    "subject": "கிராம அபிவிருத்தி (Rural Development)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "கிராம அபிவிருத்தி (Rural Development)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 10:34",
+    "chats": [
+      {
+        "id": "msg-1793250240657",
+        "letterId": "LTR-1793250240657",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "The District Rural Development Department requests the Divisional Secretary to obtain necessary funds from the relevant Rural Development Society and submit the required documents by 09.11.2026 for the 2026 capacity building training program.",
+        "timestamp": "2026-10-29 10:34"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793250320263",
+    "originalNo": "KPN/DS/2026/10/362",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-11",
+    "letterType": "Normal Post",
+    "registeredPostNo": "Agri/5/Ap/Sa/08-17",
+    "inwardNo": "Ministry of Agriculture, Livestock, Land and Irrigation",
+    "fromWhom": "Salaries and Loan Particulars - M. Amrithalingam (Development Officer)",
+    "subject": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "கணக்குப் பிரிவு (Accounts & Finance)"
+    ],
+    "forwardedTo": [
+      "817300790V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 10:35",
+    "chats": [
+      {
+        "id": "msg-1793250320263",
+        "letterId": "LTR-1793250320263",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "This letter provides the salary and loan particulars for Development Officer M. Amrithalingam for the month of September 2026.",
+        "timestamp": "2026-10-29 10:35"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793250389487",
+    "originalNo": "KPN/DS/2026/10/363",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-09-19",
+    "letterType": "Registered Post",
+    "registeredPostNo": "null",
+    "inwardNo": "Medical Examiner, Base Hospital, Valaichchenai",
+    "fromWhom": "Medical Examiner's Report for Abdul Salam Mohamed Haris",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [
+      "980282996V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 10:36",
+    "chats": [
+      {
+        "id": "msg-1793250389487",
+        "letterId": "LTR-1793250389487",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "Medical examination report for candidate Abdul Salam Mohamed Haris confirming his physical fitness.",
+        "timestamp": "2026-10-29 10:36"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793250430893",
+    "originalNo": "KPN/DS/2026/10/364",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-22",
+    "letterType": "Normal Post",
+    "registeredPostNo": "ADM/TRGEN/DO-07/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Annual Transfer 2027",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [
+      "980282996V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 10:37",
+    "chats": [
+      {
+        "id": "msg-1793250430893",
+        "letterId": "LTR-1793250430893",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "Requesting to submit applications for the 2027 annual transfer of officers, office staff, and drivers who have completed 5 years of service by 31.12.2026.",
+        "timestamp": "2026-10-29 10:37"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793250473479",
+    "originalNo": "KPN/DS/2026/10/365",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-22",
+    "letterType": "Normal Post",
+    "registeredPostNo": "ADM/LVPAR/10/2026",
+    "inwardNo": "Divisional Secretariat, Eravur Pattu, Chenkalady",
+    "fromWhom": "Attendance - September 2026",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [
+      "907833410V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 10:37",
+    "chats": [
+      {
+        "id": "msg-1793250473480",
+        "letterId": "LTR-1793250473479",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "Submission of the attendance record for Mr. P. Vasanthan (Hindu Culture DO) for the month of September 2026.",
+        "timestamp": "2026-10-29 10:37"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793250504556",
+    "originalNo": "KPN/DS/2026/10/366",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-08",
+    "letterType": "Normal Post",
+    "registeredPostNo": "ADM/LEPAR/10/2026",
+    "inwardNo": "Divisional Secretariat, Eravur Pattu, Chenkalady",
+    "fromWhom": "Leave Particulars of August & September - 2026",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [
+      "907833410V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 10:38",
+    "chats": [
+      {
+        "id": "msg-1793250504556",
+        "letterId": "LTR-1793250504556",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "The letter provides the leave details for Mrs. J. Kirilampothary for the months of August and September 2026.",
+        "timestamp": "2026-10-29 10:38"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793250544531",
+    "originalNo": "KPN/DS/2026/10/367",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-07-21",
+    "letterType": "Normal Post",
+    "registeredPostNo": "DS/KPN/ADR/SEC36/01/09/2026",
+    "inwardNo": "Divisional Secretariat Koralaipattu North, Vaharai",
+    "fromWhom": "இறப்பு சான்றிதழுக்கு விண்ணப்பித்தல்",
+    "subject": "பதிவாளர் கிளை (Registrar Branch)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "பதிவாளர் கிளை (Registrar Branch)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 10:39",
+    "chats": [
+      {
+        "id": "msg-1793250544531",
+        "letterId": "LTR-1793250544531",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "இறப்பு சான்றிதழ் பெறுவதற்காக சமர்ப்பிக்கப்பட்ட ஆவணங்கள் மேலதிக நடவடிக்கைக்காக அனுப்பி வைக்கப்பட்டுள்ளன.",
+        "timestamp": "2026-10-29 10:39"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793250581609",
+    "originalNo": "KPN/DS/2026/10/368",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-27",
+    "letterType": "Registered Post",
+    "registeredPostNo": "No",
+    "inwardNo": "ச. ரமணன்",
+    "fromWhom": "சுகவீனம் விடுமுறை வழங்கவும்",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [
+      "907833410V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 10:39",
+    "chats": [
+      {
+        "id": "msg-1793250581609",
+        "letterId": "LTR-1793250581609",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "ச. ரமணன் என்பவர் தனக்கு சுகவீனம் காரணமாக விடுமுறை வழங்குமாறு கோரியுள்ளார்.",
+        "timestamp": "2026-10-29 10:39"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793250628634",
+    "originalNo": "KPN/DS/2026/10/369",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-21",
+    "letterType": "Registered Post",
+    "registeredPostNo": "(TM2957921)-TM/(30450)",
+    "inwardNo": "Kugenthini Sriskandarajjah",
+    "fromWhom": "Sick Leave",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [
+      "907833410V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 10:40",
+    "chats": [
+      {
+        "id": "msg-1793250628634",
+        "letterId": "LTR-1793250628634",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "Kugenthini Sriskandarajjah has submitted a notification regarding her sick leave.",
+        "timestamp": "2026-10-29 10:40"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793250736745",
+    "originalNo": "KPN/DS/2026/10/370",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-22",
+    "letterType": "Normal Post",
+    "registeredPostNo": "Nill",
+    "inwardNo": "N. Banupiriya",
+    "fromWhom": "Suhaveenam (Health/Well-being status)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [
+      "907833410V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 10:42",
+    "chats": [
+      {
+        "id": "msg-1793250736746",
+        "letterId": "LTR-1793250736745",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "The sender N. Rajapriya has sent a message regarding health/well-being status (சுகவீனம்).",
+        "timestamp": "2026-10-29 10:42"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793250812588",
+    "originalNo": "KPN/DS/2026/10/371",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-25",
+    "letterType": "Normal Post",
+    "registeredPostNo": "No",
+    "inwardNo": "P.M.M. Cassim",
+    "fromWhom": "Sick leave application",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [
+      "907833410V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 10:43",
+    "chats": [
+      {
+        "id": "msg-1793250812588",
+        "letterId": "LTR-1793250812588",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "P.M.M. Cassim has submitted a request for sick leave.",
+        "timestamp": "2026-10-29 10:43"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793250852518",
+    "originalNo": "KPN/DS/2026/10/372",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-26",
+    "letterType": "Normal Post",
+    "registeredPostNo": "null",
+    "inwardNo": "Mr. Risvi (MSO)",
+    "fromWhom": "Sick Leave Application",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [
+      "907833410V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 10:44",
+    "chats": [
+      {
+        "id": "msg-1793250852518",
+        "letterId": "LTR-1793250852518",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "Mr. Risvi (MSO) has submitted a request for sick leave.",
+        "timestamp": "2026-10-29 10:44"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793250907989",
+    "originalNo": "KPN/DS/2026/10/373",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-25",
+    "letterType": "Registered Post",
+    "registeredPostNo": "(TM2963027)-TM/ (30450)",
+    "inwardNo": "A. JULINADI - CHENKALADY",
+    "fromWhom": "SICK LEAVE",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [
+      "907833410V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 10:45",
+    "chats": [
+      {
+        "id": "msg-1793250907989",
+        "letterId": "LTR-1793250907989",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "A. Julinadi from Chenkalady has sent an e-telemail to inform about their sick leave.",
+        "timestamp": "2026-10-29 10:45"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793250943845",
+    "originalNo": "KPN/DS/2026/10/374",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-25",
+    "letterType": "Registered Post",
+    "registeredPostNo": "TM2963502",
+    "inwardNo": "N. Vinothini",
+    "fromWhom": "Sick leave request",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [
+      "907833410V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 10:45",
+    "chats": [
+      {
+        "id": "msg-1793250943845",
+        "letterId": "LTR-1793250943845",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "N. Vinothini has sent an e-telemail requesting sick leave.",
+        "timestamp": "2026-10-29 10:45"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793250999727",
+    "originalNo": "KPN/DS/2026/10/375",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-25",
+    "letterType": "Normal Post",
+    "registeredPostNo": "No",
+    "inwardNo": "R. Selveswary",
+    "fromWhom": "Request for leave due to illness",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [
+      "907833410V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 10:46",
+    "chats": [
+      {
+        "id": "msg-1793250999727",
+        "letterId": "LTR-1793250999727",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "R. Selveswary has requested leave due to illness.",
+        "timestamp": "2026-10-29 10:46"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793253127026",
+    "originalNo": "KPN/DS/2026/10/360",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-22",
+    "letterType": "Registered Post",
+    "registeredPostNo": "BT/DPD-I/ENV/BD-project/2024",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Implementation of the Project 'Promoting Sustainable Economic Benefits through the Conservation of Critical Biodiversity and Ecosystem Services in the Eastern and Southern Coastal Regions of Sri Lanka' in Batticaloa District",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "திட்டமிடல் பிரிவு (Planning)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 11:22",
+    "chats": [
+      {
+        "id": "msg-1793253127026",
+        "letterId": "LTR-1793253127026",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "The District Secretariat requests the submission of project proposals suitable for the region following the discussion held on 08.10.2026 regarding the biodiversity and ecosystem services project.",
+        "timestamp": "2026-10-29 11:22"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793253228573",
+    "originalNo": "KPN/DS/2026/10/361",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-24",
+    "letterType": "Registered Post",
+    "registeredPostNo": "CHW/W/PSDG/ASKT/FT/2026",
+    "inwardNo": "Office of the Divisional Irrigation Engineer - Chenkalady",
+    "fromWhom": "Name of Contract - Strengthening of Anaisulkattu feeding tank including Breach filling, Construction of Sluice and spilling, Anaisulkattu Irrigation Scheme",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "திட்டமிடல் பிரிவு (Planning)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 11:23",
+    "chats": [
+      {
+        "id": "msg-1793253228573",
+        "letterId": "LTR-1793253228573",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "The Divisional Irrigation Engineer addresses issues regarding the contract for the Anaisulkattu Irrigation Scheme, noting delays in work progress and failure to provide necessary information.",
+        "timestamp": "2026-10-29 11:23"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793253275484",
+    "originalNo": "KPN/DS/2026/10/362",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-25",
+    "letterType": "Registered Post",
+    "registeredPostNo": "BT/DD/DAPH/Gen/2026",
+    "inwardNo": "Dept. of Animal Production & Health, Batticaloa District",
+    "fromWhom": "Request for Technical Support to Expedite civil works under the National Dairy Hub Development Programme",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "திட்டமிடல் பிரிவு (Planning)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 11:24",
+    "chats": [
+      {
+        "id": "msg-1793253275484",
+        "letterId": "LTR-1793253275484",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "The Department of Animal Production & Health requests technical support from the Divisional Secretariat to expedite civil works for the National Dairy Hub Development Programme by 15 November 2026.",
+        "timestamp": "2026-10-29 11:24"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793253369272",
+    "originalNo": "KPN/DS/2026/10/363",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-22",
+    "letterType": "Normal Post",
+    "registeredPostNo": "DPD/MRDSS&CE/PSPAP/17/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Providing vocational training for children from low-income families",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "திட்டமிடல் பிரிவு (Planning)"
+    ],
+    "forwardedTo": [
+      "955471580V",
+      "SMU"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 11:26",
+    "chats": [
+      {
+        "id": "msg-1793253369272",
+        "letterId": "LTR-1793253369272",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "The District Secretariat requests the implementation of vocational training programs for children from low-income families as per the instructions from the Ministry of Social Empowerment and the Ministry of Education.",
+        "timestamp": "2026-10-29 11:26"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793253414302",
+    "originalNo": "KPN/DS/2026/10/364",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-27",
+    "letterType": "Registered Post",
+    "registeredPostNo": "null",
+    "inwardNo": "கோறளைப்பற்று வடக்கு பிரதேச செயலகம், வாகரை",
+    "fromWhom": "கடை வாடகைக்கான 3ஆம் தடவை மீள் கேள்வி அறிவித்தல் 2026/2027",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 11:26",
+    "chats": [
+      {
+        "id": "msg-1793253414303",
+        "letterId": "LTR-1793253414302",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "கோறளைப்பற்று வடக்கு பிரதேச செயலகத்திற்கு உட்பட்ட ஆலங்குளம் கடைத்தொகுதியின் 02.03 இலக்கக் கடையை வாடகைக்கு வழங்குவதற்கான மீள் கேள்வி கோரல் அறிவித்தல்.",
+        "timestamp": "2026-10-29 11:26"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793253536856",
+    "originalNo": "KPN/DS/2026/10/365",
+    "date": "2026-10-28",
+    "dispatchedDate": "2025-10-27",
+    "letterType": "Registered Post",
+    "registeredPostNo": "26/",
+    "inwardNo": "கோறளைப்பற்று வடக்கு பிரதேச சபை, வாகரை",
+    "fromWhom": "குத்தகை கேள்வி அறிவித்தல் - 2027",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 11:28",
+    "chats": [
+      {
+        "id": "msg-1793253536856",
+        "letterId": "LTR-1793253536856",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "கோறளைப்பற்று வடக்கு பிரதேச சபைக்கு உட்பட்ட இடங்களை 2027 ஆம் ஆண்டிற்காக குத்தகைக்கு விடுவதற்கான கேள்வி கோரல் அறிவித்தல்.",
+        "timestamp": "2026-10-29 11:28"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793253565591",
+    "originalNo": "KPN/DS/2026/10/366",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-26",
+    "letterType": "Normal Post",
+    "registeredPostNo": "PMOD/ /2026",
+    "inwardNo": "Post Master, Oddamavadi",
+    "fromWhom": "Details of Elder's Payment (DO/62) - September 2026",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "சமூக சேவை (Social)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 11:29",
+    "chats": [
+      {
+        "id": "msg-1793253565591",
+        "letterId": "LTR-1793253565591",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "Submission of details regarding the payment of elders' allowances for September 2026 by the Post Master, Oddamavadi.",
+        "timestamp": "2026-10-29 11:29"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793253586892",
+    "originalNo": "KPN/DS/2026/10/367",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-27",
+    "letterType": "Registered Post",
+    "registeredPostNo": "TDG/BCL/2026/0201",
+    "inwardNo": "Uthayan Perfect Builder",
+    "fromWhom": "Request for release of bid security for Concrete Surfacing to Navalar Road in Kathiraveli GN Division (Bid No: TDG/BCL/2026/0201)",
+    "subject": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "கணக்குப் பிரிவு (Accounts & Finance)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 11:29",
+    "chats": [
+      {
+        "id": "msg-1793253586892",
+        "letterId": "LTR-1793253586892",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "Uthayan Perfect Builder requests the release of the bid security for the concrete surfacing project at Navalar Road, Kathiraveli GN Division.",
+        "timestamp": "2026-10-29 11:29"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793253640318",
+    "originalNo": "KPN/DS/2026/10/368",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-21",
+    "letterType": "Normal Post",
+    "registeredPostNo": "EP/EA/37/01/CO/PF/33",
+    "inwardNo": "Department of Cultural Affairs - Eastern Province",
+    "fromWhom": "Approval for pre-retirement leave",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [
+      "980282996V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 11:30",
+    "chats": [
+      {
+        "id": "msg-1793253640318",
+        "letterId": "LTR-1793253640318",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "Approval granted for pre-retirement leave for the cultural officer from 2026.11.01 to 2027.02.01.",
+        "timestamp": "2026-10-29 11:30"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793253783046",
+    "originalNo": "KPN/DS/2026/10/376",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-22",
+    "letterType": "Registered Post",
+    "registeredPostNo": "No",
+    "inwardNo": "Koralai North Multi-Purpose Co-operative Society, Ltd, Vaharai",
+    "fromWhom": "எரிபொருள் பெற்றமைக்கான மீதியை உறுதிப்படுத்தி வழங்கல்",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [
+      "971412038V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 11:33",
+    "chats": [
+      {
+        "id": "msg-1793253783046",
+        "letterId": "LTR-1793253783046",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "The Koralai North Multi-Purpose Co-operative Society requests the Divisional Secretariat to confirm and provide the outstanding balance for fuel supplied on credit between 2025-01-01 and 2026-09-30.",
+        "timestamp": "2026-10-29 11:33"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793253884875",
+    "originalNo": "KPN/DS/2026/10/376",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-25",
+    "letterType": "Registered Post",
+    "registeredPostNo": "BT/DORD/A2/PSDG-RDS President's Training/2026",
+    "inwardNo": "Department of Rural Development, District Office, Batticaloa",
+    "fromWhom": "Annual Implementation Programme - 2026 - Training for Rural Development Society Presidents",
+    "subject": "கிராம அபிவிருத்தி (Rural Development)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "கிராம அபிவிருத்தி (Rural Development)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 11:34",
+    "chats": [
+      {
+        "id": "msg-1793253884875",
+        "letterId": "LTR-1793253884875",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "The District Rural Development Office requests the Divisional Secretary to obtain funds from the relevant Rural Development Societies for the 2026 training programme and submit the necessary documents by 09.11.2026.",
+        "timestamp": "2026-10-29 11:34"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793253962985",
+    "originalNo": "KPN/DS/2026/10/377",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-11",
+    "letterType": "Normal Post",
+    "registeredPostNo": "Agri/5/Ap/Sa/08-17",
+    "inwardNo": "Ministry of Agriculture, Livestock, Land and Irrigation",
+    "fromWhom": "Salaries and Loan Particulars - Mr. M. Amrithalingam, Development Officer (II)",
+    "subject": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "கணக்குப் பிரிவு (Accounts & Finance)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 11:36",
+    "chats": [
+      {
+        "id": "msg-1793253962985",
+        "letterId": "LTR-1793253962985",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "Forwarding of salary and loan particulars for Development Officer Mr. M. Amrithalingam for the month of September 2026 to process monthly salary.",
+        "timestamp": "2026-10-29 11:36"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793253998284",
+    "originalNo": "KPN/DS/2026/10/378",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-22",
+    "letterType": "Registered Post",
+    "registeredPostNo": "null",
+    "inwardNo": "Medical Officer, Base Hospital, Valaichchenai",
+    "fromWhom": "Medical Examiner's Report for Abdul Salam Mohamed Haris",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 11:36",
+    "chats": [
+      {
+        "id": "msg-1793253998284",
+        "letterId": "LTR-1793253998284",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "Medical examination report for candidate Abdul Salam Mohamed Haris issued by the Base Hospital, Valaichchenai.",
+        "timestamp": "2026-10-29 11:36"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793254055654",
+    "originalNo": "KPN/DS/2026/10/379",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-22",
+    "letterType": "Normal Post",
+    "registeredPostNo": "ADM/TRGEN/DO-07/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Annual Transfer 2027",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [
+      "980282996V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 11:37",
+    "chats": [
+      {
+        "id": "msg-1793254055654",
+        "letterId": "LTR-1793254055654",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "The District Secretariat has requested the Divisional Secretariats to submit applications for the 2027 annual transfers of staff who have completed 5 years of service by 31.12.2026.",
+        "timestamp": "2026-10-29 11:37"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793254103419",
+    "originalNo": "KPN/DS/2026/10/380",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-27",
+    "letterType": "Normal Post",
+    "registeredPostNo": "ADM/LVPAR/10/2026",
+    "inwardNo": "Divisional Secretariat, Eravur Pattu, Chenkalady",
+    "fromWhom": "Attendance of Mr. P.Vasanthan (Hindu Culture DO)",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [
+      "907833410V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 11:38",
+    "chats": [
+      {
+        "id": "msg-1793254103419",
+        "letterId": "LTR-1793254103419",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "Submission of the attendance record for September 2026 for Mr. P.Vasanthan, Hindu Culture Development Officer.",
+        "timestamp": "2026-10-29 11:38"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793254130746",
+    "originalNo": "KPN/DS/2026/10/381",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-08",
+    "letterType": "Normal Post",
+    "registeredPostNo": "ADM/LEPAR/10/2026",
+    "inwardNo": "Divisional Secretariat, Eravur Pattu, Chenkalady",
+    "fromWhom": "Leave Particulars of August & September 2026",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [
+      "907833410V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 11:38",
+    "chats": [
+      {
+        "id": "msg-1793254130746",
+        "letterId": "LTR-1793254130746",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "This letter provides the leave details for Mrs. J. Kirilampothary for the months of August and September 2026.",
+        "timestamp": "2026-10-29 11:38"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793254211903",
+    "originalNo": "KPN/DS/2026/10/382",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-07-21",
+    "letterType": "Normal Post",
+    "registeredPostNo": "DS/KPN/ADR/SEC36/01/09/2026",
+    "inwardNo": "Divisional Secretariat Koralaipattu North, Vaharai",
+    "fromWhom": "இறப்பு சான்றிதழுக்கு விண்ணப்பித்தல்",
+    "subject": "பதிவாளர் கிளை (Registrar Branch)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "பதிவாளர் கிளை (Registrar Branch)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 11:40",
+    "chats": [
+      {
+        "id": "msg-1793254211903",
+        "letterId": "LTR-1793254211903",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "இறப்பு சான்றிதழ் பெறுவதற்காக சமர்ப்பிக்கப்பட்ட ஆவணங்கள் சரிபார்க்கப்பட்டு மேலதிக நடவடிக்கைகளுக்காக அனுப்பி வைக்கப்பட்டுள்ளன.",
+        "timestamp": "2026-10-29 11:40"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793254264735",
+    "originalNo": "KPN/DS/2026/10/383",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-27",
+    "letterType": "Normal Post",
+    "registeredPostNo": "No",
+    "inwardNo": "ச. ரமணன்",
+    "fromWhom": "சுகவீனம் விடுமுறை வழங்கவும்",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 11:41",
+    "chats": [
+      {
+        "id": "msg-1793254264735",
+        "letterId": "LTR-1793254264735",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "சுகவீனம் காரணமாக விடுமுறை கோரி அனுப்பப்பட்ட கடிதம்.",
+        "timestamp": "2026-10-29 11:41"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793254342585",
+    "originalNo": "KPN/DS/2026/10/384",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-21",
+    "letterType": "Normal Post",
+    "registeredPostNo": "null",
+    "inwardNo": "Kugenthini Sriskandarajiah",
+    "fromWhom": "Sick Leave",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [
+      "907833410V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 11:42",
+    "chats": [
+      {
+        "id": "msg-1793254342585",
+        "letterId": "LTR-1793254342585",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "Notification of sick leave by Kugenthini Sriskandarajiah.",
+        "timestamp": "2026-10-29 11:42"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793254395493",
+    "originalNo": "KPN/DS/2026/10/385",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-25",
+    "letterType": "Normal Post",
+    "registeredPostNo": "No",
+    "inwardNo": "P.M.M. Cassim",
+    "fromWhom": "Sick leave application",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [
+      "907833410V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 11:43",
+    "chats": [
+      {
+        "id": "msg-1793254395493",
+        "letterId": "LTR-1793254395493",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "P.M.M. Cassim has submitted a request for sick leave.",
+        "timestamp": "2026-10-29 11:43"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793254471414",
+    "originalNo": "KPN/DS/2026/10/386",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-26",
+    "letterType": "Normal Post",
+    "registeredPostNo": "No",
+    "inwardNo": "Mr. Risvi (MBO)",
+    "fromWhom": "Sick Leave Application",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [
+      "907833410V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 11:44",
+    "chats": [
+      {
+        "id": "msg-1793254471414",
+        "letterId": "LTR-1793254471414",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "Mr. Risvi (MBO) has submitted a request for sick leave.",
+        "timestamp": "2026-10-29 11:44"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793254533415",
+    "originalNo": "KPN/DS/2026/10/387",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-25",
+    "letterType": "Normal Post",
+    "registeredPostNo": "(TM2963027)-TM/ (30450)",
+    "inwardNo": "A. Julinadi - Chenkalady",
+    "fromWhom": "Sick Leave",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [
+      "907833410V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 11:45",
+    "chats": [
+      {
+        "id": "msg-1793254533415",
+        "letterId": "LTR-1793254533415",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "A. Julinadi from Chenkalady has sent an e-Telemail notification regarding sick leave.",
+        "timestamp": "2026-10-29 11:45"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793254567025",
+    "originalNo": "KPN/DS/2026/10/388",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-25",
+    "letterType": "Normal Post",
+    "registeredPostNo": "(TM2962938)/TM/(30450)",
+    "inwardNo": "S. Kishanthan",
+    "fromWhom": "Sick leave request",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [
+      "907833410V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 11:46",
+    "chats": [
+      {
+        "id": "msg-1793254567025",
+        "letterId": "LTR-1793254567025",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "S. Kishanthan has sent an e-telemail to inform about his sick leave.",
+        "timestamp": "2026-10-29 11:46"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793254599808",
+    "originalNo": "KPN/DS/2026/10/389",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-25",
+    "letterType": "Normal Post",
+    "registeredPostNo": "(TM2963502)-TM/ (30450)",
+    "inwardNo": "N. Vinothini",
+    "fromWhom": "Sick leave request",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [
+      "907833410V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 11:46",
+    "chats": [
+      {
+        "id": "msg-1793254599808",
+        "letterId": "LTR-1793254599808",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "N. Vinothini has sent an e-telemail requesting sick leave.",
+        "timestamp": "2026-10-29 11:46"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793254645085",
+    "originalNo": "KPN/DS/2026/10/390",
+    "date": "2026-10-28",
+    "dispatchedDate": "2026-10-25",
+    "letterType": "Normal Post",
+    "registeredPostNo": "No",
+    "inwardNo": "R. Selveswari",
+    "fromWhom": "Request for leave due to unavoidable reasons",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [
+      "907833410V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-29 11:47",
+    "chats": [
+      {
+        "id": "msg-1793254645085",
+        "letterId": "LTR-1793254645085",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "R. Selveswari has requested leave due to unavoidable reasons.",
+        "timestamp": "2026-10-29 11:47"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793332910992",
+    "originalNo": "KPN/DS/2026/10/363",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-10-20",
+    "letterType": "Normal Post",
+    "registeredPostNo": "MSO/75611",
+    "inwardNo": "Ministry of Public Administration, Provincial Councils and Local Government",
+    "fromWhom": "Confirmation of permanent status for Management Service Officer (MSO) S. Prasanthan",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [
+      "980282996V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-30 09:31",
+    "chats": [
+      {
+        "id": "msg-1793332910992",
+        "letterId": "LTR-1793332910992",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "The letter requests the submission of required documents to confirm the permanent status of Management Service Officer S. Prasanthan.",
+        "timestamp": "2026-10-30 09:31"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793333040399",
+    "originalNo": "KPN/DS/2026/10/364",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-10-28",
+    "letterType": "Normal Post",
+    "registeredPostNo": "LAN/LEASE/01/81",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Request for 100 acres of land for cultivation",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "காணிப் பிரிவு (Land Division)"
+    ],
+    "forwardedTo": [
+      "893461094V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-30 09:34",
+    "chats": [
+      {
+        "id": "msg-1793333040399",
+        "letterId": "LTR-1793333040399",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "The District Secretariat informs that the requested land is currently under dispute and advises seeking guidance from the Land Commissioner General.",
+        "timestamp": "2026-10-30 09:34"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793333116364",
+    "originalNo": "KPN/DS/2026/10/365",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-10-28",
+    "letterType": "Normal Post",
+    "registeredPostNo": "ஊரியன்கட்டு - 212B",
+    "inwardNo": "க.தயாளன், கிராம உத்தியோகத்தர், 212B ஊரியன்கட்டு",
+    "fromWhom": "காணி ஆக்கிரமிப்பு தொடர்பாக",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "காணிப் பிரிவு (Land Division)"
+    ],
+    "forwardedTo": [
+      "896590693V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-30 09:35",
+    "chats": [
+      {
+        "id": "msg-1793333116364",
+        "letterId": "LTR-1793333116364",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "ஊரியன்கட்டு பகுதியில் உள்ள அரச காணியை கிராசி இனேசன் என்பவர் ஆக்கிரமித்துள்ளமை தொடர்பாக கிராம உத்தியோகத்தர் அறிவித்தல்.",
+        "timestamp": "2026-10-30 09:35"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793333278061",
+    "originalNo": "KPN/DS/2026/10/363",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-10-22",
+    "letterType": "Normal Post",
+    "registeredPostNo": "DSO/27/R2/Himikama/2026",
+    "inwardNo": "District Survey Office, Batticaloa",
+    "fromWhom": "ஹிமிகம வரைபடம் தொடர்பாக",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "காணிப் பிரிவு (Land Division)"
+    ],
+    "forwardedTo": [
+      "896590693V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-30 09:37",
+    "chats": [
+      {
+        "id": "msg-1793333278062",
+        "letterId": "LTR-1793333278061",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "The District Survey Office requests the Land Commissioner's approval letter for the Himikama map to proceed with further actions.",
+        "timestamp": "2026-10-30 09:37"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793333345931",
+    "originalNo": "KPN/DS/2026/10/364",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-10-26",
+    "letterType": "Normal Post",
+    "registeredPostNo": "null",
+    "inwardNo": "T. Suthakaran, Grama Niladhari, KPN, Vaharai",
+    "fromWhom": "அத்துமீறி காணி பயிர் செய்கை செய்தல் தொடர்பாக",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "காணிப் பிரிவு (Land Division)"
+    ],
+    "forwardedTo": [
+      "896590693V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-30 09:39",
+    "chats": [
+      {
+        "id": "msg-1793333345931",
+        "letterId": "LTR-1793333345931",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "கோறளைப்பற்று வடக்கு பிரதேச செயலக பிரிவில் உள்ள காணியில் அத்துமீறி பயிர் செய்கை மேற்கொள்வது தொடர்பாக நடவடிக்கை எடுக்குமாறு கோரப்பட்டுள்ளது.",
+        "timestamp": "2026-10-30 09:39"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793333790595",
+    "originalNo": "KPN/DS/2026/10/363",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-10-28",
+    "letterType": "Normal Post",
+    "registeredPostNo": "EP/DRD/BA09/211B/0652",
+    "inwardNo": "Kernimadu Rural Development Society",
+    "fromWhom": "அனுமதி கோரல் (Request for permission)",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "காணிப் பிரிவு (Land Division)"
+    ],
+    "forwardedTo": [
+      "197024000147"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-30 09:46",
+    "chats": [
+      {
+        "id": "msg-1793333790595",
+        "letterId": "LTR-1793333790595",
+        "senderId": "946892580V",
+        "senderName": "N.Saraniya",
+        "senderRole": "Mail Officer",
+        "message": "Kernimadu Rural Development Society requests permission to manage and supervise the well and the 30-perch land constructed by the Ministry of Rural Economy.",
+        "timestamp": "2026-10-30 09:46"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793342010431",
+    "originalNo": "KPN/DS/2026/10/364",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-10-29",
+    "letterType": "Registered Post",
+    "registeredPostNo": "MSO/75611",
+    "inwardNo": "Ministry of public Administration provincial councils and local government",
+    "fromWhom": "Appointment to the post of grade III IN the management service officer service mr . s pirasanth - K.S.N III",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "காணிப் பிரிவு (Land Division)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-30 12:03",
+    "chats": []
+  },
+  {
+    "id": "LTR-1793342311311",
+    "originalNo": "KPN/DS/2026/10/365",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-10-20",
+    "letterType": "Normal Post",
+    "registeredPostNo": "MSO/75611",
+    "inwardNo": "Ministry of public Administration provincial councils and local government",
+    "fromWhom": "Appointment to the post of grade III IN the management service officer service mr . s pirasanth - K.S.N III",
+    "subject": "நிர்வாகப் பிரிவு (Administration)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "நிர்வாகப் பிரிவு (Administration)"
+    ],
+    "forwardedTo": [
+      "980282996V"
+    ],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "946892580V",
+    "registeredByName": "N.Saraniya",
+    "createdAt": "2026-10-30 12:08",
+    "chats": []
+  },
+  {
+    "id": "LTR-1793354746797",
+    "originalNo": "KPN/DS/2026/10/363",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-10-18",
+    "letterType": "Registered Post",
+    "registeredPostNo": "BT/DAD/MI/DIVI.E/2026",
+    "inwardNo": "Department of Agrarian Development, District Office - Batticaloa",
+    "fromWhom": "சங்கலி வில்லுகுளம், கல்லடிச்சேனைக்குளம் என்பன தொடர்பானவை",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "காணிப் பிரிவு (Land Division)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "SUPERADMIN",
+    "registeredByName": "System Super Administrator",
+    "createdAt": "2026-10-30 15:35",
+    "chats": [
+      {
+        "id": "msg-1793354746797",
+        "letterId": "LTR-1793354746797",
+        "senderId": "SUPERADMIN",
+        "senderName": "System Super Administrator",
+        "senderRole": "Super Admin",
+        "message": "சங்கலி வில்லுகுளம் மற்றும் கல்லடிச்சேனைக்குளம் ஆகியவற்றின் உயர் வெள்ள மட்டத்தை (High flood level) நிர்ணயிப்பது தொடர்பான அறிவித்தல்.",
+        "timestamp": "2026-10-30 15:35"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793354823470",
+    "originalNo": "KPN/DS/2026/10/365",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-10-25",
+    "letterType": "Normal Post",
+    "registeredPostNo": "LND/LMKPN/DO-07/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "இறால் வளர்ப்பிற்காக 100 ஏக்கர் அரசகாணி கோரியமை தொடர்பாக",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "காணிப் பிரிவு (Land Division)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "SUPERADMIN",
+    "registeredByName": "System Super Administrator",
+    "createdAt": "2026-10-30 15:37",
+    "chats": [
+      {
+        "id": "msg-1793354823470",
+        "letterId": "LTR-1793354823470",
+        "senderId": "SUPERADMIN",
+        "senderName": "System Super Administrator",
+        "senderRole": "Super Admin",
+        "message": "The District Secretariat informs that the 100 acres of land requested for shrimp farming is currently undeveloped and unclaimed, and advises seeking guidance from the Land Commissioner General's Department for further action.",
+        "timestamp": "2026-10-30 15:37"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793354843758",
+    "originalNo": "KPN/DS/2026/10/366",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-10-28",
+    "letterType": "Registered Post",
+    "registeredPostNo": "212B ஊரியன்கட்டு",
+    "inwardNo": "க. தயாளன், கிராம உத்தியோகத்தர், 212B ஊரியன்கட்டு, கோ.ப.வ - மட்டக்களப்பு",
+    "fromWhom": "காணி ஆக்கிரமிப்பு தொடர்பாக",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "காணிப் பிரிவு (Land Division)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "SUPERADMIN",
+    "registeredByName": "System Super Administrator",
+    "createdAt": "2026-10-30 15:37",
+    "chats": [
+      {
+        "id": "msg-1793354843758",
+        "letterId": "LTR-1793354843758",
+        "senderId": "SUPERADMIN",
+        "senderName": "System Super Administrator",
+        "senderRole": "Super Admin",
+        "message": "ஊரியன்கட்டு பகுதியில் உள்ள அரச காணியை கிரகி கணேசன் என்பவர் ஆக்கிரமித்துள்ளமை தொடர்பாக கிராம உத்தியோகத்தர் அறிவித்தல்.",
+        "timestamp": "2026-10-30 15:37"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793354859759",
+    "originalNo": "KPN/DS/2026/10/367",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-10-22",
+    "letterType": "Normal Post",
+    "registeredPostNo": "DSO/27/R2/Himikama/2026",
+    "inwardNo": "District Survey Office, Batticaloa",
+    "fromWhom": "ஹிமிகம வரைபடம் தொடர்பாக",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "காணிப் பிரிவு (Land Division)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "SUPERADMIN",
+    "registeredByName": "System Super Administrator",
+    "createdAt": "2026-10-30 15:37",
+    "chats": [
+      {
+        "id": "msg-1793354859759",
+        "letterId": "LTR-1793354859759",
+        "senderId": "SUPERADMIN",
+        "senderName": "System Super Administrator",
+        "senderRole": "Super Admin",
+        "message": "The District Survey Office requests the Land Commissioner's approval letter for the Himikama land survey to proceed with further actions.",
+        "timestamp": "2026-10-30 15:37"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793354870671",
+    "originalNo": "KPN/DS/2026/10/368",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-10-26",
+    "letterType": "Registered Post",
+    "registeredPostNo": "null",
+    "inwardNo": "T. Suthakaran, Grama Niladhari, KPN, Vaharai",
+    "fromWhom": "Request to investigate unauthorized land occupation in Karunaikerni village",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "காணிப் பிரிவு (Land Division)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "SUPERADMIN",
+    "registeredByName": "System Super Administrator",
+    "createdAt": "2026-10-30 15:37",
+    "chats": [
+      {
+        "id": "msg-1793354870672",
+        "letterId": "LTR-1793354870671",
+        "senderId": "SUPERADMIN",
+        "senderName": "System Super Administrator",
+        "senderRole": "Super Admin",
+        "message": "The Grama Niladhari requests an investigation into unauthorized land occupation and illegal construction activities in the Karunaikerni village area.",
+        "timestamp": "2026-10-30 15:37"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793354882336",
+    "originalNo": "KPN/DS/2026/10/369",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-10-19",
+    "letterType": "Registered Post",
+    "registeredPostNo": "EP/DRD/BA09/211B/0652",
+    "inwardNo": "Kernimadu Rural Development Society",
+    "fromWhom": "Requesting permission to hand over a well and land to the Valaamchenai Water Management Society",
+    "subject": "கிராம அபிவிருத்தி (Rural Development)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "கிராம அபிவிருத்தி (Rural Development)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "SUPERADMIN",
+    "registeredByName": "System Super Administrator",
+    "createdAt": "2026-10-30 15:38",
+    "chats": [
+      {
+        "id": "msg-1793354882336",
+        "letterId": "LTR-1793354882336",
+        "senderId": "SUPERADMIN",
+        "senderName": "System Super Administrator",
+        "senderRole": "Super Admin",
+        "message": "Kernimadu Rural Development Society requests permission to transfer the management of a government-funded well and its surrounding 30-perch land to the Valaamchenai Water Management Society.",
+        "timestamp": "2026-10-30 15:38"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793354892160",
+    "originalNo": "KPN/DS/2026/10/370",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-10-18",
+    "letterType": "Normal Post",
+    "registeredPostNo": "BT/DAD/MI/DIVLE/2026",
+    "inwardNo": "Department of Agrarian Development, Batticaloa",
+    "fromWhom": "சங்கிலி வில்லுக்குளம், கல்லடிச்சேனைக்குளம் என்பன தொடர்பானது",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "காணிப் பிரிவு (Land Division)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "SUPERADMIN",
+    "registeredByName": "System Super Administrator",
+    "createdAt": "2026-10-30 15:38",
+    "chats": [
+      {
+        "id": "msg-1793354892160",
+        "letterId": "LTR-1793354892160",
+        "senderId": "SUPERADMIN",
+        "senderName": "System Super Administrator",
+        "senderRole": "Super Admin",
+        "message": "சங்கிலி வில்லுக்குளம் மற்றும் கல்லடிச்சேனைக்குளம் ஆகியவற்றின் உயர் வெள்ள மட்டத்தை (High flood level) நிர்ணயிப்பது தொடர்பான அறிவித்தல்.",
+        "timestamp": "2026-10-30 15:38"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793354956089",
+    "originalNo": "KPN/DS/2026/10/373",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-10-22",
+    "letterType": "Normal Post",
+    "registeredPostNo": "BT/KK/ZEO/PLAN/Build/2026",
+    "inwardNo": "கல்குடா வலயக்கல்வி அலுவலகம் (Kalkudah Zonal Education Office)",
+    "fromWhom": "கட்டிடங்களை மதிப்பீடு செய்து தரக் கோரல் (Request to value the buildings)",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "திட்டமிடல் பிரிவு (Planning)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "SUPERADMIN",
+    "registeredByName": "System Super Administrator",
+    "createdAt": "2026-10-30 15:39",
+    "chats": [
+      {
+        "id": "msg-1793354956089",
+        "letterId": "LTR-1793354956089",
+        "senderId": "SUPERADMIN",
+        "senderName": "System Super Administrator",
+        "senderRole": "Super Admin",
+        "message": "கல்குடா வலயக்கல்வி அலுவலகத்திற்கு உட்பட்ட கட்டிடங்களை மதிப்பீடு செய்து தருமாறு கோரப்பட்டுள்ளது.",
+        "timestamp": "2026-10-30 15:39"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793354964969",
+    "originalNo": "KPN/DS/2026/10/374",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-09-28",
+    "letterType": "Normal Post",
+    "registeredPostNo": "EP/28/LB/L-3/YLD/BAT/KPN/2024",
+    "inwardNo": "மாகாண காணி ஆணையாளர், கிழக்கு மாகாணம் (Provincial Land Commissioner, Eastern Province)",
+    "fromWhom": "விவசாயம் மேற்கொண்டு வருகின்ற காணிகளுக்கான ஆவணங்கள் பெறுதல் தொடர்பாக",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "காணிப் பிரிவு (Land Division)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "SUPERADMIN",
+    "registeredByName": "System Super Administrator",
+    "createdAt": "2026-10-30 15:39",
+    "chats": [
+      {
+        "id": "msg-1793354964969",
+        "letterId": "LTR-1793354964969",
+        "senderId": "SUPERADMIN",
+        "senderName": "System Super Administrator",
+        "senderRole": "Super Admin",
+        "message": "கிராம உத்தியோகத்தர் பிரிவிலுள்ள 63 நபர்களுக்கு காணி அனுமதிப்பத்திரம் வழங்குதல் மற்றும் மேலதிக காணிகளை நீண்டகால குத்தகைக்கு வழங்குவதற்கான நடவடிக்கைகள் தொடர்பான அறிவுறுத்தல்.",
+        "timestamp": "2026-10-30 15:39"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793354975530",
+    "originalNo": "KPN/DS/2026/10/375",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-09-28",
+    "letterType": "Normal Post",
+    "registeredPostNo": "EP/28/LB/L-VLD/BAT/KPN/2024",
+    "inwardNo": "மாகாண காணி ஆணையாளர், கிழக்கு மாகாணம்",
+    "fromWhom": "விவசாயம் மேற்கொண்டு வருகின்ற காணிகளுக்கான ஆவணங்கள் பெறுதல் தொடர்பாக",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "காணிப் பிரிவு (Land Division)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "SUPERADMIN",
+    "registeredByName": "System Super Administrator",
+    "createdAt": "2026-10-30 15:39",
+    "chats": [
+      {
+        "id": "msg-1793354975530",
+        "letterId": "LTR-1793354975530",
+        "senderId": "SUPERADMIN",
+        "senderName": "System Super Administrator",
+        "senderRole": "Super Admin",
+        "message": "இராமர் தீவு கதிரவெளி கிராமத்தில் 63 பயனாளிகளுக்கு காணி அனுமதிப்பத்திரம் மற்றும் நீண்டகால குத்தகை வழங்குவதற்கான நடவடிக்கைகளை மேற்கொள்ளுமாறு கோறளைப்பற்று வடக்கு பிரதேச செயலாளருக்கு அறிவுறுத்தப்பட்டுள்ளது.",
+        "timestamp": "2026-10-30 15:39"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793354985658",
+    "originalNo": "KPN/DS/2026/10/376",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-10-14",
+    "letterType": "Normal Post",
+    "registeredPostNo": "CCD/Legal/113C/1-2026",
+    "inwardNo": "Coast Conservation and Coastal Resource Management Department",
+    "fromWhom": "Government Land for Long Term Lease",
+    "subject": "காணிப் பிரிவு (Land Division)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "காணிப் பிரிவு (Land Division)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "SUPERADMIN",
+    "registeredByName": "System Super Administrator",
+    "createdAt": "2026-10-30 15:39",
+    "chats": [
+      {
+        "id": "msg-1793354985658",
+        "letterId": "LTR-1793354985658",
+        "senderId": "SUPERADMIN",
+        "senderName": "System Super Administrator",
+        "senderRole": "Super Admin",
+        "message": "The Coast Conservation Department has no objection to leasing 2 acres of state land at Kathiraweli to MPCS Fuel station, subject to obtaining a permit for any future development activities.",
+        "timestamp": "2026-10-30 15:39"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793355015282",
+    "originalNo": "KPN/DS/2026/10/378",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-10-27",
+    "letterType": "Registered Post",
+    "registeredPostNo": "103020262",
+    "inwardNo": "K. Vikki, Vaharai",
+    "fromWhom": "வீட்டுத் திட்ட உதவி கோருதல்",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "சமூக சேவை (Social)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "SUPERADMIN",
+    "registeredByName": "System Super Administrator",
+    "createdAt": "2026-10-30 15:40",
+    "chats": [
+      {
+        "id": "msg-1793355015282",
+        "letterId": "LTR-1793355015282",
+        "senderId": "SUPERADMIN",
+        "senderName": "System Super Administrator",
+        "senderRole": "Super Admin",
+        "message": "வாகரை பிரதேசத்தில் வசிக்கும் K. Vikki என்பவர் தனது வீட்டின் மோசமான நிலை காரணமாக வீட்டுத் திட்ட உதவியை கோரி விண்ணப்பித்துள்ளார்.",
+        "timestamp": "2026-10-30 15:40"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793355035171",
+    "originalNo": "KPN/DS/2026/10/379",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-10-26",
+    "letterType": "Registered Post",
+    "registeredPostNo": "103020263",
+    "inwardNo": "International Medical Health Organization (IMHO) Lanka",
+    "fromWhom": "Request for Confirmation of Ongoing Projects Implemented by IMHO Lanka in Batticaloa District",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "திட்டமிடல் பிரிவு (Planning)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "SUPERADMIN",
+    "registeredByName": "System Super Administrator",
+    "createdAt": "2026-10-30 15:40",
+    "chats": [
+      {
+        "id": "msg-1793355035171",
+        "letterId": "LTR-1793355035171",
+        "senderId": "SUPERADMIN",
+        "senderName": "System Super Administrator",
+        "senderRole": "Super Admin",
+        "message": "IMHO Lanka requests a confirmation letter regarding their ongoing development projects in the Batticaloa District for their national-level NGO registration process.",
+        "timestamp": "2026-10-30 15:40"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793355044030",
+    "originalNo": "KPN/DS/2026/10/380",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-10-26",
+    "letterType": "Normal Post",
+    "registeredPostNo": "BT/DAB/DEVPR/DO/02",
+    "inwardNo": "District Director of Agriculture, District Secretariat, Batticaloa",
+    "fromWhom": "Implementation of the \"Development of Youth Entrepreneurship in Agriculture and Industry Sector Loan Scheme\" - 2026 in Batticaloa District",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "திட்டமிடல் பிரிவு (Planning)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "SUPERADMIN",
+    "registeredByName": "System Super Administrator",
+    "createdAt": "2026-10-30 15:40",
+    "chats": [
+      {
+        "id": "msg-1793355044030",
+        "letterId": "LTR-1793355044030",
+        "senderId": "SUPERADMIN",
+        "senderName": "System Super Administrator",
+        "senderRole": "Super Admin",
+        "message": "The District Director of Agriculture informs Divisional Secretaries about the availability of funds for the 2026 Youth Entrepreneurship in Agriculture and Industry Sector Loan Scheme and provides instructions for processing applications.",
+        "timestamp": "2026-10-30 15:40"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793355053988",
+    "originalNo": "KPN/DS/2026/10/381",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-10-26",
+    "letterType": "Normal Post",
+    "registeredPostNo": "BT/DAB/DEVPR/DO/02",
+    "inwardNo": "District Director of Agriculture, District Secretariat, Batticaloa",
+    "fromWhom": "Implementation of the \"Development of Youth Entrepreneurship in Agriculture and Industry Sector Loan Scheme\" - 2026 in Batticaloa District",
+    "subject": "திட்டமிடல் பிரிவு (Planning)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "திட்டமிடல் பிரிவு (Planning)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "SUPERADMIN",
+    "registeredByName": "System Super Administrator",
+    "createdAt": "2026-10-30 15:40",
+    "chats": [
+      {
+        "id": "msg-1793355053988",
+        "letterId": "LTR-1793355053988",
+        "senderId": "SUPERADMIN",
+        "senderName": "System Super Administrator",
+        "senderRole": "Super Admin",
+        "message": "The District Director of Agriculture informs Divisional Secretaries about the availability of funds for the 2026 Youth Entrepreneurship in Agriculture and Industry Sector Loan Scheme and provides instructions for processing applications.",
+        "timestamp": "2026-10-30 15:40"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793355073597",
+    "originalNo": "KPN/DS/2026/10/382",
+    "date": "2026-10-29",
+    "dispatchedDate": "2025-12-31",
+    "letterType": "Registered Post",
+    "registeredPostNo": "1030202604",
+    "inwardNo": "Ministry of Rural Development, Social Security, and Community Empowerment / Sri Lanka Social Security Board",
+    "fromWhom": "National Award Ceremony on Social Security (East) 2026",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "சமூக சேவை (Social)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "SUPERADMIN",
+    "registeredByName": "System Super Administrator",
+    "createdAt": "2026-10-30 15:41",
+    "chats": [
+      {
+        "id": "msg-1793355073597",
+        "letterId": "LTR-1793355073597",
+        "senderId": "SUPERADMIN",
+        "senderName": "System Super Administrator",
+        "senderRole": "Super Admin",
+        "message": "Invitation or information regarding the National Award Ceremony on Social Security (East) 2026 organized by the Ministry of Rural Development, Social Security, and Community Empowerment.",
+        "timestamp": "2026-10-30 15:41"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793355083951",
+    "originalNo": "KPN/DS/2026/10/383",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-10-21",
+    "letterType": "Normal Post",
+    "registeredPostNo": "EP/PI/PSDG/Chq/2026",
+    "inwardNo": "Department of Social Services, Eastern Province",
+    "fromWhom": "Payment for Providing Infrastructure facilities",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "சமூக சேவை (Social)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "SUPERADMIN",
+    "registeredByName": "System Super Administrator",
+    "createdAt": "2026-10-30 15:41",
+    "chats": [
+      {
+        "id": "msg-1793355083951",
+        "letterId": "LTR-1793355083951",
+        "senderId": "SUPERADMIN",
+        "senderName": "System Super Administrator",
+        "senderRole": "Super Admin",
+        "message": "The Department of Social Services has transferred Rs 100,000.00 via cheque 318912 to the Divisional Secretariat for infrastructure facilities for women-headed households.",
+        "timestamp": "2026-10-30 15:41"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793355105912",
+    "originalNo": "KPN/DS/2026/10/384",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-10-27",
+    "letterType": "Registered Post",
+    "registeredPostNo": "1030202605",
+    "inwardNo": "Post Master, Valaichenai",
+    "fromWhom": "Monthly 5000.00 Payment for over 70 years elders for the month of September 2026",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "சமூக சேவை (Social)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "SUPERADMIN",
+    "registeredByName": "System Super Administrator",
+    "createdAt": "2026-10-30 15:41",
+    "chats": [
+      {
+        "id": "msg-1793355105912",
+        "letterId": "LTR-1793355105912",
+        "senderId": "SUPERADMIN",
+        "senderName": "System Super Administrator",
+        "senderRole": "Super Admin",
+        "message": "Payment confirmation document for 5 elders over 70 years old for September 2026 totaling 25,000 rupees.",
+        "timestamp": "2026-10-30 15:41"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793355117198",
+    "originalNo": "KPN/DS/2026/10/385",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-10-19",
+    "letterType": "Normal Post",
+    "registeredPostNo": "DIVN",
+    "inwardNo": "Divinaguma Development Department, District Samurdhi Office, Batticaloa",
+    "fromWhom": "Remittance list for the month of October 2026",
+    "subject": "சமுர்த்தி (Samurdhi)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "சமுர்த்தி (Samurdhi)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "SUPERADMIN",
+    "registeredByName": "System Super Administrator",
+    "createdAt": "2026-10-30 15:41",
+    "chats": [
+      {
+        "id": "msg-1793355117198",
+        "letterId": "LTR-1793355117198",
+        "senderId": "SUPERADMIN",
+        "senderName": "System Super Administrator",
+        "senderRole": "Super Admin",
+        "message": "The letter provides a remittance list and cheque for the monthly contribution/salary of an employee for October 2026.",
+        "timestamp": "2026-10-30 15:41"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793355188550",
+    "originalNo": "KPN/DS/2026/10/386",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-10-19",
+    "letterType": "Normal Post",
+    "registeredPostNo": "DIVN",
+    "inwardNo": "Divinaguma Development Department, District Samurdhi Office, Batticaloa",
+    "fromWhom": "Remittance list for the month of October 2026",
+    "subject": "சமுர்த்தி (Samurdhi)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "சமுர்த்தி (Samurdhi)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "SUPERADMIN",
+    "registeredByName": "System Super Administrator",
+    "createdAt": "2026-10-30 15:43",
+    "chats": [
+      {
+        "id": "msg-1793355188550",
+        "letterId": "LTR-1793355188550",
+        "senderId": "SUPERADMIN",
+        "senderName": "System Super Administrator",
+        "senderRole": "Super Admin",
+        "message": "The letter provides a remittance list and cheque for the monthly contribution/salary of an employee for October 2026.",
+        "timestamp": "2026-10-30 15:43"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793355198543",
+    "originalNo": "KPN/DS/2026/10/387",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-10-21",
+    "letterType": "Registered Post",
+    "registeredPostNo": "65100100001018",
+    "inwardNo": "Divisional Secretary, Manmunaipattu, Arayampathy",
+    "fromWhom": "Payment of cheque for the amount of 2,686.19 LKR",
+    "subject": "கணக்குப் பிரிவு (Accounts & Finance)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "கணக்குப் பிரிவு (Accounts & Finance)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "SUPERADMIN",
+    "registeredByName": "System Super Administrator",
+    "createdAt": "2026-10-30 15:43",
+    "chats": [
+      {
+        "id": "msg-1793355198543",
+        "letterId": "LTR-1793355198543",
+        "senderId": "SUPERADMIN",
+        "senderName": "System Super Administrator",
+        "senderRole": "Super Admin",
+        "message": "A cheque for 2,686.19 LKR issued by the Divisional Secretary, Manmunaipattu, to the Divisional Secretary, Koralaipattu North.",
+        "timestamp": "2026-10-30 15:43"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793355208272",
+    "originalNo": "KPN/DS/2026/10/388",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-10-25",
+    "letterType": "Normal Post",
+    "registeredPostNo": "DSD/MF/COM/2026",
+    "inwardNo": "District Director, Department of Samurdhi Development, Batticaloa",
+    "fromWhom": "பரிச்சை மீதியை உறுதிப்படுத்துதல்",
+    "subject": "சமுர்த்தி (Samurdhi)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "சமுர்த்தி (Samurdhi)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "SUPERADMIN",
+    "registeredByName": "System Super Administrator",
+    "createdAt": "2026-10-30 15:43",
+    "chats": [
+      {
+        "id": "msg-1793355208272",
+        "letterId": "LTR-1793355208272",
+        "senderId": "SUPERADMIN",
+        "senderName": "System Super Administrator",
+        "senderRole": "Super Admin",
+        "message": "வங்கி மற்றும் வங்கிச் சங்கங்களின் பரிச்சை மீதி அறிக்கைகளை ஒவ்வொரு மாதமும் 10 ஆம் திகதிக்கு முன் மின்னஞ்சல் ஊடாக சமர்ப்பிக்குமாறு அறிவுறுத்தப்பட்டுள்ளது.",
+        "timestamp": "2026-10-30 15:43"
+      }
+    ]
+  },
+  {
+    "id": "LTR-1793355231440",
+    "originalNo": "KPN/DS/2026/10/390",
+    "date": "2026-10-29",
+    "dispatchedDate": "2026-10-22",
+    "letterType": "Normal Post",
+    "registeredPostNo": "ADS/VTC/13/21/2026",
+    "inwardNo": "District Secretariat, Batticaloa",
+    "fromWhom": "Interview for 2027 Social Services Training Program",
+    "subject": "சமூக சேவை (Social)",
+    "division": "நிர்வாகப் பிரிவு (Administration)",
+    "forwardedDivisions": [
+      "சமூக சேவை (Social)"
+    ],
+    "forwardedTo": [],
+    "action": "Not Yet Viewed",
+    "replyResponse": "",
+    "fileNo": "",
+    "registeredBy": "SUPERADMIN",
+    "registeredByName": "System Super Administrator",
+    "createdAt": "2026-10-30 15:43",
+    "chats": [
+      {
+        "id": "msg-1793355231440",
+        "letterId": "LTR-1793355231440",
+        "senderId": "SUPERADMIN",
+        "senderName": "System Super Administrator",
+        "senderRole": "Super Admin",
+        "message": "The letter informs about the interview schedule for the 2027 Social Services training program to be held on 2026.11.17 and 2026.11.18.",
+        "timestamp": "2026-10-30 15:43"
+      }
+    ]
   }
 ];
 
@@ -16493,12 +17188,12 @@ export const ALL_OFFICIAL_USERS: User[] = [
     "Role": "Luxury",
     "Division": "நிர்வாகப் பிரிவு (Administration)",
     "Status": "Active",
+    "designation": "Additional division secretary",
     "assignedDivisions": [
       "நிர்வாகப் பிரிவு (Administration)",
       "காணிப் பிரிவு (Land Division)",
       "வெளிக்களம் (Field)"
-    ],
-    "assignedOfficers": []
+    ]
   },
   {
     "User_ID": "701100760V",

@@ -371,11 +371,17 @@ const fetchCloudData = async (
 
       if (response.ok) {
         const data = await response.json();
-        if (data && data.ok) {
+        if (
+          data &&
+          data.ok &&
+          Array.isArray(data.letters) &&
+          data.letters.length > 0 &&
+          !data.uninitialized
+        ) {
           return {
-            letters: Array.isArray(data.letters) ? data.letters : [],
+            letters: data.letters,
             users: Array.isArray(data.users) ? data.users : [],
-            uninitialized: Boolean(data.uninitialized),
+            uninitialized: false,
             latencyMs: data.latencyMs,
             offline: false,
             statusCode: 200,
@@ -384,10 +390,10 @@ const fetchCloudData = async (
         }
       }
     } catch {
-      // Fall through to Apps Script fallback
+      // Fall through to direct script or Sheets
     }
 
-    // Google Apps Script Web App fallback with CORS support (never fetch drive.usercontent directly in browser due to CORS)
+    // Google Apps Script Web App fallback with CORS support
     try {
       const targetUrl = (activeUrl || WEB_APP_URL).trim();
       const directScriptRes = await fetch(
@@ -396,35 +402,31 @@ const fetchCloudData = async (
       if (directScriptRes.ok) {
         const raw = await directScriptRes.text();
         const trimmed = raw.trim();
-        if (!trimmed || trimmed === '{ [ ] }' || trimmed === '{[]}' || trimmed === '[]' || trimmed === '{}') {
-          return {
-            letters: [],
-            users: [],
-            uninitialized: true,
-            offline: false,
-            statusCode: 200,
-            message: 'Google Drive JSON கோப்பு தயாராக உள்ளது.',
-          };
-        }
-        try {
-          const parsed = JSON.parse(raw);
-          const letters = Array.isArray(parsed) ? parsed : (Array.isArray(parsed?.letters) ? parsed.letters : []);
-          const users = Array.isArray(parsed?.users) ? parsed.users : [];
-          return {
-            letters,
-            users,
-            uninitialized: letters.length === 0,
-            offline: false,
-            statusCode: 200,
-          };
-        } catch {
-          return {
-            letters: [],
-            users: [],
-            uninitialized: true,
-            offline: false,
-            statusCode: 200,
-          };
+        if (
+          trimmed &&
+          trimmed !== '{ [ ] }' &&
+          trimmed !== '{[]}' &&
+          trimmed !== '[]' &&
+          trimmed !== '{}'
+        ) {
+          try {
+            const parsed = JSON.parse(raw);
+            const letters = Array.isArray(parsed)
+              ? parsed
+              : Array.isArray(parsed?.letters)
+              ? parsed.letters
+              : [];
+            const users = Array.isArray(parsed?.users) ? parsed.users : [];
+            if (letters.length > 0) {
+              return {
+                letters,
+                users,
+                uninitialized: false,
+                offline: false,
+                statusCode: 200,
+              };
+            }
+          } catch {}
         }
       }
     } catch {
@@ -432,10 +434,10 @@ const fetchCloudData = async (
     }
   }
 
-  // 2. GOOGLE SHEETS MODE
+  // 2. GOOGLE SHEETS LIVE DATABASE (Authoritative multi-browser source)
   const targetUrl = (activeUrl || WEB_APP_URL).trim();
 
-  // Try server proxy endpoint
+  // Try server proxy endpoint first
   try {
     const headers: Record<string, string> = {
       'X-Storage-Mode': 'sheets',
@@ -451,12 +453,15 @@ const fetchCloudData = async (
     if (response.ok) {
       const data = await response.json();
       if (data && !data.offline && (Array.isArray(data.letters) || Array.isArray(data.users))) {
-        return {
-          letters: Array.isArray(data.letters) ? data.letters : [],
-          users: Array.isArray(data.users) ? data.users : [],
-          offline: false,
-          statusCode: 200,
-        };
+        const rawLtrs = Array.isArray(data.letters) ? data.letters : [];
+        if (rawLtrs.length > 0) {
+          return {
+            letters: rawLtrs,
+            users: Array.isArray(data.users) ? data.users : [],
+            offline: false,
+            statusCode: 200,
+          };
+        }
       }
       if (data && data.offline && (data.statusCode === 403 || data.errorType === 'ACCESS_DENIED')) {
         return {
@@ -473,12 +478,16 @@ const fetchCloudData = async (
     // Fall through to direct fetch
   }
 
-  // Direct browser fetch fallback
+  // Direct browser fetch fallback with 40-second timeout for large official spreadsheets
   try {
+    const directController = new AbortController();
+    const directTimeout = setTimeout(() => directController.abort(), 40000);
     const directRes = await fetch(`${targetUrl}?type=get_all&t=${Date.now()}`, {
       method: 'GET',
       redirect: 'follow',
+      signal: directController.signal,
     });
+    clearTimeout(directTimeout);
 
     if (directRes.ok) {
       const rawText = await directRes.text();
@@ -1005,7 +1014,7 @@ export default function App() {
       const saved = localStorage.getItem('kpn_vaharai_storage_mode');
       if (saved === 'sheets' || saved === 'drive_json') return saved;
     } catch {}
-    return 'drive_json';
+    return 'sheets';
   });
   const [driveFileId, setDriveFileId] = useState<string>(() => {
     try {
@@ -1085,14 +1094,26 @@ export default function App() {
     try {
       const result = await fetchCloudData(cloudUrl, storageMode, driveFileId);
 
-      if (storageMode === 'drive_json') {
-        if (result.latencyMs) setDriveLatency(result.latencyMs);
+      if (result.statusCode === 403 || result.errorType === 'ACCESS_DENIED') {
+        setCloudStatus('error_403');
+        setCloudMessage('Server Access Restricted (403 Forbidden). Please check access permissions.');
+        return;
+      }
 
-        if (result.letters && result.letters.length > 0) {
-          const driveLetters = result.letters
-            .filter((item: any) => item && (item.id || item.originalNo || item.subject))
-            .map(normalizeLetter);
+      if (result.latencyMs) setDriveLatency(result.latencyMs);
 
+      // 1. Process letters (Unified: handles 2D Google Sheets Rows and Object Arrays seamlessly)
+      if (Array.isArray(result.letters) && result.letters.length > 0) {
+        const rawLetters = result.letters;
+        const is2D = Array.isArray(rawLetters[0]);
+        const rowsToProcess = is2D ? rawLetters.slice(1) : rawLetters;
+
+        const cloudLetters = rowsToProcess
+          .filter((item: any) => item && (Array.isArray(item) ? item.length > 0 : (item.id || item.originalNo || item.subject)))
+          .map(normalizeLetter)
+          .filter((letter: any) => letter && (letter.id || letter.originalNo));
+
+        if (cloudLetters.length > 0) {
           let deletedIds = new Set<string>();
           try {
             const rawDel = localStorage.getItem('kpn_vaharai_deleted_ids');
@@ -1102,7 +1123,7 @@ export default function App() {
           setLetters((prevLetters) => {
             const { merged, missingOnServer } = mergeLettersPreservingLocal(
               prevLetters,
-              driveLetters,
+              cloudLetters,
               deletedIds
             );
             try {
@@ -1124,95 +1145,17 @@ export default function App() {
             return merged;
           });
         }
-
-        if (result.users && result.users.length > 0) {
-          const driveUsers = result.users
-            .filter((u: any) => u && (u.User_ID || u.id))
-            .map(normalizeUser);
-
-          const seenUsers = new Set<string>();
-          const uniqueUsers: User[] = [];
-          for (const u of driveUsers) {
-            const key = (u.User_ID || '').trim().toLowerCase();
-            if (key && !seenUsers.has(key)) {
-              seenUsers.add(key);
-              uniqueUsers.push(u);
-            }
-          }
-          if (uniqueUsers.length) {
-            setUsers(uniqueUsers);
-            try {
-              localStorage.setItem('kpn_vaharai_users_v2', JSON.stringify(uniqueUsers));
-            } catch {}
-          }
-        }
-
-        setCloudStatus('connected');
-        setCloudMessage('System Connected • All records synchronized');
-        if (isManual) {
-          alert(`✓ Synchronization completed: ${result.letters?.length || letters.length} records active.`);
-        }
-        return;
       }
 
-      // Sheets mode
-      if (result.statusCode === 403 || result.errorType === 'ACCESS_DENIED') {
-        setCloudStatus('error_403');
-        setCloudMessage('Server Access Restricted (403 Forbidden). Please check access permissions.');
-        return;
-      }
+      // 2. Process users (Unified: handles 2D Google Sheets Rows and Object Arrays seamlessly)
+      if (Array.isArray(result.users) && result.users.length > 0) {
+        const rawUsers = result.users;
+        const is2DUsers = Array.isArray(rawUsers[0]);
+        const userRowsToProcess = is2DUsers ? rawUsers.slice(1) : rawUsers;
 
-      if (result.offline) {
-        setCloudStatus('offline');
-        setCloudMessage('Local Storage Mode • Offline');
-        return;
-      }
-
-      if (Array.isArray(result.letters) && result.letters.length > 1) {
-        const cloudLetters = result.letters
-          .slice(1)
-          .filter((row: any[]) => row && row.length)
-          .map(normalizeLetter)
-          .filter((letter: any) => letter.id || letter.originalNo)
-          .reverse();
-
-        let deletedIds = new Set<string>();
-        try {
-          const rawDel = localStorage.getItem('kpn_vaharai_deleted_ids');
-          if (rawDel) deletedIds = new Set(JSON.parse(rawDel));
-        } catch {}
-
-        setLetters((prevLetters) => {
-          const { merged, missingOnServer } = mergeLettersPreservingLocal(
-            prevLetters,
-            cloudLetters,
-            deletedIds
-          );
-          try {
-            localStorage.setItem('kpn_vaharai_letters_v2', JSON.stringify(merged));
-          } catch {}
-
-          if (missingOnServer.length > 0) {
-            apiFetch('/api/cloud-sync', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                action: 'SYNC_CLIENT_BATCH',
-                letters: missingOnServer,
-              }),
-            }).catch(() => {});
-          }
-
-          return merged;
-        });
-      }
-
-      if (Array.isArray(result.users) && result.users.length > 1) {
-        const cloudUsers = result.users
-          .slice(1)
-          .filter((row: any[]) => row && row.length)
-          .map(normalizeUser)
-          .filter((user: any) => user.User_ID);
+        const cloudUsers = userRowsToProcess
+          .filter((u: any) => u && (Array.isArray(u) ? u.length > 0 : (u.User_ID || u.id)))
+          .map(normalizeUser);
 
         const seenUsers = new Set<string>();
         const uniqueCloudUsers: User[] = [];
@@ -1233,9 +1176,9 @@ export default function App() {
       }
 
       setCloudStatus('connected');
-      setCloudMessage('System Connected • Synchronized');
+      setCloudMessage('System Connected • All records synchronized');
       if (isManual) {
-        alert('✓ System synchronization completed successfully.');
+        alert(`✓ Synchronization completed: ${result.letters?.length || letters.length} records active.`);
       }
     } catch {
       setCloudStatus('offline');
@@ -1747,17 +1690,22 @@ export default function App() {
       extraData: sanitized,
     };
 
+    try {
+      const localCreations = JSON.parse(localStorage.getItem('kpn_vaharai_local_creations') || '[]');
+      const updatedCreations = localCreations.map((l: any) =>
+        l.id === sanitized.id || (sanitized.originalNo && l.originalNo === sanitized.originalNo) ? sanitized : l
+      );
+      localStorage.setItem('kpn_vaharai_local_creations', JSON.stringify(updatedCreations));
+    } catch {}
+
     setCloudMessage(`Saving update...`);
 
     // Send single in-place update (fast, non-blocking, and preserves row order)
     void (async () => {
-      const res = await sendDataToGoogleCloud(
-        {
-          ...letterCloudPayload,
-          action: 'UPDATE_LETTER',
-        },
-        cloudUrl
-      );
+      const res = await cloudWrite({
+        ...letterCloudPayload,
+        action: 'UPDATE_LETTER',
+      });
       if (!res.ok) {
         if (res.statusCode === 403 || res.errorType === 'ACCESS_DENIED') {
           setCloudStatus('error_403');
