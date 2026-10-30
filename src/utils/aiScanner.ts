@@ -38,9 +38,20 @@ export async function scanLetterWithAI(
     });
 
     if (!response.ok) {
+      let errMsg = 'கடிதத்தை ஸ்கேன் செய்வதில் தாமதம் ஏற்பட்டுள்ளது. தகவல்களை நேரடியாக உள்ளிட்டு சேமிக்கலாம்.';
+      try {
+        const errJson = await response.json();
+        if (errJson?.message || errJson?.error) {
+          errMsg = errJson.message || errJson.error;
+        }
+      } catch {
+        if (response.status === 404) {
+          errMsg = 'AI சேவையக முனை (/api/scan-letter) இணைக்கப்படவில்லை. சேவையகம் இயங்குகிறதா என பார்க்கவும்.';
+        }
+      }
       return {
         success: false,
-        error: 'கடிதப் புகைப்படம் இணைக்கப்பட்டுள்ளது. தகவல்களை நேரடியாக உள்ளிட்டு சேமிக்கலாம்.',
+        error: errMsg,
       };
     }
 
@@ -49,7 +60,7 @@ export async function scanLetterWithAI(
       return {
         success: false,
         apiKeyMissing: Boolean(resJson.apiKeyMissing),
-        error: resJson.message || 'கடிதப் புகைப்படம் இணைக்கப்பட்டுள்ளது. தகவல்களை நேரடியாக உள்ளிட்டு சேமிக்கலாம்.',
+        error: resJson.message || resJson.error || 'கடிதப் புகைப்படம் இணைக்கப்பட்டுள்ளது. தகவல்களை நேரடியாக உள்ளிட்டு சேமிக்கலாம்.',
       };
     }
 
@@ -60,7 +71,7 @@ export async function scanLetterWithAI(
   } catch (error: any) {
     return {
       success: false,
-      error: 'கடிதப் புகைப்படம் இணைக்கப்பட்டுள்ளது. தகவல்களை நேரடியாக உள்ளிட்டு சேமிக்கலாம்.',
+      error: error?.message || 'கடிதப் புகைப்படம் இணைக்கப்பட்டுள்ளது. தகவல்களை நேரடியாக உள்ளிட்டு சேமிக்கலாம்.',
     };
   }
 }
