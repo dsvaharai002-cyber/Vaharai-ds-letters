@@ -1,4 +1,4 @@
-import { scanLetterDocument } from '../../api/scan-letter.ts';
+import { scanLetterDocument } from '../../api/scan-letter';
 
 export const handler = async (event: any) => {
   if (event.httpMethod === 'OPTIONS') {
@@ -40,7 +40,7 @@ export const handler = async (event: any) => {
         body: JSON.stringify({
           success: false,
           apiKeyMissing: true,
-          message: 'AI சேவையக API Key இணைக்கப்படவில்லை. Netlify Environment Variables-இல் GEMINI_API_KEY சேர்க்கவும்.',
+          message: 'Netlify தளத்தில் GEMINI_API_KEY சேர்க்கப்படவில்லை. Site configuration > Environment variables இல் GEMINI_API_KEY ஐ உள்ளிடவும். (AI Studio தளத்தில் இது ஏற்கனவே இயங்குகிறது).',
         }),
       };
     }
