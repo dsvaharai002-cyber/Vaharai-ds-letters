@@ -482,29 +482,6 @@ export const repairLetterRecord = (l: any): Letter | null => {
     copy.registeredPostNo = 'No';
   }
 
-  // 4b. Clean Inward No: if inwardNo is empty, placeholder, or duplicate of fromWhom (e.g. employee leave letters where person's name was copied)
-  const inwardTrimmed = String(copy.inwardNo ?? '').trim();
-  const fromWhomTrimmed = String(copy.fromWhom ?? '').trim();
-
-  if (
-    !inwardTrimmed ||
-    inwardTrimmed === 'null' ||
-    inwardTrimmed === 'undefined' ||
-    inwardTrimmed.toLowerCase() === 'none' ||
-    inwardTrimmed.toLowerCase() === 'no' ||
-    inwardTrimmed.toLowerCase() === 'n/a' ||
-    inwardTrimmed === 'கடித இலக்கம் இல்லை'
-  ) {
-    copy.inwardNo = '-';
-  } else if (
-    fromWhomTrimmed &&
-    inwardTrimmed.toLowerCase() === fromWhomTrimmed.toLowerCase()
-  ) {
-    copy.inwardNo = '-';
-  } else if (isOfficialDivisionName(inwardTrimmed)) {
-    copy.inwardNo = '-';
-  }
-
   // 5. If division is a json string or user ids, repair it
   if (isJsonOrUserIds(copy.division)) {
     const extracted = parseUserIds(copy.division);
@@ -520,6 +497,42 @@ export const repairLetterRecord = (l: any): Letter | null => {
     } else {
       copy.division = 'நிர்வாகப் பிரிவு (Administration)';
     }
+  }
+
+  // 6. Inward No Validation & Cleanup (கடித இலக்கம் சீரமைப்பு):
+  // Clean cases where inwardNo was mistakenly copied from fromWhom (sender's name or institution)
+  const normInward = String(copy.inwardNo || '').trim();
+  const normSender = String(copy.fromWhom || '').trim();
+  if (normInward) {
+    const isSameAsSender =
+      Boolean(normSender) &&
+      normInward.toLowerCase() === normSender.toLowerCase();
+    const isSenderNameInInward =
+      Boolean(normSender) &&
+      normInward.length > 3 &&
+      !/[0-9]/.test(normInward) &&
+      normSender.toLowerCase().includes(normInward.toLowerCase());
+    const isInvalidInwardVal =
+      normInward === 'No' ||
+      normInward === 'null' ||
+      normInward === 'undefined' ||
+      normInward === 'Normal Post' ||
+      normInward === 'Registered Post' ||
+      normInward === 'General';
+
+    if (isSameAsSender || isSenderNameInInward || isInvalidInwardVal) {
+      copy.inwardNo = '-';
+    }
+  } else {
+    copy.inwardNo = '-';
+  }
+
+  // Ensure image and imageSizeKb are preserved
+  if (l.image && !copy.image) {
+    copy.image = l.image;
+  }
+  if (l.imageSizeKb && !copy.imageSizeKb) {
+    copy.imageSizeKb = l.imageSizeKb;
   }
 
   return copy as Letter;

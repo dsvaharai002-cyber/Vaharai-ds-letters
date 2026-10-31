@@ -19,15 +19,12 @@ import {
   Check,
   X,
   FileSpreadsheet,
-  Image as ImageIcon,
-  Download,
 } from 'lucide-react';
 import { Letter, LetterAction, User, SubjectCategory } from '../types';
 import {
   classifySubjectCategory,
   SUBJECT_CATEGORIES_CONFIG,
   printLandscapeReport,
-  downloadLetterAttachment,
   ensureStringArray,
   getOfficerDisplayName,
   normalizeAction,
@@ -488,13 +485,12 @@ export const SubjectCategoryDashboard: React.FC<SubjectCategoryDashboardProps> =
                               <th className="py-2.5 px-3 whitespace-nowrap">Original No</th>
                               <th className="py-2.5 px-3 whitespace-nowrap">Date</th>
                               <th className="py-2.5 px-3 whitespace-nowrap">Post Type & Reg No</th>
-                              <th className="py-2.5 px-3 whitespace-nowrap">Inward No (கடித இலக்கம்)</th>
+                              <th className="py-2.5 px-3 whitespace-nowrap">Inward No</th>
                               <th className="py-2.5 px-3">From Whom</th>
                               <th className="py-2.5 px-3 max-w-xs">Subject</th>
                               <th className="py-2.5 px-3">Division & Officer</th>
                               <th className="py-2.5 px-3">Action Status</th>
                               <th className="py-2.5 px-3">File No</th>
-                              <th className="py-2.5 px-3 text-center">Document</th>
                               <th className="py-2.5 px-3 text-right">Actions</th>
                             </tr>
                           </thead>
@@ -541,22 +537,10 @@ export const SubjectCategoryDashboard: React.FC<SubjectCategoryDashboardProps> =
                                     )}
                                   </td>
                                   <td className="py-2.5 px-3 font-semibold text-gray-900 whitespace-nowrap">
-                                    {ltr.inwardNo && ltr.inwardNo !== '-' ? (
-                                      <span className="font-mono font-bold text-blue-950 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
-                                        {ltr.inwardNo}
-                                      </span>
-                                    ) : (
-                                      <span className="text-gray-400 font-mono text-[11px]">-</span>
-                                    )}
+                                    {ltr.inwardNo}
                                   </td>
                                   <td className="py-2.5 px-3 text-gray-800 font-medium max-w-[180px] truncate" title={ltr.fromWhom}>
-                                    <div className="font-semibold text-gray-900 truncate">{ltr.fromWhom}</div>
-                                    {ltr.inwardNo && ltr.inwardNo !== '-' && (
-                                      <div className="text-[10px] text-blue-700 font-mono mt-0.5 flex items-center gap-1">
-                                        <span className="text-gray-400">கடித இல:</span>
-                                        <span className="font-bold">{ltr.inwardNo}</span>
-                                      </div>
-                                    )}
+                                    {ltr.fromWhom}
                                   </td>
                                   <td className="py-2.5 px-3 max-w-xs">
                                     <span
@@ -620,44 +604,6 @@ export const SubjectCategoryDashboard: React.FC<SubjectCategoryDashboardProps> =
                                   </td>
                                   <td className="py-2.5 px-3 whitespace-nowrap text-gray-600 font-mono text-[11px]">
                                     {ltr.fileNo || '-'}
-                                  </td>
-                                  <td className="py-2.5 px-3 text-center whitespace-nowrap">
-                                    {ltr.image ? (
-                                      <div className="inline-flex items-center gap-1">
-                                        <button
-                                          type="button"
-                                          onClick={() => onSelectLetter(ltr)}
-                                          className="rounded-lg bg-blue-50 px-2 py-1 text-[11px] font-bold text-blue-800 border border-blue-300 hover:bg-blue-100 transition cursor-pointer shadow-2xs"
-                                          title="போடோ பார்க்க (Click to view & zoom letter photo)"
-                                        >
-                                          <ImageIcon className="inline h-3.5 w-3.5 mr-1 text-blue-700" />
-                                          <span>Photo ({ltr.imageSizeKb || 240}KB)</span>
-                                        </button>
-                                        <button
-                                          type="button"
-                                          onClick={() =>
-                                            downloadLetterAttachment(
-                                              ltr.image!,
-                                              `${ltr.originalNo}_Doc.jpg`
-                                            )
-                                          }
-                                          className="rounded-lg bg-emerald-50 p-1 text-emerald-700 border border-emerald-300 hover:bg-emerald-100 transition cursor-pointer shadow-2xs"
-                                          title="Download Image"
-                                        >
-                                          <Download className="h-3.5 w-3.5" />
-                                        </button>
-                                      </div>
-                                    ) : (
-                                      <button
-                                        type="button"
-                                        onClick={() => onEditLetter(ltr)}
-                                        className="inline-flex items-center gap-1 rounded-lg bg-slate-50 hover:bg-blue-50 px-2 py-1 text-[11px] font-semibold text-slate-500 hover:text-blue-700 border border-dashed border-slate-300 hover:border-blue-400 transition cursor-pointer"
-                                        title="போடோ சேர்க்க (Click to attach photo)"
-                                      >
-                                        <ImageIcon className="h-3 w-3 text-slate-400" />
-                                        <span>+ Photo</span>
-                                      </button>
-                                    )}
                                   </td>
                                   <td className="py-2.5 px-3 text-right whitespace-nowrap">
                                     <div className="flex items-center justify-end gap-1">

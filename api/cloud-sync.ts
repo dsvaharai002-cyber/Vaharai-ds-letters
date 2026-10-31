@@ -894,12 +894,11 @@ export default async function handler(req: Request, res: Response): Promise<void
         }
         saveServerStore();
 
-        // 2. Forward payload to Google Apps Script in background (preserving document photos!)
-        const lettersForDrive = serverLetters.map((l) => ({
-          ...l,
-          image: l.image || undefined,
-          imageSizeKb: l.imageSizeKb || undefined,
-        }));
+        // 2. Forward light payload (without bulky base64 images) to Google Apps Script in background
+        const lightLettersForDrive = serverLetters.map((l) => {
+          const { image, ...rest } = l;
+          return rest;
+        });
 
         fetch(targetUrl, {
           method: 'POST',
@@ -907,7 +906,7 @@ export default async function handler(req: Request, res: Response): Promise<void
           body: JSON.stringify({
             action: 'SYNC_ALL_TO_DRIVE',
             driveFileId: targetDriveId,
-            letters: lettersForDrive,
+            letters: lightLettersForDrive,
             users: serverUsers,
           }),
         }).catch(() => {

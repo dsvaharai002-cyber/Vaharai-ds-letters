@@ -240,9 +240,6 @@ export const handler = async (event: any) => {
           return l;
         });
         cacheTimestamp = Date.now();
-      } else if (act === 'SYNC_ALL_TO_DRIVE' && Array.isArray(body.letters) && body.letters.length > 0) {
-        cachedLetters = body.letters.map(repairLetterRecord).filter(Boolean);
-        cacheTimestamp = Date.now();
       }
 
       // CRITICAL: Await Google Apps Script fetch so serverless lambda does not exit early!

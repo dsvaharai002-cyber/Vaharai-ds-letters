@@ -53,7 +53,6 @@ import { LetterDetailAndChatModal } from './components/LetterDetailAndChatModal'
 import { UserManagementModal } from './components/UserManagementModal';
 import { CloudSyncSettingsModal } from './components/CloudSyncSettingsModal';
 import { VaharaiLogo } from './components/VaharaiLogo';
-import { saveLetterImage, hydrateLettersWithImages } from './utils/imageStorage';
 
 // --- Google Sheets Cloud Integration Setup ---
 export const WEB_APP_URL =
@@ -179,9 +178,6 @@ const sendDataToGoogleCloud = async (
         ? payload.extraData
         : {};
 
-    const safeImage = payload.image || payload.extraData?.image || baseExtra.image || undefined;
-    const safeImageSizeKb = payload.imageSizeKb || payload.extraData?.imageSizeKb || baseExtra.imageSizeKb || undefined;
-
     const enrichedExtraData = {
       ...baseExtra,
       id: String(payload.id ?? baseExtra.id ?? ''),
@@ -206,8 +202,6 @@ const sendDataToGoogleCloud = async (
       replyResponse: safeReply,
       fileNo: safeFileNo,
       FileNo: safeFileNo,
-      image: safeImage,
-      imageSizeKb: safeImageSizeKb,
       updatedAt: new Date().toISOString(),
     };
 
@@ -215,8 +209,6 @@ const sendDataToGoogleCloud = async (
       action: action,
       storageMode: mode,
       driveFileId: targetDriveFileId,
-      image: safeImage,
-      imageSizeKb: safeImageSizeKb,
       id: String(payload.id ?? ''),
       ID: String(payload.id ?? ''),
       originalNo: String(payload.originalNo ?? ''),
@@ -1110,16 +1102,6 @@ export default function App() {
           localStorage.setItem('kpn_vaharai_users_v2', JSON.stringify(INITIAL_USERS));
         }
       }
-
-      hydrateLettersWithImages(letters).then((hydrated) => {
-        setLetters((curr) => {
-          const currMap = new Map(curr.map((l) => [l.id, l]));
-          return hydrated.map((h) => {
-            const existing = currMap.get(h.id);
-            return existing?.image ? existing : { ...h, image: h.image || existing?.image };
-          });
-        });
-      }).catch(() => {});
     } catch {}
   }, []);
 
@@ -1179,17 +1161,6 @@ export default function App() {
                 }),
               }).catch(() => {});
             }
-
-            // Hydrate with local IndexedDB images asynchronously so offline scans are always visible
-            hydrateLettersWithImages(merged).then((hydrated) => {
-              setLetters((curr) => {
-                const currMap = new Map(curr.map((l) => [l.id, l]));
-                return hydrated.map((h) => {
-                  const existing = currMap.get(h.id);
-                  return existing?.image ? existing : { ...h, image: h.image || existing?.image };
-                });
-              });
-            }).catch(() => {});
 
             return merged;
           });
@@ -1268,12 +1239,11 @@ export default function App() {
     setIsUploadingToJson(true);
     setCloudMessage('Saving records to cloud server...');
     try {
-      // Preserve images for any letters that have attached photos
-      const lettersToBackup = letters.map((l) => ({
-        ...l,
-        image: l.image || undefined,
-        imageSizeKb: l.imageSizeKb || undefined,
-      }));
+      // Strip heavy base64 image data from the bulk payload to prevent HTTP 413 Payload Too Large
+      const lightLetters = letters.map((l) => {
+        const { image, ...rest } = l;
+        return rest;
+      });
 
       const res = await apiFetch('/api/cloud-sync', {
         method: 'POST',
@@ -1281,7 +1251,7 @@ export default function App() {
         body: JSON.stringify({
           action: 'SYNC_ALL_TO_DRIVE',
           driveFileId: driveFileId,
-          letters: lettersToBackup,
+          letters: lightLetters,
           users: users,
         }),
       });
@@ -1665,13 +1635,7 @@ export default function App() {
       forwardedTo: ensureStringArray(newLetter.forwardedTo),
     };
 
-    // 1. Immediately save to persistent local store (0 delay) and IndexedDB
-    if (sanitized.image) {
-      saveLetterImage(sanitized.id, sanitized.image, {
-        originalNo: sanitized.originalNo,
-        imageSizeKb: sanitized.imageSizeKb,
-      }).catch(() => {});
-    }
+    // 1. Immediately save to persistent local store (0 delay)
     try {
       const currentLocals = JSON.parse(localStorage.getItem('kpn_vaharai_local_creations') || '[]');
       const filtered = currentLocals.filter((l: any) => l.id !== sanitized.id && l.originalNo !== sanitized.originalNo);
@@ -1703,8 +1667,6 @@ export default function App() {
         actionStatus: sanitized.action,
         replyResponse: sanitized.replyResponse || '',
         fileNo: sanitized.fileNo || '',
-        image: sanitized.image,
-        imageSizeKb: sanitized.imageSizeKb,
         extraData: sanitized,
       });
 
@@ -1733,14 +1695,6 @@ export default function App() {
       forwardedDivisions: ensureStringArray(updated.forwardedDivisions),
       forwardedTo: ensureStringArray(updated.forwardedTo),
     };
-
-    if (sanitized.image) {
-      saveLetterImage(sanitized.id, sanitized.image, {
-        originalNo: sanitized.originalNo,
-        imageSizeKb: sanitized.imageSizeKb,
-      }).catch(() => {});
-    }
-
     setLetters((prev) => prev.map((l) => (l.id === sanitized.id ? sanitized : l)));
     if (selectedLetter && selectedLetter.id === sanitized.id) {
       setSelectedLetter(sanitized);
@@ -1770,8 +1724,6 @@ export default function App() {
       actionStatus: sanitized.action || 'Not Yet Viewed',
       replyResponse: sanitized.replyResponse || '',
       fileNo: sanitized.fileNo || '',
-      image: sanitized.image,
-      imageSizeKb: sanitized.imageSizeKb,
       extraData: sanitized,
     };
 

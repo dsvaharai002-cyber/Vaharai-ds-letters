@@ -88,7 +88,7 @@ Carefully examine this official Sri Lankan government letter / postal document (
 
 Extract these key fields with highest accuracy:
 1. dispatchedDate: Letter date (திகதி / දිනය / Date). Convert to format YYYY-MM-DD. For example "2026.08.17" or "2026/08/17" should be "2026-08-17".
-2. inwardNo: The sender's official letter reference number printed on the document (கடித இலக்கம் / எனது இல / මාගේ අංකය / My No / Our No / Ref No, e.g. "Wbb/Operation/Policies/04", "BT/DS/ADM/2026/412", "TM2963502"). If this is a personal letter, leave request, or public appeal from an individual citizen or officer with NO formal reference number, return "-" or leave empty. NEVER put the sender's person name in inwardNo!
+2. inwardNo: The sender's official letter reference number printed on the document (கடித இலக்கம் / எனது இல / මාගේ අංකය / My No, e.g. "Wbb/Operation/Policies/04", "KN/DS/ADM/2026/04").
 3. fromWhom: Who sent the letter (அனுப்புனர் / Sender institution, Ministry, Department, Board, or Citizen, e.g. "நலன்புரி நன்மைகள் சபை, நிதி அமைச்சு / Welfare Benefits Board").
 4. subject: The subject or topic of the letter (விடயம் / விடயம் / කරුණ / Subject, e.g. "சட்ட விரோதமான பணக் கொடுப்பனவுகளைத் தடுத்தல்").
 5. registeredPostNo: Any registered postal barcode or number if present, else empty string.
@@ -189,20 +189,11 @@ Return strictly in JSON format matching the schema.`;
 
       const parsed = JSON.parse(response.text || '{}');
 
-      // Clean inwardNo: do not cross-contaminate with fromWhom or set dummy text
-      const cleanInward = String(parsed.inwardNo || '').trim();
-      const cleanFromWhom = String(parsed.fromWhom || '').trim();
-      if (
-        !cleanInward ||
-        cleanInward.toLowerCase() === cleanFromWhom.toLowerCase() ||
-        cleanInward.toLowerCase() === 'none' ||
-        cleanInward.toLowerCase() === 'no' ||
-        cleanInward.toLowerCase() === 'n/a' ||
-        cleanInward === 'கடித இலக்கம் இல்லை'
-      ) {
-        parsed.inwardNo = '-';
-      } else {
-        parsed.inwardNo = cleanInward;
+      // Ensure inwardNo and originalNo are populated
+      if (!parsed.inwardNo && parsed.originalNo) {
+        parsed.inwardNo = parsed.originalNo;
+      } else if (!parsed.originalNo && parsed.inwardNo) {
+        parsed.originalNo = parsed.inwardNo;
       }
 
       // Normalize date to YYYY-MM-DD
