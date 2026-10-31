@@ -156,13 +156,25 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
       }
 
       // 2. Inward No (கடிதத்தில் உள்ள கடித இலக்கம் / Letter No)
-      const scannedLetterNumber = (d.inwardNo || d.originalNo || (d as any).letterNo || '').trim();
-      if (scannedLetterNumber) {
+      const scannedLetterNumber = (d.inwardNo || (d as any).letterNo || '').trim();
+      const scannedSender = (d.fromWhom || '').trim().toLowerCase();
+      if (
+        scannedLetterNumber &&
+        scannedLetterNumber.toLowerCase() !== scannedSender &&
+        scannedLetterNumber.toLowerCase() !== 'none' &&
+        scannedLetterNumber.toLowerCase() !== 'no' &&
+        scannedLetterNumber.toLowerCase() !== 'n/a' &&
+        scannedLetterNumber !== '-'
+      ) {
         if (!userEdited.has('inwardNo')) {
           setInwardNo(scannedLetterNumber);
           filled.push('Inward No (கடித இலக்கம்)');
         } else {
           preserved.push('Inward No');
+        }
+      } else {
+        if (!userEdited.has('inwardNo') && !inwardNo) {
+          setInwardNo('-');
         }
       }
 
@@ -338,10 +350,7 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
       setErrorMsg('Please specify an Original No.');
       return;
     }
-    if (!inwardNo.trim()) {
-      setErrorMsg('Please enter the Inward No (கடித இலக்கம்).');
-      return;
-    }
+    const cleanInwardNo = inwardNo.trim() || '-';
     if (!fromWhom.trim()) {
       setErrorMsg('Please enter sender details (From Whom - அனுப்புனர்).');
       return;
@@ -369,7 +378,7 @@ export const LetterRegisterModal: React.FC<LetterRegisterModalProps> = ({
       dispatchedDate,
       letterType: safeLetterType,
       registeredPostNo: safeRegPostNo,
-      inwardNo: inwardNo.trim(),
+      inwardNo: cleanInwardNo,
       fromWhom: fromWhom.trim(),
       subject: subject.trim(),
       division: primaryDivision,

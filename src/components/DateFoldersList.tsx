@@ -110,8 +110,21 @@ export const DateFoldersList: React.FC<DateFoldersListProps> = ({
   const handleSaveQuickEdit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!quickEditLetter || !onUpdateLetter) return;
+    const inw = (quickEditLetter.inwardNo || '').trim();
+    const from = (quickEditLetter.fromWhom || '').trim();
+    const safeInwardNo =
+      !inw ||
+      inw.toLowerCase() === from.toLowerCase() ||
+      inw.toLowerCase() === 'null' ||
+      inw.toLowerCase() === 'undefined' ||
+      inw.toLowerCase() === 'no' ||
+      inw.toLowerCase() === 'none'
+        ? '-'
+        : inw;
+
     const sanitizedQuickEdit: Letter = {
       ...quickEditLetter,
+      inwardNo: safeInwardNo,
       letterType: (quickEditLetter.letterType || 'Registered Post').trim() || 'Registered Post',
       registeredPostNo: normalizeRegisteredPostNo(quickEditLetter.registeredPostNo),
       fileNo: (quickEditLetter.fileNo || '').trim(),
@@ -416,10 +429,22 @@ export const DateFoldersList: React.FC<DateFoldersListProps> = ({
                             )}
                           </td>
                           <td className="py-2.5 px-3 font-semibold text-gray-900 whitespace-nowrap">
-                            {ltr.inwardNo}
+                            {ltr.inwardNo && ltr.inwardNo !== '-' ? (
+                              <span className="font-mono font-bold text-blue-950 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
+                                {ltr.inwardNo}
+                              </span>
+                            ) : (
+                              <span className="text-gray-400 font-mono text-[11px]">-</span>
+                            )}
                           </td>
                           <td className="py-2.5 px-3 text-gray-800 font-medium">
-                            {ltr.fromWhom}
+                            <div className="font-semibold text-gray-900">{ltr.fromWhom}</div>
+                            {ltr.inwardNo && ltr.inwardNo !== '-' && (
+                              <div className="text-[10px] text-blue-700 font-mono mt-0.5 flex items-center gap-1">
+                                <span className="text-gray-400">கடித இல:</span>
+                                <span className="font-bold">{ltr.inwardNo}</span>
+                              </div>
+                            )}
                           </td>
                           <td className="py-2.5 px-3 max-w-xs">
                             {(() => {
@@ -552,10 +577,11 @@ export const DateFoldersList: React.FC<DateFoldersListProps> = ({
                                 <button
                                   type="button"
                                   onClick={() => onSelectLetter(ltr)}
-                                  className="rounded bg-blue-50 px-2 py-1 text-[11px] font-bold text-blue-800 border border-blue-200 hover:bg-blue-100"
+                                  className="rounded-lg bg-blue-50 px-2 py-1 text-[11px] font-bold text-blue-800 border border-blue-300 hover:bg-blue-100 transition cursor-pointer shadow-2xs"
+                                  title="போடோ பார்க்க (Click to view & zoom letter photo)"
                                 >
-                                  <ImageIcon className="inline h-3 w-3 mr-1" />
-                                  ~{ltr.imageSizeKb || 240}KB
+                                  <ImageIcon className="inline h-3.5 w-3.5 mr-1 text-blue-700" />
+                                  <span>Photo ({ltr.imageSizeKb || 240}KB)</span>
                                 </button>
                                 <button
                                   type="button"
@@ -565,14 +591,22 @@ export const DateFoldersList: React.FC<DateFoldersListProps> = ({
                                       `${ltr.originalNo}_Doc.jpg`
                                     )
                                   }
-                                  className="rounded bg-emerald-50 p-1 text-emerald-700 border border-emerald-200 hover:bg-emerald-100"
+                                  className="rounded-lg bg-emerald-50 p-1 text-emerald-700 border border-emerald-300 hover:bg-emerald-100 transition cursor-pointer shadow-2xs"
                                   title="Download Image"
                                 >
-                                  <Download className="h-3 w-3" />
+                                  <Download className="h-3.5 w-3.5" />
                                 </button>
                               </div>
                             ) : (
-                              <span className="text-gray-300">-</span>
+                              <button
+                                type="button"
+                                onClick={() => onEditLetter(ltr)}
+                                className="inline-flex items-center gap-1 rounded-lg bg-slate-50 hover:bg-blue-50 px-2 py-1 text-[11px] font-semibold text-slate-500 hover:text-blue-700 border border-dashed border-slate-300 hover:border-blue-400 transition cursor-pointer"
+                                title="போடோ சேர்க்க (Click to attach photo)"
+                              >
+                                <ImageIcon className="h-3 w-3 text-slate-400" />
+                                <span>+ Photo</span>
+                              </button>
                             )}
                           </td>
                           <td className="py-2.5 px-3 text-right whitespace-nowrap">
@@ -692,14 +726,14 @@ export const DateFoldersList: React.FC<DateFoldersListProps> = ({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block font-bold text-gray-700 mb-1">
-                    Inward No (கடித இலக்கம் - Letter Reference No) *
+                    Inward No (கடித இலக்கம் - Letter Reference No)
                   </label>
                   <input
                     type="text"
-                    required
                     value={quickEditLetter.inwardNo}
                     onChange={(e) => setQuickEditLetter({ ...quickEditLetter, inwardNo: e.target.value })}
-                    className="w-full rounded-lg border border-gray-300 p-2 font-bold text-gray-900 bg-white"
+                    placeholder="- (இல்லை எனில் - இடவும்)"
+                    className="w-full rounded-lg border border-gray-300 p-2 font-bold text-gray-900 bg-white font-mono"
                   />
                 </div>
 

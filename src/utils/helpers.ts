@@ -482,6 +482,29 @@ export const repairLetterRecord = (l: any): Letter | null => {
     copy.registeredPostNo = 'No';
   }
 
+  // 4b. Clean Inward No: if inwardNo is empty, placeholder, or duplicate of fromWhom (e.g. employee leave letters where person's name was copied)
+  const inwardTrimmed = String(copy.inwardNo ?? '').trim();
+  const fromWhomTrimmed = String(copy.fromWhom ?? '').trim();
+
+  if (
+    !inwardTrimmed ||
+    inwardTrimmed === 'null' ||
+    inwardTrimmed === 'undefined' ||
+    inwardTrimmed.toLowerCase() === 'none' ||
+    inwardTrimmed.toLowerCase() === 'no' ||
+    inwardTrimmed.toLowerCase() === 'n/a' ||
+    inwardTrimmed === 'கடித இலக்கம் இல்லை'
+  ) {
+    copy.inwardNo = '-';
+  } else if (
+    fromWhomTrimmed &&
+    inwardTrimmed.toLowerCase() === fromWhomTrimmed.toLowerCase()
+  ) {
+    copy.inwardNo = '-';
+  } else if (isOfficialDivisionName(inwardTrimmed)) {
+    copy.inwardNo = '-';
+  }
+
   // 5. If division is a json string or user ids, repair it
   if (isJsonOrUserIds(copy.division)) {
     const extracted = parseUserIds(copy.division);

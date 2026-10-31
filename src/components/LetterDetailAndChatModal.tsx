@@ -21,6 +21,7 @@ import {
   Camera,
   Layers,
   Sparkles,
+  Upload,
 } from 'lucide-react';
 import { Letter, LetterAction, LetterChatMessage, User } from '../types';
 import { DIVISIONS, POST_TYPES, migrateDivision } from '../data/initialData';
@@ -38,6 +39,7 @@ import {
 import { scanLetterWithAI } from '../utils/aiScanner';
 import { ForwardSelect } from './ForwardUserSelect';
 import { CameraCaptureModal } from './CameraCaptureModal';
+import { saveLetterImage } from '../utils/imageStorage';
 
 interface LetterDetailAndChatModalProps {
   isOpen: boolean;
@@ -109,11 +111,22 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
         if (d.dispatchedDate && /^\d{4}-\d{2}-\d{2}$/.test(d.dispatchedDate)) {
           setEditDispatchedDate(d.dispatchedDate);
         }
-        // User rule: Scanned letter number belongs to Inward No (Letter Reference No),
-        // and Original No is the unique KPN computer number which is kept intact.
-        const scannedLetterNumber = (d.inwardNo || d.originalNo || '').trim();
-        if (scannedLetterNumber) {
-          setEditInwardNo(scannedLetterNumber);
+        // Inward No is strictly the sender's formal reference number (e.g. WBB/ADM/2026/10).
+        // Personal leave requests, employee sick leaves, or letters without formal ref no have inwardNo = '-'
+        const rawInw = (d.inwardNo || '').trim();
+        const rawSender = (d.fromWhom || '').trim();
+        if (
+          rawInw &&
+          rawInw !== '-' &&
+          rawInw.toLowerCase() !== 'null' &&
+          rawInw.toLowerCase() !== 'undefined' &&
+          rawInw.toLowerCase() !== 'none' &&
+          rawInw.toLowerCase() !== 'no' &&
+          rawInw.toLowerCase() !== rawSender.toLowerCase()
+        ) {
+          setEditInwardNo(rawInw);
+        } else if (rawSender && editInwardNo.trim().toLowerCase() === rawSender.toLowerCase()) {
+          setEditInwardNo('-');
         }
         if (d.fromWhom && d.fromWhom.trim()) {
           setEditFromWhom(d.fromWhom.trim());
@@ -147,6 +160,30 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
     } finally {
       setIsScanningDoc(false);
     }
+  };
+
+  const handleDirectFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !letter) return;
+    const reader = new FileReader();
+    reader.onload = async () => {
+      const dataUrl = reader.result as string;
+      const sizeKb = Math.round(dataUrl.length / 1365);
+      setEditImage(dataUrl);
+      setEditImageSizeKb(sizeKb);
+
+      // Save locally to IndexedDB so photo never vanishes
+      await saveLetterImage(letter.id, dataUrl);
+
+      // Update state and cloud
+      const updated: Letter = {
+        ...letter,
+        image: dataUrl,
+        imageSizeKb: sizeKb,
+      };
+      onUpdateLetter(updated);
+    };
+    reader.readAsDataURL(file);
   };
 
   useEffect(() => {
@@ -995,33 +1032,79 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
                 </div>
 
                 {/* Document Preview Card */}
-                {letter.image && (
-                  <div className="rounded-2xl border border-gray-200 p-4">
-                    <div className="flex items-center justify-between mb-3">
-                      <h4 className="text-xs font-bold text-gray-900 flex items-center gap-1.5">
+                {letter.image ? (
+                  <div className="rounded-2xl border border-blue-200 bg-blue-50/20 p-4">
+                    <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+                      <div className="flex items-center gap-2">
                         <Camera className="h-4 w-4 text-blue-700" />
-                        Attached Mail Document Photo
-                      </h4>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          downloadLetterAttachment(
-                            letter.image!,
-                            `${letter.originalNo}_Document.jpg`
-                          )
-                        }
-                        className="inline-flex items-center gap-1 rounded-lg bg-emerald-700 px-2.5 py-1 text-xs font-bold text-white shadow-2xs hover:bg-emerald-800"
-                      >
-                        <Download className="h-3.5 w-3.5" />
-                        <span>Download Image</span>
-                      </button>
+                        <h4 className="text-xs font-bold text-gray-900">
+                          Attached Mail Document Photo (கடிதப் புகைப்படம்)
+                        </h4>
+                        <span className="rounded bg-blue-100 px-2 py-0.5 text-[10px] font-bold text-blue-800">
+                          ~{letter.imageSizeKb || 240} KB
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() =>
+                            downloadLetterAttachment(
+                              letter.image!,
+                              `${letter.originalNo}_Document.jpg`
+                            )
+                          }
+                          className="inline-flex items-center gap-1 rounded-lg bg-emerald-700 px-2.5 py-1 text-xs font-bold text-white shadow-2xs hover:bg-emerald-800"
+                        >
+                          <Download className="h-3.5 w-3.5" />
+                          <span>Download Image</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setIsCameraOpen(true)}
+                          className="inline-flex items-center gap-1 rounded-lg bg-blue-700 px-2.5 py-1 text-xs font-bold text-white hover:bg-blue-800"
+                          title="கேமரா மூலம் புதிய போடோ எடுக்க"
+                        >
+                          <Camera className="h-3.5 w-3.5" />
+                          <span>Replace</span>
+                        </button>
+                      </div>
                     </div>
-                    <div className="relative max-w-md overflow-hidden rounded-xl border border-gray-300 bg-black mx-auto">
+                    <div className="relative max-w-md overflow-hidden rounded-xl border border-gray-300 bg-black mx-auto shadow-md">
                       <img
                         src={letter.image}
                         alt="Letter Document"
-                        className="max-h-80 w-full object-contain"
+                        className="max-h-96 w-full object-contain"
                       />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="rounded-2xl border border-dashed border-gray-300 bg-slate-50 p-4 text-center">
+                    <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 text-blue-700 mb-2">
+                      <Camera className="h-5 w-5" />
+                    </div>
+                    <h4 className="text-xs font-bold text-gray-800">No Document Photo Attached (போடோ இணைக்கப்படவில்லை)</h4>
+                    <p className="text-[11px] text-gray-500 mt-1 max-w-sm mx-auto">
+                      கேமரா மூலமாகவோ அல்லது கோப்பு மூலமாகவோ கடிதத்தின் புகைப்படத்தை உடனே இணைத்து சேமிக்கலாம்.
+                    </p>
+                    <div className="mt-3 flex items-center justify-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setIsCameraOpen(true)}
+                        className="inline-flex items-center gap-1.5 rounded-lg bg-blue-700 px-3 py-1.5 text-xs font-bold text-white hover:bg-blue-800 shadow-2xs"
+                      >
+                        <Camera className="h-3.5 w-3.5" />
+                        <span>Camera Scan (கேமரா போடோ)</span>
+                      </button>
+                      <label className="inline-flex items-center gap-1.5 rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs font-bold text-gray-700 hover:bg-gray-100 cursor-pointer shadow-2xs">
+                        <Upload className="h-3.5 w-3.5 text-gray-500" />
+                        <span>Upload Photo (பதிவேற்று)</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={handleDirectFileUpload}
+                        />
+                      </label>
                     </div>
                   </div>
                 )}
@@ -1228,9 +1311,13 @@ export const LetterDetailAndChatModal: React.FC<LetterDetailAndChatModalProps> =
       <CameraCaptureModal
         isOpen={isCameraOpen}
         onClose={() => setIsCameraOpen(false)}
-        onCapture={(dataUrl, sizeKb) => {
+        onCapture={async (dataUrl, sizeKb) => {
           setEditImage(dataUrl);
           setEditImageSizeKb(sizeKb);
+          if (letter) {
+            await saveLetterImage(letter.id, dataUrl);
+            onUpdateLetter({ ...letter, image: dataUrl, imageSizeKb: sizeKb });
+          }
           handleScanExistingDoc(dataUrl);
         }}
       />
