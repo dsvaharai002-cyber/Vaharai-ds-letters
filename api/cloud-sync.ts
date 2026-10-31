@@ -157,6 +157,62 @@ function doPost(e) {
       })).setMimeType(ContentService.MimeType.JSON);
     }
 
+    // A2. BULK RE-ALIGN & REWRITE LETTERS SHEET (Full Alignment Fix)
+    if (action === "SYNC_ALL_TO_SHEET" || action === "FIX_SHIFTED_ROWS" || action === "REPAIR_SHEET_ROWS") {
+      var sSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+      var lSheet = sSpreadsheet.getSheetByName("Letters") || sSpreadsheet.getSheets()[0];
+      if (lSheet) {
+        var cleanLetters = data.letters || [];
+        var standardHeaders = [
+          "ID", "OriginalNo", "Date", "DispatchedDate", "Post Type",
+          "RegisteredPostNo", "InwardNo", "FromWhom", "Subject", "Division",
+          "ForwardedDivisions", "ActionStatus", "ForwardedTo", "ReplyResponse", "ExtraData"
+        ];
+        var outRows = [standardHeaders];
+        for (var si = 0; si < cleanLetters.length; si++) {
+          var lItem = cleanLetters[si];
+          var sFwdDivs = Array.isArray(lItem.forwardedDivisions) ? JSON.stringify(lItem.forwardedDivisions) : String(lItem.forwardedDivisions || "");
+          var sFwdTo = Array.isArray(lItem.forwardedTo) ? JSON.stringify(lItem.forwardedTo) : String(lItem.forwardedTo || "");
+          var sExtra = typeof lItem.extraData === "string" ? lItem.extraData : JSON.stringify({
+            fileNo: lItem.fileNo || "",
+            image: lItem.image || "",
+            chats: lItem.chats || [],
+            registeredBy: lItem.registeredBy || "",
+            registeredByName: lItem.registeredByName || "",
+            createdAt: lItem.createdAt || ""
+          });
+
+          outRows.push([
+            lItem.id || ("LTR-" + (si + 1)),
+            lItem.originalNo || "",
+            lItem.date || "",
+            lItem.dispatchedDate || lItem.date || "",
+            lItem.letterType || lItem.postType || "Normal Post",
+            lItem.registeredPostNo || "No",
+            lItem.inwardNo || "-",
+            lItem.fromWhom || "-",
+            lItem.subject || "-",
+            lItem.division || "பொதுப் பிரிவு (General)",
+            sFwdDivs,
+            lItem.action || lItem.actionStatus || "Not Yet Viewed",
+            sFwdTo,
+            lItem.replyResponse || "",
+            sExtra
+          ]);
+        }
+        lSheet.clearContents();
+        if (outRows.length > 0) {
+          lSheet.getRange(1, 1, outRows.length, standardHeaders.length).setValues(outRows);
+        }
+        return ContentService.createTextOutput(JSON.stringify({
+          ok: true,
+          result: "success",
+          action: action,
+          rowCount: outRows.length - 1
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
+    }
+
     // B. AUTOMATIC IN-PLACE SYNC TO GOOGLE DRIVE JSON FILE
     if (targetFileId) {
       try {
@@ -862,6 +918,49 @@ export default async function handler(req: Request, res: Response): Promise<void
           driveFileId: targetDriveId,
           letterCount: serverLetters.length,
           message: `${serverLetters.length} records backed up successfully.`,
+        });
+        return;
+      }
+
+      // Action: Bulk Re-align & Sync All to Google Sheets (Full Realignment Fix)
+      if (req.body?.action === 'SYNC_ALL_TO_SHEET' || req.body?.action === 'FIX_SHIFTED_ROWS' || req.body?.action === 'REPAIR_SHEET_ROWS') {
+        const targetUrl = effectiveWebAppUrl;
+
+        if (Array.isArray(req.body.letters) && req.body.letters.length > 0) {
+          const imgMap = new Map<string, string>();
+          for (const sl of serverLetters) {
+            if (sl && sl.id && sl.image) imgMap.set(sl.id, sl.image);
+          }
+          serverLetters = req.body.letters.map((l: any) => {
+            const repaired = repairLetterRecord(l);
+            if (!repaired) return null;
+            if (!repaired.image && imgMap.has(repaired.id)) {
+              repaired.image = imgMap.get(repaired.id);
+            }
+            return repaired;
+          }).filter(Boolean);
+          saveServerStore();
+        }
+
+        const lightLettersForSheet = serverLetters.map((l) => {
+          const { image, ...rest } = l;
+          return rest;
+        });
+
+        // Forward to Google Apps Script
+        fetch(targetUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({
+            action: 'SYNC_ALL_TO_SHEET',
+            letters: lightLettersForSheet,
+          }),
+        }).catch(() => {});
+
+        res.status(200).json({
+          ok: true,
+          letterCount: serverLetters.length,
+          message: `${serverLetters.length} கடிதங்களும் Google Sheet-இல் சரியான தலைப்புகளின் கீழ் சீரமைக்கப்பட்டன!`,
         });
         return;
       }

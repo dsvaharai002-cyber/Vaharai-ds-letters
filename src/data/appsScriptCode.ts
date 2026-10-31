@@ -101,6 +101,62 @@ function doPost(e) {
       })).setMimeType(ContentService.MimeType.JSON);
     }
 
+    // A2. BULK RE-ALIGN & REWRITE LETTERS SHEET (Full Alignment Fix)
+    if (action === "SYNC_ALL_TO_SHEET" || action === "FIX_SHIFTED_ROWS" || action === "REPAIR_SHEET_ROWS") {
+      var sSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+      var lSheet = sSpreadsheet.getSheetByName("Letters") || sSpreadsheet.getSheets()[0];
+      if (lSheet) {
+        var cleanLetters = data.letters || [];
+        var standardHeaders = [
+          "ID", "OriginalNo", "Date", "DispatchedDate", "Post Type",
+          "RegisteredPostNo", "InwardNo", "FromWhom", "Subject", "Division",
+          "ForwardedDivisions", "ActionStatus", "ForwardedTo", "ReplyResponse", "ExtraData"
+        ];
+        var outRows = [standardHeaders];
+        for (var si = 0; si < cleanLetters.length; si++) {
+          var lItem = cleanLetters[si];
+          var sFwdDivs = Array.isArray(lItem.forwardedDivisions) ? JSON.stringify(lItem.forwardedDivisions) : String(lItem.forwardedDivisions || "");
+          var sFwdTo = Array.isArray(lItem.forwardedTo) ? JSON.stringify(lItem.forwardedTo) : String(lItem.forwardedTo || "");
+          var sExtra = typeof lItem.extraData === "string" ? lItem.extraData : JSON.stringify({
+            fileNo: lItem.fileNo || "",
+            image: lItem.image || "",
+            chats: lItem.chats || [],
+            registeredBy: lItem.registeredBy || "",
+            registeredByName: lItem.registeredByName || "",
+            createdAt: lItem.createdAt || ""
+          });
+
+          outRows.push([
+            lItem.id || ("LTR-" + (si + 1)),
+            lItem.originalNo || "",
+            lItem.date || "",
+            lItem.dispatchedDate || lItem.date || "",
+            lItem.letterType || lItem.postType || "Normal Post",
+            lItem.registeredPostNo || "No",
+            lItem.inwardNo || "-",
+            lItem.fromWhom || "-",
+            lItem.subject || "-",
+            lItem.division || "பொதுப் பிரிவு (General)",
+            sFwdDivs,
+            lItem.action || lItem.actionStatus || "Not Yet Viewed",
+            sFwdTo,
+            lItem.replyResponse || "",
+            sExtra
+          ]);
+        }
+        lSheet.clearContents();
+        if (outRows.length > 0) {
+          lSheet.getRange(1, 1, outRows.length, standardHeaders.length).setValues(outRows);
+        }
+        return ContentService.createTextOutput(JSON.stringify({
+          ok: true,
+          result: "success",
+          action: action,
+          rowCount: outRows.length - 1
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
+    }
+
     // B. AUTOMATIC IN-PLACE SYNC TO GOOGLE DRIVE JSON FILE
     if (targetFileId) {
       try {

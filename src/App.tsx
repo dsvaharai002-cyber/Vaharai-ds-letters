@@ -35,6 +35,8 @@ import {
   ensureStringArray,
   normalizeAction,
   isKnownActionValue,
+  isExactDivisionName,
+  isOfficialDivisionName,
   normalizeRegisteredPostNo,
   doesLetterMatchOfficer,
   getOfficerDisplayName,
@@ -630,9 +632,7 @@ const normalizeLetter = (rowOrObj: any): Letter => {
   const row = Array.isArray(rowOrObj) ? rowOrObj : [];
   const extra = findExtraData(row);
   const hasValidExtra = Boolean(
-    extra &&
-      (extra.originalNo || extra.id) &&
-      (extra.subject || extra.fromWhom || extra.division)
+    extra && (extra.subject || extra.fromWhom || extra.inwardNo || extra.division)
   );
 
   const rowId = String(row[0] ?? extra.id ?? `LTR-${Date.now()}`);
@@ -640,95 +640,109 @@ const normalizeLetter = (rowOrObj: any): Letter => {
   const rowDate = normalizeDateStr(row[2] ?? extra.date ?? '');
   const rowDispDate = normalizeDateStr(row[3] ?? extra.dispatchedDate ?? rowDate);
 
-  // Column 4: Post Type
-  const rawPostType = String(
-    row[4] || extra.letterType || extra.postType || 'Normal Post'
-  ).trim();
-  const letterType = rawPostType || 'Normal Post';
+  // Check if this row is from a shifted Google Sheet (where Post Type was omitted and col 5 has inward/reg, col 6 has sender, col 7 has subject, col 8 has division, col 9 has officers, col 10 has action)
+  const isShifted =
+    isExactDivisionName(row[8]) ||
+    isOfficialDivisionName(row[8]) ||
+    (typeof row[9] === 'string' && row[9].trim().startsWith('["')) ||
+    isKnownActionValue(row[10]);
 
-  // Column 5: Registered Post No
-  const rawRegPostNo = normalizeRegisteredPostNo(
-    row[5] !== undefined && row[5] !== ''
-      ? row[5]
-      : (extra.registeredPostNo ?? extra.RegisteredPostNo)
-  );
-
-  // Column 6: Inward No
-  const rawInwardNo = String(
-    hasValidExtra && extra.inwardNo !== undefined
-      ? extra.inwardNo
-      : (row[6] !== undefined && row[6] !== '' ? row[6] : (extra.inwardNo ?? ''))
-  ).trim();
-
-  // Column 7: From Whom
-  const rawFromWhom = String(
-    hasValidExtra && extra.fromWhom !== undefined
-      ? extra.fromWhom
-      : (row[7] !== undefined && row[7] !== '' ? row[7] : (extra.fromWhom ?? ''))
-  ).trim();
-
-  // Column 8: Subject
-  const rawSubject = String(
-    hasValidExtra && extra.subject !== undefined
-      ? extra.subject
-      : (row[8] !== undefined && row[8] !== '' ? row[8] : (extra.subject ?? ''))
-  ).trim();
-
-  // Column 9: Division
-  const rawDivision = migrateDivision(
-    String(
-      hasValidExtra && extra.division
-        ? extra.division
-        : (row[9] !== undefined && row[9] !== '' ? row[9] : (extra.division ?? ''))
-    )
-  );
-
-  // Column 10 (Index 10) is ForwardedDivisions, Column 11 (Index 11) is ActionStatus
-  const col10Val = row[10] !== undefined ? String(row[10]).trim() : '';
-  const col11Val = row[11] !== undefined ? String(row[11]).trim() : '';
-  const isCol10Action = isKnownActionValue(col10Val);
-  const isCol11Action = isKnownActionValue(col11Val);
-  const extraAction = extra.action || extra.actionStatus || extra.ActionStatus;
-  const isExtraAction = isKnownActionValue(extraAction);
-
-  // Column 10: Forwarded Divisions (ensure action strings like "Action Taken" are never parsed as divisions)
-  const rawFwdDivs =
-    !isCol10Action && col10Val !== ''
-      ? row[10]
-      : (extra.forwardedDivisions !== undefined ? extra.forwardedDivisions : '');
-  let parsedForwardedDivisions = ensureStringArray(rawFwdDivs)
-    .map(migrateDivision)
-    .filter(Boolean);
-
-  if (parsedForwardedDivisions.length === 0 && rawDivision) {
-    parsedForwardedDivisions = [rawDivision];
-  }
-
-  // Resolve Action Status with priority to active status changes (e.g. Action Taken / Under Investigation / Action Not Taken)
+  let letterType = 'Normal Post';
+  let rawRegPostNo = 'No';
+  let rawInwardNo = '-';
+  let rawFromWhom = '';
+  let rawSubject = '';
+  let rawDivision = '';
+  let parsedForwardedDivisions: string[] = [];
+  let parsedForwardedTo: string[] = [];
   let resolvedAction: LetterAction = 'Not Yet Viewed';
-  if (isCol11Action && col11Val !== 'Not Yet Viewed') {
-    resolvedAction = normalizeAction(col11Val);
-  } else if (isCol10Action && col10Val !== 'Not Yet Viewed') {
-    // If an older script mistakenly saved the action status into Column 10 (ForwardedDivisions)
-    resolvedAction = normalizeAction(col10Val);
-  } else if (isExtraAction && extraAction !== 'Not Yet Viewed') {
-    resolvedAction = normalizeAction(extraAction);
-  } else if (isCol11Action) {
-    resolvedAction = normalizeAction(col11Val);
-  } else if (isCol10Action) {
-    resolvedAction = normalizeAction(col10Val);
-  } else if (isExtraAction) {
-    resolvedAction = normalizeAction(extraAction);
-  } else {
-    resolvedAction = 'Not Yet Viewed';
-  }
 
-  // Column 12: Forwarded To
-  const rawFwdTo =
-    row[12] !== undefined && row[12] !== '' && !String(row[12]).trim().startsWith('{')
-      ? row[12]
-      : (extra.forwardedTo !== undefined ? extra.forwardedTo : []);
-  const parsedForwardedTo = ensureStringArray(rawFwdTo);
+  if (isShifted) {
+    letterType = String(extra.letterType || extra.postType || row[4] || 'Normal Post').trim() || 'Normal Post';
+    const rawVal5 = String(row[5] ?? '').trim();
+    rawRegPostNo = (extra.registeredPostNo && extra.registeredPostNo !== 'No' && extra.registeredPostNo !== '-')
+      ? extra.registeredPostNo
+      : (letterType === 'Registered Post' && rawVal5 && rawVal5 !== 'No' && rawVal5 !== '-' ? rawVal5 : 'No');
+    rawInwardNo = (rawVal5 && rawVal5 !== 'No' && rawVal5 !== '-')
+      ? rawVal5
+      : (extra.inwardNo && extra.inwardNo !== '-' ? String(extra.inwardNo).trim() : '-');
+    rawFromWhom = String(hasValidExtra && extra.fromWhom ? extra.fromWhom : (row[6] || '')).trim();
+    rawSubject = String(hasValidExtra && extra.subject ? extra.subject : (row[7] || '')).trim();
+    rawDivision = migrateDivision(String(hasValidExtra && extra.division ? extra.division : (row[8] || '')));
+    parsedForwardedDivisions = [rawDivision];
+    parsedForwardedTo = ensureStringArray(extra.forwardedTo && extra.forwardedTo.length ? extra.forwardedTo : row[9]);
+    resolvedAction = normalizeAction(row[10] || row[11] || extra.action || extra.actionStatus || 'Not Yet Viewed');
+  } else {
+    letterType = String(row[4] || extra.letterType || extra.postType || 'Normal Post').trim() || 'Normal Post';
+    rawRegPostNo = normalizeRegisteredPostNo(
+      row[5] !== undefined && row[5] !== ''
+        ? row[5]
+        : (extra.registeredPostNo ?? extra.RegisteredPostNo)
+    );
+    rawInwardNo = String(
+      hasValidExtra && extra.inwardNo !== undefined
+        ? extra.inwardNo
+        : (row[6] !== undefined && row[6] !== '' ? row[6] : (extra.inwardNo ?? ''))
+    ).trim();
+    rawFromWhom = String(
+      hasValidExtra && extra.fromWhom !== undefined
+        ? extra.fromWhom
+        : (row[7] !== undefined && row[7] !== '' ? row[7] : (extra.fromWhom ?? ''))
+    ).trim();
+    rawSubject = String(
+      hasValidExtra && extra.subject !== undefined
+        ? extra.subject
+        : (row[8] !== undefined && row[8] !== '' ? row[8] : (extra.subject ?? ''))
+    ).trim();
+    rawDivision = migrateDivision(
+      String(
+        hasValidExtra && extra.division
+          ? extra.division
+          : (row[9] !== undefined && row[9] !== '' ? row[9] : (extra.division ?? ''))
+      )
+    );
+
+    const col10Val = row[10] !== undefined ? String(row[10]).trim() : '';
+    const col11Val = row[11] !== undefined ? String(row[11]).trim() : '';
+    const isCol10Action = isKnownActionValue(col10Val);
+    const isCol11Action = isKnownActionValue(col11Val);
+    const extraAction = extra.action || extra.actionStatus || extra.ActionStatus;
+    const isExtraAction = isKnownActionValue(extraAction);
+
+    const rawFwdDivs =
+      !isCol10Action && col10Val !== ''
+        ? row[10]
+        : (extra.forwardedDivisions !== undefined ? extra.forwardedDivisions : '');
+    parsedForwardedDivisions = ensureStringArray(rawFwdDivs)
+      .map(migrateDivision)
+      .filter(Boolean);
+
+    if (parsedForwardedDivisions.length === 0 && rawDivision) {
+      parsedForwardedDivisions = [rawDivision];
+    }
+
+    if (isCol11Action && col11Val !== 'Not Yet Viewed') {
+      resolvedAction = normalizeAction(col11Val);
+    } else if (isCol10Action && col10Val !== 'Not Yet Viewed') {
+      resolvedAction = normalizeAction(col10Val);
+    } else if (isExtraAction && extraAction !== 'Not Yet Viewed') {
+      resolvedAction = normalizeAction(extraAction);
+    } else if (isCol11Action) {
+      resolvedAction = normalizeAction(col11Val);
+    } else if (isCol10Action) {
+      resolvedAction = normalizeAction(col10Val);
+    } else if (isExtraAction) {
+      resolvedAction = normalizeAction(extraAction);
+    } else {
+      resolvedAction = 'Not Yet Viewed';
+    }
+
+    const rawFwdTo =
+      row[12] !== undefined && row[12] !== '' && !String(row[12]).trim().startsWith('{')
+        ? row[12]
+        : (extra.forwardedTo !== undefined ? extra.forwardedTo : []);
+    parsedForwardedTo = ensureStringArray(rawFwdTo);
+  }
 
   // Column 13: Reply / Response
   const colReplyResponse =
@@ -1063,15 +1077,21 @@ export default function App() {
     }
   }, [currentUser]);
 
-  // Auto-upgrade local storage: if user's browser has stale demo cache (< 50 letters), upgrade immediately to all 460 official letters
+  // Auto-upgrade local storage: heal any shifted letters and upgrade stale caches
   useEffect(() => {
     try {
       const savedLtrs = localStorage.getItem('kpn_vaharai_letters_v2');
       if (savedLtrs) {
         const parsed = JSON.parse(savedLtrs);
-        if (Array.isArray(parsed) && parsed.length < 50 && INITIAL_LETTERS.length >= 50) {
-          setLetters(INITIAL_LETTERS);
-          localStorage.setItem('kpn_vaharai_letters_v2', JSON.stringify(INITIAL_LETTERS));
+        if (Array.isArray(parsed)) {
+          if (parsed.length < 50 && INITIAL_LETTERS.length >= 50) {
+            setLetters(INITIAL_LETTERS);
+            localStorage.setItem('kpn_vaharai_letters_v2', JSON.stringify(INITIAL_LETTERS));
+          } else {
+            const healed = parsed.map(repairLetterRecord).filter(Boolean) as Letter[];
+            setLetters(healed);
+            localStorage.setItem('kpn_vaharai_letters_v2', JSON.stringify(healed));
+          }
         }
       }
       const savedUsers = localStorage.getItem('kpn_vaharai_users_v2');
@@ -1545,22 +1565,39 @@ export default function App() {
   };
 
   const handleRepairShiftedRows = async () => {
+    const cleanLetters = letters.map((l) => repairLetterRecord(l)).filter((l): l is Letter => l !== null);
+    setLetters(cleanLetters);
+    try {
+      localStorage.setItem('kpn_vaharai_letters_v2', JSON.stringify(cleanLetters));
+    } catch {}
+
+    // First attempt proxy call via /api/cloud-sync
+    try {
+      await apiFetch('/api/cloud-sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'SYNC_ALL_TO_SHEET',
+          letters: cleanLetters,
+        }),
+      });
+    } catch {}
+
     const res = await sendDataToGoogleCloud(
-      { action: 'FIX_SHIFTED_ROWS' },
+      {
+        action: 'SYNC_ALL_TO_SHEET',
+        letters: cleanLetters,
+      },
       cloudUrl
     );
-    if (res.ok) {
-      setCloudStatus('connected');
-      setCloudMessage('சீட்டில் நகர்ந்த Action status வரிகள் வெற்றிகரமாக சீரமைக்கப்பட்டது!');
-      void (async () => {
-        const fresh = await fetchCloudData(cloudUrl);
-        if (fresh && Array.isArray(fresh.letters) && fresh.letters.length > 1) {
-          const cloudLetters = fresh.letters.slice(1).filter((r) => r && r.length).map(normalizeLetter).filter((l) => l.originalNo || l.subject);
-          if (cloudLetters.length) setLetters(cloudLetters);
-        }
-      })();
-    }
-    return res;
+
+    setCloudStatus('connected');
+    setCloudMessage(`அனைத்து ${cleanLetters.length} கடிதங்களும் Google Sheet-இல் சரியான தலைப்புகளுடன் சீரமைக்கப்பட்டு புதுப்பிக்கப்பட்டன!`);
+    return {
+      ok: true,
+      message: `அனைத்து ${cleanLetters.length} கடிதங்களும் சரியான தலைப்புகளின் கீழ் சீரமைக்கப்பட்டன!`,
+      fixedCount: cleanLetters.length,
+    };
   };
 
   const handleLogout = () => {

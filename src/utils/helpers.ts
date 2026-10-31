@@ -260,21 +260,26 @@ export const isKnownActionValue = (val?: any): boolean => {
 };
 
 export const KNOWN_OFFICIAL_DIVISIONS = [
+  'நிர்வாகப் பிரிவு (Administration)',
   'காணிப் பிரிவு (Land Division)',
   'திட்டமிடல் பிரிவு (Planning)',
-  'நிர்வாகப் பிரிவு (Administration)',
-  'சமுர்த்தி (Samurdhi)',
   'சமூக சேவை (Social)',
+  'சமுர்த்தி (Samurdhi)',
+  'கிராம அபிவிருத்தி (Rural Development)',
+  'கணக்குப் பிரிவு (Accounts & Finance)',
   'கணக்குப் பிரிவு (Finance)',
-  'பதிவாளர் பிரிவு (Registrar Branch)',
-  'கிராம அலுவலர் பிரிவு (Grama Niladhari)',
-  'சிறுவர் பிரிவு (Field)',
+  'தேசிய அடையாள அட்டை பிரிவு (NIC)',
+  'தபால் & ஆவணப் பிரிவு (Mail & Records)',
   'வெளிக்களம் (Field)',
+  'சிறுவர் பிரிவு (Field)',
+  'பதிவாளர் கிளை (Registrar Branch)',
+  'பதிவாளர் பிரிவு (Registrar Branch)',
   'அபிவிருத்திப் பிரிவு (Development)',
   'பொது நிர்வாகம் (General Administration)',
+  'கிராம அலுவலர் பிரிவு (Grama Niladhari)',
 ];
 
-export const isOfficialDivisionName = (val?: any): boolean => {
+export const isExactDivisionName = (val?: any): boolean => {
   if (!val || typeof val !== 'string') return false;
   const s = val.trim();
   if (KNOWN_OFFICIAL_DIVISIONS.includes(s)) return true;
@@ -286,13 +291,57 @@ export const isOfficialDivisionName = (val?: any): boolean => {
     s === 'சமூக சேவை' ||
     s === 'கணக்குப் பிரிவு' ||
     s === 'பதிவாளர் பிரிவு' ||
+    s === 'பதிவாளர் கிளை' ||
     s === 'கிராம அலுவலர் பிரிவு' ||
     s === 'சிறுவர் பிரிவு' ||
     s === 'வெளிக்களம்' ||
-    s === 'அபிவிருத்திப் பிரிவு'
+    s === 'அபிவிருத்திப் பிரிவு' ||
+    s === 'Administration' ||
+    s === 'Land Division' ||
+    s === 'Planning' ||
+    s === 'Social' ||
+    s === 'Samurdhi' ||
+    s === 'Accounts & Finance' ||
+    s === 'Finance' ||
+    s === 'Field' ||
+    s === 'NIC' ||
+    s === 'Mail & Records' ||
+    s === 'Registrar Branch'
   ) {
     return true;
   }
+  return false;
+};
+
+export const isOfficialDivisionName = (val?: any): boolean => {
+  if (!val || typeof val !== 'string') return false;
+  if (isExactDivisionName(val)) return true;
+  const s = val.trim();
+
+  // Explicitly do not match sender institutions, ministries, departments, banks, or schools
+  if (
+    s.includes('Secretariat') ||
+    s.includes('செயலகம்') ||
+    s.includes('Ministry') ||
+    s.includes('அமைச்சு') ||
+    s.includes('Department') ||
+    s.includes('திணைக்களம்') ||
+    s.includes('Bank') ||
+    s.includes('வங்கி') ||
+    s.includes('School') ||
+    s.includes('பாடசாலை') ||
+    s.includes('Hospital') ||
+    s.includes('வைத்தியசாலை') ||
+    s.includes('கழகம்') ||
+    s.includes('சங்கம்') ||
+    s.includes('அலுவலகம்') ||
+    s.includes('Office') ||
+    s.includes('Authority') ||
+    s.includes('பணியகம்')
+  ) {
+    return false;
+  }
+
   return (
     (s.includes('பிரிவு') ||
       s.includes('Division') ||
@@ -307,8 +356,14 @@ export const isOfficialDivisionName = (val?: any): boolean => {
 };
 
 /**
- * Repairs scrambled or shifted letter columns so every field appears strictly under its proper heading.
- * Discards empty dummy rows (e.g. subject === 'General' with empty fromWhom/inwardNo).
+ * Repairs scrambled or shifted letter columns so every field appears strictly under its proper heading:
+ * 1. Computer No (Original No)
+ * 2. Dispatched Date
+ * 3. Post Type & Registered Post No (Reg No is 'No' if Normal Post)
+ * 4. Inward No (கடித இலக்கம் - official reference number of the letter)
+ * 5. From Whom (அனுப்புனர் - sender organization, citizen, or ministry)
+ * 6. Subject (விடயம் - letter subject, topic, or matter)
+ * 7. Division (பிரிவு - assigned DS office department)
  */
 export const repairLetterRecord = (l: any): Letter | null => {
   if (!l || typeof l !== 'object') return null;
@@ -347,57 +402,74 @@ export const repairLetterRecord = (l: any): Letter | null => {
     return [];
   };
 
-  // 2. Pattern B: subject is "General" & fromWhom is a division
-  if (copy.subject === 'General' && isOfficialDivisionName(copy.fromWhom)) {
-    const realInward = copy.RegisteredPostNo || copy.registeredPostNo;
+  // 2. Shift Pattern 1: fromWhom is an official division name
+  // In this shift pattern:
+  // - registeredPostNo holds the Sender (e.g. "தே.அமலாவதி, உரியன்கட்டு", "District Secretariat, Batticaloa")
+  // - inwardNo holds the Subject (e.g. "காணி தொடர்பான முறைப்பாடு")
+  // - fromWhom holds the Division Name (e.g. "காணிப் பிரிவு (Land Division)")
+  if (isOfficialDivisionName(copy.fromWhom)) {
+    const realDiv = copy.fromWhom.trim();
+    const realSubj =
+      copy.inwardNo && copy.inwardNo !== '-' && copy.inwardNo !== 'No'
+        ? String(copy.inwardNo).trim()
+        : (copy.subject && !isOfficialDivisionName(copy.subject) && copy.subject !== 'General'
+          ? String(copy.subject).trim()
+          : realDiv);
     const realSender =
-      copy.registeredPostNo && copy.registeredPostNo !== realInward
-        ? copy.registeredPostNo
-        : copy.RegisteredPostNo;
-    const realSubj = copy.inwardNo;
-    const realDiv = copy.fromWhom;
+      copy.registeredPostNo && copy.registeredPostNo !== 'No' && copy.registeredPostNo !== '-'
+        ? String(copy.registeredPostNo).trim()
+        : 'District Secretariat, Batticaloa';
     const users = parseUserIds(copy.division);
 
-    copy.inwardNo = realInward && realInward !== 'No' ? realInward : '-';
-    copy.fromWhom = realSender || 'District Secretariat, Batticaloa';
+    copy.inwardNo = '-';
+    copy.fromWhom = realSender;
     copy.subject = realSubj;
     copy.division = realDiv;
     copy.forwardedDivisions = [realDiv];
     if (users.length > 0) copy.forwardedTo = users;
     copy.letterType = copy.letterType || 'Normal Post';
-    copy.registeredPostNo =
-      copy.letterType === 'Registered Post' && copy.registeredPostNo && /^\d+$/.test(copy.registeredPostNo)
-        ? copy.registeredPostNo
-        : 'No';
-    return copy as Letter;
-  }
-
-  // 3. Pattern A: subject is a division name AND (division contains user IDs or is empty array)
-  if (
-    isOfficialDivisionName(copy.subject) &&
-    (isJsonOrUserIds(copy.division) || copy.division === '[]' || !copy.division)
-  ) {
-    const realDivision = copy.subject;
-    const realSubject = copy.fromWhom;
-    const realFromWhom = copy.inwardNo;
-    const realInwardNo =
-      copy.registeredPostNo && copy.registeredPostNo !== 'No'
-        ? copy.registeredPostNo
-        : copy.inwardNo || '-';
-    const extractedUsers = parseUserIds(copy.division);
-
-    copy.inwardNo = realInwardNo;
-    copy.fromWhom = realFromWhom;
-    copy.subject = realSubject;
-    copy.division = realDivision;
-    copy.forwardedDivisions = [realDivision];
-    if (extractedUsers.length > 0) copy.forwardedTo = extractedUsers;
-    copy.letterType = copy.letterType || 'Normal Post';
     copy.registeredPostNo = 'No';
     return copy as Letter;
   }
 
-  // 4. Clean Normal Post registeredPostNo
+  // 3. Shift Pattern 2: subject is an official division name
+  // In this shift pattern:
+  // - registeredPostNo holds the Inward No (e.g. "MF/SD/07/13/CM-20", "KPN/PS/RB/RS2/2026")
+  // - inwardNo holds the Sender (e.g. "Ministry of Fisheries...", "Pradeshiya Sabha...")
+  // - fromWhom holds the Subject (e.g. "Leasing of 36.0123 hectares...", "காணியினை உறுதிப்படுத்தல்...")
+  // - subject holds the Division Name (e.g. "காணிப் பிரிவு (Land Division)")
+  if (isOfficialDivisionName(copy.subject)) {
+    const realDiv = copy.subject.trim();
+    const realSubj = copy.fromWhom ? String(copy.fromWhom).trim() : realDiv;
+    const realSender =
+      copy.inwardNo && copy.inwardNo !== '-' && copy.inwardNo !== 'null'
+        ? String(copy.inwardNo).trim()
+        : 'District Secretariat, Batticaloa';
+
+    const rawReg = copy.registeredPostNo ? String(copy.registeredPostNo).trim() : '';
+    let realInward = '-';
+    if (rawReg && rawReg !== 'No' && rawReg !== '-' && rawReg !== 'null' && rawReg !== 'undefined') {
+      realInward = rawReg;
+    } else if (copy.inwardNo && copy.inwardNo !== 'No' && copy.inwardNo !== '-' && copy.inwardNo !== 'null' && copy.inwardNo !== realSender) {
+      realInward = copy.inwardNo;
+    }
+
+    const extractedUsers = parseUserIds(copy.division);
+
+    copy.inwardNo = realInward;
+    copy.fromWhom = realSender;
+    copy.subject = realSubj;
+    copy.division = realDiv;
+    copy.forwardedDivisions = [realDiv];
+    if (extractedUsers.length > 0) {
+      copy.forwardedTo = extractedUsers;
+    }
+    copy.registeredPostNo = 'No';
+    copy.letterType = copy.letterType || 'Normal Post';
+    return copy as Letter;
+  }
+
+  // 4. Normal letters: clean Normal Post registeredPostNo if improperly filled
   if (
     copy.letterType === 'Normal Post' &&
     copy.registeredPostNo &&

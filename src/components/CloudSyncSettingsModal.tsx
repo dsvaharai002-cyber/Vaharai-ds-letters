@@ -719,16 +719,19 @@ export const CloudSyncSettingsModal: React.FC<CloudSyncSettingsModalProps> = ({
                 )}
 
                 {onRepairShiftedRows && (
-                  <div className="pt-2 border-t border-blue-200/60 flex items-center justify-between">
-                    <span className="text-xs text-slate-600">சீட்டில் நகர்ந்த வரிகளை சரிசெய்ய:</span>
+                  <div className="pt-2 border-t border-blue-200/60 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                      <span className="text-xs font-bold text-slate-700">சீட்டில் தலைப்புகள் மற்றும் வரிகளை சீரமைக்க:</span>
+                      <p className="text-[11px] text-slate-500">Google Sheet-இல் மாறிய தலைப்புகளுக்கு ஏற்ப அனைத்து வரிகளையும் ஒழுங்குபடுத்தி புதுப்பிக்கும்.</p>
+                    </div>
                     <button
                       type="button"
                       onClick={handleRepairRows}
                       disabled={isRepairing}
-                      className="inline-flex items-center gap-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 text-xs font-bold transition shrink-0"
+                      className="inline-flex items-center gap-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white px-3.5 py-2 text-xs font-bold transition shrink-0 shadow-xs"
                     >
-                      {isRepairing ? <RefreshCw className="h-3 w-3 animate-spin" /> : null}
-                      <span>சீட்டில் நகர்ந்த வரிகளை சீரமைக்க</span>
+                      {isRepairing ? <RefreshCw className="h-3.5 w-3.5 animate-spin" /> : <RefreshCw className="h-3.5 w-3.5" />}
+                      <span>சீட்டை சீரமைத்து முழுமையாக புதுப்பிக்கவும்</span>
                     </button>
                   </div>
                 )}
